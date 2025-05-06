@@ -5,7 +5,7 @@
   --color-primaryHover: #5a722a;
   --color-light: var(--color-lime-50);
 
-  --color-textPrimary: var(--color-emerald-800);
+  --color-textPrimary: var(--color-zinc-800);
   --color-textSecondary: var(--color-zinc-500);
   --color-textLight: var(--color-zinc-50);
 
@@ -27,5 +27,21 @@
 }
 
 h1 {
-  @apply text-7xl text-textLight font-serif;
+  @apply text-7xl font-serif;
+}
+
+h2 {
+  @apply text-6xl font-serif;
+}
+
+h3 {
+  @apply text-5xl font-serif;
+}
+
+h4 {
+  @apply text-4xl font-serif;
+}
+
+h5 {
+  @apply text-2xl font-serif;
 }

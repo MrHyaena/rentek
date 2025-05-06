@@ -7,6 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
+import CartButton from "../Cart/CartButton";
+import { CartContextProvider } from "../../_context/CartContext";
 
 export default function Header() {
   return (
@@ -61,12 +63,8 @@ export default function Header() {
                 <li>Domů</li>
                 <li>Kontakt</li>
               </ul>
-              <div className="text-xl relative flex items-center">
-                <FontAwesomeIcon icon={faCartShopping} />
-                <p className="bg-primary text-white font-semibold text-sm rounded-full flex items-center justify-center w-5 h-5 relative top-[-15px] left-[-5px]">
-                  0
-                </p>
-              </div>
+
+              <CartButton />
             </div>
           </div>
         </div>

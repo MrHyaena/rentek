@@ -1,6 +1,6 @@
 import { url } from "inspector";
 import React from "react";
-import DatepickerBig from "./Datepickers/DatepickerBig";
+import DatepickerBig from "../Datepickers/DatepickerBig";
 
 export default function Hero() {
   return (
@@ -14,7 +14,7 @@ export default function Hero() {
       >
         <div className="w-full h-full bg-linear-90 from-overlay to-transparent rounded-2xl p-10 flex justify-start">
           <div className="max-w-[63%] flex flex-col gap-5 justify-center">
-            <h1>
+            <h1 className="text-textLight">
               Půjčovna techniky v Praze <br />
               Pro každou zahradu
             </h1>
