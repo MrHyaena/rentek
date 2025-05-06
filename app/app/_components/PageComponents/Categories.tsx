@@ -1,6 +1,6 @@
 import React from "react";
 import SectionHeading from "../Headings/SectionHeading";
-import CTATab from "../CTA/CTATab";
+import CTATab from "../CTA/CTAHorizontal.tsx";
 
 type Props = {
   image: string;
@@ -15,7 +15,7 @@ function CategoryTab({ image, heading, buttonText, link }: Props) {
       style={{ backgroundImage: `url(${image})`, backgroundSize: "cover" }}
       className="min-h-[300px] rounded-xl"
     >
-      <div className="bg-linear-180 from-black/80 to-transparent h-full w-full rounded-xl px-15 flex flex-col items-start justify-center gap-8">
+      <div className="bg-linear-180 from-overlay/80 to-transparent h-full w-full rounded-xl px-15 flex flex-col items-start justify-center gap-8">
         <h4 className="text-textLight">{heading}</h4>
         <a href={link}>
           <button className="buttonMid">{buttonText}</button>

@@ -40,7 +40,7 @@ export default function Products() {
             }}
             className="col-span-1 h-full bg-amber-200 rounded-xl"
           >
-            <div className="w-full h-full bg-linear-180 from-black/70 to-transparent rounded-xl p-8 flex flex-col justify-start items-start gap-5">
+            <div className="w-full h-full bg-linear-180 from-overlay/70 to-transparent rounded-xl p-8 flex flex-col justify-start items-start gap-5">
               <h4 className="text-textLight">Všechny nástroje</h4>
               <button className="buttonMid">Ukázat nabídku</button>
             </div>

@@ -32,16 +32,17 @@ export default function ProductTab({ item }: ProductProps) {
           <h5>{item.name}</h5>
           <p>{shortenedDescription}</p>
         </div>
-        <div className="flex items-end gap-2">
-          <p className="text-xl font-semibold text-textSecondary">
-            {item.price * days} Kč / {days} dní
+        <div className="flex flex-col items-stretch gap-2">
+          <p className="text-lg text-textSecondary">
+            <span className="text-primary">{item.price * days} Kč</span> /{" "}
+            {days} dní
           </p>
-        </div>
-        <div className="grid grid-cols-5 gap-2">
-          <button className="buttonSmall col-span-4">Otevřít</button>
-          <button className="col-span-1 border rounded-lg flex items-center justify-center border-zinc-300 text-textPrimary ease-in-out transition-all hover:bg-zinc-100 cursor-pointer">
-            <FontAwesomeIcon icon={faCartPlus} />
-          </button>
+          <div className="grid grid-cols-5 gap-2">
+            <button className="buttonSmall col-span-4">Otevřít</button>
+            <button className="col-span-1 border rounded-lg flex items-center justify-center border-zinc-300 text-textPrimary ease-in-out transition-all hover:bg-zinc-100 cursor-pointer">
+              <FontAwesomeIcon icon={faCartPlus} />
+            </button>
+          </div>
         </div>
       </div>
     </div>

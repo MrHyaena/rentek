@@ -3,13 +3,15 @@
 @theme {
   --color-primary: #7c9e39;
   --color-primaryHover: #5a722a;
+  --color-secondary: var(--color-zinc-900);
+  --color-tertiary: #567121;
   --color-light: var(--color-green-50);
 
   --color-textPrimary: var(--color-zinc-800);
   --color-textSecondary: var(--color-zinc-500);
   --color-textLight: var(--color-zinc-50);
 
-  --color-overlay: var(--color-black);
+  --color-overlay: var(--color-zinc-950);
 
   --color-borderGray: var(--color-slate-200);
 

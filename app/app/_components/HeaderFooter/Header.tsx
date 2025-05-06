@@ -49,7 +49,7 @@ export default function Header() {
                 height={300}
                 className="h-17 w-auto"
               />
-              <button className="buttonMid uppercase flex items-center gap-4">
+              <button className="buttonSmall uppercase flex items-center gap-4">
                 <FontAwesomeIcon icon={faBars} className="text-2xl" />
                 Katalog
               </button>

@@ -11,8 +11,11 @@ export default function CartButton() {
   return (
     <>
       <div className="text-xl relative flex items-center">
-        <FontAwesomeIcon icon={faCartShopping} />
-        <p className="bg-primary text-white font-semibold text-sm rounded-full flex items-center justify-center w-5 h-5 relative top-[-15px] left-[-5px]">
+        <FontAwesomeIcon
+          icon={faCartShopping}
+          className="text-primary text-2xl"
+        />
+        <p className="bg-tertiary text-white font-semibold text-sm rounded-full flex items-center justify-center w-6 h-6 relative top-[-15px] left-[-5px]">
           {items.length}
         </p>
       </div>

@@ -4,6 +4,8 @@ import IconsColumns from "./_components/PageComponents/IconsColumns";
 import Categories from "./_components/PageComponents/Categories";
 import Products from "./_components/PageComponents/Products";
 import ImageText from "./_components/PageComponents/ImageText";
+import CTAHorizontal from "./_components/CTA/CTAHorizontal";
+import CTAVertical from "./_components/CTA/CTAVertical";
 
 export default function Home() {
   return (
@@ -31,6 +33,15 @@ export default function Home() {
           textThree="Zakládáme si ale také na skvělé zákaznické péči. Ke každé objednávce proto dostanete instruktáž, plnou nádrž, a pro případ s sebou vozíme i ochranné pomůcky, které se vždy hodí."
           colStart={2}
         />
+        <div className="w-full max-w-wrapper">
+          <CTAVertical
+            image={"/hero.webp"}
+            heading="SLEVA 5 % S KÓDEM GT2025"
+            text="Slevu pro Vás máme spuštěnou po celou sezónu. Platí na celou objednávku."
+            buttonText="Ukázat techniku"
+            link="/"
+          />
+        </div>
       </div>
     </>
   );

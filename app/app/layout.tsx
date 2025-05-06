@@ -6,6 +6,7 @@ import Header from "./_components/HeaderFooter/Header";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Providers from "./_providers/Providers";
+import Footer from "./_components/HeaderFooter/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
           <Header />
           <div className="mt-[150px]">{children}</div>
         </Providers>
+        <Footer />
       </body>
     </html>
   );
