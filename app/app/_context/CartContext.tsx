@@ -24,7 +24,9 @@ type Props = {
 };
 
 export function CartContextProvider({ children }: Props) {
-  const [items, setItems] = useState([0, 1, 3]);
+  const [items, setItems] = useState([
+    0, 1, 3, 2, 2, 2, 5, 5, 4, 5, 4, 5, 5, 5,
+  ]);
 
   return (
     <CartContext.Provider value={{ items, setItems }}>

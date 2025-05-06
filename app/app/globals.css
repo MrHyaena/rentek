@@ -3,7 +3,7 @@
 @theme {
   --color-primary: #7c9e39;
   --color-primaryHover: #5a722a;
-  --color-light: var(--color-lime-50);
+  --color-light: var(--color-green-50);
 
   --color-textPrimary: var(--color-zinc-800);
   --color-textSecondary: var(--color-zinc-500);

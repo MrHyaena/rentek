@@ -30,6 +30,7 @@ export default function Categories() {
     <>
       <div className="max-w-wrapper w-full flex flex-col gap-10">
         <SectionHeading
+          subheading="Kategorie"
           heading="Prohlédněte si naší nabídku"
           firstText="Půjčujeme nářadí a stroje, se kterými zvládnete pečovat o celý váš pozemek."
           secondText="Všechna technika je samozřejmě neustále servisovaná. Pokud by se i přesto stalo, že něco selže, zboží Vám v rámci hodin zdarma nahradíme."
