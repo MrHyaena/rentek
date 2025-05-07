@@ -12,27 +12,36 @@ import React from "react";
 
 type DaterangeContextType = {
   daterange: {
-    selection: any;
+    range: {
+      startDate: Date | null;
+      endDate: Date | null;
+    };
     changed: boolean;
   };
   setDaterange: any;
 };
 
+type Props = {
+  children?: ReactNode;
+};
+
 export const DaterangeContext = createContext<DaterangeContextType>({
   daterange: {
-    selection: {},
+    range: {
+      startDate: null,
+      endDate: null,
+    },
     changed: false,
   },
   setDaterange: () => {},
 });
 
-type Props = {
-  children?: ReactNode;
-};
-
 export function DaterangeContextProvider({ children }: Props) {
   const [daterange, setDaterange] = useState({
-    selection: {},
+    range: {
+      startDate: null,
+      endDate: null,
+    },
     changed: false,
   });
 
@@ -40,12 +49,13 @@ export function DaterangeContextProvider({ children }: Props) {
     const data: string | null = localStorage.getItem("daterange");
     if (data !== null) {
       const dates = JSON.parse(data);
-      console.log(dates);
-      console.log(dates.startDate);
-      console.log(new Date() < new Date(dates.startDate));
 
       if (new Date() < new Date(dates.startDate)) {
-        setDaterange({ ...daterange, selection: dates, changed: true });
+        setDaterange({
+          ...daterange,
+          range: { startDate: dates.startDate, endDate: dates.endDate },
+          changed: true,
+        });
       }
 
       if (new Date() > new Date(dates.startDate)) {
