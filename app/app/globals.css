@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "react-date-range/dist/styles.css";
+@import "react-date-range/dist/theme/default.css";
 
 @theme {
   --color-primary: #7c9e39;
@@ -22,7 +24,7 @@
   @apply bg-primary px-3 py-2 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;
 }
 .buttonMid {
-  @apply bg-primary px-5 py-3 text-xl font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;
+  @apply bg-primary px-5 py-3 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;
 }
 .buttonBig {
   @apply bg-primary px-3 py-2 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;

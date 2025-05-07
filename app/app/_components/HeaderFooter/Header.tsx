@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <>
       <div className=" w-full border-b border-borderGray fixed top-0 bg-white">
-        <div className="h-[40px] w-full bg-light flex justify-center">
+        <div className="h-[40px] w-full bg-light flex justify-center px-5">
           <div className="max-w-wrapper w-full h-full flex justify-between items-center">
             <p className="">
               Získejte 5% slevu s kódem{" "}
@@ -39,7 +39,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className="h-[110px] w-full flex items-center justify-center">
+        <div className="h-[110px] w-full flex items-center justify-center px-5">
           <div className="max-w-wrapper h-full w-full flex items-center justify-between">
             <div className="flex gap-10 items-center">
               <Image

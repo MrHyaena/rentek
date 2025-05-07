@@ -31,7 +31,9 @@ export default function Hero() {
               <button className="buttonMid">
                 Podívejte se do naší nabídky
               </button>
-              <button className="buttonMid">Jak to funguje</button>
+              <button className="bg-transparent border-2 px-5 py-3 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-zinc-500/20 transition-all ease-in-out">
+                Jak to funguje
+              </button>
             </div>
           </div>
         </div>

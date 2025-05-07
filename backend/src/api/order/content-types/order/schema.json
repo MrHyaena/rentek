@@ -26,17 +26,15 @@
     "Addons": {
       "type": "json"
     },
-    "From": {
-      "type": "datetime"
-    },
-    "To": {
-      "type": "datetime"
-    },
     "Price": {
       "type": "integer"
     },
     "Deposit": {
       "type": "integer"
+    },
+    "timeslot": {
+      "type": "customField",
+      "customField": "plugin::strapi-date-range-picker-5.date-range-picker"
     }
   }
 }
