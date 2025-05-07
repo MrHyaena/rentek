@@ -3,6 +3,7 @@ import {
   faBars,
   faCartShopping,
   faMagnifyingGlass,
+  faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -13,14 +14,15 @@ import { CartContextProvider } from "../../_context/CartContext";
 export default function Header() {
   return (
     <>
-      <div className=" w-full border-b border-borderGray fixed top-0 bg-white">
-        <div className="h-[40px] w-full bg-light flex justify-center px-5">
+      <div className=" w-full border-b border-borderGray fixed top-0 bg-white lg:block hidden">
+        <div className="h-[40px] w-full bg-zinc-50 flex justify-center px-5">
           <div className="max-w-wrapper w-full h-full flex justify-between items-center">
             <p className="">
               Získejte 5% slevu s kódem{" "}
               <span className="font-semibold">GT2025</span> na celou zápůjčku
             </p>
-            <div>
+            <div className="flex items-center gap-2">
+              <FontAwesomeIcon icon={faPhone} className="text-zinc-700" />
               <p>
                 Zvedneme to vždy:{" "}
                 <a href="tel:602606331" className="font-semibold">
