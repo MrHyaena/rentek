@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <>
       <div className=" w-full border-b border-borderGray fixed top-0 bg-white lg:block hidden">
-        <div className="h-[40px] w-full bg-zinc-50 flex justify-center px-5">
+        <div className="h-[40px] w-full bg-zinc-50 flex justify-center px-10">
           <div className="max-w-wrapper w-full h-full flex justify-between items-center">
             <p className="">
               Získejte 5% slevu s kódem{" "}
@@ -41,7 +41,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className="h-[110px] w-full flex items-center justify-center px-5">
+        <div className="h-[110px] w-full flex items-center justify-center px-10">
           <div className="max-w-wrapper h-full w-full flex items-center justify-between">
             <div className="flex gap-10 items-center">
               <Image
@@ -51,10 +51,13 @@ export default function Header() {
                 height={300}
                 className="h-17 w-auto"
               />
-              <button className="buttonSmall uppercase flex items-center gap-4">
+              <a
+                href="/katalog"
+                className="buttonSmall uppercase flex items-center gap-4"
+              >
                 <FontAwesomeIcon icon={faBars} className="text-2xl" />
                 Katalog
-              </button>
+              </a>
             </div>
             <div className="p-2 border border-borderGray rounded-md">
               <input type="text" className="w-[400px] mr-5" />

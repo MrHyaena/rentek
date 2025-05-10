@@ -17,11 +17,11 @@ export default function DatepickerBig() {
   let secondDate;
   if (
     daterange.changed &&
-    daterange.range.endDate !== null &&
-    daterange.range.startDate !== null
+    daterange.endDate !== null &&
+    daterange.startDate !== null
   ) {
-    firstDate = format(daterange.range.startDate, "d.M.Y");
-    secondDate = format(daterange.range.endDate, "d.M.Y");
+    firstDate = format(daterange.startDate, "d.M.Y");
+    secondDate = format(daterange.endDate, "d.M.Y");
   }
 
   return (

@@ -6,10 +6,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addDays, set } from "date-fns";
 import React, { Dispatch, useContext, useEffect, useState } from "react";
-import { DateRange } from "react-date-range";
-import { cs } from "date-fns/locale/cs";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
 
 type Props = {
@@ -21,7 +18,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
   const [daysCurrentMonth, setDaysCurrentMonth] = useState<Date[]>([]);
-  const [daysLastMonth, setDaysLastMonth] = useState<number[]>([]);
+  const [daysLastMonth, setDaysLastMonth] = useState<Date[]>([]);
 
   const [fieldPick, setFieldPick] = useState(1);
   const [fieldColors, setFieldColors] = useState(["white", "#f4f4f5"]);
@@ -29,7 +26,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
   const [secondDate, setSecondDate] = useState<any>(new Date());
   const [clientFirstDate, setClientFirstDate] = useState("-");
   const [clientSecondDate, setClientSecondDate] = useState("-");
-  const { setDaterange } = useContext(DaterangeContext);
+  const { daterange, setDaterange } = useContext(DaterangeContext);
 
   const [dayRange, setDayRange] = useState<{
     firstYear: any;
@@ -63,6 +60,8 @@ export default function DatepickerToggle({ setToggle }: Props) {
     "Prosinec",
   ];
 
+  //populate states from context
+
   //changing focus
   useEffect(() => {
     setFieldColors([fieldColors[1], fieldColors[0]]);
@@ -72,22 +71,27 @@ export default function DatepickerToggle({ setToggle }: Props) {
   useEffect(() => {
     //Number of days in current month
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const daysInLastMonth = new Date(currentYear, currentMonth, 0).getDate();
 
     //Last weeekday of last month
     let lastDayOfLastMonth = new Date(currentYear, currentMonth, 0).getDay();
     if (lastDayOfLastMonth == 0) {
       lastDayOfLastMonth = 7;
     }
+
     const daysArray: Date[] = [];
-    const lastDaysArray: number[] = [];
+    const lastDaysArray: Date[] = [];
 
     for (let i = 1; i < daysInMonth + 1; i++) {
       daysArray.push(new Date(currentYear, currentMonth, i));
-      console.log(new Date(currentYear, currentMonth, i));
     }
 
-    for (let n = 1; n < lastDayOfLastMonth + 1; n++) {
-      lastDaysArray.push(n);
+    for (
+      let n = daysInLastMonth - lastDayOfLastMonth + 1;
+      n < daysInLastMonth + 1;
+      n++
+    ) {
+      lastDaysArray.push(new Date(currentYear, currentMonth, n));
     }
 
     setDaysLastMonth(lastDaysArray);
@@ -98,22 +102,30 @@ export default function DatepickerToggle({ setToggle }: Props) {
   useEffect(() => {
     //Number of days in current month
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const daysInLastMonth = new Date(currentYear, currentMonth, 0).getDate();
 
     //Last weeekday of last month
     let lastDayOfLastMonth = new Date(currentYear, currentMonth, 0).getDay();
     if (lastDayOfLastMonth == 0) {
       lastDayOfLastMonth = 7;
     }
+
     const daysArray: Date[] = [];
-    const lastDaysArray: number[] = [];
+    const lastDaysArray: Date[] = [];
 
     for (let i = 1; i < daysInMonth + 1; i++) {
       daysArray.push(new Date(currentYear, currentMonth, i));
-      console.log(new Date(currentYear, currentMonth, i));
     }
 
-    for (let n = 1; n < lastDayOfLastMonth + 1; n++) {
-      lastDaysArray.push(n);
+    for (
+      let n = daysInLastMonth - lastDayOfLastMonth;
+      n < daysInLastMonth;
+      n++
+    ) {
+      console.log(daysInLastMonth);
+      console.log(lastDayOfLastMonth);
+      console.log(n);
+      lastDaysArray.push(new Date(currentYear, currentMonth, n));
     }
 
     setDaysLastMonth(lastDaysArray);
@@ -134,6 +146,13 @@ export default function DatepickerToggle({ setToggle }: Props) {
       setClientFirstDate(clientDate);
       setClientSecondDate("-");
 
+      localStorage.setItem(
+        "daterange",
+        JSON.stringify({ startDate: newDate, endDate: null, changed: true })
+      );
+
+      setDaterange({ startDate: newDate, endDate: null, changed: true });
+
       setFieldPick(2);
       setDayRange({
         firstYear: newDate.getFullYear(),
@@ -153,6 +172,21 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
       if (clientFirstDate !== "-") {
         if (newDate > firstDate) {
+          setDaterange({
+            startDate: firstDate,
+            endDate: newDate,
+            changed: true,
+          });
+
+          localStorage.setItem(
+            "daterange",
+            JSON.stringify({
+              startDate: firstDate,
+              endDate: newDate,
+              changed: true,
+            })
+          );
+
           setSecondDate(newDate);
           setClientSecondDate(clientDate);
           setFieldPick(1);
@@ -163,6 +197,20 @@ export default function DatepickerToggle({ setToggle }: Props) {
             secondDay: index,
           });
         } else {
+          setDaterange({
+            startDate: newDate,
+            endDate: null,
+            changed: true,
+          });
+          localStorage.setItem(
+            "daterange",
+            JSON.stringify({
+              startDate: newDate,
+              endDate: null,
+              changed: true,
+            })
+          );
+          setFirstDate(newDate);
           setClientFirstDate(clientDate);
           setFieldPick(2);
           setDayRange({
@@ -214,10 +262,95 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
     if (dateOne >= firstDate && dateOne <= secondDate) {
       return true;
-    }
-    if (clientFirstDate == stringDate) {
+    } else if (clientFirstDate == stringDate) {
       return true;
+    } else {
+      return false;
     }
+  }
+
+  function GenerateDay(day: Date, index: Number) {
+    let monthDay = day.getDate();
+    let weekDay = day.getDay();
+    if (weekDay == 0) {
+      weekDay = 7;
+    }
+
+    if (dateIsActive(day)) {
+      if (weekDay > 5) {
+        return (
+          <p className="bg-primary/60 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
+            {monthDay}
+          </p>
+        );
+      }
+      if (weekDay < 6) {
+        return (
+          <p
+            onClick={() => {
+              pickDate(index);
+            }}
+            className="bg-primary/40 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer"
+          >
+            {monthDay}
+          </p>
+        );
+      }
+    }
+
+    if (!dateIsActive(day)) {
+      if (weekDay > 5) {
+        return (
+          <p className="bg-zinc-300 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
+            {monthDay}
+          </p>
+        );
+      }
+      if (weekDay < 6) {
+        return (
+          <p
+            onClick={() => {
+              pickDate(index);
+            }}
+            className="bg-zinc-100 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer"
+          >
+            {monthDay}
+          </p>
+        );
+      }
+    }
+
+    return (
+      <>
+        <div
+          onClick={() => {
+            pickDate(index);
+          }}
+        >
+          {dateIsActive(day) ? (
+            <p className="bg-primary/40 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
+              {monthDay}
+            </p>
+          ) : (
+            <p className="bg-zinc-100 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
+              {monthDay}
+            </p>
+          )}
+        </div>
+      </>
+    );
+  }
+
+  function GenerateLastMonthDay(day: Date) {
+    let monthDay = day.getDate();
+    let weekDay = day.getDay();
+    if (weekDay == 0) {
+      weekDay = 7;
+    }
+
+    return (
+      <p className="bg-zinc-50 text-zinc-400 h-10 flex items-center justify-center rounded-md"></p>
+    );
   }
 
   return (
@@ -228,7 +361,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
             <h5>Zvolte datum doručení a odvozu</h5>
             <FontAwesomeIcon
               icon={faXmark}
-              className="text-2xl cursor-pointer"
+              className="text-2xl cursor-pointer hover:bg-primaryHover p-2 rounded-md"
               onClick={() => {
                 setToggle(false);
               }}
@@ -294,35 +427,10 @@ export default function DatepickerToggle({ setToggle }: Props) {
               </div>
               <div className="grid grid-cols-7 justify-items-stretch text-center gap-2">
                 {daysLastMonth.map((day) => {
-                  return (
-                    <>
-                      <span className="text-zinc-400 "></span>
-                    </>
-                  );
+                  return GenerateLastMonthDay(day);
                 })}
                 {daysCurrentMonth.map((day, index) => {
-                  let getDay = day.getDate();
-
-                  return (
-                    <>
-                      <div
-                        onClick={() => {
-                          console.log(index);
-                          pickDate(index);
-                        }}
-                      >
-                        {dateIsActive(day) ? (
-                          <p className="bg-primary/40 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
-                            {getDay}
-                          </p>
-                        ) : (
-                          <p className="bg-zinc-100 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
-                            {getDay}
-                          </p>
-                        )}
-                      </div>
-                    </>
-                  );
+                  return GenerateDay(day, index);
                 })}
               </div>
             </div>

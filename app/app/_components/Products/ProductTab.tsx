@@ -17,13 +17,13 @@ export default function ProductTab({ item }: ProductProps) {
   const days: number = 32;
 
   return (
-    <div className="h-full w-[300px] shrink-0">
+    <div className="h-full shrink-0">
       <div
         style={{
           backgroundImage: `url(${item.image})`,
           backgroundSize: "cover",
         }}
-        className="h-[200px] rounded-t-xl"
+        className="min-h-[300px] rounded-t-xl"
       >
         {" "}
       </div>
@@ -35,14 +35,20 @@ export default function ProductTab({ item }: ProductProps) {
         <div className="flex flex-col items-stretch gap-2">
           <p className="text-lg text-textSecondary">
             <span className="text-primary">{item.price * days} Kč</span> /{" "}
-            {days} dní
+            {days} {days < 2 && "den"}
+            {days <= 4 && "dny"}
+            {days > 4 && "dní"}
           </p>
+
           <div className="grid grid-cols-5 gap-2">
             <button className="buttonSmall col-span-4">Otevřít</button>
             <button className="col-span-1 border rounded-lg flex items-center justify-center border-zinc-300 text-textPrimary ease-in-out transition-all hover:bg-zinc-100 cursor-pointer">
               <FontAwesomeIcon icon={faCartPlus} />
             </button>
           </div>
+          <p className="text-lg  self-center px-3 py-[2px] rounded-md text-primary">
+            dostupné
+          </p>
         </div>
       </div>
     </div>
