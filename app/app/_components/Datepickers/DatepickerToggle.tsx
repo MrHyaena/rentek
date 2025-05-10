@@ -376,7 +376,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
               }}
             />
           </div>
-          <div className="min-h-[500px] min-w-[700px] grid grid-cols-3 bg-white rounded-b-md">
+          <div className=" max-h-[500px] min-w-[800px] grid grid-cols-4 bg-white rounded-b-md">
             <div className="col-span-2 border-r border-borderGray p-5">
               <div className="grid grid-cols-2 justify-items-stretch gap-5 py-2">
                 <div>
@@ -443,7 +443,116 @@ export default function DatepickerToggle({ setToggle }: Props) {
                 })}
               </div>
             </div>
-            <div></div>
+            <div className=" col-span-2 py-2 px-5 ">
+              <div
+                style={{ scrollbarGutter: "stable" }}
+                className="overflow-auto pr-2
+                 grid grid-cols-2 justify-items-stretch gap-5 py-5"
+              >
+                <div>
+                  <p className="mb-2 font-semibold">Čas doručení</p>
+                  <p
+                    style={{ backgroundColor: fieldColors[0] }}
+                    className="p-2 border border-zinc-300 text-textPrimary rounded-md cursor-pointer"
+                    onClick={() => {
+                      setFieldPick(1);
+                    }}
+                  >
+                    {clientFirstDate}
+                  </p>
+                </div>
+                <div>
+                  <p className="mb-2 font-semibold">Čas odvozu</p>
+                  <p
+                    style={{ backgroundColor: fieldColors[1] }}
+                    className="p-2 border border-zinc-300 text-textPrimary  rounded-md cursor-pointer"
+                    onClick={() => {
+                      setFieldPick(2);
+                    }}
+                  >
+                    {clientSecondDate}
+                  </p>
+                </div>
+              </div>
+              <div className="pr-2 max-h-[320px] overflow-y-scroll gap-5 grid grid-cols-2 justify-items-stretch text-center">
+                <div className=" flex flex-col items-stretch gap-3">
+                  <button className="p-3  border rounded-md border-borderGray">
+                    8:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    9:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    10:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    11:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    12:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    13:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    14:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    15:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    17:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    18:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    19:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    20:00
+                  </button>
+                </div>
+                <div className=" flex flex-col items-stretch gap-3">
+                  <button className="p-3  border rounded-md border-borderGray">
+                    8:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    9:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    10:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    11:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    12:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    13:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    14:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    15:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    17:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    18:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    19:00
+                  </button>
+                  <button className="p-3 border rounded-md border-borderGray">
+                    20:00
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         ;
