@@ -16,17 +16,21 @@ type Props = {
 
 export default function DatepickerToggle({ setToggle }: Props) {
   const currentDate = new Date();
+
+  //Picking date
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
   const [daysCurrentMonth, setDaysCurrentMonth] = useState<Date[]>([]);
   const [daysLastMonth, setDaysLastMonth] = useState<Date[]>([]);
 
+  //Properties for dates picking
   const [fieldPick, setFieldPick] = useState(1);
   const [fieldColors, setFieldColors] = useState(["white", "#f4f4f5"]);
+
+  //Real data
   const [firstDate, setFirstDate] = useState<any>(new Date());
   const [secondDate, setSecondDate] = useState<any>(new Date());
-  const [clientFirstDate, setClientFirstDate] = useState("-");
-  const [clientSecondDate, setClientSecondDate] = useState("-");
+
   const { daterange, setDaterange } = useContext(DaterangeContext);
 
   const [dayRange, setDayRange] = useState<{
@@ -64,12 +68,9 @@ export default function DatepickerToggle({ setToggle }: Props) {
   //populate states from context
   useEffect(() => {
     if (daterange.startDate != null) {
-      setClientFirstDate(format(daterange.startDate, "dd.MM.yyy"));
       setFirstDate(new Date(daterange.startDate));
     }
     if (daterange.endDate != null) {
-      setClientSecondDate(format(daterange.endDate, "dd.MM.yyy"));
-
       setSecondDate(new Date(daterange.endDate));
     }
   }, []);
@@ -134,9 +135,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
       n < daysInLastMonth;
       n++
     ) {
-      console.log(daysInLastMonth);
-      console.log(lastDayOfLastMonth);
-      console.log(n);
       lastDaysArray.push(new Date(currentYear, currentMonth, n));
     }
 
@@ -152,9 +150,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
     if (fieldPick == 1) {
       setFirstDate(newDate);
       setSecondDate(null);
-
-      setClientFirstDate(format(newDate, "d.MM.yyyy"));
-      setClientSecondDate("-");
 
       localStorage.setItem(
         "daterange",
@@ -176,11 +171,11 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
     //Second date rules
     if (fieldPick == 2) {
-      if (clientFirstDate == "-") {
+      if (daterange.startDate == null) {
         setFieldPick(1);
       }
 
-      if (clientFirstDate !== "-") {
+      if (daterange.startDate !== null) {
         if (newDate >= firstDate) {
           setDaterange({
             startDate: firstDate,
@@ -198,7 +193,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
           );
 
           setSecondDate(newDate);
-          setClientSecondDate(format(newDate, "dd.MM.yyyy"));
           setFieldPick(1);
           setDayRange({
             ...dayRange,
@@ -221,7 +215,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
             })
           );
           setFirstDate(newDate);
-          setClientFirstDate(format(newDate, "dd.MM.yyyy"));
           setFieldPick(2);
           setDayRange({
             firstYear: newDate.getFullYear(),
@@ -258,18 +251,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
   }
 
   function dateIsActive(date: Date) {
-    const day = date.getDate() - 1;
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const stringDate = day + 1 + "." + month + "." + year;
-
-    const dayTwo = firstDate.getDate();
-    const monthTwo = firstDate.getMonth();
-    const yearTwo = firstDate.getFullYear();
-
-    const dateOne = new Date(year, month - 1, day + 1);
-    const dateTwo = new Date(yearTwo, monthTwo, dayTwo);
-
     console.log({ date, firstDate });
 
     if (date > firstDate && date < secondDate) {
@@ -384,7 +365,9 @@ export default function DatepickerToggle({ setToggle }: Props) {
                       setFieldPick(1);
                     }}
                   >
-                    {clientFirstDate}
+                    {daterange.startDate != null
+                      ? format(daterange.startDate, "dd.MM.yyyy")
+                      : "-"}
                   </p>
                 </div>
                 <div>
@@ -396,7 +379,9 @@ export default function DatepickerToggle({ setToggle }: Props) {
                       setFieldPick(2);
                     }}
                   >
-                    {clientSecondDate}
+                    {daterange.endDate != null
+                      ? format(daterange.endDate, "dd.MM.yyyy")
+                      : "-"}
                   </p>
                 </div>
               </div>
@@ -453,9 +438,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
                     onClick={() => {
                       setFieldPick(1);
                     }}
-                  >
-                    {clientFirstDate}
-                  </p>
+                  ></p>
                 </div>
                 <div>
                   <p className="mb-2 font-semibold">Čas odvozu</p>
@@ -465,9 +448,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
                     onClick={() => {
                       setFieldPick(2);
                     }}
-                  >
-                    {clientSecondDate}
-                  </p>
+                  ></p>
                 </div>
               </div>
               <div className="pr-2 max-h-[320px] overflow-y-scroll gap-5 grid grid-cols-2 justify-items-stretch text-center">
