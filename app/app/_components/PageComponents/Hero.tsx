@@ -9,10 +9,11 @@ export default function Hero() {
         style={{
           backgroundImage: `url(/hero.webp)`,
           backgroundSize: "cover",
+          backgroundPosition: "right",
         }}
-        className="max-w-wrapper bg-white h-[650px] w-full rounded-2xl"
+        className="max-w-wrapper bg-white w-full rounded-2xl flex items-stretch"
       >
-        <div className="w-full h-full bg-linear-90 from-overlay to-transparent rounded-2xl p-10 flex justify-start">
+        <div className="w-full h-full bg-linear-90 from-overlay from-20% to-transparent rounded-2xl p-10 py-20 flex justify-start">
           <div className="max-w-[63%] flex flex-col gap-5 justify-center">
             <h1 className="text-textLight">
               Půjčovna techniky v Praze <br />

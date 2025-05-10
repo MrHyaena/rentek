@@ -355,8 +355,17 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
   return (
     <>
-      <div className="w-screen h-screen fixed top-0 left-0 flex items-start pt-50 justify-center bg-zinc-700/80">
-        <div>
+      <div
+        onClick={() => {
+          setToggle(false);
+        }}
+        className="w-screen h-screen fixed top-0 left-0 flex items-start pt-50 justify-center bg-zinc-700/80"
+      >
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <div className="bg-primary text-textLight p-5 py-6 rounded-t-md justify-between items-center flex">
             <h5>Zvolte datum doručení a odvozu</h5>
             <FontAwesomeIcon
