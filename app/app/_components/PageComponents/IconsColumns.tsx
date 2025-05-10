@@ -11,7 +11,7 @@ type IconCardProps = {
 function IconCard({ icon, heading, text }: IconCardProps) {
   return (
     <>
-      <div className="flex flex-col items-center justify-start">
+      <div className="flex flex-col items-center justify-start text-center">
         <FontAwesomeIcon icon={icon} className="text-4xl text-primary mb-4" />
         <h5 className="">{heading}</h5>
         <p className="text-xl text-textSecondary">{text}</p>

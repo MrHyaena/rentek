@@ -10,19 +10,25 @@ import { format } from "date-fns";
 
 export default function DatepickerBig() {
   const [toggle, setToggle] = useState<Boolean>(false);
+  const [firstDate, setFirstDate] = useState<String | null>(null);
+  const [secondDate, setSecondDate] = useState<String | null>(null);
 
   const { daterange } = useContext(DaterangeContext);
 
-  let firstDate;
-  let secondDate;
-  if (
-    daterange.changed &&
-    daterange.endDate !== null &&
-    daterange.startDate !== null
-  ) {
-    firstDate = format(daterange.startDate, "d.M.Y");
-    secondDate = format(daterange.endDate, "d.M.Y");
-  }
+  useEffect(() => {
+    if (daterange.changed) {
+      if (daterange.startDate != null) {
+        setFirstDate(format(daterange.startDate, "dd.MM.yyyy"));
+      } else if (daterange.startDate == null) {
+        setFirstDate("Nenastaveno");
+      }
+      if (daterange.endDate != null) {
+        setSecondDate(format(daterange.endDate, "dd.MM.yyyy"));
+      } else if (daterange.endDate == null) {
+        setSecondDate("Nenastaveno");
+      }
+    }
+  }, [daterange]);
 
   return (
     <>

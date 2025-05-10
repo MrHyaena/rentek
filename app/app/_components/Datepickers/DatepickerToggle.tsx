@@ -8,6 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, useContext, useEffect, useState } from "react";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
+import { format, isEqual } from "date-fns";
 
 type Props = {
   setToggle: Dispatch<Boolean>;
@@ -22,7 +23,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
   const [fieldPick, setFieldPick] = useState(1);
   const [fieldColors, setFieldColors] = useState(["white", "#f4f4f5"]);
-  const [firstDate, setFirstDate] = useState(new Date());
+  const [firstDate, setFirstDate] = useState<any>(new Date());
   const [secondDate, setSecondDate] = useState<any>(new Date());
   const [clientFirstDate, setClientFirstDate] = useState("-");
   const [clientSecondDate, setClientSecondDate] = useState("-");
@@ -61,6 +62,17 @@ export default function DatepickerToggle({ setToggle }: Props) {
   ];
 
   //populate states from context
+  useEffect(() => {
+    if (daterange.startDate != null) {
+      setClientFirstDate(format(daterange.startDate, "dd.MM.yyy"));
+      setFirstDate(new Date(daterange.startDate));
+    }
+    if (daterange.endDate != null) {
+      setClientSecondDate(format(daterange.endDate, "dd.MM.yyy"));
+
+      setSecondDate(new Date(daterange.endDate));
+    }
+  }, []);
 
   //changing focus
   useEffect(() => {
@@ -135,15 +147,13 @@ export default function DatepickerToggle({ setToggle }: Props) {
   //Pick a date when clicking on date
   function pickDate(index: any) {
     const newDate = new Date(currentYear, currentMonth, index + 1);
-    const clientDate =
-      index + 1 + "." + (newDate.getMonth() + 1) + "." + newDate.getFullYear();
-    console.log(index);
+
     //First date rules
     if (fieldPick == 1) {
       setFirstDate(newDate);
       setSecondDate(null);
 
-      setClientFirstDate(clientDate);
+      setClientFirstDate(format(newDate, "d.MM.yyyy"));
       setClientSecondDate("-");
 
       localStorage.setItem(
@@ -171,7 +181,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
       }
 
       if (clientFirstDate !== "-") {
-        if (newDate > firstDate) {
+        if (newDate >= firstDate) {
           setDaterange({
             startDate: firstDate,
             endDate: newDate,
@@ -188,7 +198,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
           );
 
           setSecondDate(newDate);
-          setClientSecondDate(clientDate);
+          setClientSecondDate(format(newDate, "dd.MM.yyyy"));
           setFieldPick(1);
           setDayRange({
             ...dayRange,
@@ -196,7 +206,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
             secondMonth: newDate.getMonth(),
             secondDay: index,
           });
-        } else {
+        } else if (newDate < firstDate) {
           setDaterange({
             startDate: newDate,
             endDate: null,
@@ -211,7 +221,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
             })
           );
           setFirstDate(newDate);
-          setClientFirstDate(clientDate);
+          setClientFirstDate(format(newDate, "dd.MM.yyyy"));
           setFieldPick(2);
           setDayRange({
             firstYear: newDate.getFullYear(),
@@ -260,12 +270,12 @@ export default function DatepickerToggle({ setToggle }: Props) {
     const dateOne = new Date(year, month - 1, day + 1);
     const dateTwo = new Date(yearTwo, monthTwo, dayTwo);
 
-    if (dateOne >= firstDate && dateOne <= secondDate) {
+    console.log({ date, firstDate });
+
+    if (date > firstDate && date < secondDate) {
       return true;
-    } else if (clientFirstDate == stringDate) {
+    } else if (isEqual(date, firstDate) || isEqual(date, secondDate)) {
       return true;
-    } else {
-      return false;
     }
   }
 
@@ -276,69 +286,55 @@ export default function DatepickerToggle({ setToggle }: Props) {
       weekDay = 7;
     }
 
-    if (dateIsActive(day)) {
-      if (weekDay > 5) {
-        return (
-          <p className="bg-primary/60 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
-            {monthDay}
-          </p>
-        );
-      }
-      if (weekDay < 6) {
-        return (
-          <p
-            onClick={() => {
-              pickDate(index);
-            }}
-            className="bg-primary/40 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer"
-          >
-            {monthDay}
-          </p>
-        );
-      }
-    }
-
-    if (!dateIsActive(day)) {
-      if (weekDay > 5) {
-        return (
-          <p className="bg-zinc-300 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
-            {monthDay}
-          </p>
-        );
-      }
-      if (weekDay < 6) {
-        return (
-          <p
-            onClick={() => {
-              pickDate(index);
-            }}
-            className="bg-zinc-100 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer"
-          >
-            {monthDay}
-          </p>
-        );
-      }
-    }
-
-    return (
-      <>
-        <div
-          onClick={() => {
-            pickDate(index);
-          }}
-        >
-          {dateIsActive(day) ? (
-            <p className="bg-primary/40 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
+    if (day > new Date()) {
+      if (dateIsActive(day)) {
+        if (weekDay > 5) {
+          return (
+            <p className="bg-primary/60 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
               {monthDay}
             </p>
-          ) : (
-            <p className="bg-zinc-100 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
+          );
+        }
+        if (weekDay < 6) {
+          return (
+            <p
+              onClick={() => {
+                pickDate(index);
+              }}
+              className="bg-primary/40 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer"
+            >
               {monthDay}
             </p>
-          )}
-        </div>
-      </>
-    );
+          );
+        }
+      } else if (!dateIsActive(day)) {
+        if (weekDay > 5) {
+          return (
+            <p className="bg-zinc-300 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
+              {monthDay}
+            </p>
+          );
+        }
+        if (weekDay < 6) {
+          return (
+            <p
+              onClick={() => {
+                pickDate(index);
+              }}
+              className="bg-zinc-100 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer"
+            >
+              {monthDay}
+            </p>
+          );
+        }
+      }
+    } else if (day < new Date()) {
+      return (
+        <p className="bg-zinc-50 text-zinc-300  h-10 flex items-center justify-center  rounded-md cursor-pointer">
+          {monthDay}
+        </p>
+      );
+    }
   }
 
   function GenerateLastMonthDay(day: Date) {
