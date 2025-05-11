@@ -12,10 +12,10 @@ import React from "react";
 
 type DaterangeContextType = {
   daterange: {
-    startDate: Date | null;
-    endDate: Date | null;
-
-    changed: boolean;
+    startDate: Date;
+    endDate: Date;
+    startIsValid: boolean;
+    endIsValid: boolean;
   };
   setDaterange: any;
 };
@@ -26,22 +26,25 @@ type Props = {
 
 export const DaterangeContext = createContext<DaterangeContextType>({
   daterange: {
-    startDate: null,
-    endDate: null,
-    changed: false,
+    startDate: new Date(),
+    endDate: new Date(),
+    startIsValid: false,
+    endIsValid: false,
   },
   setDaterange: () => {},
 });
 
 export function DaterangeContextProvider({ children }: Props) {
   const [daterange, setDaterange] = useState<{
-    startDate: Date | null;
-    endDate: Date | null;
-    changed: boolean;
+    startDate: Date;
+    endDate: Date;
+    startIsValid: boolean;
+    endIsValid: boolean;
   }>({
-    startDate: null,
-    endDate: null,
-    changed: false,
+    startDate: new Date(),
+    endDate: new Date(),
+    startIsValid: false,
+    endIsValid: false,
   });
 
   useEffect(() => {
@@ -53,7 +56,8 @@ export function DaterangeContextProvider({ children }: Props) {
         setDaterange({
           startDate: dates.startDate,
           endDate: dates.endDate,
-          changed: true,
+          startIsValid: dates.startIsValid,
+          endIsValid: dates.endIsValid,
         });
       }
 

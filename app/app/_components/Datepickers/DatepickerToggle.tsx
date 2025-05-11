@@ -8,47 +8,15 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, useContext, useEffect, useState } from "react";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
-import { format, isEqual } from "date-fns";
+import { format, isAfter, isBefore, isEqual } from "date-fns";
 
 type Props = {
   setToggle: Dispatch<Boolean>;
 };
 
 export default function DatepickerToggle({ setToggle }: Props) {
+  //Fixed and initial values
   const currentDate = new Date();
-
-  //Picking date
-  const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
-  const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
-  const [daysCurrentMonth, setDaysCurrentMonth] = useState<Date[]>([]);
-  const [daysLastMonth, setDaysLastMonth] = useState<Date[]>([]);
-
-  //Properties for dates picking
-  const [fieldPick, setFieldPick] = useState(1);
-  const [fieldColors, setFieldColors] = useState(["white", "#f4f4f5"]);
-
-  //Real data
-  const [firstDate, setFirstDate] = useState<any>(new Date());
-  const [secondDate, setSecondDate] = useState<any>(new Date());
-
-  const { daterange, setDaterange } = useContext(DaterangeContext);
-
-  const [dayRange, setDayRange] = useState<{
-    firstYear: any;
-    firstMonth: any;
-    firstDay: any;
-    secondYear: any;
-    secondMonth: any;
-    secondDay: any;
-  }>({
-    firstYear: null,
-    firstMonth: null,
-    firstDay: null,
-    secondYear: null,
-    secondMonth: null,
-    secondDay: null,
-  });
-
   const daysOfWeek = ["Po", "Út", "St", "Čt", "Pá", "So", "Ne"];
   const monthsOfYear = [
     "Leden",
@@ -65,15 +33,23 @@ export default function DatepickerToggle({ setToggle }: Props) {
     "Prosinec",
   ];
 
-  //populate states from context
-  useEffect(() => {
-    if (daterange.startDate != null) {
-      setFirstDate(new Date(daterange.startDate));
-    }
-    if (daterange.endDate != null) {
-      setSecondDate(new Date(daterange.endDate));
-    }
-  }, []);
+  //Picking date
+  const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
+  const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
+  const [daysCurrentMonth, setDaysCurrentMonth] = useState<Date[]>([]);
+  const [daysLastMonth, setDaysLastMonth] = useState<Date[]>([]);
+
+  //Properties for dates picking
+  const [fieldPick, setFieldPick] = useState(1);
+  const [fieldColors, setFieldColors] = useState(["white", "#f4f4f5"]);
+
+  //Properties for timepicking
+  const [timesDelivery, setTimesDelivery] = useState<Date[]>([]);
+  const [timesPickup, setTimesPickup] = useState<Date[]>([]);
+
+  const [rangeIsValid, setRangeIsValid] = useState(false);
+
+  const { daterange, setDaterange } = useContext(DaterangeContext);
 
   //changing focus
   useEffect(() => {
@@ -148,25 +124,24 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
     //First date rules
     if (fieldPick == 1) {
-      setFirstDate(newDate);
-      setSecondDate(null);
-
       localStorage.setItem(
         "daterange",
-        JSON.stringify({ startDate: newDate, endDate: null, changed: true })
+        JSON.stringify({
+          startDate: newDate,
+          endDate: new Date(),
+          startIsValid: false,
+          endIsValid: false,
+        })
       );
 
-      setDaterange({ startDate: newDate, endDate: null, changed: true });
+      setDaterange({
+        startDate: newDate,
+        endDate: new Date(),
+        startIsValid: false,
+        endIsValid: false,
+      });
 
       setFieldPick(2);
-      setDayRange({
-        firstYear: newDate.getFullYear(),
-        firstMonth: newDate.getMonth(),
-        firstDay: index,
-        secondYear: null,
-        secondMonth: null,
-        secondDay: null,
-      });
     }
 
     //Second date rules
@@ -176,54 +151,42 @@ export default function DatepickerToggle({ setToggle }: Props) {
       }
 
       if (daterange.startDate !== null) {
-        if (newDate >= firstDate) {
+        if (newDate >= daterange.startDate) {
           setDaterange({
-            startDate: firstDate,
+            startDate: daterange.startDate,
             endDate: newDate,
-            changed: true,
+            startIsValid: daterange.startIsValid,
+            endIsValid: false,
           });
 
           localStorage.setItem(
             "daterange",
             JSON.stringify({
-              startDate: firstDate,
+              startDate: daterange.startDate,
               endDate: newDate,
-              changed: true,
+              startIsValid: daterange.startIsValid,
+              endIsValid: false,
             })
           );
 
-          setSecondDate(newDate);
           setFieldPick(1);
-          setDayRange({
-            ...dayRange,
-            secondYear: newDate.getFullYear(),
-            secondMonth: newDate.getMonth(),
-            secondDay: index,
-          });
-        } else if (newDate < firstDate) {
+        } else if (newDate < daterange.startDate) {
           setDaterange({
             startDate: newDate,
-            endDate: null,
-            changed: true,
+            endDate: new Date(),
+            startIsValid: false,
+            endIsValid: false,
           });
           localStorage.setItem(
             "daterange",
             JSON.stringify({
               startDate: newDate,
-              endDate: null,
-              changed: true,
+              endDate: new Date(),
+              startIsValid: false,
+              endIsValid: false,
             })
           );
-          setFirstDate(newDate);
           setFieldPick(2);
-          setDayRange({
-            firstYear: newDate.getFullYear(),
-            firstMonth: newDate.getMonth(),
-            firstDay: index,
-            secondYear: null,
-            secondMonth: null,
-            secondDay: null,
-          });
         }
       }
     }
@@ -251,11 +214,29 @@ export default function DatepickerToggle({ setToggle }: Props) {
   }
 
   function dateIsActive(date: Date) {
-    console.log({ date, firstDate });
+    let startDate = new Date(daterange.startDate);
+    let endDate = new Date(daterange.endDate);
 
-    if (date > firstDate && date < secondDate) {
+    const year = startDate.getFullYear();
+    const month = startDate.getMonth();
+    const day = startDate.getDate();
+
+    const secondYear = endDate.getFullYear();
+    const secondMonth = endDate.getMonth();
+    const secondDay = endDate.getDate();
+
+    if (
+      isAfter(date, daterange.startDate) &&
+      isBefore(date, daterange.endDate)
+    ) {
       return true;
-    } else if (isEqual(date, firstDate) || isEqual(date, secondDate)) {
+    }
+
+    if (isEqual(date, new Date(year, month, day))) {
+      return true;
+    }
+
+    if (isEqual(date, new Date(secondYear, secondMonth, secondDay))) {
       return true;
     }
   }
@@ -330,6 +311,170 @@ export default function DatepickerToggle({ setToggle }: Props) {
     );
   }
 
+  //Time of the delivery and pickup
+  useEffect(() => {
+    const deliveryTimesArray: Date[] = [];
+    const pickupTimesArray: Date[] = [];
+
+    const { startDate, endDate } = daterange;
+
+    if (startDate != null) {
+      const startYearNew = new Date(startDate);
+      for (let i = 8; i < 21; i++) {
+        deliveryTimesArray.push(
+          new Date(
+            startYearNew.getFullYear(),
+            startYearNew.getMonth(),
+            startYearNew.getDate(),
+            i
+          )
+        );
+      }
+    }
+
+    if (endDate != null) {
+      const endDateNew = new Date(endDate);
+      for (let i = 8; i < 21; i++) {
+        pickupTimesArray.push(
+          new Date(
+            endDateNew.getFullYear(),
+            endDateNew.getMonth(),
+            endDateNew.getDate(),
+            i
+          )
+        );
+      }
+    }
+
+    setTimesDelivery(deliveryTimesArray);
+    setTimesPickup(pickupTimesArray);
+  }, [daterange]);
+
+  function PickDeliveryTime(time: Date) {
+    let startDate = new Date(daterange.startDate);
+
+    const year = startDate.getFullYear();
+    const month = startDate.getMonth();
+    const day = startDate.getDate();
+
+    if (
+      isAfter(time, new Date(year, month, day, 7)) &&
+      isBefore(time, new Date(year, month, day, 21))
+    ) {
+      setDaterange({
+        startDate: time,
+        endDate: daterange.endDate,
+        startIsValid: true,
+        endIsValid: daterange.endIsValid,
+      });
+      localStorage.setItem(
+        "daterange",
+        JSON.stringify({
+          startDate: time,
+          endDate: daterange.endDate,
+          startIsValid: true,
+          endIsValid: daterange.endIsValid,
+        })
+      );
+    } else {
+      setDaterange({
+        startDate: time,
+        endDate: daterange.endDate,
+        startIsValid: false,
+        endIsValid: daterange.endIsValid,
+      });
+    }
+  }
+
+  function GenerateDeliveryTimes(time: Date) {
+    if (isEqual(time, daterange.startDate)) {
+      return (
+        <button
+          onClick={() => {
+            PickDeliveryTime(time);
+          }}
+          className="p-3  border bg-primary/40 rounded-md border-borderGray hover:bg-primary/40 cursor-pointer"
+        >
+          {format(time, "H:mm")}
+        </button>
+      );
+    } else {
+      return (
+        <button
+          onClick={() => {
+            PickDeliveryTime(time);
+          }}
+          className="p-3  border rounded-md border-borderGray hover:bg-primary/40 cursor-pointer"
+        >
+          {format(time, "H:mm")}
+        </button>
+      );
+    }
+  }
+
+  function PickPickupTime(time: Date) {
+    let endDate = new Date(daterange.endDate);
+
+    const year = endDate.getFullYear();
+    const month = endDate.getMonth();
+    const day = endDate.getDate();
+
+    if (
+      isAfter(time, new Date(year, month, day, 7)) &&
+      isBefore(time, new Date(year, month, day, 21))
+    ) {
+      setDaterange({
+        startDate: daterange.startDate,
+        endDate: time,
+        startIsValid: daterange.startIsValid,
+        endIsValid: true,
+      });
+      localStorage.setItem(
+        "daterange",
+        JSON.stringify({
+          startDate: daterange.startDate,
+          endDate: time,
+          startIsValid: daterange.startIsValid,
+          endIsValid: true,
+        })
+      );
+    } else {
+      console.log(false);
+      setDaterange({
+        startDate: daterange.startDate,
+        endDate: time,
+        startIsValid: daterange.startIsValid,
+        endIsValid: false,
+      });
+    }
+  }
+
+  function GeneratePickupTimes(time: Date) {
+    if (isEqual(time, daterange.endDate)) {
+      return (
+        <button
+          onClick={() => {
+            PickPickupTime(time);
+          }}
+          className="p-3  border bg-primary/40 rounded-md border-borderGray hover:bg-primary/40 cursor-pointer"
+        >
+          {format(time, "H:mm")}
+        </button>
+      );
+    } else {
+      return (
+        <button
+          onClick={() => {
+            PickPickupTime(time);
+          }}
+          className="p-3  border rounded-md border-borderGray hover:bg-primary/40 cursor-pointer"
+        >
+          {format(time, "H:mm")}
+        </button>
+      );
+    }
+  }
+
   return (
     <>
       <div
@@ -353,9 +498,9 @@ export default function DatepickerToggle({ setToggle }: Props) {
               }}
             />
           </div>
-          <div className=" max-h-[500px] min-w-[800px] grid grid-cols-4 bg-white rounded-b-md">
+          <div className=" max-h-[500px] min-w-[800px] grid grid-cols-4 bg-white border-b border-borderGray">
             <div className="col-span-2 border-r border-borderGray p-5">
-              <div className="grid grid-cols-2 justify-items-stretch gap-5 py-2">
+              <div className="grid grid-cols-2 justify-items-stretch gap-5 py-2 text-center">
                 <div>
                   <p className="mb-2 font-semibold">Datum doručení</p>
                   <p
@@ -428,107 +573,77 @@ export default function DatepickerToggle({ setToggle }: Props) {
               <div
                 style={{ scrollbarGutter: "stable" }}
                 className="overflow-auto pr-2
-                 grid grid-cols-2 justify-items-stretch gap-5 py-5"
+                 grid grid-cols-2 justify-items-stretch gap-5 py-5 text-center"
               >
                 <div>
                   <p className="mb-2 font-semibold">Čas doručení</p>
                   <p
-                    style={{ backgroundColor: fieldColors[0] }}
                     className="p-2 border border-zinc-300 text-textPrimary rounded-md cursor-pointer"
                     onClick={() => {
                       setFieldPick(1);
                     }}
-                  ></p>
+                  >
+                    {daterange.startIsValid
+                      ? format(daterange.startDate, "HH:mm")
+                      : "Nezvoleno"}
+                  </p>
                 </div>
                 <div>
                   <p className="mb-2 font-semibold">Čas odvozu</p>
                   <p
-                    style={{ backgroundColor: fieldColors[1] }}
                     className="p-2 border border-zinc-300 text-textPrimary  rounded-md cursor-pointer"
                     onClick={() => {
                       setFieldPick(2);
                     }}
-                  ></p>
+                  >
+                    {daterange.endIsValid
+                      ? format(daterange.endDate, "HH:mm")
+                      : "Nezvoleno"}
+                  </p>
                 </div>
               </div>
               <div className="pr-2 max-h-[320px] overflow-y-scroll gap-5 grid grid-cols-2 justify-items-stretch text-center">
                 <div className=" flex flex-col items-stretch gap-3">
-                  <button className="p-3  border rounded-md border-borderGray">
-                    8:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    9:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    10:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    11:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    12:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    13:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    14:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    15:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    17:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    18:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    19:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    20:00
-                  </button>
+                  {timesDelivery != null &&
+                    timesDelivery.map((time) => {
+                      return GenerateDeliveryTimes(time);
+                    })}
                 </div>
                 <div className=" flex flex-col items-stretch gap-3">
-                  <button className="p-3  border rounded-md border-borderGray">
-                    8:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    9:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    10:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    11:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    12:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    13:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    14:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    15:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    17:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    18:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    19:00
-                  </button>
-                  <button className="p-3 border rounded-md border-borderGray">
-                    20:00
-                  </button>
+                  {timesPickup != null &&
+                    timesPickup.map((time) => {
+                      return GeneratePickupTimes(time);
+                    })}
                 </div>
               </div>
+            </div>
+          </div>
+          <div className=" max-h-[500px] min-w-[800px] bg-white rounded-b-md">
+            <div className="p-5 text-center">
+              {daterange.endIsValid && daterange.startIsValid && (
+                <>
+                  <p>
+                    Techniku si budete půjčovat od{" "}
+                    <span className="font-semibold">
+                      {format(daterange.startDate, "dd.MM.yyyy HH:mm")}
+                    </span>{" "}
+                    od{" "}
+                    <span className="font-semibold">
+                      {format(daterange.endDate, "dd.MM.yyyy HH:mm")}
+                    </span>
+                  </p>
+                </>
+              )}
+              {!daterange.endIsValid && (
+                <>
+                  <p>Doplňte čas doručení</p>
+                </>
+              )}
+              {!daterange.endIsValid && (
+                <>
+                  <p>Doplňte čas odvozu</p>
+                </>
+              )}
             </div>
           </div>
         </div>
