@@ -50,6 +50,33 @@ export default async function page({
     );
   }
 
+  async function GetItems() {
+    let response = await fetch(
+      "http://localhost:1337/api/items/?populate=coverImage",
+      {
+        method: "GET",
+        mode: "cors",
+      }
+    );
+
+    const itemsArray: any[] = [];
+
+    const json = await response.json();
+
+    json.data.map((item: any) => {
+      itemsArray.push({
+        image: item.coverImage.url,
+        name: item.name,
+        description: item.excerpt,
+        id: 3,
+        price: item.basePrice,
+      });
+    });
+
+    return itemsArray;
+  }
+
+  const items = await GetItems();
   return (
     <>
       <PageHeading
@@ -182,12 +209,9 @@ export default async function page({
             </div>
           </div>
           <div className="col-span-3 min-h-screen grid gap-5">
-            <ProductTabHorizontal item={item} />
-            <ProductTabHorizontal item={item} />
-            <ProductTabHorizontal item={item} />
-            <ProductTabHorizontal item={item} />
-            <ProductTabHorizontal item={item} />
-            <ProductTabHorizontal item={item} />
+            {items.map((item) => {
+              return <ProductTabHorizontal item={item} />;
+            })}
           </div>
         </div>
       </div>

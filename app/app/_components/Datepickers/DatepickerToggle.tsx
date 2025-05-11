@@ -636,12 +636,12 @@ export default function DatepickerToggle({ setToggle }: Props) {
               )}
               {!daterange.endIsValid && (
                 <>
-                  <p>Doplňte čas doručení</p>
+                  <p className=" font-semibold">Doplňte čas doručení</p>
                 </>
               )}
               {!daterange.endIsValid && (
                 <>
-                  <p>Doplňte čas odvozu</p>
+                  <p className="font-semibold">Doplňte čas odvozu</p>
                 </>
               )}
             </div>

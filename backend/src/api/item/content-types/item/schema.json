@@ -12,22 +12,56 @@
   },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
-    "price": {
-      "type": "integer"
+    "basePrice": {
+      "type": "biginteger",
+      "required": true
     },
-    "item": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::item.item",
-      "inversedBy": "items"
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "rental",
+        "product",
+        "service"
+      ],
+      "default": "rental",
+      "required": true
     },
-    "items": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::item.item",
-      "mappedBy": "item"
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "description": {
+      "type": "customField",
+      "options": {
+        "preset": "defaultHtml"
+      },
+      "customField": "plugin::ckeditor5.CKEditor",
+      "required": true
+    },
+    "excerpt": {
+      "type": "string",
+      "required": true
     }
   }
 }

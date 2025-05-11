@@ -46,7 +46,7 @@ export default function DatepickerBig() {
                     {format(daterange.startDate, "HH:mm")}
                   </p>
                 </div>
-                <div className="border-l pl-5 border-primaryHover">
+                <div className="border-l-2 pl-5 border-primaryHover/50">
                   <p className="font-semibold text-lg">Datum vyzvednutí:</p>
                   <p>
                     {format(daterange.endDate, "dd.MM.yyy")} v{" "}

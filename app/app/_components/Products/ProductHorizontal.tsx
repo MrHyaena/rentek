@@ -6,7 +6,7 @@ type ProductProps = {
     image: string;
     name: string;
     description: string;
-    link: string;
+    id: number;
     price: number;
   };
 };
@@ -17,17 +17,17 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
   const days: number = 32;
 
   return (
-    <div className="h-full grid grid-cols-[250px_1fr] shrink-0">
+    <div className="h-[250px] grid grid-cols-[250px_1fr] shrink-0">
       <div
         style={{
-          backgroundImage: `url(${item.image})`,
+          backgroundImage: `url(http://localhost:1337${item.image})`,
           backgroundSize: "cover",
         }}
-        className="min-h-[250px] rounded-l-xl"
+        className="h-[250px] rounded-l-xl"
       >
         {" "}
       </div>
-      <div className="border-y border-r rounded-r-xl p-5 flex flex-col gap-5 border-borderGray">
+      <div className="border-y border-r rounded-r-xl p-5 flex flex-col gap-5 border-borderGray justify-between">
         <div>
           <div className="flex items-center gap-4 mb-2">
             <p className="text-2xl font-semibold text-textPrimary">

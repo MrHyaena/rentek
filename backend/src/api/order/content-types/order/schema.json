@@ -11,30 +11,34 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "Products": {
+    "products": {
       "type": "json"
     },
-    "Address": {
+    "address": {
       "type": "json"
     },
-    "Invoicing": {
+    "invoicing": {
       "type": "json"
     },
-    "Name": {
+    "name": {
       "type": "string"
     },
-    "Addons": {
+    "addons": {
       "type": "json"
     },
-    "Price": {
-      "type": "integer"
+    "amount": {
+      "type": "biginteger"
     },
-    "Deposit": {
-      "type": "integer"
+    "deposit": {
+      "type": "biginteger"
     },
-    "timeslot": {
-      "type": "customField",
-      "customField": "plugin::strapi-date-range-picker-5.date-range-picker"
+    "dateStart": {
+      "type": "datetime",
+      "required": true
+    },
+    "dateEnd": {
+      "type": "datetime",
+      "required": true
     }
   }
 }

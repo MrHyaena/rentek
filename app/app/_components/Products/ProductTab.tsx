@@ -17,7 +17,7 @@ export default function ProductTab({ item }: ProductProps) {
   const days: number = 32;
 
   return (
-    <div className="h-full shrink-0">
+    <div className="h-full max-w-[400px] shrink-0">
       <div
         style={{
           backgroundImage: `url(${item.image})`,

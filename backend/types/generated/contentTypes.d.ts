@@ -381,17 +381,35 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    basePrice: Schema.Attribute.BigInteger & Schema.Attribute.Required;
+    coverImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    > &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    item: Schema.Attribute.Relation<'manyToOne', 'api::item.item'>;
-    items: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    excerpt: Schema.Attribute.String & Schema.Attribute.Required;
+    gallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'> &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    price: Schema.Attribute.Integer;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.Enumeration<['rental', 'product', 'service']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'rental'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -410,22 +428,22 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    Addons: Schema.Attribute.JSON;
-    Address: Schema.Attribute.JSON;
+    addons: Schema.Attribute.JSON;
+    address: Schema.Attribute.JSON;
+    amount: Schema.Attribute.BigInteger;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Deposit: Schema.Attribute.Integer;
-    Invoicing: Schema.Attribute.JSON;
+    dateEnd: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    dateStart: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    deposit: Schema.Attribute.BigInteger;
+    invoicing: Schema.Attribute.JSON;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
       Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
-    Price: Schema.Attribute.Integer;
-    Products: Schema.Attribute.JSON;
+    name: Schema.Attribute.String;
+    products: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
-    timeslot: Schema.Attribute.JSON &
-      Schema.Attribute.CustomField<'plugin::strapi-date-range-picker-5.date-range-picker'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
