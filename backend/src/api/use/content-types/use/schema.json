@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "uses",
+  "info": {
+    "singularName": "use",
+    "pluralName": "uses",
+    "displayName": "Use"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::item.item",
+      "inversedBy": "uses"
+    }
+  }
+}

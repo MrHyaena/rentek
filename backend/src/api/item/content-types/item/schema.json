@@ -66,6 +66,21 @@
     "slug": {
       "type": "uid",
       "targetField": "name"
+    },
+    "info": {
+      "type": "blocks"
+    },
+    "uses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::use.use",
+      "mappedBy": "items"
+    },
+    "specifications": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::specification.specification",
+      "mappedBy": "items"
     }
   }
 }

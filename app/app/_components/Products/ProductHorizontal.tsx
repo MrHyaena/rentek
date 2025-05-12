@@ -1,10 +1,12 @@
 "use client";
 
+import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { CartContext } from "../../_context/CartContext";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { differenceInDays } from "date-fns";
 type ProductProps = {
   item: {
     imageUrl: string;
@@ -20,8 +22,18 @@ type ProductProps = {
 export default function ProductTabHorizontal({ item }: ProductProps) {
   const shortenedDescription = item.description.substring(0, 200) + "...";
   const { cart, setCart } = useContext(CartContext);
+  const { daterange, setDaterange } = useContext(DaterangeContext);
 
-  const days: number = 32;
+  const [numberOfDays, setNumberOfDays] = useState<number>(1);
+
+  const price = Number(item.price);
+
+  useEffect(() => {
+    if (daterange.endIsValid && daterange.startIsValid) {
+      const days = differenceInDays(daterange.endDate, daterange.startDate);
+      setNumberOfDays(days + 1);
+    }
+  }, [daterange]);
 
   function AddToCart(item: {
     imageUrl: string;
@@ -41,6 +53,15 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
       documentId: item.documentId,
     };
     setCart([...cart, newItem]);
+  }
+
+  let tag;
+  if (numberOfDays == 1) {
+    tag = "den";
+  } else if (numberOfDays <= 4) {
+    tag = "dny";
+  } else if (numberOfDays > 4) {
+    tag = "dní";
   }
 
   return (
@@ -68,13 +89,11 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
           <p className="text-textSecondary">{shortenedDescription}</p>
         </div>
         <div className="flex flex-col items-stretch gap-2">
-          <p className="text-base font-semibold text-zinc-400">
+          <p className="text-base font-semibold text-textSecondary">
             <span className="text-primary font-semibold text-xl">
-              {item.price * days} Kč
+              {price * numberOfDays} Kč
             </span>{" "}
-            / {days} {days < 2 && "den"}
-            {days <= 4 && "dny"}
-            {days > 4 && "dní"}
+            celkem za {numberOfDays} {tag} {"(vč. DPH)"}
           </p>
 
           <div className="flex gap-2">

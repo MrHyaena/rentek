@@ -402,18 +402,24 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    info: Schema.Attribute.Blocks;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'>;
+    specifications: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::specification.specification'
+    >;
     type: Schema.Attribute.Enumeration<['rental', 'product', 'service']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'rental'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uses: Schema.Attribute.Relation<'manyToMany', 'api::use.use'>;
   };
 }
 
@@ -444,6 +450,62 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     products: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSpecificationSpecification
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'specifications';
+  info: {
+    displayName: 'Specification';
+    pluralName: 'specifications';
+    singularName: 'specification';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    items: Schema.Attribute.Relation<'manyToMany', 'api::item.item'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::specification.specification'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUseUse extends Struct.CollectionTypeSchema {
+  collectionName: 'uses';
+  info: {
+    displayName: 'Use';
+    pluralName: 'uses';
+    singularName: 'use';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    items: Schema.Attribute.Relation<'manyToMany', 'api::item.item'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::use.use'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -962,6 +1024,8 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::item.item': ApiItemItem;
       'api::order.order': ApiOrderOrder;
+      'api::specification.specification': ApiSpecificationSpecification;
+      'api::use.use': ApiUseUse;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

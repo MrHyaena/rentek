@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "specifications",
+  "info": {
+    "singularName": "specification",
+    "pluralName": "specifications",
+    "displayName": "Specification"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::item.item",
+      "inversedBy": "specifications"
+    }
+  }
+}

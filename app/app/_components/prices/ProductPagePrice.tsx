@@ -58,16 +58,15 @@ export default function ProductPagePrice({ basePrice, data }: Props) {
   }
 
   return (
-    <div className="flex flex-col w-full gap-3 items-center">
+    <div className="flex flex-col w-full gap-3 items-start">
       <p className="font-semibold text-textSecondary">
-        Cena{" "}
-        <span className="text-3xl font-semibold text-primary">
+        <span className="text-2xl font-semibold text-primary">
           {price * numberOfDays} Kč
         </span>{" "}
-        celkem za {numberOfDays} {tag}
+        celkem za {numberOfDays} {tag} {"(vč. DPH)"}
       </p>
       <button
-        className="buttonSmall self-stretch"
+        className="buttonSmall self-stretch text-start"
         onClick={() => {
           AddToCart(data);
         }}
