@@ -17,6 +17,7 @@
     "@next/env": "^15.3.2",
     "@types/react-date-range": "^1.4.10",
     "date-fns": "^4.1.0",
+    "html-react-parser": "^5.2.5",
     "next": "15.3.1",
     "react": "^19.1.0",
     "react-date-range": "^2.0.1",

@@ -62,6 +62,10 @@
     "excerpt": {
       "type": "text",
       "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
     }
   }
 }

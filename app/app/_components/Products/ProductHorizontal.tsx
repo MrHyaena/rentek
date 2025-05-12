@@ -12,6 +12,8 @@ type ProductProps = {
     description: string;
     id: number;
     price: number;
+    slug: string;
+    documentId: string;
   };
 };
 
@@ -27,12 +29,16 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
     description: string;
     id: number;
     price: number;
+    slug: string;
+    documentId: string;
   }) {
     const newItem = {
       imageUrl: item.imageUrl,
       name: item.name,
       id: item.id,
       price: item.price,
+      slug: item.slug,
+      documentId: item.documentId,
     };
     setCart([...cart, newItem]);
   }
@@ -72,7 +78,7 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
           </p>
 
           <div className="flex gap-2">
-            <a href={process.env.WEBSITE + `/produkt/${item.id}`}>
+            <a href={process.env.WEBSITE + `/produkt/${item.documentId}`}>
               <button className="bg-primary px-20 py-2 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out col-span-4">
                 Otevřít
               </button>

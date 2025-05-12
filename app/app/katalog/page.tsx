@@ -15,15 +15,6 @@ export default async function page({
 }: {
   params: Promise<{ kategorie: string }>;
 }) {
-  let item = {
-    image: "/hero.webp",
-    name: "Sekačka",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea officiis quisquam nisi eos neque expedita magnam ex? Similique, fuga explicabo? Provident ipsam reprehenderit incidunt? Quos, debitis veritatis. Animi, ad amet!",
-    link: "/",
-    price: 100,
-  };
-
   type searchHeadingProps = {
     text: string;
   };
@@ -70,6 +61,8 @@ export default async function page({
         description: item.excerpt,
         id: item.id,
         price: item.basePrice,
+        slug: item.slug,
+        documentId: item.documentId,
       });
     });
 
@@ -85,7 +78,7 @@ export default async function page({
         text="Na bezpečí vašich dat nám záleží!"
         datepickerExists={true}
       />
-      <div className="flex w-full  justify-center py-10 p-10">
+      <div className="flex w-full  justify-center p-10">
         <div className="w-full max-w-wrapper grid grid-cols-4 gap-10">
           <div className="col-span-1">
             <div className="min-h-50 border border-borderGray rounded-md p-4 flex flex-col gap-5">
