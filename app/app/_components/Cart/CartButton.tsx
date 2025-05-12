@@ -6,7 +6,7 @@ import React, { useContext } from "react";
 import { CartContext } from "../../_context/CartContext";
 
 export default function CartButton() {
-  const { items } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
 
   return (
     <>
@@ -16,7 +16,7 @@ export default function CartButton() {
           className="text-primary text-2xl"
         />
         <p className="bg-tertiary text-white font-semibold text-sm rounded-full flex items-center justify-center w-6 h-6 relative top-[-15px] left-[-5px]">
-          {items.length}
+          {cart.length}
         </p>
       </div>
     </>

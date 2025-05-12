@@ -52,7 +52,7 @@ export default async function page({
 
   async function GetItems() {
     let response = await fetch(
-      "http://localhost:1337/api/items/?populate=coverImage",
+      process.env.STRAPI + "/api/items/?populate=coverImage",
       {
         method: "GET",
         mode: "cors",
@@ -65,10 +65,10 @@ export default async function page({
 
     json.data.map((item: any) => {
       itemsArray.push({
-        image: item.coverImage.url,
+        imageUrl: item.coverImage.formats.small.url,
         name: item.name,
         description: item.excerpt,
-        id: 3,
+        id: item.id,
         price: item.basePrice,
       });
     });
@@ -208,7 +208,7 @@ export default async function page({
               <button className="buttonSmall w-full">Vyhledat</button>
             </div>
           </div>
-          <div className="col-span-3 min-h-screen grid gap-5">
+          <div className="col-span-3 flex flex-col gap-5">
             {items.map((item) => {
               return <ProductTabHorizontal item={item} />;
             })}

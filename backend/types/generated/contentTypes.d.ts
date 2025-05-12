@@ -397,7 +397,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
           preset: 'defaultHtml';
         }
       >;
-    excerpt: Schema.Attribute.String & Schema.Attribute.Required;
+    excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
     gallery: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true

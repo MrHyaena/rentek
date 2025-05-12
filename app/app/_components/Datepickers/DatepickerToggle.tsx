@@ -3,6 +3,7 @@
 import {
   faChevronLeft,
   faChevronRight,
+  faTriangleExclamation,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -634,14 +635,26 @@ export default function DatepickerToggle({ setToggle }: Props) {
                   </p>
                 </>
               )}
-              {!daterange.endIsValid && (
+              {!daterange.startIsValid && (
                 <>
-                  <p className=" font-semibold">Doplňte čas doručení</p>
+                  <div className="flex items-center justify-center gap-3">
+                    <FontAwesomeIcon
+                      icon={faTriangleExclamation}
+                      className="text-amber-500"
+                    />
+                    <p className=" font-semibold">Doplňte čas doručení</p>
+                  </div>
                 </>
               )}
               {!daterange.endIsValid && (
                 <>
-                  <p className="font-semibold">Doplňte čas odvozu</p>
+                  <div className="flex items-center justify-center gap-3">
+                    <FontAwesomeIcon
+                      icon={faTriangleExclamation}
+                      className="text-amber-500"
+                    />
+                    <p className="font-semibold">Doplňte čas odvozu</p>
+                  </div>
                 </>
               )}
             </div>

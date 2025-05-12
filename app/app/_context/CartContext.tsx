@@ -10,13 +10,13 @@ import {
 import React from "react";
 
 type CartContextType = {
-  items: number[];
-  setItems: Dispatch<SetStateAction<number[]>>;
+  cart: any[];
+  setCart: Dispatch<SetStateAction<any[]>>;
 };
 
 export const CartContext = createContext<CartContextType>({
-  items: [],
-  setItems: () => {},
+  cart: [],
+  setCart: () => {},
 });
 
 type Props = {
@@ -24,12 +24,10 @@ type Props = {
 };
 
 export function CartContextProvider({ children }: Props) {
-  const [items, setItems] = useState([
-    0, 1, 3, 2, 2, 2, 5, 5, 4, 5, 4, 5, 5, 5,
-  ]);
+  const [cart, setCart] = useState<any[]>([]);
 
   return (
-    <CartContext.Provider value={{ items, setItems }}>
+    <CartContext.Provider value={{ cart, setCart }}>
       {children}
     </CartContext.Provider>
   );
