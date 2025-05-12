@@ -24,8 +24,9 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
   function AddToCart(item: {
     imageUrl: string;
     name: string;
+    description: string;
     id: number;
-    price: string;
+    price: number;
   }) {
     const newItem = {
       imageUrl: item.imageUrl,
