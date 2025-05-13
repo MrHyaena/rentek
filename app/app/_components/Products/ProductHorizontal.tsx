@@ -16,11 +16,11 @@ type ProductProps = {
     price: number;
     slug: string;
     documentId: string;
+    excerpt: string;
   };
 };
 
 export default function ProductTabHorizontal({ item }: ProductProps) {
-  const shortenedDescription = item.description.substring(0, 200) + "...";
   const { cart, setCart } = useContext(CartContext);
   const { daterange, setDaterange } = useContext(DaterangeContext);
 
@@ -65,7 +65,7 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
   }
 
   return (
-    <div className="h-[250px] grid grid-cols-[250px_1fr] shrink-0">
+    <div className="grid grid-cols-[250px_1fr] shrink-0">
       <div className="rounded-l-xl overflow-hidden">
         {" "}
         <Image
@@ -79,14 +79,14 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
       <div className="border-y border-r rounded-r-xl p-5 flex flex-col gap-5 border-borderGray justify-between">
         <div>
           <div className="flex items-center gap-4 mb-2">
-            <p className="text-2xl font-semibold text-textPrimary">
+            <p className="text-xl font-semibold text-textPrimary">
               {item.name}
             </p>
             <p className="bg-primaryHover text-white px-2 py-1 rounded-md font-semibold text-sm">
               Dostupné
             </p>
           </div>
-          <p className="text-textSecondary">{shortenedDescription}</p>
+          <p className="text-textSecondary">{item.excerpt}</p>
         </div>
         <div className="flex flex-col items-stretch gap-2">
           <p className="text-base font-semibold text-textSecondary">

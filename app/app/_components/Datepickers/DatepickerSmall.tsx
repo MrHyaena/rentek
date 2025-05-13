@@ -28,7 +28,7 @@ export default function DatepickerSmall() {
       <div>
         {" "}
         <div
-          className="bg-primary text-white rounded-md px-5 py-3 flex justify-between items-center cursor-pointer"
+          className="bg-primary text-white rounded-md px-3 py-3 flex justify-between items-center cursor-pointer"
           onClick={() => {
             setToggle(true);
           }}

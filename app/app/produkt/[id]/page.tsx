@@ -1,13 +1,12 @@
 import Image from "next/image";
 import React from "react";
 import parse from "html-react-parser";
-import ProductPagePrice from "@/app/_components/prices/ProductPagePrice";
-import DatepickerBig from "@/app/_components/Datepickers/DatepickerBig";
+import ProductPagePrice from "@/app/_components/Prices/ProductPagePrice";
 import DatepickerSmall from "@/app/_components/Datepickers/DatepickerSmall";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGasPump, faSeedling } from "@fortawesome/free-solid-svg-icons";
-import { FaSeedling } from "react-icons/fa";
-import { GiGrass, GiHighGrass } from "react-icons/gi";
+
+import { FaChevronLeft, FaSeedling } from "react-icons/fa";
+
+import ProductSpecsRental from "@/app/_components/Products/ProductSpecsRental";
 
 type Props = {};
 
@@ -39,11 +38,13 @@ export default async function Page({
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start p-10 gap-5">
-      <div className="w-full text-start max-w-wrapper flex items-end gap-3 text-sm">
-        <p>Katalog</p>
-        <p>-</p>
-        <p>{data.name}</p>
-      </div>
+      <a
+        href="/katalog"
+        className="w-full text-start max-w-wrapper flex items-center gap-3 text-sm"
+      >
+        <FaChevronLeft />
+        <p className="font-semibold">Zpět do katalogu</p>
+      </a>
 
       <div className=" w-full  max-w-wrapper grid grid-cols-5 gap-10">
         <div className="col-span-3 flex flex-col gap-5">
@@ -69,64 +70,7 @@ export default async function Page({
               })}
             </div>
           </div>
-
-          <div className="h-[300px] p-5 grid grid-cols-3">
-            <div>
-              <h5 className="mb-3">Určení</h5>
-              <div className="flex flex-wrap gap-10">
-                {data.uses.map((item: { name: string; [key: string]: any }) => {
-                  if (item.name == "Vysoká tráva") {
-                    return (
-                      <div className="flex items-center gap-2">
-                        <GiHighGrass className="text-xl text-primary" />
-                        <p className="">{item.name}</p>
-                      </div>
-                    );
-                  }
-                })}
-              </div>
-            </div>
-            <div>
-              <h5 className="mb-3">Specifikace</h5>
-              <div className="flex flex-wrap gap-10">
-                {data.specifications.map(
-                  (item: { name: string; [key: string]: any }) => {
-                    if (item.name == "Spalovací motor") {
-                      return (
-                        <div className="flex items-center gap-2">
-                          <FontAwesomeIcon
-                            icon={faGasPump}
-                            className="text-amber-600"
-                          />
-                          <p className="">{item.name}</p>
-                        </div>
-                      );
-                    }
-                  }
-                )}
-              </div>
-            </div>
-            <div>
-              <h5 className="mb-3">Příslušenství</h5>
-              <div className="flex flex-wrap gap-10">
-                {data.specifications.map(
-                  (item: { tagName: string; [key: string]: any }) => {
-                    if (item.tagName == "Spalovací motor") {
-                      return (
-                        <div className="flex items-center gap-2">
-                          <FontAwesomeIcon
-                            icon={faGasPump}
-                            className="text-amber-600"
-                          />
-                          <p className="">{item.tagName}</p>
-                        </div>
-                      );
-                    }
-                  }
-                )}
-              </div>
-            </div>
-          </div>
+          <ProductSpecsRental data={data} />
         </div>{" "}
         <div className="h-full  col-span-2 flex flex-col gap-5">
           <h4 className="text-textPrimary">{data.name}</h4>
@@ -148,19 +92,19 @@ export default async function Page({
               </div>
               <div className="grid grid-cols-2 justify-items-center p-2 border-y border-borderGray">
                 <p>1 den</p>
-                <p>0 %</p>
+                <p className="font-semibold">0 %</p>
               </div>
               <div className="grid grid-cols-2 justify-items-center p-2">
                 <p>2 - 7 dní</p>
-                <p>10 %</p>
+                <p className="font-semibold">10 %</p>
               </div>
               <div className="grid grid-cols-2 justify-items-center p-2 border-y border-borderGray">
                 <p>8 - 21 dní</p>
-                <p>20 %</p>
+                <p className="font-semibold">20 %</p>
               </div>
               <div className="grid grid-cols-2 justify-items-center p-2">
                 <p>22 a více dní</p>
-                <p>25 %</p>
+                <p className="font-semibold">25 %</p>
               </div>
             </div>
             <p className="text-sm text-start mt-3">

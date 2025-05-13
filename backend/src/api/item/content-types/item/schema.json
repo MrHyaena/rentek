@@ -19,7 +19,7 @@
       "type": "biginteger",
       "required": true
     },
-    "type": {
+    "pricingType": {
       "type": "enumeration",
       "enum": [
         "rental",
@@ -54,21 +54,20 @@
     "description": {
       "type": "customField",
       "options": {
-        "preset": "defaultHtml"
+        "preset": "defaultHtml",
+        "maxLengthWords": null
       },
       "customField": "plugin::ckeditor5.CKEditor",
       "required": true
     },
     "excerpt": {
       "type": "text",
-      "required": true
+      "required": true,
+      "maxLength": 200
     },
     "slug": {
       "type": "uid",
       "targetField": "name"
-    },
-    "info": {
-      "type": "blocks"
     },
     "uses": {
       "type": "relation",
@@ -80,6 +79,39 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::specification.specification",
+      "mappedBy": "items"
+    },
+    "productType": {
+      "type": "enumeration",
+      "enum": [
+        "machine",
+        "manual",
+        "item"
+      ]
+    },
+    "accessories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::accessory.accessory",
+      "mappedBy": "items"
+    },
+    "deposit": {
+      "type": "biginteger",
+      "required": true
+    },
+    "additionalInformation": {
+      "type": "text"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "mappedBy": "items"
+    },
+    "subcategories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::subcategory.subcategory",
       "mappedBy": "items"
     }
   }

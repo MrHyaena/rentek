@@ -63,6 +63,7 @@ export default async function page({
         price: item.basePrice,
         slug: item.slug,
         documentId: item.documentId,
+        excerpt: item.excerpt,
       });
     });
 
@@ -160,7 +161,14 @@ export default async function page({
                 </div>
                 <div className="flex gap-2 items-center">
                   <input type="checkbox" />
-                  <p>Spalovací</p>
+                  <p>Benzínový</p>
+                </div>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="checkbox"
+                    className="appearance-auto border-2 w-3 h-3"
+                  />
+                  <p>Manuální</p>
                 </div>
               </div>
               <div>
