@@ -18,45 +18,57 @@ type Props = {
 export default function ProductSpecsRental({ data }: Props) {
   return (
     <div className="flex flex-col gap-10 p-5">
-      <div className=" grid grid-cols-3">
-        <div className="flex flex-col items-start gap-2">
-          <div className="font-semibold flex items-center gap-2">
-            <PiFlowerTulipBold className="text-zinc-800 text-2xl" />{" "}
-            <p>Určení:</p>
-          </div>
+      <div className="grid grid-cols-3">
+        {data.uses[0] != null && (
+          <>
+            <div className="flex flex-col items-start gap-2">
+              <div className="font-semibold flex items-center gap-2">
+                <PiFlowerTulipBold className="text-zinc-800 text-2xl" />{" "}
+                <p>Určení:</p>
+              </div>
+              <div className="flex flex-col items-start gap-2">
+                {data.uses.map((item: { name: string; [key: string]: any }) => {
+                  return <p className="">{item.name}</p>;
+                })}
+              </div>{" "}
+            </div>
+          </>
+        )}
+        {data.specifications[0] != null && (
           <div className="flex flex-col items-start gap-2">
-            {data.uses.map((item: { name: string; [key: string]: any }) => {
-              return <p className="">{item.name}</p>;
-            })}
+            <div className="font-semibold flex items-center gap-2">
+              <FaGears className="text-zinc-800 text-2xl" /> <p>Specifikace:</p>
+            </div>
+            <div className="flex flex-col items-start gap-2">
+              {data.specifications.map(
+                (item: { name: string; [key: string]: any }) => {
+                  return <p className="">{item.name}</p>;
+                }
+              )}
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col items-start gap-2">
-          <div className="font-semibold flex items-center gap-2">
-            <FaGears className="text-zinc-800 text-2xl" /> <p>Specifikace:</p>
-          </div>
+        )}
+        {data.accessories[0] != null && (
           <div className="flex flex-col items-start gap-2">
-            {data.specifications.map(
-              (item: { name: string; [key: string]: any }) => {
-                return <p className="">{item.name}</p>;
-              }
-            )}
+            <div className="font-semibold flex items-center gap-2">
+              <TbLayoutGridAdd className="text-zinc-800 text-2xl" />{" "}
+              <p>Společně s technikou:</p>
+            </div>
+            <div className="flex flex-col items-start gap-2">
+              {data.accessories.map(
+                (item: { name: string; [key: string]: any }) => {
+                  return <p className="">{item.name}</p>;
+                }
+              )}
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col items-start gap-2">
-          <div className="font-semibold flex items-center gap-2">
-            <TbLayoutGridAdd className="text-zinc-800 text-2xl" />{" "}
-            <p>Příslušenství:</p>
-          </div>
-          <div className="flex flex-col items-start gap-2">
-            {data.accessories.map(
-              (item: { name: string; [key: string]: any }) => {
-                return <p className="">{item.name}</p>;
-              }
-            )}
-          </div>
-        </div>
+        )}
       </div>
-      <div className="w-full h-[1px] bg-borderGray"></div>
+      {data.accessories[0] != null &&
+        data.specifications[0] != null &&
+        data.uses[0] != null && (
+          <div className="w-full h-[1px] bg-borderGray"></div>
+        )}{" "}
       <div className="grid grid-cols-[1fr_2fr] gap-2">
         <div className="font-semibold  flex items-center gap-2">
           <FaHandshakeSimple className="text-zinc-800 text-2xl" />
@@ -71,15 +83,19 @@ export default function ProductSpecsRental({ data }: Props) {
           výši.
         </p>
       </div>
-      <div className="w-full h-[1px] bg-borderGray"></div>
-
-      <div className="grid grid-cols-[1fr_2fr] gap-2">
-        <div className="font-semibold  flex items-center gap-2">
-          <FaInfo className="text-zinc-800 text-2xl" />
-          <p>Doplňující informace:</p>
-        </div>{" "}
-        <p>{data.additionalInformation}</p>
-      </div>
+      {data.additionalInformation != null && (
+        <>
+          {" "}
+          <div className="w-full h-[1px] bg-borderGray"></div>
+          <div className="grid grid-cols-[1fr_2fr] gap-2">
+            <div className="font-semibold  flex items-center gap-2">
+              <FaInfo className="text-zinc-800 text-2xl" />
+              <p>Doplňující informace:</p>
+            </div>{" "}
+            <p>{data.additionalInformation}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { differenceInDays } from "date-fns";
+import ProductPrice from "../Prices/ProductPagePrice";
 type ProductProps = {
   item: {
     imageUrl: string;
@@ -17,6 +18,7 @@ type ProductProps = {
     slug: string;
     documentId: string;
     excerpt: string;
+    [key: string]: any;
   };
 };
 
@@ -35,24 +37,9 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
     }
   }, [daterange]);
 
-  function AddToCart(item: {
-    imageUrl: string;
-    name: string;
-    description: string;
-    id: number;
-    price: number;
-    slug: string;
-    documentId: string;
-  }) {
-    const newItem = {
-      imageUrl: item.imageUrl,
-      name: item.name,
-      id: item.id,
-      price: item.price,
-      slug: item.slug,
-      documentId: item.documentId,
-    };
-    setCart([...cart, newItem]);
+  function AddToCart(item: {}) {
+    setCart([...cart, item]);
+    localStorage.setItem("cart", JSON.stringify([...cart, item]));
   }
 
   let tag;
@@ -89,12 +76,7 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
           <p className="text-textSecondary">{item.excerpt}</p>
         </div>
         <div className="flex flex-col items-stretch gap-2">
-          <p className="text-base font-semibold text-textSecondary">
-            <span className="text-primary font-semibold text-xl">
-              {price * numberOfDays} Kč
-            </span>{" "}
-            celkem za {numberOfDays} {tag} {"(vč. DPH)"}
-          </p>
+          <ProductPrice data={item} />
 
           <div className="flex gap-2">
             <a href={process.env.WEBSITE + `/produkt/${item.documentId}`}>

@@ -6,40 +6,25 @@ import { differenceInDays } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
 
 type Props = {
-  basePrice: string;
   data: any;
 };
 
-export default function ProductPagePrice({ basePrice, data }: Props) {
+export default function ProductPrice({ data }: Props) {
   const { daterange } = useContext(DaterangeContext);
   const [numberOfDays, setNumberOfDays] = useState<number>(1);
 
-  const { cart, setCart } = useContext(CartContext);
+  const price = Number(data.basePrice);
+  let saleIndex: number = 0;
 
-  const days: number = 32;
-
-  function AddToCart(item: {
-    imageUrl: string;
-    name: string;
-    description: string;
-    id: number;
-    price: number;
-    slug: string;
-    documentId: string;
-    [key: string]: any;
-  }) {
-    const newItem = {
-      imageUrl: item.imageUrl,
-      name: item.name,
-      id: item.id,
-      price: item.price,
-      slug: item.slug,
-      documentId: item.documentId,
-    };
-    setCart([...cart, newItem]);
+  if (numberOfDays == 1) {
+    saleIndex = 0;
+  } else if (numberOfDays <= 7) {
+    saleIndex = 0.9;
+  } else if (numberOfDays <= 21) {
+    saleIndex = 0.85;
+  } else if (numberOfDays > 21) {
+    saleIndex = 0.8;
   }
-
-  const price = Number(basePrice);
 
   useEffect(() => {
     if (daterange.endIsValid && daterange.startIsValid) {
@@ -48,7 +33,7 @@ export default function ProductPagePrice({ basePrice, data }: Props) {
     }
   }, [daterange]);
 
-  let tag;
+  let tag: string = "den";
   if (numberOfDays == 1) {
     tag = "den";
   } else if (numberOfDays <= 4) {
@@ -61,18 +46,10 @@ export default function ProductPagePrice({ basePrice, data }: Props) {
     <div className="flex flex-col w-full gap-3 items-start">
       <p className="font-semibold text-textSecondary">
         <span className="text-2xl font-semibold text-primary">
-          {price * numberOfDays} Kč
+          {price * numberOfDays * saleIndex} Kč
         </span>{" "}
         celkem za {numberOfDays} {tag} {"(vč. DPH)"}
       </p>
-      <button
-        className="buttonSmall self-stretch text-start"
-        onClick={() => {
-          AddToCart(data);
-        }}
-      >
-        Přidat do košíku
-      </button>
     </div>
   );
 }

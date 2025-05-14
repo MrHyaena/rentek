@@ -7,6 +7,8 @@ import DatepickerSmall from "@/app/_components/Datepickers/DatepickerSmall";
 import { FaChevronLeft, FaSeedling } from "react-icons/fa";
 
 import ProductSpecsRental from "@/app/_components/Products/ProductSpecsRental";
+import ProductPrice from "@/app/_components/Prices/ProductPagePrice";
+import AddToCartButton from "@/app/_components/Cart/AddToCartButton";
 
 type Props = {};
 
@@ -48,28 +50,40 @@ export default async function Page({
 
       <div className=" w-full  max-w-wrapper grid grid-cols-5 gap-10">
         <div className="col-span-3 flex flex-col gap-5">
-          <div className="grid grid-cols-5 gap-2">
-            <Image
-              width={990}
-              height={990}
-              src={`${process.env.STRAPI}${data.coverImage.url}`}
-              alt={data.name + "-hero"}
-              className="w-full col-span-4 object-cover rounded-lg h-full"
-            />
-            <div className="grid grid-rows-4 w-full max-h-[600px] gap-2">
-              {data.gallery.map((item: any) => {
-                return (
-                  <Image
-                    width={500}
-                    height={500}
-                    src={`${process.env.STRAPI}${item.url}`}
-                    alt={data.name + "-hero"}
-                    className="w-full object-cover rounded-lg h-full"
-                  />
-                );
-              })}
+          {data.gallery != null ? (
+            <div className="grid grid-cols-5 gap-2">
+              <Image
+                width={990}
+                height={990}
+                src={`${process.env.STRAPI}${data.coverImage.url}`}
+                alt={data.name + "-hero"}
+                className="w-full col-span-4 object-cover rounded-lg h-full"
+              />
+              <div className="grid grid-rows-4 w-full max-h-[600px] gap-2">
+                {data.gallery.map((item: any) => {
+                  return (
+                    <Image
+                      width={500}
+                      height={500}
+                      src={`${process.env.STRAPI}${item.url}`}
+                      alt={data.name + "-hero"}
+                      className="w-full object-cover rounded-lg h-full"
+                    />
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="">
+              <Image
+                width={990}
+                height={990}
+                src={`${process.env.STRAPI}${data.coverImage.url}`}
+                alt={data.name + "-hero"}
+                className="w-full col-span-4 object-cover rounded-lg h-full"
+              />
+            </div>
+          )}
           <ProductSpecsRental data={data} />
         </div>{" "}
         <div className="h-full  col-span-2 flex flex-col gap-5">
@@ -78,7 +92,8 @@ export default async function Page({
             {parse(data.description)}
           </div>
           <div className="text-center flex flex-col gap-2 border p-5 rounded-lg border-borderGray">
-            <ProductPagePrice basePrice={data.basePrice} data={data} />
+            <ProductPrice data={data} />
+            <AddToCartButton data={data} />
             <DatepickerSmall />
           </div>
 

@@ -5,6 +5,7 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useEffect,
   useState,
 } from "react";
 import React from "react";
@@ -25,6 +26,14 @@ type Props = {
 
 export function CartContextProvider({ children }: Props) {
   const [cart, setCart] = useState<any[]>([]);
+
+  useEffect(() => {
+    const data = localStorage.getItem("cart");
+
+    if (data != null) {
+      setCart(JSON.parse(data));
+    }
+  }, []);
 
   return (
     <CartContext.Provider value={{ cart, setCart }}>

@@ -10,7 +10,7 @@ export default function CartButton() {
 
   return (
     <>
-      <div className="text-xl relative flex items-center">
+      <a href="/kosik" className="text-xl relative flex items-center">
         <FontAwesomeIcon
           icon={faCartShopping}
           className="text-primary text-2xl"
@@ -18,7 +18,7 @@ export default function CartButton() {
         <p className="bg-tertiary text-white font-semibold text-sm rounded-full flex items-center justify-center w-6 h-6 relative top-[-15px] left-[-5px]">
           {cart.length}
         </p>
-      </div>
+      </a>
     </>
   );
 }

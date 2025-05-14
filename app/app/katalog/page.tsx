@@ -43,7 +43,8 @@ export default async function page({
 
   async function GetItems() {
     let response = await fetch(
-      process.env.STRAPI + "/api/items/?populate=coverImage",
+      process.env.STRAPI +
+        "/api/items/?populate=*&filters[pricingType][$eq]=rental",
       {
         method: "GET",
         mode: "cors",
@@ -56,6 +57,7 @@ export default async function page({
 
     json.data.map((item: any) => {
       itemsArray.push({
+        ...item,
         imageUrl: item.coverImage.formats.small.url,
         name: item.name,
         description: item.excerpt,
@@ -75,8 +77,8 @@ export default async function page({
     <>
       <PageHeading
         image="/hero.webp"
-        heading="Podmínky ochrany osobních údajů"
-        text="Na bezpečí vašich dat nám záleží!"
+        heading="Katalog techniky"
+        text="Nejprve vyberte rozmezí datumů, ve kterých si chcete techniku vypůjčit. Ceny a dostupnost se upraví automaticky."
         datepickerExists={true}
       />
       <div className="flex w-full  justify-center p-10">
