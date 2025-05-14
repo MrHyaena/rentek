@@ -283,18 +283,18 @@ export default function Catalogue({ items }: Props) {
                     type="checkbox"
                     className="appearance-auto border-2 w-3 h-3"
                   />
-                  <p>Elektrický</p>
+                  <p>Elektrický motor</p>
                 </div>
                 <div className="flex gap-2 items-center">
                   <input type="checkbox" />
-                  <p>Benzínový</p>
+                  <p>Benzínový motor </p>
                 </div>
                 <div className="flex gap-2 items-center">
                   <input
                     type="checkbox"
                     className="appearance-auto border-2 w-3 h-3"
                   />
-                  <p>Manuální</p>
+                  <p>Manuální nářadí</p>
                 </div>
               </div>
               <div>
@@ -318,18 +318,18 @@ export default function Catalogue({ items }: Props) {
                 </div>
               </div>
               <div>
-                <SearchHeading text="Výkon" />
+                <SearchHeading text="Určení" />
 
                 <div className="flex gap-2 items-center">
                   <input
                     type="checkbox"
                     className="appearance-auto border-2 w-3 h-3"
                   />
-                  <p>Standardní</p>
+                  <p>Standardní podmínky</p>
                 </div>
                 <div className="flex gap-2 items-center">
                   <input type="checkbox" />
-                  <p>Vysoký</p>
+                  <p>Těžké podmínky</p>
                 </div>
               </div>
               <button type="submit" className="buttonSmall w-full">
