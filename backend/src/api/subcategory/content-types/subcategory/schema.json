@@ -18,6 +18,12 @@
       "relation": "manyToMany",
       "target": "api::item.item",
       "inversedBy": "subcategories"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "subcategories"
     }
   }
 }

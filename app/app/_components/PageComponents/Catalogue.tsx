@@ -166,7 +166,7 @@ export default function Catalogue({ items }: Props) {
                         className="text-primary"
                       />
                       <SearchCategory
-                        value="ffff"
+                        value="p61jw52ag3pzulw0qzcvdd8s"
                         text="Úprava trávníku"
                         categoryType="categories"
                       />
@@ -178,12 +178,12 @@ export default function Catalogue({ items }: Props) {
                         text="Pojízdné sekačky"
                       />
                       <SearchSubcategory
-                        value="ffff"
+                        value="kubile3os5ohdznhd6mwzglp"
                         categoryType="subcategories"
                         text="Křovinořezy"
                       />
                       <SearchSubcategory
-                        value="ffff"
+                        value="voar2ydhmjmsv67qnwexrtfq"
                         categoryType="subcategories"
                         text="Vertikulátory a kultivátory"
                       />
@@ -198,19 +198,19 @@ export default function Catalogue({ items }: Props) {
                     <label className="flex gap-2 items-center">
                       <FontAwesomeIcon icon={faLeaf} className="text-primary" />
                       <SearchCategory
-                        value="ffff"
+                        value="ba8e198g65fe64l1obbze549"
                         text="Úprava keřů"
                         categoryType="categories"
                       />{" "}
                     </label>
                     <div className="pl-5 ml-[6px] border-l border-borderGray">
                       <SearchSubcategory
-                        value="ffff"
+                        value="aiec68ul2uy4lt2btz2lv2wb"
                         categoryType="subcategories"
                         text="Nůžky na živý plot"
                       />
                       <SearchSubcategory
-                        value="ffff"
+                        value="bslnpe1894ajoyrgsi2p1vpz"
                         categoryType="subcategories"
                         text="Příslušenství a nářadí pro úpravu keřů"
                       />
@@ -220,29 +220,29 @@ export default function Catalogue({ items }: Props) {
                     <label className="flex gap-2 items-center">
                       <FontAwesomeIcon icon={faTree} className="text-primary" />
                       <SearchCategory
-                        value="ffff"
+                        value="xo1ctmhlqtw16bp2tq67dah0"
                         text="Úprava stromů a dřeva"
                         categoryType="categories"
                       />{" "}
                     </label>
                     <div className="pl-5 ml-[6px] border-l border-borderGray">
                       <SearchSubcategory
-                        value="ffff"
+                        value="qkhgxzq8mlqiaqhndwvq63eh"
                         categoryType="subcategories"
                         text="Řetěžové a vyvětvovací pily"
                       />
                       <SearchSubcategory
-                        value="ffff"
+                        value="rl1xd2g2pbgk9solkr0k1aeo"
                         categoryType="subcategories"
                         text="Nůžky na větve"
                       />
                       <SearchSubcategory
-                        value="ffff"
+                        value="uy0p67uov9trc6z29vefr32e"
                         categoryType="subcategories"
                         text="Štípačky na dřevo"
                       />
                       <SearchSubcategory
-                        value="ffff"
+                        value="cx7kuahbibil6osjr0wyvccf"
                         categoryType="subcategories"
                         text="Příslušenství a nářadí pro úpravu stromů"
                       />
@@ -255,19 +255,19 @@ export default function Catalogue({ items }: Props) {
                         className="text-primary"
                       />
                       <SearchCategory
-                        value="ffff"
+                        value="urxyvl380onqrzd4mv57azk6"
                         text="Manuální nářadí a příslušenství"
                         categoryType="categories"
                       />
                     </label>
                     <div className="pl-5 ml-[6px] border-l border-borderGray">
                       <SearchSubcategory
-                        value="ffff"
+                        value="zsn9d5bbczpp7w34ij85xtzl"
                         categoryType="subcategories"
                         text="Nůžky, pily, mačety a jiné"
                       />
                       <SearchSubcategory
-                        value="ffff"
+                        value="k4h6f38xlvuxc3lh59j57vw0"
                         categoryType="subcategories"
                         text="Kolečka, vědra a krabice"
                       />
@@ -332,7 +332,9 @@ export default function Catalogue({ items }: Props) {
                   <p>Vysoký</p>
                 </div>
               </div>
-              <button className="buttonSmall w-full">Vyhledat</button>
+              <button type="submit" className="buttonSmall w-full">
+                Vyhledat
+              </button>
             </form>
           </div>
           <div className="col-span-3 flex flex-col gap-5">
