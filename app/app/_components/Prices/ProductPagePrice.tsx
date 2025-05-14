@@ -45,7 +45,7 @@ export default function ProductPrice({ data }: Props) {
   return (
     <div className="flex flex-col w-full gap-3 items-start">
       <p className="font-semibold text-textSecondary">
-        <span className="text-2xl font-semibold text-primary">
+        <span className="text-xl font-semibold text-primary">
           {price * numberOfDays * saleIndex} Kč
         </span>{" "}
         celkem za {numberOfDays} {tag} {"(vč. DPH)"}

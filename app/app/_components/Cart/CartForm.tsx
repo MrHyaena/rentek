@@ -8,6 +8,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { addToCartFunction, removeFromCartFunction } from "./cartFunction";
 import Link from "next/link";
+import DatepickerBig from "../Datepickers/DatepickerBig";
 
 type Props = {};
 
@@ -115,59 +116,15 @@ export default function CartForm({}: Props) {
               src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}
               width={200}
               height={300}
-              alt={"thumbnail-" + data.name}
+              alt={"thumbnail-" + item.name}
               className="w-20 h-20 object-cover object-center rounded-md"
             />
-            <p className="text-lg font-semibold">{item.name}</p>
-          </div>
-          <div className="w-20 h-20 border border-borderGray rounded-md grid grid-cols-[2fr_1fr] items-center justify-items-center p-2 justify-self-end">
-            <p className="text-lg">{data.length}</p>
-            <div className="self-stretch flex flex-col justify-evenly">
-              <FaChevronUp
-                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl"
-                onClick={() => {
-                  addToCartFunction(cart, setCart, item);
-                }}
-              />
-              <FaChevronDown
-                onClick={() => {
-                  removeFromCartFunction(cart, setCart, item);
-                }}
-                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl"
-              />
-            </div>
-          </div>
-          <div className="flex items-center gap-5 justify-self-end">
-            <p className="font-semibold text-textSecondary">
-              <span className="text-lg font-semibold text-primary">
-                {groupPrice} Kč
-              </span>{" "}
-            </p>
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  function AdditionsTab(group: any) {
-    let data = group.group;
-    let item = data[0];
-    const price = Number(item.basePrice);
-
-    let groupPrice = data.length * price * saleIndex * numberOfDays;
-
-    return (
-      <>
-        <div className="grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-b first:border-t border-borderGray py-3 justify-between">
-          <div className="flex items-center gap-5">
-            <Image
-              src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}
-              width={200}
-              height={300}
-              alt={"thumbnail-" + data.name}
-              className="w-20 h-20 object-cover object-center rounded-md"
-            />
-            <p className="text-lg font-semibold">{item.name}</p>
+            <Link
+              href={`/produkt/${item.documentId}`}
+              className="text-lg font-semibold"
+            >
+              {item.name}
+            </Link>
           </div>
           <div className="w-20 h-20 border border-borderGray rounded-md grid grid-cols-[2fr_1fr] items-center justify-items-center p-2 justify-self-end">
             <p className="text-lg">{data.length}</p>
@@ -297,14 +254,16 @@ export default function CartForm({}: Props) {
       <div className="mt-10 w-full max-w-wrapper">
         <h4 className="mb-5">Objednávkový formulář</h4>
         <form className="border border-borderGray rounded-lg p-10 grid grid-cols-2 gap-10">
-          <div>
-            <h5 className="mb-3">Předávací informace</h5>
-            <p className="border-b pb-3 border-borderGray mb-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-              assumenda nemo laudantium? Id similique exercitationem odit
-              dolores voluptatum delectus, eos provident quo, saepe ex ad
-              adipisci officiis, cum commodi sit?
-            </p>
+          <div className="flex flex-col gap-5">
+            <div>
+              <h5 className="mb-3">Předávací informace</h5>
+              <p className="border-b pb-3 border-borderGray mb-5">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Voluptas assumenda nemo laudantium? Id similique exercitationem
+                odit dolores voluptatum delectus, eos provident quo, saepe ex ad
+                adipisci officiis, cum commodi sit?
+              </p>
+            </div>
             <div className="grid grid-cols-2 gap-y-3 gap-x-3">
               <div className="flex flex-col">
                 <label className="">Ulice</label>

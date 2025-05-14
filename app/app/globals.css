@@ -55,5 +55,5 @@ h6 {
 }
 
 label {
-  @apply font-serif;
+  @apply font-stretch-extra-condensed;
 }

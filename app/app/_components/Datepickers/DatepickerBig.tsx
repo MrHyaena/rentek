@@ -13,6 +13,14 @@ export default function DatepickerBig() {
 
   const { daterange } = useContext(DaterangeContext);
 
+  function isValid() {
+    if (daterange.startIsValid == true && daterange.endIsValid == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return (
     <>
       {toggle && <DatepickerToggle setToggle={setToggle} />}
@@ -23,20 +31,7 @@ export default function DatepickerBig() {
         }}
       >
         <div className="flex gap-3 items-center w-full">
-          {!daterange.startIsValid && !daterange.endIsValid ? (
-            <>
-              <FontAwesomeIcon icon={faCalendar} className="text-2xl" />
-              <div className="text-lg">
-                <p className="font-semibold">
-                  Vyberte časové rozmezí pro vypůjčení
-                </p>
-                <p>
-                  Po nastavení datumu se přizpůsobí ceny a dostupnost zboží na
-                  celém webu
-                </p>
-              </div>
-            </>
-          ) : (
+          {isValid() ? (
             <>
               <div className="text-lg w-full grid grid-cols-2 items-center gap-10">
                 <div className="">
@@ -53,6 +48,19 @@ export default function DatepickerBig() {
                     {format(daterange.endDate, "HH:mm")}
                   </p>
                 </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <FontAwesomeIcon icon={faCalendar} className="text-2xl" />
+              <div className="text-lg">
+                <p className="font-semibold">
+                  Vyberte časové rozmezí pro vypůjčení
+                </p>
+                <p>
+                  Po nastavení datumu se přizpůsobí ceny a dostupnost zboží na
+                  celém webu
+                </p>
               </div>
             </>
           )}

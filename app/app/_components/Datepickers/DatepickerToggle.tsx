@@ -137,7 +137,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
       setDaterange({
         startDate: newDate,
-        endDate: new Date(),
+        endDate: daterange.endDate,
         startIsValid: false,
         endIsValid: false,
       });

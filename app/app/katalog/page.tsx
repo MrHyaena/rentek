@@ -1,5 +1,5 @@
 import PageHeading from "@/app/_components/Headings/PageHeading";
-import React from "react";
+import React, { useState } from "react";
 import ProductTab from "../_components/Products/ProductTab";
 import ProductTabHorizontal from "../_components/Products/ProductHorizontal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
