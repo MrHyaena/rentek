@@ -67,7 +67,8 @@
     },
     "slug": {
       "type": "uid",
-      "targetField": "name"
+      "targetField": "name",
+      "required": true
     },
     "uses": {
       "type": "relation",
@@ -87,7 +88,8 @@
         "machine",
         "manual",
         "item"
-      ]
+      ],
+      "required": true
     },
     "accessories": {
       "type": "relation",
@@ -113,6 +115,10 @@
       "relation": "manyToMany",
       "target": "api::subcategory.subcategory",
       "mappedBy": "items"
+    },
+    "amount": {
+      "type": "biginteger",
+      "required": true
     }
   }
 }

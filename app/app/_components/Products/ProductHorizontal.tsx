@@ -8,6 +8,8 @@ import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { differenceInDays } from "date-fns";
 import ProductPrice from "../Prices/ProductPagePrice";
+import { addToCartFunction } from "../Cart/cartFunction";
+import Link from "next/link";
 type ProductProps = {
   item: {
     imageUrl: string;
@@ -36,11 +38,6 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
       setNumberOfDays(days + 1);
     }
   }, [daterange]);
-
-  function AddToCart(item: {}) {
-    setCart([...cart, item]);
-    localStorage.setItem("cart", JSON.stringify([...cart, item]));
-  }
 
   let tag;
   if (numberOfDays == 1) {
@@ -79,14 +76,14 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
           <ProductPrice data={item} />
 
           <div className="flex gap-2">
-            <a href={process.env.WEBSITE + `/produkt/${item.documentId}`}>
+            <Link href={process.env.WEBSITE + `/produkt/${item.documentId}`}>
               <button className="bg-primary px-20 py-2 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out col-span-4">
                 Otevřít
               </button>
-            </a>
+            </Link>
             <button
               onClick={() => {
-                AddToCart(item);
+                addToCartFunction(cart, setCart, item);
               }}
               className="col-span-1 px-10 border rounded-lg flex items-center justify-center border-zinc-300 text-textPrimary ease-in-out transition-all hover:bg-zinc-100 cursor-pointer"
             >

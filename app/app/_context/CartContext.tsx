@@ -11,7 +11,7 @@ import {
 import React from "react";
 
 type CartContextType = {
-  cart: any[];
+  cart: { [key: string]: any }[];
   setCart: Dispatch<SetStateAction<any[]>>;
 };
 
@@ -24,8 +24,10 @@ type Props = {
   children?: ReactNode;
 };
 
+type StateType = { [key: string]: any }[];
+
 export function CartContextProvider({ children }: Props) {
-  const [cart, setCart] = useState<any[]>([]);
+  const [cart, setCart] = useState<StateType>([]);
 
   useEffect(() => {
     const data = localStorage.getItem("cart");

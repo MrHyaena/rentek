@@ -10,6 +10,7 @@ import Image from "next/image";
 import React from "react";
 import CartButton from "../Cart/CartButton";
 import { CartContextProvider } from "../../_context/CartContext";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -51,13 +52,13 @@ export default function Header() {
                 height={300}
                 className="h-17 w-auto"
               />
-              <a
+              <Link
                 href="/katalog"
                 className="buttonSmall uppercase flex items-center gap-4"
               >
                 <FontAwesomeIcon icon={faBars} className="text-2xl" />
                 Katalog
-              </a>
+              </Link>
             </div>
             <div className="p-2 border border-borderGray rounded-md">
               <input type="text" className="w-[400px] mr-5" />
