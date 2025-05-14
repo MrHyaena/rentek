@@ -53,8 +53,8 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
       <div className="rounded-l-xl overflow-hidden">
         {" "}
         <Image
-          src={process.env.STRAPI + item.imageUrl}
-          alt={"thumbnail-" + item.imageUrl}
+          src={process.env.STRAPI + item.coverImage.formats.small.url}
+          alt={"thumbnail-" + item.coverImage.formats.small.url}
           height={500}
           width={500}
           className="h-full object-cover "

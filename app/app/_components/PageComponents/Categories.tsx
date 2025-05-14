@@ -1,6 +1,6 @@
 import React from "react";
 import SectionHeading from "../Headings/SectionHeading";
-import CTATab from "../CTA/CTAHorizontal.tsx";
+import CTAHorizontal from "../CTA/CTAHorizontal";
 
 type Props = {
   image: string;
@@ -61,7 +61,7 @@ export default function Categories() {
             link={"/"}
           />
         </div>
-        <CTATab
+        <CTAHorizontal
           image={"/hero.webp"}
           heading="SLEVA 5 % S KÓDEM GT2025"
           text="Slevu pro Vás máme spuštěnou po celou sezónu. Platí na celou objednávku."
