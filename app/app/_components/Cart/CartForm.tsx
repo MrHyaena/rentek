@@ -11,45 +11,15 @@ import Link from "next/link";
 import DatepickerBig from "../Datepickers/DatepickerBig";
 import arraySort from "array-sort";
 
-type Props = {};
+type Props = {
+  newAdditions: any[];
+};
 
-export default function CartForm({}: Props) {
+export default function CartForm({ newAdditions }: Props) {
   const { cart, setCart } = useContext(CartContext);
   const { daterange } = useContext(DaterangeContext);
   const [numberOfDays, setNumberOfDays] = useState<number>(1);
-
-  async function GetAdditions() {
-    let response = await fetch(
-      process.env.STRAPI +
-        "/api/items/?populate=*&filters[pricingType][$eq]=product",
-      {
-        method: "GET",
-        mode: "cors",
-      }
-    );
-
-    const itemsArray: any[] = [];
-
-    const json = await response.json();
-
-    json.data.map((item: any) => {
-      itemsArray.push({
-        ...item,
-        imageUrl: item.coverImage.formats.small.url,
-        name: item.name,
-        description: item.excerpt,
-        id: item.id,
-        price: item.basePrice,
-        slug: item.slug,
-        documentId: item.documentId,
-        excerpt: item.excerpt,
-      });
-    });
-
-    return itemsArray;
-  }
-
-  let additions = GetAdditions();
+  const [additions, setAdditions] = useState<any[]>(newAdditions);
 
   let saleIndex: number = 0;
 
@@ -113,7 +83,60 @@ export default function CartForm({}: Props) {
   function CartTab(product: any) {
     const newProduct = product.product;
     let item = newProduct.item;
-    console.log(item);
+    const price = Number(item.basePrice);
+
+    let groupPrice = newProduct.count * price * saleIndex * numberOfDays;
+
+    return (
+      <>
+        <div className="grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-b first:border-t border-borderGray py-3 justify-between">
+          <div className="flex items-center gap-5">
+            <Image
+              src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}
+              width={200}
+              height={300}
+              alt={"thumbnail-" + item.name}
+              className="w-20 h-20 object-cover object-center rounded-md"
+            />
+            <Link
+              href={`/produkt/${item.documentId}`}
+              className="text-lg font-semibold"
+            >
+              {item.name}
+            </Link>
+          </div>
+          <div className="w-20 h-20 border border-borderGray rounded-md grid grid-cols-[2fr_1fr] items-center justify-items-center p-2 justify-self-end">
+            <p className="text-lg">{newProduct.count}</p>
+            <div className="self-stretch flex flex-col justify-evenly">
+              <FaChevronUp
+                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl select-none"
+                onClick={() => {
+                  addToCartFunction(cart, setCart, item);
+                }}
+              />
+              <FaChevronDown
+                onClick={() => {
+                  removeFromCartFunction(cart, setCart, item);
+                }}
+                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl select-none"
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-5 justify-self-end">
+            <p className="font-semibold text-textSecondary">
+              <span className="text-lg font-semibold text-primary">
+                {groupPrice} Kč
+              </span>{" "}
+            </p>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  function AdditionsTab(product: any) {
+    const newProduct = product.product;
+    const item = newProduct.item;
     const price = Number(item.basePrice);
 
     let groupPrice = newProduct.count * price * saleIndex * numberOfDays;
@@ -182,7 +205,23 @@ export default function CartForm({}: Props) {
             return <CartTab product={product} />;
           })}
         </div>
-
+        <div className="grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between border p-10 rounded-lg mt-10 bg-zinc-50">
+          <p className="text-2xl font-semibold">Doplňkové produkty</p>
+          <p className="text-end font-semibold col-start-1 justify-self-start">
+            Klienti u nás často objednávají i následující produkty. Všechny tyto
+            produkty vám již po nákupu zůstanou.
+          </p>
+          <div className="col-start-2 col-span-2">
+            <p className="text-end text-base font-semibold">
+              Jednotková cena {"(vč. DPH)"}
+            </p>
+          </div>
+          <div className="grid col-span-3">
+            {additions.map((product) => {
+              return <AdditionsTab product={product} />;
+            })}
+          </div>
+        </div>
         <div className="grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
           <p className="text-end font-semibold col-start-1 justify-self-start">
             Celková cena za pronájem před slevou

@@ -1,13 +1,34 @@
-"use client";
+import React from "react";
 
-import React, { useContext, useEffect, useState } from "react";
-import { CartContext } from "../_context/CartContext";
-import Image from "next/image";
-import { DaterangeContext } from "../_context/DaterangeContext";
-import { differenceInDays } from "date-fns";
 import CartForm from "../_components/Cart/CartForm";
 
-export default function page() {
+export default async function page() {
+  async function GetAdditions() {
+    let response = await fetch(
+      process.env.STRAPI +
+        "/api/items/?filters[pricingType][$eq]=product&populate=*",
+      {
+        method: "GET",
+        mode: "cors",
+      }
+    );
+
+    const itemsArray: any[] = [];
+
+    const json = await response.json();
+
+    json.data.map((item: any) => {
+      itemsArray.push({
+        count: 0,
+        item: { ...item },
+      });
+    });
+
+    return itemsArray;
+  }
+
+  const newAdditions = await GetAdditions();
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-start p-10 gap-5">
       <div className="w-full max-w-wrapper">
@@ -19,7 +40,7 @@ export default function page() {
           perspiciatis iure tempora, amet fugit!
         </p>
       </div>
-      <CartForm />
+      <CartForm newAdditions={newAdditions} />
     </div>
   );
 }
