@@ -79,13 +79,19 @@ export default function CartForm({ newAdditions }: Props) {
 
   let wholeDeposit: number = 0;
 
+  let wholeProductPrice: number = 0;
+
+  additions.map((item) => {
+    wholeProductPrice = wholeProductPrice + item.item.basePrice * item.count;
+  });
+
   cart.map((item) => {
     wholePrice = wholePrice + item.basePrice * numberOfDays;
 
     wholeDeposit = wholeDeposit + item.deposit * 1;
   });
 
-  let wholePriceAfterSale: number = wholePrice * saleIndex;
+  let wholePriceAfterSale: number = wholePrice * saleIndex + wholeProductPrice;
   let payNowPrice: number = wholePriceAfterSale * 0.1;
   let sale: number = Math.trunc((1 - saleIndex) * 100);
 
@@ -94,11 +100,11 @@ export default function CartForm({ newAdditions }: Props) {
     let item = newProduct.item;
     const price = Number(item.basePrice);
 
-    let groupPrice = newProduct.count * price * saleIndex * numberOfDays;
+    let groupPrice = newProduct.count * price * numberOfDays;
 
     return (
       <>
-        <div className="grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-b first:border-t border-borderGray py-3 justify-between">
+        <div className="grid grid-cols-[4fr_1fr_1fr] items-center gap-3 border-b first:border-t border-borderGray py-3 justify-between">
           <div className="flex items-center gap-5">
             <Image
               src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}
@@ -132,9 +138,15 @@ export default function CartForm({ newAdditions }: Props) {
             </div>
           </div>
           <div className="flex items-center gap-5 justify-self-end">
-            <p className="font-semibold text-textSecondary">
-              <span className="text-lg font-semibold text-primary">
-                {groupPrice} Kč
+            <p className="flex items-end flex-col font-semibold text-textSecondary">
+              <span className="text-sm font-semibold text-textSecondary">
+                Před slevou{" "}
+                <span className="text-primaryHover">{groupPrice}</span> Kč
+              </span>{" "}
+              <span className="text-lg font-semibold text-textSecondary">
+                Po slevě{" "}
+                <span className="text-primary">{groupPrice * saleIndex}</span>{" "}
+                Kč
               </span>{" "}
             </p>
           </div>
@@ -179,7 +191,7 @@ export default function CartForm({ newAdditions }: Props) {
 
     return (
       <>
-        <div className="grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-b first:border-t border-borderGray py-3 justify-between">
+        <div className="grid grid-cols-[4fr_1fr_1fr] items-center gap-3 border-b first:border-t border-borderGray py-3 justify-between">
           <div className="flex items-center gap-5">
             <Image
               src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}
@@ -195,7 +207,7 @@ export default function CartForm({ newAdditions }: Props) {
               {item.name}
             </Link>
           </div>
-          <div className="w-20 h-20 border border-borderGray rounded-md grid grid-cols-[2fr_1fr] items-center justify-items-center p-2 justify-self-end">
+          <div className="w-20 h-20 bg-white border border-borderGray rounded-md grid grid-cols-[2fr_1fr] items-center justify-items-center p-2 justify-self-end">
             <p className="text-lg">{newProduct.count}</p>
             <div className="self-stretch flex flex-col justify-evenly">
               <FaChevronUp
@@ -240,13 +252,14 @@ export default function CartForm({ newAdditions }: Props) {
   return (
     <>
       <div className="mt-10 w-full max-w-wrapper border p-5 rounded-lg border-borderGray">
-        <div className="grid grid-cols-[5fr_1fr_1fr] items-start gap-3 border-borderGray py-5 justify-between">
+        <div className="grid grid-cols-[4fr_1fr_1fr] items-start gap-3 border-borderGray py-5 justify-between">
           <p className="text-end font-semibold col-start-1 justify-self-start">
             Technika
           </p>
           <p className="text-end font-semibold col-start-2">Množství</p>
           <p className="text-end font-semibold col-start-3">
-            Celková cena {"(vč. DPH)"} za {numberOfDays} {tag}
+            Celková cena {"(vč. DPH)"} <br />
+            za {numberOfDays} {tag}
           </p>
         </div>
         <div className="grid">
@@ -254,11 +267,15 @@ export default function CartForm({ newAdditions }: Props) {
             return <CartTab product={product} />;
           })}
         </div>
-        <div className="grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between border p-10 rounded-lg mt-10 bg-zinc-50">
+        <div className="grid grid-cols-[4fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between border p-10 rounded-lg mt-10 bg-zinc-50">
           <p className="text-2xl font-semibold">Doplňkové produkty</p>
-          <p className="text-end font-semibold col-start-1 justify-self-start">
+          <p className="text-start font-semibold col-start-1 justify-self-start">
             Klienti u nás často objednávají i následující produkty. Všechny tyto
             produkty vám již po nákupu zůstanou.
+            <br />
+            <span className="text-primaryHover">
+              Na tento typ zboží se slevy neuplatňují.
+            </span>
           </p>
           <div className="col-start-2 col-span-2">
             <p className="text-end text-base font-semibold">
@@ -276,34 +293,47 @@ export default function CartForm({ newAdditions }: Props) {
             Celková cena za pronájem před slevou
           </p>
           <div className="col-start-2 col-span-2">
-            <p className="text-end text-base font-semibold">
+            <p className="text-end text-sm font-semibold">
               Celková cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
-              <span className="text-xl font-semibold text-primary">
+              <span className="text-base font-semibold text-primary">
                 {wholePrice} Kč
               </span>{" "}
             </p>
           </div>
         </div>
         <div className="grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
-          <p className="text-end font-semibold col-start-1 justify-self-start">
-            Celková sleva
+          <p className="text-end text-base font-semibold col-start-1 justify-self-start">
+            Celková procentní sleva
           </p>
           <div className="col-start-2 col-span-2">
-            <p className="text-end text-base font-semibold">
+            <p className="text-end text-sm font-semibold">
               Sleva za {numberOfDays} {tag} je {""}
-              <span className="text-xl font-semibold text-primary">
+              <span className="text-base font-semibold text-primary">
                 {sale} %
               </span>{" "}
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between">
-          <p className="text-end font-semibold text-xl col-start-1 justify-self-start">
-            Celková cena za pronájem po slevě
+        <div className="grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
+          <p className="text-end text-base font-semibold col-start-1 justify-self-start">
+            Celková cena za jednorázové zboží
           </p>
           <div className="col-start-2 col-span-2">
-            <p className="text-end text-base font-semibold">
-              Celková cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
+            <p className="text-end text-sm font-semibold">
+              Celková cena (vč. DPH){" "}
+              <span className="text-base font-semibold text-primary">
+                {wholeProductPrice} Kč
+              </span>{" "}
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between">
+          <p className="text-end font-semibold text-xl col-start-1 justify-self-start bg-primary p-3 text-textLight rounded-md">
+            Výsledná cena za pronájem po slevě a jednorázové produkty
+          </p>
+          <div className="col-start-2 col-span-2">
+            <p className="text-end text-lg font-semibold">
+              Výsledna cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
               <span className="text-xl font-semibold text-primary">
                 {wholePriceAfterSale} Kč
               </span>{" "}
