@@ -9,6 +9,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { addToCartFunction, removeFromCartFunction } from "./cartFunction";
 import Link from "next/link";
 import DatepickerBig from "../Datepickers/DatepickerBig";
+import arraySort from "array-sort";
 
 type Props = {};
 
@@ -74,9 +75,17 @@ export default function CartForm({}: Props) {
   if (cart.length > 0) {
     const newData = [...cart];
     const filteredData = Object.groupBy(newData, (item) => item.name);
-    const newObject = { ...filteredData };
-    const newArray = [...Object.values(newObject)];
-    data = newArray;
+    const newObject: any = { ...filteredData };
+    const objectArray: any[] = [];
+    for (const property in newObject) {
+      let newItem = {
+        count: newObject[property].length,
+        item: newObject[property][0],
+      };
+      objectArray.push(newItem);
+    }
+
+    data = arraySort(objectArray, "item.name");
   }
   let tag: string = "den";
   if (numberOfDays == 1) {
@@ -101,12 +110,13 @@ export default function CartForm({}: Props) {
   let payNowPrice: number = wholePriceAfterSale * 0.1;
   let sale: number = Math.trunc((1 - saleIndex) * 100);
 
-  function CartTab(group: any) {
-    let data = group.group;
-    let item = data[0];
+  function CartTab(product: any) {
+    const newProduct = product.product;
+    let item = newProduct.item;
+    console.log(item);
     const price = Number(item.basePrice);
 
-    let groupPrice = data.length * price * saleIndex * numberOfDays;
+    let groupPrice = newProduct.count * price * saleIndex * numberOfDays;
 
     return (
       <>
@@ -127,10 +137,10 @@ export default function CartForm({}: Props) {
             </Link>
           </div>
           <div className="w-20 h-20 border border-borderGray rounded-md grid grid-cols-[2fr_1fr] items-center justify-items-center p-2 justify-self-end">
-            <p className="text-lg">{data.length}</p>
+            <p className="text-lg">{newProduct.count}</p>
             <div className="self-stretch flex flex-col justify-evenly">
               <FaChevronUp
-                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl"
+                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl select-none"
                 onClick={() => {
                   addToCartFunction(cart, setCart, item);
                 }}
@@ -139,7 +149,7 @@ export default function CartForm({}: Props) {
                 onClick={() => {
                   removeFromCartFunction(cart, setCart, item);
                 }}
-                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl"
+                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl select-none"
               />
             </div>
           </div>
@@ -168,8 +178,8 @@ export default function CartForm({}: Props) {
           </p>
         </div>
         <div className="grid">
-          {data.map((group) => {
-            return <CartTab group={group} />;
+          {data.map((product) => {
+            return <CartTab product={product} />;
           })}
         </div>
 
