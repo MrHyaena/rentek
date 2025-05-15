@@ -1,6 +1,8 @@
 import React from "react";
 
 import CartForm from "../_components/Cart/CartForm";
+import DatepickerSmall from "../_components/Datepickers/DatepickerSmall";
+import DatepickerBig from "../_components/Datepickers/DatepickerBig";
 
 export default async function page() {
   async function GetAdditions() {
@@ -31,14 +33,15 @@ export default async function page() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start p-10 gap-5">
-      <div className="w-full max-w-wrapper">
+      <div className="w-full max-w-wrapper flex flex-col gap-5">
         <h3>Košík</h3>
-        <p className="mt-3">
+        <p className="">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis
           placeat, cupiditate, pariatur deleniti neque itaque quisquam
           recusandae dolore quo illum assumenda quam est excepturi eaque
           perspiciatis iure tempora, amet fugit!
-        </p>
+        </p>{" "}
+        <DatepickerBig />
       </div>
       <CartForm newAdditions={newAdditions} />
     </div>

@@ -2,7 +2,7 @@
 
 import { CartContext } from "@/app/_context/CartContext";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
-import { differenceInDays } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -10,6 +10,7 @@ import { addToCartFunction, removeFromCartFunction } from "./cartFunction";
 import Link from "next/link";
 import DatepickerBig from "../Datepickers/DatepickerBig";
 import arraySort from "array-sort";
+import DatepickerSmall from "../Datepickers/DatepickerSmall";
 
 type Props = {
   newAdditions: any[];
@@ -382,7 +383,7 @@ export default function CartForm({ newAdditions }: Props) {
       <div className="mt-10 w-full max-w-wrapper">
         <h4 className="mb-5">Objednávkový formulář</h4>
         <form className="border border-borderGray rounded-lg p-10 grid grid-cols-2 gap-10">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col justify-start h-full">
             <div>
               <h5 className="mb-3">Předávací informace</h5>
               <p className="border-b pb-3 border-borderGray mb-5">
@@ -392,11 +393,29 @@ export default function CartForm({ newAdditions }: Props) {
                 adipisci officiis, cum commodi sit?
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-y-3 gap-x-3">
+            <div className="grid grid-cols-2 gap-y-3 gap-x-3 mb-8">
+              <h6 className="col-span-2">Doručovací adresa</h6>
+
               <FormTextInput text="Ulice" name="ulice" />
               <FormTextInput text="č.p" name="cp" />
               <FormTextInput text="Město" name="mesto" />
               <FormTextInput text="PSČ" name="psc" />
+            </div>
+            <div className="border justify-self-end border-borderGray rounded-md p-5">
+              <h5 className="col-span-2 mb-4">Čas a datum doručení</h5>
+              <p className="text-lg">
+                Techniku budete mít vypůjčenou v období:{" "}
+              </p>
+              <p className="text-lg">
+                Od{" "}
+                <span className="font-semibold">
+                  {format(daterange.startDate, "dd.MM.yyyy hh:mm")}
+                </span>{" "}
+                do{" "}
+                <span className="font-semibold">
+                  {format(daterange.endDate, "dd.MM.yyyy hh:mm")}
+                </span>{" "}
+              </p>
             </div>
           </div>
           <div className="">

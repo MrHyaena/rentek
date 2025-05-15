@@ -312,43 +312,63 @@ export default function DatepickerToggle({ setToggle }: Props) {
     );
   }
 
-  //Time of the delivery and pickup
+  //Times of the delivery and pickup
   useEffect(() => {
-    const deliveryTimesArray: Date[] = [];
-    const pickupTimesArray: Date[] = [];
+    fetchTimeslots();
+    async function fetchTimeslots() {
+      let response = await fetch(process.env.STRAPI + "/api/timeslots", {
+        method: "GET",
+        mode: "cors",
+      });
 
-    const { startDate, endDate } = daterange;
+      const json = await response.json();
+      const data: any[] = json.data;
 
-    if (startDate != null) {
-      const startYearNew = new Date(startDate);
-      for (let i = 8; i < 21; i++) {
-        deliveryTimesArray.push(
-          new Date(
+      const deliveryTimesArray: Date[] = [];
+      const pickupTimesArray: Date[] = [];
+
+      const { startDate, endDate } = daterange;
+
+      if (startDate != null) {
+        const startYearNew = new Date(startDate);
+        for (let i = 8; i < 21; i++) {
+          const date = new Date(
             startYearNew.getFullYear(),
             startYearNew.getMonth(),
             startYearNew.getDate(),
             i
-          )
-        );
+          );
+          data.map((slot: any) => {
+            if (isEqual(slot.delivery, date)) {
+              console.log(true);
+            } else if (!isEqual(slot.delivery, date)) {
+              deliveryTimesArray.push(date);
+            }
+          });
+        }
       }
-    }
 
-    if (endDate != null) {
-      const endDateNew = new Date(endDate);
-      for (let i = 8; i < 21; i++) {
-        pickupTimesArray.push(
-          new Date(
+      if (endDate != null) {
+        const endDateNew = new Date(endDate);
+        for (let i = 8; i < 21; i++) {
+          const date = new Date(
             endDateNew.getFullYear(),
             endDateNew.getMonth(),
             endDateNew.getDate(),
             i
-          )
-        );
+          );
+          data.map((slot: any) => {
+            if (isEqual(slot.pickup, date)) {
+              console.log(true);
+            } else if (!isEqual(slot.delivery, date)) {
+              pickupTimesArray.push(date);
+            }
+          });
+        }
+        setTimesDelivery(deliveryTimesArray);
+        setTimesPickup(pickupTimesArray);
       }
     }
-
-    setTimesDelivery(deliveryTimesArray);
-    setTimesPickup(pickupTimesArray);
   }, [daterange]);
 
   function PickDeliveryTime(time: Date) {

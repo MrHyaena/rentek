@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "timeslots",
+  "info": {
+    "singularName": "timeslot",
+    "pluralName": "timeslots",
+    "displayName": "Timeslot"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "orderId": {
+      "type": "string"
+    },
+    "delivery": {
+      "type": "datetime"
+    },
+    "pickup": {
+      "type": "datetime"
+    }
+  }
+}
