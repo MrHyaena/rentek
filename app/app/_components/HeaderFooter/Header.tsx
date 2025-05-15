@@ -11,6 +11,7 @@ import React from "react";
 import CartButton from "../Cart/CartButton";
 import { CartContextProvider } from "../../_context/CartContext";
 import Link from "next/link";
+import ScrollToKontakt from "./ScrollToKontakt";
 
 export default function Header() {
   return (
@@ -45,13 +46,15 @@ export default function Header() {
         <div className="h-[110px] w-full flex items-center justify-center px-10">
           <div className="max-w-wrapper h-full w-full flex items-center justify-between">
             <div className="flex gap-10 items-center">
-              <Image
-                src={"/logo.png"}
-                alt="logo"
-                width={300}
-                height={300}
-                className="h-17 w-auto"
-              />
+              <Link href={"/"}>
+                <Image
+                  src={"/logo.png"}
+                  alt="logo"
+                  width={300}
+                  height={300}
+                  className="h-17 w-auto"
+                />
+              </Link>
               <Link
                 href="/katalog"
                 className="buttonSmall uppercase flex items-center gap-4"
@@ -66,8 +69,8 @@ export default function Header() {
             </div>
             <div className="flex items-center gap-8">
               <ul className="flex gap-5 text-lg text-textSecondary">
-                <li>Domů</li>
-                <li>Kontakt</li>
+                <Link href={"/"}>Domů</Link>
+                <ScrollToKontakt />
               </ul>
 
               <CartButton />

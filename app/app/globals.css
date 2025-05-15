@@ -1,8 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import "tailwindcss";
 @import "react-date-range/dist/styles.css";
 @import "react-date-range/dist/theme/default.css";
 
 @theme {
+  --font-oswald: "Oswald";
+  --font-bebas: "Bebas Neue";
   --color-primary: #7c9e39;
   --color-primaryHover: #5a722a;
   --color-secondary: var(--color-zinc-900);
@@ -30,28 +34,37 @@
   @apply bg-primary px-3 py-2 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bebas;
+}
+
 h1 {
-  @apply text-7xl font-serif;
+  @apply text-7xl;
 }
 
 h2 {
-  @apply text-6xl font-serif;
+  @apply text-6xl;
 }
 
 h3 {
-  @apply text-5xl font-serif;
+  @apply text-5xl;
 }
 
 h4 {
-  @apply text-4xl font-serif;
+  @apply text-4xl;
 }
 
 h5 {
-  @apply text-2xl font-serif;
+  @apply text-2xl;
 }
 
 h6 {
-  @apply text-xl font-serif;
+  @apply text-xl;
 }
 
 label {
