@@ -224,6 +224,19 @@ export default function CartForm({ newAdditions }: Props) {
     );
   }
 
+  function FormTextInput({ text, name }: { text: string; name: string }) {
+    return (
+      <div className="flex flex-col">
+        <label className="">{text}</label>
+        <input
+          name={name}
+          type="text"
+          className="border border-borderGray p-1 rounded-sm"
+        ></input>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="mt-10 w-full max-w-wrapper border p-5 rounded-lg border-borderGray">
@@ -350,34 +363,10 @@ export default function CartForm({ newAdditions }: Props) {
               </p>
             </div>
             <div className="grid grid-cols-2 gap-y-3 gap-x-3">
-              <div className="flex flex-col">
-                <label className="">Ulice</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
-              <div className="flex flex-col">
-                <label className="">č.p.</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
-              <div className="flex flex-col">
-                <label className="">Město</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
-              <div className="flex flex-col">
-                <label className="">PSČ</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
+              <FormTextInput text="Ulice" name="ulice" />
+              <FormTextInput text="č.p" name="cp" />
+              <FormTextInput text="Město" name="mesto" />
+              <FormTextInput text="PSČ" name="psc" />
             </div>
           </div>
           <div className="">
@@ -390,69 +379,23 @@ export default function CartForm({ newAdditions }: Props) {
             </p>
             <div className="grid grid-cols-2 gap-y-3 gap-x-3 mb-8">
               <h6 className="col-span-2">Kontaktní údaje</h6>
-              <div className="flex flex-col">
-                <label className="">Jméno</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
-              <div className="flex flex-col">
-                <label className="">Příjmení</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
-              <div className="flex flex-col">
-                <label className="">Telefon</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
-              <div className="flex flex-col">
-                <label className="">Email</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
+              <FormTextInput text="Jméno" name="jmeno" />
+              <FormTextInput text="Příjmení" name="prijmeni" />
+              <FormTextInput text="Telefon" name="telefon" />
+              <FormTextInput text="Email" name="email" />
             </div>
             <div className="grid grid-cols-2 gap-y-3 gap-x-3 mb-8">
               <h6 className="col-span-2">Adresa</h6>
-              <div className="flex flex-col">
-                <label className="">Ulice</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
-              <div className="flex flex-col">
-                <label className="">č.p.</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
-              <div className="flex flex-col">
-                <label className="">Město</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
-              <div className="flex flex-col">
-                <label className="">PSČ</label>
-                <input
-                  type="text"
-                  className="border border-borderGray p-1 rounded-md"
-                ></input>
-              </div>
+              <FormTextInput text="Ulice" name="fakturaUlice" />
+              <FormTextInput text="č.p." name="fakturaCp" />
+              <FormTextInput text="Město" name="fakturaMesto" />
+              <FormTextInput text="PSČ" name="fakturaPsc" />
             </div>
           </div>
           <div className="col-span-2 items-center gap-5 flex justify-self-center text-start max-w-[600px] border p-5 rounded-lg border-borderGray">
             <input
+              value="true"
+              name="podminky"
               type="checkbox"
               className="border border-borderGray p-1 rounded-md"
             ></input>
