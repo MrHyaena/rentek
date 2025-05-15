@@ -37,6 +37,11 @@ export default function Catalogue({ items }: Props) {
   const [nuzkyPilyMacety, setNuzkyPilyMacety] = useState<boolean>(false);
   const [koleckaVedraKrabice, setKoleckaVedraKrabice] =
     useState<boolean>(false);
+  const [elektrickyMotor, setElektrickyMotor] = useState<boolean>(false);
+  const [benzinovyMotor, setBenzinovyMotor] = useState<boolean>(false);
+  const [manualniNaradi, setManualniNarad] = useState<boolean>(false);
+  const [standardniPodminky, setStandardniPodminky] = useState<boolean>(false);
+  const [narocnePodminky, setnarocnePodminky] = useState<boolean>(false);
 
   function SearchHeading({ text }: { text: string }) {
     return (
@@ -65,7 +70,7 @@ export default function Catalogue({ items }: Props) {
       <label className="flex gap-2 items-center cursor-pointer">
         <input
           type="checkbox"
-          name="subcategories"
+          name={categoryType}
           value={value}
           checked={state}
           onChange={(e) => {
@@ -112,23 +117,48 @@ export default function Catalogue({ items }: Props) {
     console.log(formData.getAll("subcategories"));
 
     let subcategories = formData.getAll("subcategories");
-    let querySubcategories: any[] = [];
+    let queryOrSubcategories: any[] = [];
 
     subcategories.map((sub) => {
-      querySubcategories.push({
+      queryOrSubcategories.push({
         subcategories: {
           documentId: { $eq: sub },
         },
       });
     });
 
-    if (querySubcategories.length == null) {
-      querySubcategories = ["empty"];
-    }
+    let specifications = formData.getAll("specifications");
+    let queryOrSpecifications: any[] = [];
+
+    specifications.map((sub) => {
+      queryOrSpecifications.push({
+        specifications: {
+          documentId: { $eq: sub },
+        },
+      });
+    });
+
+    let uses = formData.getAll("uses");
+    let queryOrUses: any[] = [];
+
+    uses.map((sub) => {
+      queryOrUses.push({
+        uses: {
+          documentId: { $eq: sub },
+        },
+      });
+    });
 
     const query = await {
       filters: {
-        $or: querySubcategories,
+        $and: [
+          { pricingType: { $ne: "product" } },
+          {
+            $or: queryOrSubcategories,
+          },
+          { $or: queryOrSpecifications },
+          { $or: queryOrUses },
+        ],
       },
     };
 
@@ -325,60 +355,46 @@ export default function Catalogue({ items }: Props) {
               </div>
               <div>
                 <SearchHeading text="Typ pohonu" />
-
-                <div className="flex gap-2 items-center">
-                  <input
-                    type="checkbox"
-                    className="appearance-auto border-2 w-3 h-3"
-                  />
-                  <p>Elektrický motor</p>
-                </div>
-                <div className="flex gap-2 items-center">
-                  <input type="checkbox" />
-                  <p>Benzínový motor </p>
-                </div>
-                <div className="flex gap-2 items-center">
-                  <input
-                    type="checkbox"
-                    className="appearance-auto border-2 w-3 h-3"
-                  />
-                  <p>Manuální nářadí</p>
-                </div>
+                <SearchSubcategory
+                  value="bf4ngqecws94nqtv5dlbyuve"
+                  categoryType="specifications"
+                  text="Elektrický motor"
+                  setter={setElektrickyMotor}
+                  state={elektrickyMotor}
+                />
+                <SearchSubcategory
+                  value="u076llljnkr3g2oolm3g5z50"
+                  categoryType="specifications"
+                  text="Benzínový motor"
+                  setter={setBenzinovyMotor}
+                  state={benzinovyMotor}
+                />
+                <SearchSubcategory
+                  value="ca7w1imw40v3syl7178f0oan"
+                  categoryType="specifications"
+                  text="Manuální nářadí"
+                  setter={setManualniNarad}
+                  state={manualniNaradi}
+                />
               </div>
-              <div>
-                <SearchHeading text="Cena za den" />
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex flex-col gap-2 items-start max-w-full">
-                    <p>Od</p>
-                    <input
-                      type="number"
-                      className="border rounded-sm border-zinc-300 max-w-full"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2 items-start max-w-full">
-                    <p>Od</p>
-                    <input
-                      type="number"
-                      className="border rounded-sm border-zinc-300 max-w-full"
-                    />
-                  </div>
-                </div>
-              </div>
               <div>
                 <SearchHeading text="Určení" />
 
-                <div className="flex gap-2 items-center">
-                  <input
-                    type="checkbox"
-                    className="appearance-auto border-2 w-3 h-3"
-                  />
-                  <p>Standardní podmínky</p>
-                </div>
-                <div className="flex gap-2 items-center">
-                  <input type="checkbox" />
-                  <p>Těžké podmínky</p>
-                </div>
+                <SearchSubcategory
+                  value="sk1st3bmd0fbjufgeaz1p49m"
+                  categoryType="uses"
+                  text="Standardní podmínky"
+                  setter={setStandardniPodminky}
+                  state={standardniPodminky}
+                />
+                <SearchSubcategory
+                  value="ie19l68mmhdxcnmnlqzyp1u0"
+                  categoryType="uses"
+                  text="Náročné podmínky"
+                  setter={setnarocnePodminky}
+                  state={narocnePodminky}
+                />
               </div>
               <button type="submit" className="buttonSmall w-full">
                 Vyhledat
