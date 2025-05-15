@@ -27,7 +27,7 @@ export default async function page() {
     return itemsArray;
   }
 
-  const newAdditions = await GetAdditions();
+  let newAdditions = await GetAdditions();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start p-10 gap-5">

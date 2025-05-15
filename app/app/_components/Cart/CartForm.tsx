@@ -30,6 +30,15 @@ export default function CartForm({ newAdditions }: Props) {
     }
   }, [daterange]);
 
+  useEffect(() => {
+    let localAdditions = localStorage.getItem("additionsCart");
+    console.log(localAdditions);
+    if (localAdditions != null) {
+      const newArray = JSON.parse(localAdditions);
+      setAdditions([...newArray]);
+    }
+  }, []);
+
   if (numberOfDays == 1) {
     saleIndex = 0;
   } else if (numberOfDays <= 7) {
@@ -138,8 +147,35 @@ export default function CartForm({ newAdditions }: Props) {
     const newProduct = product.product;
     const item = newProduct.item;
     const price = Number(item.basePrice);
+    console.log(price);
 
-    let groupPrice = newProduct.count * price * saleIndex * numberOfDays;
+    let groupPrice = newProduct.count * price;
+
+    function AddToAdditionsCart() {
+      const productIndex = additions.findIndex(
+        (newItem) => newItem.item.name == item.name
+      );
+      const newProduct = additions[productIndex];
+      newProduct.count = newProduct.count + 1;
+      const newArray = additions;
+      newArray[productIndex] == newProduct;
+      setAdditions([...newArray]);
+      localStorage.setItem("additionsCart", JSON.stringify(newArray));
+    }
+
+    function RemoveFromAdditionsCart() {
+      const productIndex = additions.findIndex(
+        (newItem) => newItem.item.name == item.name
+      );
+      const newProduct = additions[productIndex];
+      if (newProduct.count > 0) {
+        newProduct.count = newProduct.count - 1;
+      }
+      const newArray = additions;
+      newArray[productIndex] == newProduct;
+      setAdditions([...newArray]);
+      localStorage.setItem("additionsCart", JSON.stringify(newArray));
+    }
 
     return (
       <>
@@ -165,12 +201,12 @@ export default function CartForm({ newAdditions }: Props) {
               <FaChevronUp
                 className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl select-none"
                 onClick={() => {
-                  addToCartFunction(cart, setCart, item);
+                  AddToAdditionsCart();
                 }}
               />
               <FaChevronDown
                 onClick={() => {
-                  removeFromCartFunction(cart, setCart, item);
+                  RemoveFromAdditionsCart();
                 }}
                 className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl select-none"
               />
