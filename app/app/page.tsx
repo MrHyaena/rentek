@@ -17,10 +17,10 @@ export default function Home() {
         <Products />
         <ImageText
           image="/hero.webp"
-          subheading="Seznamte se s námi"
-          heading="Kdo jsme?"
-          textOne="Jsme rodinná firma, kterou nebaví korporátní fungování. Nohama stojíme pevně na zemi a věříme především ve férové jednání. Na trh jsme vstoupili s tím, že chceme propojit profesionální službu, lidský přístup a technologie."
-          textTwo="O všechny naše stroje pečujeme s maximální láskou. Můžete proto očekávat jen prvotřídní vybavení, které Vás podrží i v tom nejhorším terénu."
+          subheading="Služba až ke dveřím"
+          heading="Jak to u nás funguje?"
+          textOne="Zakládáme si zejména na skvělé zákaznické péči a jednoduchosti. Všechno zboží, které si u nás objednáte, Vám dovezeme až domů. Společně s předáním Vám vše vysvětlíme a nakonci půjčky pro vše zase přijedeme."
+          textTwo="Celá objednávka je také plně transparentní, takže předem znáte částku, zálohu a zbylé informace. Nic před Vámi netajíme."
           textThree="Zakládáme si ale také na skvělé zákaznické péči. Ke každé objednávce proto dostanete instruktáž, plnou nádrž, a pro případ s sebou vozíme i ochranné pomůcky, které se vždy hodí."
           colStart={1}
         />
@@ -36,8 +36,8 @@ export default function Home() {
         <div className="w-full max-w-wrapper">
           <CTAVertical
             image={"/hero.webp"}
-            heading="SLEVA 5 % S KÓDEM GT2025"
-            text="Slevu pro Vás máme spuštěnou po celou sezónu. Platí na celou objednávku."
+            heading="Hledáte nějakou techniku? Podívejte se do našeho katalogu!"
+            text="A pokud byste měli jakýkoliv dotaz, nebojte se nás kontaktovat na telefonu nebo emailové adrese v zápatí."
             buttonText="Ukázat techniku"
             link="/"
           />

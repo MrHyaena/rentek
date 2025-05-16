@@ -1,6 +1,7 @@
 import React from "react";
 import SectionHeading from "../Headings/SectionHeading";
 import CTAHorizontal from "../CTA/CTAHorizontal";
+import Link from "next/link";
 
 type Props = {
   image: string;
@@ -17,9 +18,9 @@ function CategoryTab({ image, heading, buttonText, link }: Props) {
     >
       <div className="bg-linear-180 from-overlay/80 to-transparent h-full w-full rounded-xl px-15 flex flex-col items-start justify-center gap-8">
         <h4 className="text-textLight">{heading}</h4>
-        <a href={link}>
+        <Link href={link}>
           <button className="buttonMid">{buttonText}</button>
-        </a>
+        </Link>
       </div>
     </div>
   );
@@ -37,35 +38,35 @@ export default function Categories() {
         />
         <div className="grid grid-cols-2 w-full gap-10">
           <CategoryTab
-            image={"/hero.webp"}
-            heading={"První"}
-            buttonText={"Ukázat zboží"}
-            link={"/"}
+            image={"/grass.jpg"}
+            heading={"Úprava trávníku, porostů a zeminy"}
+            buttonText={"Ukázat techniku"}
+            link={"/katalog"}
           />
           <CategoryTab
-            image={"/hero.webp"}
-            heading={"První"}
-            buttonText={"Ukázat zboží"}
-            link={"/"}
+            image={"/shrub.jpg"}
+            heading={"Úprava keřů"}
+            buttonText={"Ukázat techniku"}
+            link={"/katalog"}
           />
           <CategoryTab
-            image={"/hero.webp"}
-            heading={"První"}
-            buttonText={"Ukázat zboží"}
-            link={"/"}
+            image={"/apple.jpg"}
+            heading={"Úprava stromů a dřeva"}
+            buttonText={"Ukázat techniku"}
+            link={"/katalog"}
           />
           <CategoryTab
-            image={"/hero.webp"}
-            heading={"První"}
-            buttonText={"Ukázat zboží"}
-            link={"/"}
+            image={"/tools.jpg"}
+            heading={"Manuální nářadí a příslušenství"}
+            buttonText={"Ukázat techniku"}
+            link={"/katalog"}
           />
         </div>
         <CTAHorizontal
-          image={"/hero.webp"}
+          image={"/bosch.jpg"}
           heading="SLEVA 5 % S KÓDEM GT2025"
           text="Slevu pro Vás máme spuštěnou po celou sezónu. Platí na celou objednávku."
-          buttonText="Ukázat techniku"
+          buttonText=""
           link="/"
         />
       </div>
