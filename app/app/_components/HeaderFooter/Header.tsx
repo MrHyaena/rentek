@@ -63,7 +63,7 @@ export default function Header() {
                 Katalog
               </Link>
             </div>
-            <div className="p-2 border border-borderGray rounded-md">
+            <div className="p-2 border border-borderGray rounded-md hidden">
               <input type="text" className="w-[400px] mr-5" />
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </div>

@@ -33,6 +33,15 @@ export default function Footer({}: Props) {
             <li>
               <a>Kontakty</a>
             </li>
+            <li>
+              <a>Obchodní podmínky</a>
+            </li>
+            <li>
+              <a>Podmínky ochrany osobních údajů</a>
+            </li>
+            <li>
+              <a>Příklad nájemní smlouvy</a>
+            </li>
           </ul>
         </div>
         <div className="flex flex-col gap-3">
@@ -55,17 +64,18 @@ export default function Footer({}: Props) {
             </li>
           </ul>
         </div>
+
         <div className="flex flex-col gap-3">
-          <p className="text-primary">Dokumenty</p>
+          <p className="text-primary">Kontakt</p>
           <ul className="flex flex-col gap-2 text-textSecondary">
             <li>
-              <a>Obchodní podmínky</a>
+              <p>IČO: 10796509</p>
             </li>
             <li>
-              <a>Podmínky ochrany osobních údajů</a>
+              <a href="tel:602606331">Telefon: 602606331</a>
             </li>
             <li>
-              <a>Příklad nájemní smlouvy</a>
+              <a href="mailto:info@grasston.cz">Email: info@grasston.cz</a>
             </li>
           </ul>
         </div>
