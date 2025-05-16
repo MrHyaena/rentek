@@ -1,6 +1,14 @@
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHandshakeSimple,
+  faPhone,
+  faTruck,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { FaHandshake } from "react-icons/fa6";
+import { HiViewGrid, HiViewGridAdd } from "react-icons/hi";
+import { IoMdPhonePortrait } from "react-icons/io";
+import { PiTruckFill } from "react-icons/pi";
 
 type IconCardProps = {
   icon: any;
@@ -14,7 +22,7 @@ function IconCard({ icon, heading, text }: IconCardProps) {
       <div className="flex flex-col items-center justify-start text-center">
         <FontAwesomeIcon icon={icon} className="text-4xl text-primary mb-4" />
         <h5 className="">{heading}</h5>
-        <p className="text-xl text-textSecondary">{text}</p>
+        <p className="text-lg text-textSecondary">{text}</p>
       </div>
     </>
   );
@@ -22,27 +30,35 @@ function IconCard({ icon, heading, text }: IconCardProps) {
 
 export default function IconsColumns() {
   return (
-    <div className="flex items-center justify-between w-full max-w-wrapper">
-      <IconCard
-        icon={faPhone}
-        heading={"Vždy se nám dovoláte"}
-        text={"Nejsme korporát s robotem na telefonu"}
-      />
-      <IconCard
-        icon={faPhone}
-        heading={"Vždy se nám dovoláte"}
-        text={"Nejsme korporát s robotem na telefonu"}
-      />
-      <IconCard
-        icon={faPhone}
-        heading={"Vždy se nám dovoláte"}
-        text={"Nejsme korporát s robotem na telefonu"}
-      />
-      <IconCard
-        icon={faPhone}
-        heading={"Vždy se nám dovoláte"}
-        text={"Nejsme korporát s robotem na telefonu"}
-      />
+    <div className="grid grid-cols-4 gap-5 items-center justify-between w-full max-w-wrapper">
+      <div className="flex flex-col items-center justify-start text-center">
+        <PiTruckFill className="text-4xl text-primary mb-4" />
+        <h5 className="">Doručení po Praze a okolí zdarma</h5>
+        <p className="text-lg text-textSecondary">
+          Techniku Vám doručíme klidně až před branku
+        </p>
+      </div>
+      <div className="flex flex-col items-center justify-start text-center">
+        <IoMdPhonePortrait className="text-4xl text-primary mb-4" />
+        <h5 className="">Vždy se nám dovoláte</h5>
+        <p className="text-lg text-textSecondary">
+          Nejsme korporát s robotem na telefonu
+        </p>
+      </div>
+      <div className="flex flex-col items-center justify-start text-center">
+        <FaHandshake className="text-4xl text-primary mb-4" />
+        <h5 className="">Prvotřídní zákaznický servis</h5>
+        <p className="text-lg text-textSecondary">
+          Každý problém se dá vyřešit lidsky a férově
+        </p>
+      </div>
+      <div className="flex flex-col items-center justify-start text-center">
+        <HiViewGridAdd className="text-4xl text-primary mb-4" />
+        <h5 className="">Plnohodnotný servis v ceně</h5>
+        <p className="text-lg text-textSecondary">
+          Servisované vybavení, plná nádrž, instruktáž a ochranné pomůcky
+        </p>
+      </div>
     </div>
   );
 }

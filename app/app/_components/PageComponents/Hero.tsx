@@ -24,7 +24,7 @@ export default function Hero() {
               ročně. <br />
               <span className="font-semibold">
                 Vše Vám dovezeme přímo před dům, vysvětlíme obsluhu, a po
-                skončení nájmu zase odvezeme.
+                skončení nájmu se znovu o vše postaráme.
               </span>
             </p>
             <DatepickerBig />
