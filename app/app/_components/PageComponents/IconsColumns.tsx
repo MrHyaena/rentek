@@ -30,7 +30,7 @@ function IconCard({ icon, heading, text }: IconCardProps) {
 
 export default function IconsColumns() {
   return (
-    <div className="grid grid-cols-4 gap-5 items-start justify-between w-full max-w-wrapper">
+    <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-5 items-start justify-between w-full max-w-wrapper">
       <div className="flex flex-col items-center justify-start text-center">
         <PiTruckFill className="text-4xl text-primary mb-4" />
         <h5 className="">Doručení po Praze a okolí zdarma</h5>

@@ -24,6 +24,16 @@ export default function CartForm({ newAdditions }: Props) {
 
   let saleIndex: number = 0;
 
+  if (numberOfDays == 1) {
+    saleIndex = 0;
+  } else if (numberOfDays <= 7) {
+    saleIndex = 0.9;
+  } else if (numberOfDays <= 21) {
+    saleIndex = 0.85;
+  } else if (numberOfDays > 21) {
+    saleIndex = 0.8;
+  }
+
   useEffect(() => {
     if (daterange.endIsValid && daterange.startIsValid) {
       const days = differenceInDays(daterange.endDate, daterange.startDate);
@@ -39,16 +49,6 @@ export default function CartForm({ newAdditions }: Props) {
       setAdditions([...newArray]);
     }
   }, []);
-
-  if (numberOfDays == 1) {
-    saleIndex = 0;
-  } else if (numberOfDays <= 7) {
-    saleIndex = 0.9;
-  } else if (numberOfDays <= 21) {
-    saleIndex = 0.85;
-  } else if (numberOfDays > 21) {
-    saleIndex = 0.8;
-  }
 
   let data: any[] = [];
 

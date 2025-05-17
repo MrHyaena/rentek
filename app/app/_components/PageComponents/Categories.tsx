@@ -20,7 +20,7 @@ function CategoryTab({ image, heading, buttonText, link }: Props) {
       }}
       className="min-h-[300px] rounded-xl"
     >
-      <div className="bg-linear-180 from-overlay/80 to-transparent h-full w-full rounded-xl px-15 flex flex-col items-start justify-center gap-8">
+      <div className="bg-linear-180 from-overlay/80 to-transparent h-full w-full rounded-xl px-15 flex flex-col md:items-start items-center text-center md:text-start justify-center gap-8">
         <h4 className="text-textLight">{heading}</h4>
         <Link href={link}>
           <button className="buttonMid">{buttonText}</button>
@@ -36,11 +36,11 @@ export default function Categories() {
       <div className="max-w-wrapper w-full flex flex-col gap-10">
         <SectionHeading
           subheading="Kategorie"
-          heading="Prohlédněte si naší nabídku"
-          firstText="Půjčujeme nářadí a stroje, se kterými zvládnete pečovat o celý váš pozemek."
-          secondText="Všechna technika je samozřejmě neustále servisovaná. Pokud by se i přesto stalo, že něco selže, zboží Vám v rámci hodin zdarma nahradíme."
+          heading="Prohlédněte si naši nabídku"
+          firstText="Půjčujeme nářadí a stroje, se kterými snadno zvládnete péči o celý váš pozemek."
+          secondText="Všechna technika je samozřejmě pravidelně servisovaná. Pokud by přesto došlo k poruše, vybavení vám zdarma vyměníme."
         />
-        <div className="grid grid-cols-2 w-full gap-10">
+        <div className="grid md:grid-cols-2 w-full gap-10">
           <CategoryTab
             image={"/lawnmower.jpg"}
             heading={"Úprava trávníku, porostů a zeminy"}

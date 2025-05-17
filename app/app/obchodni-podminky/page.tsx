@@ -5,12 +5,12 @@ export default function page() {
   return (
     <>
       <PageHeading
-        image="/hero.webp"
+        image="/contract.jpg"
         heading="Obchodní podmínky"
         text="Obchodní podmínky platné od 5.5.2024"
         datepickerExists={false}
       />
-      <div className="flex w-full justify-center py-15">
+      <div className="flex w-full justify-center py-15 px-5">
         <div className="w-full max-w-wrapper flex flex-col gap-5">
           <div className="flex flex-col gap-5">
             <h5>1. Úvodní ustanovení</h5>

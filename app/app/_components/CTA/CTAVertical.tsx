@@ -24,10 +24,10 @@ export default function CTAVertical({
       }}
       className="min-h-[250px] rounded-xl"
     >
-      <div className="bg-overlay/70 to-transparent min-h-[250px] rounded-xl px-15 py-20 flex flex-col items-center justify-center gap-10">
+      <div className="bg-overlay/70 to-transparent min-h-[250px] rounded-xl md:px-15 md:py-20 p-10 flex flex-col items-center justify-center gap-10">
         <div className="text-center flex flex-col items-center justify-center gap-5">
           <h3 className="text-textLight">{heading}</h3>
-          <p className="text-textLight text-2xl">{text}</p>
+          <p className="text-textLight md:text-2xl text-xl">{text}</p>
         </div>
         <a href={link}>
           <button className="buttonMid">{buttonText}</button>

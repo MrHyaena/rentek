@@ -6,7 +6,7 @@ type Props = {};
 
 export default function ScrollToKontakt({}: Props) {
   return (
-    <li
+    <button
       className="cursor-pointer"
       onClick={() => {
         window.scrollTo({
@@ -16,6 +16,6 @@ export default function ScrollToKontakt({}: Props) {
       }}
     >
       Kontakt
-    </li>
+    </button>
   );
 }

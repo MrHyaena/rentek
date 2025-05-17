@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { truncate } from "fs";
 import ProductTab from "../Products/ProductTab";
+import Link from "next/link";
 
 export default function Products({
   popularProducts,
@@ -23,13 +24,13 @@ export default function Products({
     <>
       <div className="w-full max-w-wrapper">
         <SectionHeading
-          heading="Populární nářadí a stroje"
+          heading="Populární nářadí a technika"
           firstText=""
           secondText=""
           subheading="Co si půjčují ostatní?"
         />
-        <div className="grid grid-cols-4 gap-10">
-          <div className="col-span-3 flex gap-5 overflow-x-scroll pb-3">
+        <div className="grid md:grid-cols-4 gap-10">
+          <div className="md:col-span-3 flex gap-5 overflow-x-scroll pb-3">
             {popularProducts.map((product: any) => {
               return <ProductTab product={product} />;
             })}
@@ -39,11 +40,13 @@ export default function Products({
               backgroundImage: `url(/mower.webp)`,
               backgroundSize: "cover",
             }}
-            className="col-span-1 h-full bg-amber-200 rounded-xl"
+            className="col-span-1 w-full h-full bg-amber-200 rounded-xl"
           >
             <div className="w-full h-full bg-linear-180 from-overlay/70 to-transparent rounded-xl p-8 flex flex-col justify-start items-start gap-5 scroll-x-gutter">
-              <h4 className="text-textLight">Všechny nástroje</h4>
-              <button className="buttonMid">Ukázat nabídku</button>
+              <h4 className="text-textLight">Všechna technika</h4>
+              <Link href={"/katalog"} className="buttonMid">
+                Ukázat nabídku
+              </Link>
             </div>
           </div>
         </div>

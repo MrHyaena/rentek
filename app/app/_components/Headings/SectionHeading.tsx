@@ -14,8 +14,8 @@ export default function SectionHeading({
   subheading,
 }: Props) {
   return (
-    <div className="flex flex-col items-center gap-5 pb-14">
-      <p className="text-2xl uppercase text-primary">{subheading}</p>
+    <div className="flex flex-col items-center gap-5 pb-14 text-center">
+      <p className="md:text-2xl text-xl uppercase text-primary">{subheading}</p>
       <h2 className="text-textPrimary">{heading}</h2>
       <p className="text-xl">{firstText}</p>
       <p className="text-xl">{secondText}</p>

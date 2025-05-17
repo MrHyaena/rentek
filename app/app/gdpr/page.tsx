@@ -5,12 +5,12 @@ export default function page() {
   return (
     <>
       <PageHeading
-        image="/hero.webp"
+        image="/contract.jpg"
         heading="Podmínky ochrany osobních údajů"
         text="Na bezpečí vašich dat nám záleží!"
         datepickerExists={false}
       />
-      <div className="flex w-full justify-center py-15">
+      <div className="flex w-full justify-center py-15 p-5">
         <div className="w-full max-w-wrapper flex flex-col gap-5">
           <div className="flex flex-col gap-5">
             <h5>1. Úvodní ustanovení</h5>

@@ -37,17 +37,16 @@ export default function DatepickerSmall() {
             {isValid() ? (
               <>
                 <FontAwesomeIcon icon={faCalendar} className="text-2xl" />
-                <div className="text-lg">
-                  <p className="font-semibold">
-                    Vyberte časové rozmezí pro vypůjčení
-                  </p>
-                </div>
+                <p className="font-semibold text-base md:text-base">
+                  Vyberte časové rozmezí pro vypůjčení
+                </p>
               </>
             ) : (
               <>
                 <div className="flex justify-center">
                   <p className="">
-                    Vypůjčení od{" "}
+                    Vypůjčení
+                    <br className="md:hidden" /> od{" "}
                     <span className="font-semibold">
                       {format(daterange.startDate, "dd.MM.yyy")}{" "}
                       {format(daterange.startDate, "HH:mm")}{" "}
@@ -63,7 +62,9 @@ export default function DatepickerSmall() {
             )}
           </div>
         </div>
-        <p className="text-start text-sm mt-2">Klikněte pro změnu rozmezí</p>
+        <p className="text-start text-sm mt-2 hidden md:block">
+          Klikněte pro změnu rozmezí
+        </p>
       </div>
     </>
   );

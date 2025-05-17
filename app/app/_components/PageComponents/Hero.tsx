@@ -1,6 +1,9 @@
 import { url } from "inspector";
 import React from "react";
 import DatepickerBig from "../Datepickers/DatepickerBig";
+import Link from "next/link";
+import HowDoesItWorkButton from "./HowDoesItWorkButton";
+import DatepickerSmall from "../Datepickers/DatepickerSmall";
 
 export default function Hero() {
   return (
@@ -13,28 +16,31 @@ export default function Hero() {
         }}
         className="max-w-wrapper bg-white w-full rounded-2xl flex items-stretch"
       >
-        <div className="w-full h-full bg-linear-90 from-overlay from-20% to-transparent rounded-2xl p-10 py-20 flex justify-start">
-          <div className="max-w-[63%] flex flex-col gap-5 justify-center">
+        <div className="w-full h-full bg-linear-90 from-overlay from-20% to-transparent rounded-2xl md:p-10 p-7  flex justify-start">
+          <div className="md:max-w-[63%] flex flex-col gap-5 justify-center">
             <h1 className="text-textLight">
-              Půjčovna techniky v Praze <br />
-              Pro každou zahradu
+              Půjčovna zahradní techniky
+              <br />v Praze a okolí
             </h1>
-            <p className="text-white text-xl">
+            <p className="text-white md:text-xl text-base">
               Přestaňte kupovat zbytečně drahé stroje kvůli pár dnům práce
               ročně. <br />
               <span className="font-semibold">
-                Vše Vám dovezeme přímo před dům, vysvětlíme obsluhu, a po
+                Vše Vám dovezeme přímo před dům, vysvětlíme obsluhu a po
                 skončení nájmu se znovu o vše postaráme.
               </span>
             </p>
-            <DatepickerBig />
-            <div className="flex items-center gap-3 mt-4">
+            <div className="hidden md:block">
+              <DatepickerBig />
+            </div>
+            <div className="block md:hidden">
+              <DatepickerSmall />
+            </div>
+            <div className="flex md:flex-row flex-col md:items-center gap-3 mt-4">
               <button className="buttonMid">
                 Podívejte se do naší nabídky
               </button>
-              <button className="bg-transparent border-2 px-5 py-3 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-zinc-500/40 transition-all ease-in-out">
-                Jak to funguje
-              </button>
+              <HowDoesItWorkButton />
             </div>
           </div>
         </div>

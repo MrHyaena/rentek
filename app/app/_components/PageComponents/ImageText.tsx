@@ -8,6 +8,7 @@ type Props = {
   textThree: string;
   image: string;
   colStart: number;
+  id: string;
 };
 
 export default function ImageText({
@@ -18,6 +19,7 @@ export default function ImageText({
   textThree,
   image,
   colStart,
+  id,
 }: Props) {
   let textRow = 2;
 
@@ -26,7 +28,10 @@ export default function ImageText({
   }
   return (
     <>
-      <div className="w-full grid grid-cols-2 max-w-wrapper gap-15">
+      <div
+        id={id}
+        className="w-full md:grid grid-cols-2 max-w-wrapper gap-15 flex flex-col-reverse"
+      >
         <div
           style={{
             backgroundImage: `url(${image})`,
@@ -34,7 +39,7 @@ export default function ImageText({
             gridColumnStart: colStart,
             backgroundPosition: "center",
           }}
-          className="rounded-xl h-[400px] col-span-1 contrast-110 brightness-120"
+          className="rounded-xl h-[400px] col-span-1"
         ></div>
         <div
           className="col-span-1 row-start-1 flex flex-col justify-center items-start gap-5"

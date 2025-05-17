@@ -17,12 +17,12 @@ export default function CartButton() {
 
   return (
     <>
-      <Link href="/kosik" className="text-xl relative flex items-center">
+      <Link href="/kosik" className="relative flex items-center">
         <FontAwesomeIcon
           icon={faCartShopping}
-          className="text-primary text-2xl"
+          className="text-primary md:text-2xl text-lg"
         />
-        <p className="bg-tertiary text-white font-semibold text-sm rounded-full flex items-center justify-center w-6 h-6 relative top-[-15px] left-[-5px]">
+        <p className="bg-tertiary text-white font-semibold text-[11px] rounded-full flex items-center justify-center md:w-6 md:h-6 md:text-sm w-5 h-5 relative top-[-15px] left-[-5px]">
           {length}
         </p>
       </Link>

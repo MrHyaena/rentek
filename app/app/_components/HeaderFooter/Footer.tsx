@@ -7,7 +7,7 @@ type Props = {};
 export default function Footer({}: Props) {
   return (
     <div className="min-h-[400px] w-full bg-white border-t border-borderGray flex justify-center py-12 px-5">
-      <div className="max-w-wrapper w-full grid grid-cols-3 gap-20">
+      <div className="max-w-wrapper w-full grid md:grid-cols-3 gap-20">
         <div className="flex flex-col gap-5">
           <Image
             src={"/logo.png"}
@@ -17,9 +17,11 @@ export default function Footer({}: Props) {
             className="w-20"
           />
           <p className="text-textSecondary text-sm">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident,
-            necessitatibus? Fugiat accusamus accusantium facere eos doloremque
-            hic dolorum labore.
+            Půjčujeme kvalitní zahradní stroje a nářadí na krátkodobé i
+            dlouhodobé použití. Dovezeme Vám je až k domu, vysvětlíme obsluhu a
+            po skončení zápůjčky vše opět vyzvedneme. Vždy se na nás můžete
+            spolehnout – férové jednání a prvotřídní zákaznický servis jsou pro
+            nás samozřejmostí.
           </p>
         </div>
         <div className="flex flex-col gap-3">

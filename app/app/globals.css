@@ -25,10 +25,10 @@
 }
 
 .buttonSmall {
-  @apply bg-primary px-3 py-2 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;
+  @apply bg-primary px-3 py-2 md:text-lg text-base font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;
 }
 .buttonMid {
-  @apply bg-primary px-5 py-3 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;
+  @apply bg-primary px-5 py-3 md:text-lg text-base font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;
 }
 .buttonBig {
   @apply bg-primary px-3 py-2 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;
@@ -44,19 +44,19 @@ h6 {
 }
 
 h1 {
-  @apply text-7xl;
+  @apply md:text-7xl text-5xl;
 }
 
 h2 {
-  @apply text-6xl;
+  @apply md:text-6xl text-4xl;
 }
 
 h3 {
-  @apply text-5xl;
+  @apply md:text-5xl text-3xl;
 }
 
 h4 {
-  @apply text-4xl;
+  @apply md:text-4xl text-3xl;
 }
 
 h5 {

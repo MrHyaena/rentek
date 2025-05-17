@@ -15,12 +15,12 @@ export default function PageHeading({
   datepickerExists,
 }: Props) {
   return (
-    <div className="p-10 flex justify-center">
+    <div className="md:p-10 p-5 flex justify-center mt-[110px]">
       <div
         style={{ backgroundImage: `url(${image})`, backgroundSize: "cover" }}
         className="min-h-[300px] w-full bg-green-300 max-w-wrapper rounded-xl"
       >
-        <div className="rounded-xl flex flex-col justify-center items-center h-full bg-overlay/60 text-textLight gap-5 py-15">
+        <div className="rounded-xl flex flex-col justify-center items-center h-full bg-overlay/60 text-textLight gap-5 py-10 px-5 text-center">
           <h3>{heading}</h3>
           <h5>{text}</h5>
           <div></div>
