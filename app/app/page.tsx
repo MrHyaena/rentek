@@ -7,16 +7,41 @@ import ImageText from "./_components/PageComponents/ImageText";
 import CTAHorizontal from "./_components/CTA/CTAHorizontal";
 import CTAVertical from "./_components/CTA/CTAVertical";
 
-export default function Home() {
+export default async function Home() {
+  async function GetPopularProducts() {
+    let response = await fetch(
+      process.env.STRAPI + "/api/items/?filters[popular][$eq]=yes&populate=*",
+      {
+        method: "GET",
+        mode: "cors",
+      }
+    );
+
+    const itemsArray: any[] = [];
+
+    const json = await response.json();
+
+    json.data.map((item: any) => {
+      itemsArray.push({
+        count: 0,
+        item: { ...item },
+      });
+    });
+
+    return itemsArray;
+  }
+
+  const popularProducts = await GetPopularProducts();
+
   return (
     <>
       <div className="py-15 px-5 flex justify-center w-full flex-col items-center gap-30">
         <Hero />
         <IconsColumns />
         <Categories />
-        <Products />
+        <Products popularProducts={popularProducts} />
         <ImageText
-          image="/hero.webp"
+          image="/handshake.png"
           subheading="Služba až ke dveřím"
           heading="Jak to u nás funguje?"
           textOne="Zakládáme si zejména na skvělé zákaznické péči a jednoduchosti. Všechno zboží, které si u nás objednáte, Vám dovezeme až domů. Společně s předáním Vám vše vysvětlíme a nakonci půjčky pro vše zase přijedeme."
@@ -35,7 +60,7 @@ export default function Home() {
         />
         <div className="w-full max-w-wrapper">
           <CTAVertical
-            image={"/hero.webp"}
+            image={"/worker.jpg"}
             heading="Hledáte nějakou techniku? Podívejte se do našeho katalogu!"
             text="A pokud byste měli jakýkoliv dotaz, nebojte se nás kontaktovat na telefonu nebo emailové adrese v zápatí."
             buttonText="Ukázat techniku"

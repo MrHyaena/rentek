@@ -17,7 +17,11 @@ export default function CTAVertical({
 }: Props) {
   return (
     <div
-      style={{ backgroundImage: `url(${image})`, backgroundSize: "cover" }}
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
       className="min-h-[250px] rounded-xl"
     >
       <div className="bg-overlay/70 to-transparent min-h-[250px] rounded-xl px-15 py-20 flex flex-col items-center justify-center gap-10">

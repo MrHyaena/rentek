@@ -13,7 +13,11 @@ type Props = {
 function CategoryTab({ image, heading, buttonText, link }: Props) {
   return (
     <div
-      style={{ backgroundImage: `url(${image})`, backgroundSize: "cover" }}
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
       className="min-h-[300px] rounded-xl"
     >
       <div className="bg-linear-180 from-overlay/80 to-transparent h-full w-full rounded-xl px-15 flex flex-col items-start justify-center gap-8">
@@ -38,19 +42,19 @@ export default function Categories() {
         />
         <div className="grid grid-cols-2 w-full gap-10">
           <CategoryTab
-            image={"/grass.jpg"}
+            image={"/lawnmower.jpg"}
             heading={"Úprava trávníku, porostů a zeminy"}
             buttonText={"Ukázat techniku"}
             link={"/katalog"}
           />
           <CategoryTab
-            image={"/shrub.jpg"}
+            image={"/shears.webp"}
             heading={"Úprava keřů"}
             buttonText={"Ukázat techniku"}
             link={"/katalog"}
           />
           <CategoryTab
-            image={"/apple.jpg"}
+            image={"/saw.jpg"}
             heading={"Úprava stromů a dřeva"}
             buttonText={"Ukázat techniku"}
             link={"/katalog"}
@@ -63,7 +67,7 @@ export default function Categories() {
           />
         </div>
         <CTAHorizontal
-          image={"/bosch.jpg"}
+          image={"/grass.jpg"}
           heading="SLEVA 5 % S KÓDEM GT2025"
           text="Slevu pro Vás máme spuštěnou po celou sezónu. Platí na celou objednávku."
           buttonText=""

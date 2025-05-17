@@ -34,7 +34,7 @@ export default function RootLayout({
       <body className={`${montserrat.className} antialiased`}>
         <Providers>
           <Header />
-          <div className="mt-[150px] text-textPrimary">{children}</div>
+          <div className="mt-[150px] text-textPrimary z-19">{children}</div>
         </Providers>
         <Footer />
       </body>

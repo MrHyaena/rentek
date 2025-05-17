@@ -32,8 +32,9 @@ export default function ImageText({
             backgroundImage: `url(${image})`,
             backgroundSize: "cover",
             gridColumnStart: colStart,
+            backgroundPosition: "center",
           }}
-          className="rounded-xl h-[400px] col-span-1"
+          className="rounded-xl h-[400px] col-span-1 contrast-110 brightness-120"
         ></div>
         <div
           className="col-span-1 row-start-1 flex flex-col justify-center items-start gap-5"

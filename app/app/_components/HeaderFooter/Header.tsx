@@ -16,7 +16,7 @@ import ScrollToKontakt from "./ScrollToKontakt";
 export default function Header() {
   return (
     <>
-      <div className=" w-full border-b border-borderGray fixed top-0 bg-white lg:block hidden">
+      <div className=" w-full border-b border-borderGray fixed top-0 bg-white lg:block hidden z-20">
         <div className="h-[40px] w-full bg-zinc-50 flex justify-center px-10">
           <div className="max-w-wrapper w-full h-full flex justify-between items-center">
             <p className="">

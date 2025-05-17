@@ -119,6 +119,13 @@
     "amount": {
       "type": "biginteger",
       "required": true
+    },
+    "popular": {
+      "type": "enumeration",
+      "enum": [
+        "yes",
+        "no"
+      ]
     }
   }
 }

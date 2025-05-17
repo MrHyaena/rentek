@@ -5,7 +5,11 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { truncate } from "fs";
 import ProductTab from "../Products/ProductTab";
 
-export default function Products() {
+export default function Products({
+  popularProducts,
+}: {
+  popularProducts: any[];
+}) {
   let item = {
     image: "/hero.webp",
     name: "Sekačka",
@@ -25,22 +29,19 @@ export default function Products() {
           subheading="Co si půjčují ostatní?"
         />
         <div className="grid grid-cols-4 gap-10">
-          <div className="col-span-3 flex gap-5 overflow-x-scroll">
-            <ProductTab item={item} />
-            <ProductTab item={item} />
-            <ProductTab item={item} />
-            <ProductTab item={item} />
-            <ProductTab item={item} />
-            <ProductTab item={item} />
+          <div className="col-span-3 flex gap-5 overflow-x-scroll pb-3">
+            {popularProducts.map((product: any) => {
+              return <ProductTab product={product} />;
+            })}
           </div>
           <div
             style={{
-              backgroundImage: `url(/hero.webp)`,
+              backgroundImage: `url(/mower.webp)`,
               backgroundSize: "cover",
             }}
             className="col-span-1 h-full bg-amber-200 rounded-xl"
           >
-            <div className="w-full h-full bg-linear-180 from-overlay/70 to-transparent rounded-xl p-8 flex flex-col justify-start items-start gap-5">
+            <div className="w-full h-full bg-linear-180 from-overlay/70 to-transparent rounded-xl p-8 flex flex-col justify-start items-start gap-5 scroll-x-gutter">
               <h4 className="text-textLight">Všechny nástroje</h4>
               <button className="buttonMid">Ukázat nabídku</button>
             </div>
