@@ -1,5 +1,6 @@
 import React from "react";
 import DatepickerBig from "../Datepickers/DatepickerBig";
+import DatepickerSmall from "../Datepickers/DatepickerSmall";
 
 type Props = {
   image: string;
@@ -26,8 +27,11 @@ export default function PageHeading({
           <div></div>
           {datepickerExists && (
             <>
-              <div className="w-[60%] text-textPrimary">
+              <div className="w-[60%] text-textPrimary hidden md:block">
                 <DatepickerBig />
+              </div>
+              <div className=" text-textPrimary md:hidden">
+                <DatepickerSmall />
               </div>
             </>
           )}

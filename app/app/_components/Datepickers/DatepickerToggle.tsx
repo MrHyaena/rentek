@@ -502,14 +502,15 @@ export default function DatepickerToggle({ setToggle }: Props) {
         onClick={() => {
           setToggle(false);
         }}
-        className="w-screen h-screen fixed top-0 left-0 flex items-start pt-50 justify-center bg-zinc-700/80"
+        className="w-screen h-screen overflow-scroll fixed top-0 left-0 flex items-start pt-50 justify-center bg-zinc-700/80 p-5"
       >
         <div
+          className="w-full md:max-w-[700px] max-h-[500px] md:max-h-screen bg-white md:rounded-lg md:overflow-auto overflow-scroll"
           onClick={(e) => {
             e.stopPropagation();
           }}
         >
-          <div className="bg-primary text-textLight p-5 py-6 rounded-t-md justify-between items-center flex">
+          <div className="bg-primary text-textLight md:p-5 p-5 md:py-6 justify-between items-center flex">
             <h5>Zvolte datum doručení a odvozu</h5>
             <FontAwesomeIcon
               icon={faXmark}
@@ -519,7 +520,47 @@ export default function DatepickerToggle({ setToggle }: Props) {
               }}
             />
           </div>
-          <div className=" max-h-[500px] min-w-[800px] grid grid-cols-4 bg-white border-b border-borderGray">
+          <div className=" border-b border-borderGray">
+            <div className="p-5 text-center">
+              {daterange.endIsValid && daterange.startIsValid && (
+                <>
+                  <p>
+                    Techniku si budete půjčovat od{" "}
+                    <span className="font-semibold">
+                      {format(daterange.startDate, "dd.MM.yyyy HH:mm")}
+                    </span>{" "}
+                    od{" "}
+                    <span className="font-semibold">
+                      {format(daterange.endDate, "dd.MM.yyyy HH:mm")}
+                    </span>
+                  </p>
+                </>
+              )}
+              {!daterange.startIsValid && (
+                <>
+                  <div className="flex items-center justify-center gap-3">
+                    <FontAwesomeIcon
+                      icon={faTriangleExclamation}
+                      className="text-amber-500"
+                    />
+                    <p className=" font-semibold">Doplňte čas doručení</p>
+                  </div>
+                </>
+              )}
+              {!daterange.endIsValid && (
+                <>
+                  <div className="flex items-center justify-center gap-3">
+                    <FontAwesomeIcon
+                      icon={faTriangleExclamation}
+                      className="text-amber-500"
+                    />
+                    <p className="font-semibold">Doplňte čas odvozu</p>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+          <div className=" max-h-[500px] max-w-[800px] grid md:grid-cols-4  border-b border-borderGray rounded-b-md">
             <div className="col-span-2 border-r border-borderGray p-5">
               <div className="grid grid-cols-2 justify-items-stretch gap-5 py-2 text-center">
                 <div>
@@ -590,7 +631,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
                 })}
               </div>
             </div>
-            <div className=" col-span-2 py-2 px-5 ">
+            <div className=" col-span-2 py-2 px-5 mt-5">
               <div
                 style={{ scrollbarGutter: "stable" }}
                 className="overflow-auto pr-2
@@ -637,46 +678,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
                     })}
                 </div>
               </div>
-            </div>
-          </div>
-          <div className=" max-h-[500px] min-w-[800px] bg-white rounded-b-md">
-            <div className="p-5 text-center">
-              {daterange.endIsValid && daterange.startIsValid && (
-                <>
-                  <p>
-                    Techniku si budete půjčovat od{" "}
-                    <span className="font-semibold">
-                      {format(daterange.startDate, "dd.MM.yyyy HH:mm")}
-                    </span>{" "}
-                    od{" "}
-                    <span className="font-semibold">
-                      {format(daterange.endDate, "dd.MM.yyyy HH:mm")}
-                    </span>
-                  </p>
-                </>
-              )}
-              {!daterange.startIsValid && (
-                <>
-                  <div className="flex items-center justify-center gap-3">
-                    <FontAwesomeIcon
-                      icon={faTriangleExclamation}
-                      className="text-amber-500"
-                    />
-                    <p className=" font-semibold">Doplňte čas doručení</p>
-                  </div>
-                </>
-              )}
-              {!daterange.endIsValid && (
-                <>
-                  <div className="flex items-center justify-center gap-3">
-                    <FontAwesomeIcon
-                      icon={faTriangleExclamation}
-                      className="text-amber-500"
-                    />
-                    <p className="font-semibold">Doplňte čas odvozu</p>
-                  </div>
-                </>
-              )}
             </div>
           </div>
         </div>

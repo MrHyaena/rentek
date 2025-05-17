@@ -37,9 +37,9 @@ export default function Hero() {
               <DatepickerSmall />
             </div>
             <div className="flex md:flex-row flex-col md:items-center gap-3 mt-4">
-              <button className="buttonMid">
+              <Link href={"/katalog"} className="buttonMid">
                 Podívejte se do naší nabídky
-              </button>
+              </Link>
               <HowDoesItWorkButton />
             </div>
           </div>

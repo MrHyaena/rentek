@@ -51,6 +51,8 @@ export default function Catalogue({ items }: Props) {
     );
   }
 
+  const [filtrToggle, setFiltrToggle] = useState<boolean>(false);
+
   type searchSubcategoryProps = {
     text: string;
     categoryType: string;
@@ -187,9 +189,9 @@ export default function Catalogue({ items }: Props) {
 
   return (
     <>
-      <div className="flex w-full  justify-center p-10">
-        <div className="w-full max-w-wrapper grid grid-cols-4 gap-10">
-          <div className="col-span-1">
+      <div className="flex w-full  justify-center md:p-10 p-5">
+        <div className="lg:w-full max-w-wrapper grid lg:grid-cols-4 gap-10">
+          <div className="lg:col-span-1 hidden lg:block">
             <form
               onSubmit={(data) => {
                 data.preventDefault();
@@ -401,7 +403,236 @@ export default function Catalogue({ items }: Props) {
               </button>
             </form>
           </div>
-          <div className="col-span-3 flex flex-col gap-5">
+          <div className="lg:col-span-1 lg:hidden">
+            <div className="flex justify-between items-center border p-2 border-borderGray rounded-md mb-3">
+              <p className="text-textPrimary text-2xl font-semibold border-borderGray">
+                Filtr
+              </p>
+              <p
+                onClick={() => {
+                  setFiltrToggle(!filtrToggle);
+                }}
+              >
+                {filtrToggle ? "Zavřít" : "Otevřit"}
+              </p>
+            </div>
+            {filtrToggle && (
+              <form
+                onSubmit={(data) => {
+                  data.preventDefault();
+                  Filter(data.target);
+                }}
+                className="min-h-50 border border-borderGray rounded-md p-4 flex flex-col gap-5"
+              >
+                <div>
+                  <SearchHeading text="Kategorie" />
+                  <div className="flex flex-col gap-3">
+                    <div>
+                      <label className="flex gap-2 items-center">
+                        <BiCategoryAlt className="text-primary" />
+                        <SearchCategory
+                          value="ffff"
+                          text="Všechny kategorie"
+                          categoryType="categories"
+                        />
+                      </label>
+                    </div>
+                    <div>
+                      <label className="flex gap-2 items-center">
+                        <FontAwesomeIcon
+                          icon={faSeedling}
+                          className="text-primary"
+                        />
+                        <SearchCategory
+                          value="p61jw52ag3pzulw0qzcvdd8s"
+                          text="Úprava trávníku"
+                          categoryType="categories"
+                        />
+                      </label>
+                      <div className="pl-5 ml-[6px] border-l border-borderGray">
+                        <SearchSubcategory
+                          value="uvepwsnfouqcpzvpxdrvyhys"
+                          categoryType="subcategories"
+                          text="Pojízdné sekačky"
+                          setter={setPojizdneSekacky}
+                          state={pojizdneSekacky}
+                        />
+                        <SearchSubcategory
+                          value="kubile3os5ohdznhd6mwzglp"
+                          categoryType="subcategories"
+                          text="Křovinořezy"
+                          setter={setKrovinorezy}
+                          state={krovinorezy}
+                        />
+                        <SearchSubcategory
+                          value="voar2ydhmjmsv67qnwexrtfq"
+                          categoryType="subcategories"
+                          text="Vertikulátory a kultivátory"
+                          setter={setVertikulatory}
+                          state={vertikulatory}
+                        />
+                        <SearchSubcategory
+                          value="yn15ya18q9oren1tomenj1qa"
+                          categoryType="subcategories"
+                          text="Provzdušňovače a mulčovače"
+                          setter={setProvzdusnovace}
+                          state={provzdusnovace}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="flex gap-2 items-center">
+                        <FontAwesomeIcon
+                          icon={faLeaf}
+                          className="text-primary"
+                        />
+                        <SearchCategory
+                          value="ba8e198g65fe64l1obbze549"
+                          text="Úprava keřů"
+                          categoryType="categories"
+                        />{" "}
+                      </label>
+                      <div className="pl-5 ml-[6px] border-l border-borderGray">
+                        <SearchSubcategory
+                          value="aiec68ul2uy4lt2btz2lv2wb"
+                          categoryType="subcategories"
+                          text="Nůžky na živý plot"
+                          setter={setNuzkyNaPlot}
+                          state={nuzkyNaPlot}
+                        />
+                        <SearchSubcategory
+                          value="bslnpe1894ajoyrgsi2p1vpz"
+                          categoryType="subcategories"
+                          text="Příslušenství a nářadí pro úpravu keřů"
+                          setter={setPrislusenstviKere}
+                          state={prislusenstviKere}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="flex gap-2 items-center">
+                        <FontAwesomeIcon
+                          icon={faTree}
+                          className="text-primary"
+                        />
+                        <SearchCategory
+                          value="xo1ctmhlqtw16bp2tq67dah0"
+                          text="Úprava stromů a dřeva"
+                          categoryType="categories"
+                        />{" "}
+                      </label>
+                      <div className="pl-5 ml-[6px] border-l border-borderGray">
+                        <SearchSubcategory
+                          value="qkhgxzq8mlqiaqhndwvq63eh"
+                          categoryType="subcategories"
+                          text="Řetěžové a vyvětvovací pily"
+                          setter={setRetezovePily}
+                          state={retezovePily}
+                        />
+                        <SearchSubcategory
+                          value="rl1xd2g2pbgk9solkr0k1aeo"
+                          categoryType="subcategories"
+                          text="Nůžky na větve"
+                          setter={setNuzkyNaVetve}
+                          state={nuzkyNaVetve}
+                        />
+                        <SearchSubcategory
+                          value="uy0p67uov9trc6z29vefr32e"
+                          categoryType="subcategories"
+                          text="Štípačky na dřevo"
+                          setter={setStipackyNaDrevo}
+                          state={stipackyNaDrevo}
+                        />
+                        <SearchSubcategory
+                          value="cx7kuahbibil6osjr0wyvccf"
+                          categoryType="subcategories"
+                          text="Příslušenství a nářadí pro úpravu stromů"
+                          setter={setPrislusenstviStromy}
+                          state={prislusenstviStromy}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="flex gap-2 items-center">
+                        <FontAwesomeIcon
+                          icon={faHelmetSafety}
+                          className="text-primary"
+                        />
+                        <SearchCategory
+                          value="urxyvl380onqrzd4mv57azk6"
+                          text="Manuální nářadí a příslušenství"
+                          categoryType="categories"
+                        />
+                      </label>
+                      <div className="pl-5 ml-[6px] border-l border-borderGray">
+                        <SearchSubcategory
+                          value="zsn9d5bbczpp7w34ij85xtzl"
+                          categoryType="subcategories"
+                          text="Nůžky, pily, mačety a jiné"
+                          setter={setNuzkyPilyMacety}
+                          state={nuzkyPilyMacety}
+                        />
+                        <SearchSubcategory
+                          value="k4h6f38xlvuxc3lh59j57vw0"
+                          categoryType="subcategories"
+                          text="Kolečka, vědra a krabice"
+                          setter={setKoleckaVedraKrabice}
+                          state={koleckaVedraKrabice}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <SearchHeading text="Typ pohonu" />
+                  <SearchSubcategory
+                    value="bf4ngqecws94nqtv5dlbyuve"
+                    categoryType="specifications"
+                    text="Elektrický motor"
+                    setter={setElektrickyMotor}
+                    state={elektrickyMotor}
+                  />
+                  <SearchSubcategory
+                    value="u076llljnkr3g2oolm3g5z50"
+                    categoryType="specifications"
+                    text="Benzínový motor"
+                    setter={setBenzinovyMotor}
+                    state={benzinovyMotor}
+                  />
+                  <SearchSubcategory
+                    value="ca7w1imw40v3syl7178f0oan"
+                    categoryType="specifications"
+                    text="Manuální nářadí"
+                    setter={setManualniNarad}
+                    state={manualniNaradi}
+                  />
+                </div>
+
+                <div>
+                  <SearchHeading text="Určení" />
+
+                  <SearchSubcategory
+                    value="sk1st3bmd0fbjufgeaz1p49m"
+                    categoryType="uses"
+                    text="Standardní podmínky"
+                    setter={setStandardniPodminky}
+                    state={standardniPodminky}
+                  />
+                  <SearchSubcategory
+                    value="ie19l68mmhdxcnmnlqzyp1u0"
+                    categoryType="uses"
+                    text="Náročné podmínky"
+                    setter={setnarocnePodminky}
+                    state={narocnePodminky}
+                  />
+                </div>
+                <button type="submit" className="buttonSmall w-full">
+                  Vyhledat
+                </button>
+              </form>
+            )}
+          </div>
+          <div className="lg:col-span-3 flex flex-col gap-5">
             {data.map((item: any) => {
               return <ProductTabHorizontal item={item} />;
             })}
