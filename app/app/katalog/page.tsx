@@ -30,7 +30,7 @@ export default async function page() {
   return (
     <>
       <PageHeading
-        image="/hero.webp"
+        image="/catalogHero.jpg"
         heading="Katalog techniky"
         text="Nejprve vyberte rozmezí datumů, ve kterých si chcete techniku vypůjčit. Ceny a dostupnost se upraví automaticky."
         datepickerExists={true}

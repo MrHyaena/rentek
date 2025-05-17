@@ -18,19 +18,23 @@ export default function PageHeading({
   return (
     <div className="md:p-10 p-5 flex justify-center mt-[110px]">
       <div
-        style={{ backgroundImage: `url(${image})`, backgroundSize: "cover" }}
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
         className="min-h-[300px] w-full bg-green-300 max-w-wrapper rounded-xl"
       >
-        <div className="rounded-xl flex flex-col justify-center items-center h-full bg-overlay/60 text-textLight gap-5 py-10 px-5 text-center">
+        <div className="rounded-xl flex flex-col justify-center items-center h-full bg-overlay/70 text-textLight gap-5 py-10 px-5 text-center">
           <h3>{heading}</h3>
-          <h5>{text}</h5>
+          <p className="md:text-xl text-lg font-semibold">{text}</p>
           <div></div>
           {datepickerExists && (
             <>
-              <div className="w-[60%] text-textPrimary hidden md:block">
+              <div className="w-[60%] text-textPrimary hidden lg:block">
                 <DatepickerBig />
               </div>
-              <div className=" text-textPrimary md:hidden">
+              <div className=" text-textPrimary lg:hidden">
                 <DatepickerSmall />
               </div>
             </>

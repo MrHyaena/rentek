@@ -62,7 +62,13 @@ export default function ProductPrice({ data }: Props) {
             celkem za {numberOfDays} {tag} {"(vč. DPH)"}
           </>
         ) : (
-          <p>Pro zobrazení cen vyberte rozmezí datumů.</p>
+          <>
+            Od{" "}
+            <span className="text-xl font-semibold text-primary">
+              {price} Kč
+            </span>{" "}
+            za den {"(vč. DPH)"}
+          </>
         )}
       </p>
     </div>

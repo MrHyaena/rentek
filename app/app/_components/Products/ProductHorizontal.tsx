@@ -56,7 +56,7 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
           src={process.env.STRAPI + item.coverImage.formats.small.url}
           alt={"thumbnail-" + item.coverImage.formats.small.url}
           height={500}
-          width={200}
+          width={500}
           className="h-full w-full object-cover "
         />
       </div>

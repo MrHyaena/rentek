@@ -53,7 +53,7 @@ export default function DatepickerBig() {
           ) : (
             <>
               <FontAwesomeIcon icon={faCalendar} className="text-2xl" />
-              <div className="text-lg">
+              <div className="text-lg text-start">
                 <p className="font-semibold">
                   Vyberte časové rozmezí pro vypůjčení
                 </p>
