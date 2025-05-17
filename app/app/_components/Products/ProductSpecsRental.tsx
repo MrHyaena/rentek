@@ -17,16 +17,16 @@ type Props = {
 
 export default function ProductSpecsRental({ data }: Props) {
   return (
-    <div className="flex flex-col gap-10 p-5">
-      <div className="grid grid-cols-3">
+    <div className="flex flex-col gap-10">
+      <div className="grid md:grid-cols-3 gap-4 justify-items-center md:justify-items-start w-full">
         {data.uses[0] != null && (
           <>
-            <div className="flex flex-col items-start gap-2">
+            <div className="flex flex-col md:items-start items-center gap-2">
               <div className="font-semibold flex items-center gap-2">
                 <PiFlowerTulipBold className="text-zinc-800 text-2xl" />{" "}
                 <p>Určení:</p>
               </div>
-              <div className="flex flex-col items-start gap-2">
+              <div className="flex flex-col md:items-start items-center gap-2">
                 {data.uses.map((item: { name: string; [key: string]: any }) => {
                   return <p className="">{item.name}</p>;
                 })}
@@ -35,11 +35,11 @@ export default function ProductSpecsRental({ data }: Props) {
           </>
         )}
         {data.specifications[0] != null && (
-          <div className="flex flex-col items-start gap-2">
+          <div className="flex flex-col md:items-start items-center gap-2">
             <div className="font-semibold flex items-center gap-2">
               <FaGears className="text-zinc-800 text-2xl" /> <p>Specifikace:</p>
             </div>
-            <div className="flex flex-col items-start gap-2">
+            <div className="flex flex-col md:items-start items-center gap-2">
               {data.specifications.map(
                 (item: { name: string; [key: string]: any }) => {
                   return <p className="">{item.name}</p>;
@@ -49,12 +49,12 @@ export default function ProductSpecsRental({ data }: Props) {
           </div>
         )}
         {data.accessories[0] != null && (
-          <div className="flex flex-col items-start gap-2">
+          <div className="flex flex-col md:items-start items-center gap-2">
             <div className="font-semibold flex items-center gap-2">
               <TbLayoutGridAdd className="text-zinc-800 text-2xl" />{" "}
               <p>Společně s technikou:</p>
             </div>
-            <div className="flex flex-col items-start gap-2">
+            <div className="flex flex-col md:items-start items-center gap-2">
               {data.accessories.map(
                 (item: { name: string; [key: string]: any }) => {
                   return <p className="">{item.name}</p>;
@@ -69,7 +69,7 @@ export default function ProductSpecsRental({ data }: Props) {
         data.uses[0] != null && (
           <div className="w-full h-[1px] bg-borderGray"></div>
         )}{" "}
-      <div className="grid grid-cols-[1fr_2fr] gap-2">
+      <div className="grid md:grid-cols-[1fr_2fr] gap-2">
         <div className="font-semibold  flex items-center gap-2">
           <FaHandshakeSimple className="text-zinc-800 text-2xl" />
           <p>Kauce:</p>
@@ -87,7 +87,7 @@ export default function ProductSpecsRental({ data }: Props) {
         <>
           {" "}
           <div className="w-full h-[1px] bg-borderGray"></div>
-          <div className="grid grid-cols-[1fr_2fr] gap-2">
+          <div className="grid md:grid-cols-[1fr_2fr] gap-2">
             <div className="font-semibold  flex items-center gap-2">
               <FaInfo className="text-zinc-800 text-2xl" />
               <p>Doplňující informace:</p>

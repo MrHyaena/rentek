@@ -1,13 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import parse from "html-react-parser";
-import ProductPagePrice from "@/app/_components/Prices/ProductPagePrice";
+import ProductPagePrice from "@/app/_components/Prices/ProductPrice";
 import DatepickerSmall from "@/app/_components/Datepickers/DatepickerSmall";
 
 import { FaChevronLeft, FaSeedling } from "react-icons/fa";
 
 import ProductSpecsRental from "@/app/_components/Products/ProductSpecsRental";
-import ProductPrice from "@/app/_components/Prices/ProductPagePrice";
+import ProductPrice from "@/app/_components/Prices/ProductPrice";
 import AddToCartButton from "@/app/_components/Cart/AddToCartButton";
 
 type Props = {};
@@ -39,17 +39,17 @@ export default async function Page({
   console.log(data);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start p-10 gap-5">
+    <div className="min-h-screen flex flex-col items-center justify-start md:p-10 p-5 gap-5 mt-[100px] md:mt-0">
       <a
         href="/katalog"
-        className="w-full text-start max-w-wrapper flex items-center gap-3 text-sm"
+        className="w-full text-start max-w-wrapper flex items-center gap-3 text-sm py-3"
       >
         <FaChevronLeft />
         <p className="font-semibold">Zpět do katalogu</p>
       </a>
 
-      <div className=" w-full  max-w-wrapper grid grid-cols-5 gap-10">
-        <div className="col-span-3 flex flex-col gap-5">
+      <div className=" w-full  max-w-wrapper grid md:grid-cols-5 gap-10">
+        <div className="md:col-span-3 flex flex-col gap-5">
           {data.gallery != null ? (
             <div className="grid grid-cols-5 gap-2">
               <Image
@@ -84,9 +84,11 @@ export default async function Page({
               />
             </div>
           )}
-          <ProductSpecsRental data={data} />
+          <div className="hidden md:block">
+            <ProductSpecsRental data={data} />
+          </div>
         </div>{" "}
-        <div className="h-full  col-span-2 flex flex-col gap-5">
+        <div className="h-full  md:col-span-2 flex flex-col gap-5">
           <h4 className="text-textPrimary">{data.name}</h4>
           <div className="flex flex-col gap-3 text-textPrimary">
             {parse(data.description)}
@@ -126,6 +128,9 @@ export default async function Page({
               *Za každých započatých 24 hodin se přičítá jeden den
             </p>
           </div>
+        </div>
+        <div className="md:hidden">
+          <ProductSpecsRental data={data} />
         </div>
       </div>
     </div>

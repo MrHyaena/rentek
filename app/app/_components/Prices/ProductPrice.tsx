@@ -42,13 +42,28 @@ export default function ProductPrice({ data }: Props) {
     tag = "dní";
   }
 
+  function isValid() {
+    if (daterange.endIsValid == true && daterange.startIsValid == true) {
+      return true;
+    }
+    if (daterange.endIsValid != true || daterange.startIsValid != true) {
+      return false;
+    }
+  }
+
   return (
     <div className="flex flex-col w-full gap-3 items-start">
       <p className="font-semibold text-textSecondary">
-        <span className="text-xl font-semibold text-primary">
-          {price * numberOfDays * saleIndex} Kč
-        </span>{" "}
-        celkem za {numberOfDays} {tag} {"(vč. DPH)"}
+        {isValid() ? (
+          <>
+            <span className="text-xl font-semibold text-primary">
+              {price * numberOfDays * saleIndex} Kč
+            </span>{" "}
+            celkem za {numberOfDays} {tag} {"(vč. DPH)"}
+          </>
+        ) : (
+          <p>Pro zobrazení cen vyberte rozmezí datumů.</p>
+        )}
       </p>
     </div>
   );

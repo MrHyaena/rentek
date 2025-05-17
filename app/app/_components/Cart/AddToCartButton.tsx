@@ -13,7 +13,7 @@ export default function AddToCartButton({ data }: Props) {
 
   return (
     <button
-      className="buttonSmall self-stretch text-start"
+      className="buttonSmall self-stretch md:text-start text-center"
       onClick={() => {
         addToCartFunction(cart, setCart, data);
       }}

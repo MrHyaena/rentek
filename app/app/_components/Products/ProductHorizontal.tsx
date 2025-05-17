@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { differenceInDays } from "date-fns";
-import ProductPrice from "../Prices/ProductPagePrice";
+import ProductPrice from "../Prices/ProductPrice";
 import { addToCartFunction } from "../Cart/cartFunction";
 import Link from "next/link";
 type ProductProps = {
