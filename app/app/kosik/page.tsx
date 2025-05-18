@@ -32,7 +32,7 @@ export default async function page() {
   let newAdditions = await GetAdditions();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start p-10 gap-5">
+    <div className="min-h-screen flex flex-col items-center justify-start md:p-10 p-5 gap-5 md:mt-0 mt-30">
       <div className="w-full max-w-wrapper flex flex-col gap-5">
         <h3>Košík</h3>
         <p className="">
@@ -41,7 +41,12 @@ export default async function page() {
           recusandae dolore quo illum assumenda quam est excepturi eaque
           perspiciatis iure tempora, amet fugit!
         </p>{" "}
-        <DatepickerBig />
+        <div className="hidden md:block">
+          <DatepickerBig />
+        </div>
+        <div className="md:hidden">
+          <DatepickerSmall />
+        </div>
       </div>
       <CartForm newAdditions={newAdditions} />
     </div>

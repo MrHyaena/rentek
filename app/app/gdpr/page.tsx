@@ -13,201 +13,283 @@ export default function page() {
       <div className="flex w-full justify-center py-15 p-5">
         <div className="w-full max-w-wrapper flex flex-col gap-5">
           <div className="flex flex-col gap-5">
-            <h5>1. Úvodní ustanovení</h5>
+            <h5>1. Správce osobních údajů</h5>
             <div className=" text-textPrimary">
               <p className="font-semibold">
                 Grasston – půjčovna zahradní techniky
               </p>
               <p>
-                Provozovatelem je Martin Doležal, IČO: 10796509, sídlo: Víta
-                Nejedlého 666/18, Praha 3, PSČ 130 00
+                Správcem osobních údajů je Martin Doležal, IČO: 10796509, sídlo:
+                Víta Nejedlého 666/18, Praha 3, PSČ 130 00, E-mail:
+                info@grasston.cz (dále jen „správce“ nebo „my“)
               </p>
               <p>Platné od: 5.5.2024</p>
             </div>
             <p>
-              Tyto obchodní podmínky upravují vztah mezi provozovatelem služby
-              (dále jen „pronajímatel“) a fyzickými nebo právnickými osobami
-              (dále jen „nájemce“), které si pronajímají zahradní techniku
-              prostřednictvím webu www.grasston.cz nebo jinou cestou
-              (telefonicky, e-mailem).
+              Tento dokument popisuje, jakým způsobem zpracováváme osobní údaje
+              zákazníků a návštěvníků webu www.grasston.cz (dále jen „web“), a
+              jak chráníme jejich soukromí v souladu s nařízením Evropského
+              parlamentu a Rady (EU) 2016/679, obecně známým jako GDPR.
             </p>
           </div>
           <div className="h-[1px] bg-borderGray"></div>
           <div className="flex flex-col gap-5">
-            <h5>2. Pronájem techniky</h5>
+            <h5>2. Jaké osobní údaje zpracováváme</h5>
 
             <p>
-              Pronajímatel poskytuje k dočasnému užívání zahradní techniku za
-              úplatu.
+              Při využívání našich služeb zpracováváme následující osobní údaje:
             </p>
             <p>
               Nájemce si vybírá techniku přes webový formulář, e-mailem nebo
               telefonicky.
             </p>
+            <ul className="list-disc ml-5">
+              <li>jméno a příjmení</li>
+              <li>e-mailová adresa</li>
+              <li>telefonní číslo</li>
+              <li>fakturační a doručovací adresa</li>
+              <li>informace o rezervacích a výpůjčkách</li>
+              <li>
+                platební údaje (prostřednictvím Stripe – nedisponujeme číslem
+                karty)
+              </li>
+              <li>
+                IP adresa, zařízení, prohlížeč, jazyk, chování na webu (v rámci
+                analytiky a cookies)
+              </li>
+            </ul>
             <p>
-              Cena pronájmu se určuje podle typu techniky a délky výpůjčky a je
-              vždy sdělena před potvrzením objednávky.
+              Tyto údaje zpracováváme buď přímo od vás (např. přes rezervační
+              formulář), nebo automatizovaně pomocí technologií třetích stran.
             </p>
-            <p>Minimální doba pronájmu je 24 hodin, není-li domluveno jinak.</p>
           </div>
           <div className="h-[1px] bg-borderGray"></div>
 
           <div className="flex flex-col gap-5">
-            <h5>3. Ceník a slevy</h5>
+            <h5>3. Účely a právní základy zpracování</h5>
 
             <p>
-              Ceny jsou uvedeny včetně DPH a zahrnují dopravu, plnou nádrž (u
-              motorových strojů), základní instruktáž a ochranné pomůcky. Slevy
-              za delší výpůjčku se uplatňují automaticky:
+              Vaše údaje zpracováváme na základě následujících právních důvodů:
             </p>
             <table className="max-w-[500px] ">
               <tbody>
-                <tr className="border border-zinc-300">
+                <tr className="border border-zinc-300 font-semibold">
                   <td className="p-2 border-r border-zinc-300">
-                    Doba pronájmu
+                    Účel zpracování
                   </td>
-                  <td className="p-2"> Sleva z denní sazby</td>
-                </tr>
-                <tr className="border border-zinc-300">
-                  <td className="p-2 border-r border-zinc-300">1 den</td>
-                  <td className="p-2"> 0 %</td>
-                </tr>
-                <tr className="border border-zinc-300">
-                  <td className="p-2 border-r border-zinc-300">2 - 7 dní</td>
-                  <td className="p-2"> 10 %</td>
-                </tr>
-                <tr className="border border-zinc-300">
-                  <td className="p-2 border-r border-zinc-300">8 - 21 dní</td>
-                  <td className="p-2"> 15 %</td>
+                  <td className="p-2"> Právní základ</td>
                 </tr>
                 <tr className="border border-zinc-300">
                   <td className="p-2 border-r border-zinc-300">
-                    22 dní a více
+                    Vyřízení rezervace a výpůjčky
                   </td>
-                  <td className="p-2"> 20 %</td>
+                  <td className="p-2"> Plnění smlouvy</td>
+                </tr>
+                <tr className="border border-zinc-300">
+                  <td className="p-2 border-r border-zinc-300">
+                    Fakturace, účetnictví
+                  </td>
+                  <td className="p-2"> Plnění právní povinnosti</td>
+                </tr>
+                <tr className="border border-zinc-300">
+                  <td className="p-2 border-r border-zinc-300">
+                    Komunikace se zákazníky
+                  </td>
+                  <td className="p-2">Oprávněný zájem</td>
+                </tr>
+                <tr className="border border-zinc-300">
+                  <td className="p-2 border-r border-zinc-300">
+                    Odesílání marketingových sdělení
+                  </td>
+                  <td className="p-2">Souhlas (udělený samostatně)</td>
+                </tr>
+                <tr className="border border-zinc-300">
+                  <td className="p-2 border-r border-zinc-300">
+                    Analýza návštěvnosti a vylepšení webu
+                  </td>
+                  <td className="p-2">Oprávněný zájem / souhlas (cookies)</td>
                 </tr>
               </tbody>
             </table>
-          </div>
-          <div className="h-[1px] bg-borderGray"></div>
-
-          <div className="flex flex-col gap-5">
-            <h5>4. Kauce</h5>
-
             <p>
-              Před zahájením výpůjčky je nájemce povinen složit vratnou kauci
-              (výše je uvedena u každého stroje v katalogu).
-            </p>
-            <p>
-              Kauce se vrací v plné výši při včasném a nepoškozeném vrácení
-              zařízení.
-            </p>
-            <p>
-              V případě poškození, ztráty nebo znečištění stroje si pronajímatel
-              vyhrazuje právo odečíst z kauce přiměřenou částku na pokrytí
-              nákladů.
+              Souhlas pro marketing lze kdykoliv odvolat kliknutím na odkaz v
+              e-mailu nebo kontaktováním správce.
             </p>
           </div>
           <div className="h-[1px] bg-borderGray"></div>
 
           <div className="flex flex-col gap-5">
-            <h5>5. Doprava a předání</h5>
+            <h5>4. Příjemci a zpracovatelé údajů</h5>
 
             <p>
-              Pronajímatel zajišťuje dovoz i odvoz techniky na místo určené
-              nájemcem (Praha a okolí).
+              Vaše údaje mohou být zpřístupněny následujícím důvěryhodným
+              partnerům:
             </p>
+            <ul className="list-disc ml-5">
+              <li>
+                <p>
+                  <span className="font-semibold">
+                    Stripe Payments Europe Ltd.{" "}
+                  </span>
+                  - zpracování plateb (Irsko)
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="font-semibold">Vercel Inc.</span>- hosting
+                  webového rozhraní (EU servery)
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="font-semibold">Heroku</span>- hosting
+                  serverové části a databáze (EU servery)
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="font-semibold">Pipedrive OÜ</span>– CRM
+                  systém pro správu zákaznických vztahů (Estonsko)
+                </p>
+              </li>
+              <li>
+                <p>
+                  <span className="font-semibold">
+                    Marketingový nástroj pro newsletter{" "}
+                  </span>
+                  - (např. MailerLite, pokud bude použit)
+                </p>
+              </li>
+            </ul>
             <p>
-              Nájemce je povinen být přítomen při převzetí a vrácení techniky.
-            </p>
-            <p>
-              Při předání proběhne kontrola stavu, instruktáž a podepsání
-              předávacího protokolu.
-            </p>
-          </div>
-          <div className="h-[1px] bg-borderGray"></div>
-
-          <div className="flex flex-col gap-5">
-            <h5>6. Povinnosti nájemce</h5>
-
-            <p>
-              Nájemce se zavazuje používat techniku řádně, dle návodu a pouze k
-              účelu, ke kterému je určena.
-            </p>
-            <p>
-              V případě poškození nebo ztráty zařízení je nájemce povinen
-              vzniklou škodu nahradit.
-            </p>
-            <p>
-              Nájemce nesmí techniku půjčovat třetím osobám bez souhlasu
-              pronajímatele.
-            </p>
-            <p>Po skončení výpůjčky vrací zařízení čisté a v původním stavu.</p>
-          </div>
-          <div className="h-[1px] bg-borderGray"></div>
-
-          <div className="flex flex-col gap-5">
-            <h5>7. Servis a poruchy</h5>
-
-            <p>
-              V případě poruchy zařízení během výpůjčky je nájemce povinen
-              neprodleně kontaktovat pronajímatel
-            </p>
-            <p>
-              Pronajímatel zajistí výměnu nebo opravu techniky bez zbytečného
-              odkladu.
-            </p>
-            <p>
-              Pokud porucha nevznikla zaviněním nájemce, nevzniká mu žádná
-              odpovědnost ani dodatečný náklad.
-            </p>
-          </div>
-          <div className="h-[1px] bg-borderGray"></div>
-
-          <div className="flex flex-col gap-5">
-            <h5>8. Platby a storno</h5>
-
-            <p>
-              Platba probíhá převodem nebo v hotovosti při převzetí techniky.
-            </p>
-            <p>Záloha/kauce je splatná při převzetí zařízení.</p>
-            <p>
-              Zrušení objednávky více než 24 hodin před dohodnutým termínem je
-              zdarma.
-            </p>
-            <p>
-              Při pozdějším zrušení si pronajímatel vyhrazuje právo účtovat
-              storno poplatek až 50 % z ceny pronájmu.
-            </p>
-          </div>
-          <div className="h-[1px] bg-borderGray"></div>
-
-          <div className="flex flex-col gap-5">
-            <h5>9. Ochrana osobních údajů</h5>
-
-            <p>
-              Nájemce souhlasí se zpracováním osobních údajů pro účely
-              rezervace, fakturace a komunikace.
-            </p>
-            <p>Záloha/kauce je splatná při převzetí zařízení.</p>
-            <p>
-              Údaje nejsou poskytovány třetím stranám a jsou uchovávány v
+              Všichni tito partneři zpracovávají údaje dle našich pokynů a v
               souladu s GDPR.
             </p>
           </div>
           <div className="h-[1px] bg-borderGray"></div>
 
           <div className="flex flex-col gap-5">
-            <h5>10. Závěrečná ustanovení</h5>
+            <h5>5. Doba uchovávání údajů</h5>
+
+            <p>Osobní údaje uchováváme pouze po nezbytnou dobu:</p>
+            <ul className="list-disc ml-5">
+              <li>
+                <p>
+                  údaje k rezervacím: po dobu trvání smluvního vztahu a následně
+                  10 let dle zákonných požadavků (např. účetnictví)
+                </p>
+              </li>
+              <li>
+                <p>
+                  marketingové údaje (e-mail, jméno): do odvolání souhlasu nebo
+                  odhlášení odběru
+                </p>
+              </li>
+              <li>
+                <p>
+                  analytické a technické údaje: max. 14 měsíců, dle nastavení
+                  nástroje
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div className="h-[1px] bg-borderGray"></div>
+
+          <div className="flex flex-col gap-5">
+            <h5>6. Cookies</h5>
+
+            <p>Web využívá soubory cookies pro:</p>
+            <ul className="list-disc ml-5">
+              <li>
+                <p>funkční provoz (např. uložení jazyka nebo obsahu košíku)</p>
+              </li>
+              <li>
+                <p>měření návštěvnosti (např. Google Analytics)</p>
+              </li>
+              <li>
+                <p>marketing (např. Facebook Pixel, remarketing)</p>
+              </li>
+            </ul>
+            <p>
+              Podrobnosti a možnost odmítnutí jsou uvedeny v samostatném
+              dokumentu Zásady používání cookies (doplň na web).
+            </p>
+          </div>
+          <div className="h-[1px] bg-borderGray"></div>
+
+          <div className="flex flex-col gap-5">
+            <h5>7. Vaše práva</h5>
+
+            <p>Jako subjekt údajů máte tato práva:</p>
+            <ul className="list-disc ml-5">
+              <li>
+                <p>právo na přístup k údajům</p>
+              </li>
+              <li>
+                <p>právo na opravu nepřesných údajů</p>
+              </li>
+              <li>
+                <p>právo na výmaz („právo být zapomenut“)</p>
+              </li>
+              <li>
+                <p>právo na omezení zpracování</p>
+              </li>
+              <li>
+                <p>právo na přenositelnost údajů</p>
+              </li>
+              <li>
+                <p>právo vznést námitku proti zpracování</p>
+              </li>
+              <li>
+                <p>právo kdykoliv odvolat souhlas (např. s marketingem)</p>
+              </li>
+            </ul>
+            <p>
+              Pro uplatnění svých práv nás kontaktujte na e-mailu uvedeném výše.
+            </p>
+          </div>
+          <div className="h-[1px] bg-borderGray"></div>
+
+          <div className="flex flex-col gap-5">
+            <h5>8. Zabezpečení údajů</h5>
 
             <p>
-              Tyto obchodní podmínky jsou platné od 5.5.2024 a mohou být
-              upravovány.
+              Vaše údaje chráníme pomocí moderních technických a organizačních
+              opatření:
             </p>
+            <ul className="list-disc ml-5">
+              <li>
+                <p>zabezpečený přenos dat přes HTTPS</p>
+              </li>
+              <li>
+                <p>přístup pouze oprávněným osobám</p>
+              </li>
+              <li>
+                <p>pravidelné zálohování a aktualizace systému</p>
+              </li>
+              <li>
+                <p>hesla vytvořená podle nejlepších praktik</p>
+              </li>
+            </ul>
+          </div>
+          <div className="h-[1px] bg-borderGray"></div>
+
+          <div className="flex flex-col gap-5">
+            <h5>9. Změny zásad</h5>
+
             <p>
-              O změnách bude nájemce informován e-mailem nebo zveřejněním na
-              webu.
+              Vyhrazujeme si právo tyto zásady upravit, pokud dojde ke změně
+              zpracování nebo právních požadavků. O zásadních změnách vás budeme
+              informovat e-mailem nebo oznámením na webu.
             </p>
+          </div>
+          <div className="h-[1px] bg-borderGray"></div>
+
+          <div className="flex flex-col gap-5">
+            <h5>10. Kontakt</h5>
+
+            <p>Máte dotazy nebo chcete uplatnit svá práva?</p>
+            <p>Napište nám na: info@grasston.cz</p>
           </div>
         </div>
       </div>

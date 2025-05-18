@@ -289,8 +289,8 @@ export default function CartForm({ newAdditions }: Props) {
             })}
           </div>
         </div>
-        <div className="grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
-          <p className="text-end font-semibold col-start-1 justify-self-start">
+        <div className="md:grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
+          <p className="text-end font-semibold col-start-1 md:justify-self-start">
             Celková cena za pronájem před slevou
           </p>
           <div className="col-start-2 col-span-2">
@@ -302,8 +302,8 @@ export default function CartForm({ newAdditions }: Props) {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
-          <p className="text-end text-base font-semibold col-start-1 justify-self-start">
+        <div className="md:grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
+          <p className="text-end text-base font-semibold col-start-1 md:justify-self-start">
             Celková procentní sleva
           </p>
           <div className="col-start-2 col-span-2">
@@ -315,8 +315,8 @@ export default function CartForm({ newAdditions }: Props) {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
-          <p className="text-end text-base font-semibold col-start-1 justify-self-start">
+        <div className="md:grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
+          <p className="text-end text-base font-semibold col-start-1 md:justify-self-start">
             Celková cena za jednorázové zboží
           </p>
           <div className="col-start-2 col-span-2">
@@ -328,12 +328,12 @@ export default function CartForm({ newAdditions }: Props) {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between">
-          <p className="text-end font-semibold text-xl col-start-1 justify-self-start bg-primary p-3 text-textLight rounded-md">
+        <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between">
+          <p className="text-end font-semibold md:text-xl col-start-1 justify-self-start rounded-md">
             Výsledná cena za pronájem po slevě a jednorázové produkty
           </p>
           <div className="col-start-2 col-span-2">
-            <p className="text-end text-lg font-semibold">
+            <p className="text-end md:text-lg md:font-semibold mt-4 md:mt-0">
               Výsledna cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
               <span className="text-xl font-semibold text-primary">
                 {wholePriceAfterSale} Kč
@@ -341,12 +341,12 @@ export default function CartForm({ newAdditions }: Props) {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between ">
-          <p className="text-end font-semibold col-start-1 justify-self-start">
+        <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between ">
+          <p className="text-end font-semibold col-start-1 md:justify-self-start">
             Při objednání je splatných 10 % z ceny
           </p>
           <div className="col-start-2 col-span-2">
-            <p className="text-end text-base font-semibold">
+            <p className="text-end text-base md:font-semibold">
               Teď zaplatíte {""}
               <span className="text-xl font-semibold text-primary">
                 {payNowPrice} Kč
@@ -366,12 +366,12 @@ export default function CartForm({ newAdditions }: Props) {
             perspiciatis iure tempora, amet fugit!
           </p>
         </div>
-        <div className="grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between border p-5 rounded-lg">
-          <p className="text-end font-semibold col-start-1 justify-self-start">
+        <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between border p-5 rounded-lg">
+          <p className="text-end font-semibold col-start-1 md:justify-self-start">
             Záloha splatná při převzetí
           </p>
           <div className="col-start-2 col-span-2">
-            <p className="text-end font-semibold">
+            <p className="text-end md:font-semibold">
               Celková záloha za zboží je {""}
               <span className="text-lg font-semibold text-primary">
                 {wholeDeposit} Kč
@@ -382,7 +382,7 @@ export default function CartForm({ newAdditions }: Props) {
       </div>
       <div className="mt-10 w-full max-w-wrapper">
         <h4 className="mb-5">Objednávkový formulář</h4>
-        <form className="border border-borderGray rounded-lg p-10 grid grid-cols-2 gap-10">
+        <form className="border border-borderGray rounded-lg p-10 md:grid flex flex-col grid-cols-2 gap-10">
           <div className="flex flex-col justify-start h-full">
             <div>
               <h5 className="mb-3">Předávací informace</h5>
