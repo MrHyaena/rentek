@@ -262,6 +262,54 @@ export default function CartForm({ newAdditions }: Props) {
     );
   }
 
+  function SubmitOrder(e: any) {
+    const rentalItems = cart;
+    const additionalItems = additions;
+
+    const formData = new FormData(e);
+    const orderInformation = {
+      dateRange: {
+        startDate: daterange.startDate,
+        endDate: daterange.endDate,
+      },
+      contact: {
+        jmeno: formData.get("jmeno"),
+        prijmeni: formData.get("prijmeni"),
+        telefon: formData.get("telefon"),
+        email: formData.get("email"),
+      },
+      deliveryAddress: {
+        ulice: formData.get("ulice"),
+        cp: formData.get("cp"),
+        mesto: formData.get("mesto"),
+        psc: formData.get("psc"),
+      },
+      invoiceAddress: {
+        ulice: formData.get("fakturaUlice"),
+        cp: formData.get("fakturaCp"),
+        mesto: formData.get("fakturaMesto"),
+        psc: formData.get("fakturaPsc"),
+      },
+    };
+
+    const order: {
+      orderInformation: {
+        dateRange: any;
+        contact: any;
+        deliveryAddress: any;
+        invoiceAddress: any;
+      };
+      rentalItems: any;
+      additionalItems: any;
+    } = {
+      orderInformation: orderInformation,
+      rentalItems: rentalItems,
+      additionalItems: additionalItems,
+    };
+
+    localStorage.setItem("orderCompleted", JSON.stringify(order));
+  }
+
   return (
     <>
       <div className="mt-10 w-full max-w-wrapper border md:p-5 p-2 rounded-lg border-borderGray">
@@ -429,7 +477,13 @@ export default function CartForm({ newAdditions }: Props) {
       </div>
       <div className="mt-10 w-full max-w-wrapper">
         <h4 className="mb-5">Objednávkový formulář</h4>
-        <form className="border border-borderGray rounded-lg md:p-10 p-3 md:grid flex flex-col grid-cols-2 gap-10">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            SubmitOrder(e.target);
+          }}
+          className="border border-borderGray rounded-lg md:p-10 p-3 md:grid flex flex-col grid-cols-2 gap-10"
+        >
           <div className=" justify-self-end border-borderGray rounded-md md:hidden">
             <h5 className="col-span-2 mb-4">Čas a datum doručení</h5>
             <p className="text-base">
