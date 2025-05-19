@@ -36,10 +36,10 @@ export default async function page() {
       <div className="w-full max-w-wrapper flex flex-col gap-5">
         <h3>Košík</h3>
         <p className="">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis
-          placeat, cupiditate, pariatur deleniti neque itaque quisquam
-          recusandae dolore quo illum assumenda quam est excepturi eaque
-          perspiciatis iure tempora, amet fugit!
+          Níže můžete vidět všechno vybrané zboží. Abychom předešli zahlcení
+          našich služeb z nekalých důvodů, vyžadujeme při objednání vždy
+          zaplatit 5 procent z ceny celkové objednávky. O tuto částku se
+          samozřejmě při převzetí sníží celková doplácená suma.
         </p>{" "}
         <div className="hidden md:block">
           <DatepickerBig />

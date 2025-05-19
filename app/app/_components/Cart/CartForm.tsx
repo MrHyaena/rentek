@@ -21,6 +21,7 @@ export default function CartForm({ newAdditions }: Props) {
   const { daterange } = useContext(DaterangeContext);
   const [numberOfDays, setNumberOfDays] = useState<number>(1);
   const [additions, setAdditions] = useState<any[]>(newAdditions);
+  const [priceDetailsToggle, setPriceDetailsToggle] = useState<boolean>(false);
 
   let saleIndex: number = 0;
 
@@ -93,7 +94,7 @@ export default function CartForm({ newAdditions }: Props) {
   });
 
   let wholePriceAfterSale: number = wholePrice * saleIndex + wholeProductPrice;
-  let payNowPrice: number = wholePriceAfterSale * 0.1;
+  let payNowPrice: number = wholePriceAfterSale * 0.05;
   let sale: number = Math.trunc((1 - saleIndex) * 100);
 
   function CartTab(product: any) {
@@ -105,51 +106,57 @@ export default function CartForm({ newAdditions }: Props) {
 
     return (
       <>
-        <div className="grid grid-cols-[4fr_1fr_1fr] items-center gap-3 border-b first:border-t border-borderGray py-3 justify-between">
-          <div className="flex items-center gap-5">
+        <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
+          <div className="flex items-center gap-5 p-2 border-b border-borderGray">
             <Image
               src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}
               width={200}
               height={300}
               alt={"thumbnail-" + item.name}
-              className="w-20 h-20 object-cover object-center rounded-md"
+              className="md:w-16 md:h-16 w-10 h-10 object-cover object-center rounded-md md:block"
             />
             <Link
               href={`/produkt/${item.documentId}`}
-              className="text-lg font-semibold"
+              className="md:text-base font-semibold"
             >
               {item.name}
             </Link>
           </div>
-          <div className="w-20 h-20 border border-borderGray rounded-md grid grid-cols-[2fr_1fr] items-center justify-items-center p-2 justify-self-end">
-            <p className="text-lg">{newProduct.count}</p>
-            <div className="self-stretch flex flex-col justify-evenly">
-              <FaChevronUp
-                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl select-none"
-                onClick={() => {
-                  addToCartFunction(cart, setCart, item);
-                }}
-              />
+          <div className="flex gap-3 justify-between w-full bg-zinc-100 p-2">
+            <div className="flex items-center gap-3">
               <FaChevronDown
                 onClick={() => {
                   removeFromCartFunction(cart, setCart, item);
                 }}
-                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl select-none"
+                className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
+              />
+              <p className="text-lg">{newProduct.count}</p>
+              <FaChevronUp
+                className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
+                onClick={() => {
+                  addToCartFunction(cart, setCart, item);
+                }}
               />
             </div>
-          </div>
-          <div className="flex items-center gap-5 justify-self-end">
-            <p className="flex items-end flex-col font-semibold text-textSecondary">
-              <span className="text-sm font-semibold text-textSecondary">
-                Před slevou{" "}
-                <span className="text-primaryHover">{groupPrice}</span> Kč
-              </span>{" "}
-              <span className="text-lg font-semibold text-textSecondary">
-                Po slevě{" "}
+            <div className=" items-center gap-5 justify-self-end hidden md:flex">
+              <p className="flex items-end flex-col font-semibold text-textSecondary">
+                <span className="text-sm font-semibold text-textSecondary">
+                  Před slevou{" "}
+                  <span className="text-primaryHover">{groupPrice}</span> Kč
+                </span>{" "}
+                <span className="text-lg font-semibold text-textSecondary">
+                  Po slevě{" "}
+                  <span className="text-primary">{groupPrice * saleIndex}</span>{" "}
+                  Kč
+                </span>{" "}
+              </p>
+            </div>
+            <div className="flex items-center gap-5 justify-self-end md:hidden">
+              <p className="flex gap-1 items-end font-semibold text-textSecondary">
                 <span className="text-primary">{groupPrice * saleIndex}</span>{" "}
                 Kč
-              </span>{" "}
-            </p>
+              </p>
+            </div>
           </div>
         </div>
       </>
@@ -192,45 +199,50 @@ export default function CartForm({ newAdditions }: Props) {
 
     return (
       <>
-        <div className="grid grid-cols-[4fr_1fr_1fr] items-center gap-3 border-b first:border-t border-borderGray py-3 justify-between">
-          <div className="flex items-center gap-5">
+        <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
+          <div className="flex items-center gap-5 p-2 border-b border-borderGray bg-white">
             <Image
               src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}
               width={200}
               height={300}
               alt={"thumbnail-" + item.name}
-              className="w-20 h-20 object-cover object-center rounded-md"
+              className="md:w-16 md:h-16 w-10 h-10 object-cover object-center rounded-md md:block"
             />
             <Link
               href={`/produkt/${item.documentId}`}
-              className="text-lg font-semibold"
+              className="md:text-base font-semibold"
             >
               {item.name}
             </Link>
           </div>
-          <div className="w-20 h-20 bg-white border border-borderGray rounded-md grid grid-cols-[2fr_1fr] items-center justify-items-center p-2 justify-self-end">
-            <p className="text-lg">{newProduct.count}</p>
-            <div className="self-stretch flex flex-col justify-evenly">
-              <FaChevronUp
-                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl select-none"
-                onClick={() => {
-                  AddToAdditionsCart();
-                }}
-              />
+          <div className="flex gap-3 justify-between w-full bg-zinc-100 p-2">
+            <div className="flex items-center gap-3">
               <FaChevronDown
                 onClick={() => {
                   RemoveFromAdditionsCart();
                 }}
-                className="cursor-pointer hover:bg-zinc-100 p-1 rounded-sm text-xl select-none"
+                className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
+              />
+              <p className="text-lg">{newProduct.count}</p>
+              <FaChevronUp
+                className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
+                onClick={() => {
+                  AddToAdditionsCart();
+                }}
               />
             </div>
-          </div>
-          <div className="flex items-center gap-5 justify-self-end">
-            <p className="font-semibold text-textSecondary">
-              <span className="text-lg font-semibold text-primary">
-                {groupPrice} Kč
-              </span>{" "}
-            </p>
+            <div className=" items-center gap-5 justify-self-end hidden md:flex">
+              <p className="flex items-end flex-col font-semibold text-textSecondary">
+                <span className="text-lg font-semibold text-textSecondary">
+                  <span className="text-primary">{groupPrice}</span> Kč
+                </span>{" "}
+              </p>
+            </div>
+            <div className="flex items-center gap-5 justify-self-end md:hidden">
+              <p className="flex gap-1 items-end font-semibold text-textSecondary">
+                <span className="text-primary">{groupPrice}</span> Kč
+              </p>
+            </div>
           </div>
         </div>
       </>
@@ -252,106 +264,43 @@ export default function CartForm({ newAdditions }: Props) {
 
   return (
     <>
-      <div className="mt-10 w-full max-w-wrapper border p-5 rounded-lg border-borderGray">
-        <div className="grid grid-cols-[4fr_1fr_1fr] items-start gap-3 border-borderGray py-5 justify-between">
+      <div className="mt-10 w-full max-w-wrapper border md:p-5 p-2 rounded-lg border-borderGray">
+        <div className="grid grid-cols-[2fr_1fr] items-start gap-3 border-borderGray py-5 justify-between">
           <p className="text-end font-semibold col-start-1 justify-self-start">
             Technika
           </p>
-          <p className="text-end font-semibold col-start-2">Množství</p>
-          <p className="text-end font-semibold col-start-3">
-            Celková cena {"(vč. DPH)"} <br />
-            za {numberOfDays} {tag}
-          </p>
+          <div className="flex justify-end">
+            <p className="text-end font-semibold col-start-3">
+              Celková cena <br />
+              za {numberOfDays} {tag} {"(vč. DPH)"}
+            </p>
+          </div>
         </div>
-        <div className="grid">
+        <div className="grid gap-3">
           {data.map((product) => {
             return <CartTab product={product} />;
           })}
         </div>
-        <div className="grid grid-cols-[4fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between border p-10 rounded-lg mt-10 bg-zinc-50">
-          <p className="text-2xl font-semibold">Doplňkové produkty</p>
-          <p className="text-start font-semibold col-start-1 justify-self-start">
-            Klienti u nás často objednávají i následující produkty. Všechny tyto
-            produkty vám již po nákupu zůstanou.
-            <br />
-            <span className="text-primaryHover">
+        <div className="grid grid-cols-2 border-b items-center gap-3 border-borderGray py-5 justify-between border md:p-10 p-2 rounded-lg mt-10 ">
+          <div className="col-span-3 flex flex-col gap-2 md:gap-0">
+            <h5 className="text-xl font-semibold mb-2">Doplňkové produkty</h5>
+            <p className="text-start col-start-1 justify-self-start hidden md:block">
+              Klienti u nás často objednávají i následující produkty. Všechny
+              tyto produkty vám již po nákupu zůstanou.
+            </p>
+            <p className="text-primaryHover font-semibold">
               Na tento typ zboží se slevy neuplatňují.
-            </span>
-          </p>
-          <div className="col-start-2 col-span-2">
-            <p className="text-end text-base font-semibold">
-              Jednotková cena {"(vč. DPH)"}
             </p>
           </div>
+          <p className="font-semibold hidden md:block">Produkty</p>
+          <p className="text-end text-base font-semibold hidden md:block">
+            Jednotková cena {"(vč. DPH)"}
+          </p>
+          <div className="col-start-2 col-span-2"></div>
           <div className="grid col-span-3">
             {additions.map((product) => {
               return <AdditionsTab product={product} />;
             })}
-          </div>
-        </div>
-        <div className="md:grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
-          <p className="text-end font-semibold col-start-1 md:justify-self-start">
-            Celková cena za pronájem před slevou
-          </p>
-          <div className="col-start-2 col-span-2">
-            <p className="text-end text-sm font-semibold">
-              Celková cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
-              <span className="text-base font-semibold text-primary">
-                {wholePrice} Kč
-              </span>{" "}
-            </p>
-          </div>
-        </div>
-        <div className="md:grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
-          <p className="text-end text-base font-semibold col-start-1 md:justify-self-start">
-            Celková procentní sleva
-          </p>
-          <div className="col-start-2 col-span-2">
-            <p className="text-end text-sm font-semibold">
-              Sleva za {numberOfDays} {tag} je {""}
-              <span className="text-base font-semibold text-primary">
-                {sale} %
-              </span>{" "}
-            </p>
-          </div>
-        </div>
-        <div className="md:grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
-          <p className="text-end text-base font-semibold col-start-1 md:justify-self-start">
-            Celková cena za jednorázové zboží
-          </p>
-          <div className="col-start-2 col-span-2">
-            <p className="text-end text-sm font-semibold">
-              Celková cena (vč. DPH){" "}
-              <span className="text-base font-semibold text-primary">
-                {wholeProductPrice} Kč
-              </span>{" "}
-            </p>
-          </div>
-        </div>
-        <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between">
-          <p className="text-end font-semibold md:text-xl col-start-1 justify-self-start rounded-md">
-            Výsledná cena za pronájem po slevě a jednorázové produkty
-          </p>
-          <div className="col-start-2 col-span-2">
-            <p className="text-end md:text-lg md:font-semibold mt-4 md:mt-0">
-              Výsledna cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
-              <span className="text-xl font-semibold text-primary">
-                {wholePriceAfterSale} Kč
-              </span>{" "}
-            </p>
-          </div>
-        </div>
-        <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between ">
-          <p className="text-end font-semibold col-start-1 md:justify-self-start">
-            Při objednání je splatných 10 % z ceny
-          </p>
-          <div className="col-start-2 col-span-2">
-            <p className="text-end text-base md:font-semibold">
-              Teď zaplatíte {""}
-              <span className="text-xl font-semibold text-primary">
-                {payNowPrice} Kč
-              </span>{" "}
-            </p>
           </div>
         </div>
       </div>
@@ -360,10 +309,9 @@ export default function CartForm({ newAdditions }: Props) {
         <div className="grid items-center py-5 justify-between rounded-lg">
           <h4 className="">Záloha</h4>
           <p className="mt-3">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis
-            placeat, cupiditate, pariatur deleniti neque itaque quisquam
-            recusandae dolore quo illum assumenda quam est excepturi eaque
-            perspiciatis iure tempora, amet fugit!
+            Za každé pronajímané zboží vybíráme při převzetí zálohu, která
+            slouží k případnému pokrytí škod způsobených zákazníkem mimo běžné
+            opotřebení nebo případné čištění.
           </p>
         </div>
         <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between border p-5 rounded-lg">
@@ -381,16 +329,129 @@ export default function CartForm({ newAdditions }: Props) {
         </div>
       </div>
       <div className="mt-10 w-full max-w-wrapper">
+        {" "}
+        <div className="grid items-center py-5 justify-between rounded-lg">
+          <h4 className="">Výsledná cena</h4>
+          <p className="mt-3">
+            Zde můžete vidět celkovou cenu za pronajaté zboží, doplňkové
+            produkty a další služby.
+          </p>
+        </div>
+        <div className="border p-2 px-5 rounded-lg border-borderGray">
+          <div className="grid grid-cols-2 items-center gap-3 border-borderGray py-5 justify-between">
+            <p className="text-end font-semibold col-start-1 justify-self-start">
+              Detaily ceny
+            </p>
+            <div className="col-start-2 col-span-2 justify-self-end">
+              <button
+                className="text-end text-sm font-semibold buttonSmall"
+                onClick={() => {
+                  setPriceDetailsToggle(!priceDetailsToggle);
+                }}
+              >
+                {priceDetailsToggle ? "Zavřit" : "Otevřít"}
+              </button>
+            </div>
+          </div>{" "}
+          {priceDetailsToggle && (
+            <>
+              <div className="md:grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
+                <p className="text-end text-base font-semibold col-start-1 md:justify-self-start">
+                  Celková procentní sleva
+                </p>
+                <div className="col-start-2 col-span-2">
+                  <p className="text-end text-sm font-semibold">
+                    Sleva za {numberOfDays} {tag} je {""}
+                    <span className="text-base font-semibold text-primary">
+                      {sale} %
+                    </span>{" "}
+                  </p>
+                </div>
+              </div>
+              <div className="md:grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
+                <p className="text-end font-semibold col-start-1 md:justify-self-start">
+                  Celková cena za pronájem před slevou
+                </p>
+                <div className="col-start-2 col-span-2">
+                  <p className="text-end text-sm font-semibold">
+                    Celková cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
+                    <span className="text-base font-semibold text-primary">
+                      {wholePrice} Kč
+                    </span>{" "}
+                  </p>
+                </div>
+              </div>
+
+              <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between">
+                <p className="text-end text-base font-semibold col-start-1 md:justify-self-start">
+                  Celková cena za jednorázové produkty
+                </p>
+                <div className="col-start-2 col-span-2">
+                  <p className="text-end text-sm font-semibold">
+                    Celková cena (vč. DPH){" "}
+                    <span className="text-base font-semibold text-primary">
+                      {wholeProductPrice} Kč
+                    </span>{" "}
+                  </p>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+        <div className="border border-borderGray rounded-lg p-5 mt-3">
+          <div className="md:grid grid-cols-2 items-center gap-3 border-borderGray py-5 justify-between ">
+            <p className="text-end font-semibold col-start-1 md:justify-self-start">
+              Výsledná cena za objednávku
+            </p>
+            <div className="col-start-2 col-span-2">
+              <p className="text-end text-base md:font-semibold">
+                Cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
+                <span className="text-xl font-semibold text-primary">
+                  {wholePriceAfterSale} Kč
+                </span>{" "}
+              </p>
+            </div>
+          </div>
+          <div className="md:grid grid-cols-2 items-center gap-3 border-borderGray py-5 justify-between ">
+            <p className="text-end font-semibold col-start-1 md:justify-self-start">
+              Při objednání je splatných 5 % z celkové ceny
+            </p>
+            <div className="col-start-2 col-span-2">
+              <p className="text-end text-base md:font-semibold">
+                Teď zaplatíte {""}
+                <span className="text-xl font-semibold text-primary">
+                  {payNowPrice} Kč
+                </span>{" "}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-10 w-full max-w-wrapper">
         <h4 className="mb-5">Objednávkový formulář</h4>
-        <form className="border border-borderGray rounded-lg p-10 md:grid flex flex-col grid-cols-2 gap-10">
+        <form className="border border-borderGray rounded-lg md:p-10 p-3 md:grid flex flex-col grid-cols-2 gap-10">
+          <div className=" justify-self-end border-borderGray rounded-md md:hidden">
+            <h5 className="col-span-2 mb-4">Čas a datum doručení</h5>
+            <p className="text-base">
+              Techniku budete mít vypůjčenou v období{" "}
+            </p>
+            <p className="text-base">
+              od{" "}
+              <span className="font-semibold">
+                {format(daterange.startDate, "dd.MM.yyyy hh:mm")}
+              </span>{" "}
+              do{" "}
+              <span className="font-semibold">
+                {format(daterange.endDate, "dd.MM.yyyy hh:mm")}
+              </span>{" "}
+            </p>
+          </div>
           <div className="flex flex-col justify-start h-full">
             <div>
               <h5 className="mb-3">Předávací informace</h5>
-              <p className="border-b pb-3 border-borderGray mb-5">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptas assumenda nemo laudantium? Id similique exercitationem
-                odit dolores voluptatum delectus, eos provident quo, saepe ex ad
-                adipisci officiis, cum commodi sit?
+              <p className=" pb-3 border-borderGray mb-5">
+                Na tuto adresu Vám budeme techniku doručovat. Z této adresy
+                budeme také zboží vyzvedávat.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-y-3 gap-x-3 mb-8">
@@ -401,12 +462,12 @@ export default function CartForm({ newAdditions }: Props) {
               <FormTextInput text="Město" name="mesto" />
               <FormTextInput text="PSČ" name="psc" />
             </div>
-            <div className="border justify-self-end border-borderGray rounded-md p-5">
-              <h5 className="col-span-2 mb-4">Čas a datum doručení</h5>
-              <p className="text-lg">
+            <div className=" justify-self-end border-borderGray rounded-md hidden md:block">
+              <h6 className="col-span-2 mb-4">Čas a datum doručení</h6>
+              <p className="text-base">
                 Techniku budete mít vypůjčenou v období:{" "}
               </p>
-              <p className="text-lg">
+              <p className="text-base">
                 Od{" "}
                 <span className="font-semibold">
                   {format(daterange.startDate, "dd.MM.yyyy hh:mm")}
@@ -420,11 +481,9 @@ export default function CartForm({ newAdditions }: Props) {
           </div>
           <div className="">
             <h5 className="mb-3">Fakturační informace</h5>
-            <p className="border-b pb-3 border-borderGray mb-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-              assumenda nemo laudantium? Id similique exercitationem odit
-              dolores voluptatum delectus, eos provident quo, saepe ex ad
-              adipisci officiis, cum commodi sit?
+            <p className=" pb-3 border-borderGray mb-5">
+              fakturační informace jsou standardní jako u každé jiné internetové
+              služby.
             </p>
             <div className="grid grid-cols-2 gap-y-3 gap-x-3 mb-8">
               <h6 className="col-span-2">Kontaktní údaje</h6>
@@ -441,7 +500,7 @@ export default function CartForm({ newAdditions }: Props) {
               <FormTextInput text="PSČ" name="fakturaPsc" />
             </div>
           </div>
-          <div className="col-span-2 items-center gap-5 flex justify-self-center text-start max-w-[600px] border p-5 rounded-lg border-borderGray">
+          <label className="col-span-2 items-center gap-5 flex justify-self-center text-start max-w-[600px] border p-5 rounded-lg border-borderGray">
             <input
               value="true"
               name="podminky"
@@ -462,7 +521,7 @@ export default function CartForm({ newAdditions }: Props) {
               </Link>
               .
             </p>
-          </div>
+          </label>
           <button className="buttonSmall justify-self-stretch col-span-2">
             Přejít k platbě a objednat
           </button>
