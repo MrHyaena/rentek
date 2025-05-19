@@ -44,30 +44,12 @@ export default function CartForm({ newAdditions }: Props) {
 
   useEffect(() => {
     let localAdditions = localStorage.getItem("additionsCart");
-    console.log(localAdditions);
     if (localAdditions != null) {
       const newArray = JSON.parse(localAdditions);
       setAdditions([...newArray]);
     }
   }, []);
 
-  let data: any[] = [];
-
-  if (cart.length > 0) {
-    const newData = [...cart];
-    const filteredData = Object.groupBy(newData, (item) => item.name);
-    const newObject: any = { ...filteredData };
-    const objectArray: any[] = [];
-    for (const property in newObject) {
-      let newItem = {
-        count: newObject[property].length,
-        item: newObject[property][0],
-      };
-      objectArray.push(newItem);
-    }
-
-    data = arraySort(objectArray, "item.name");
-  }
   let tag: string = "den";
   if (numberOfDays == 1) {
     tag = "den";
@@ -88,9 +70,9 @@ export default function CartForm({ newAdditions }: Props) {
   });
 
   cart.map((item) => {
-    wholePrice = wholePrice + item.basePrice * numberOfDays;
+    wholePrice = wholePrice + item.item.basePrice * numberOfDays;
 
-    wholeDeposit = wholeDeposit + item.deposit * 1;
+    wholeDeposit = wholeDeposit + item.item.deposit * 1;
   });
 
   let wholePriceAfterSale: number = wholePrice * saleIndex + wholeProductPrice;
@@ -98,11 +80,12 @@ export default function CartForm({ newAdditions }: Props) {
   let sale: number = Math.trunc((1 - saleIndex) * 100);
 
   function CartTab(product: any) {
-    const newProduct = product.product;
-    let item = newProduct.item;
-    const price = Number(item.basePrice);
-
-    let groupPrice = newProduct.count * price * numberOfDays;
+    console.log(product);
+    const wholeItem = product.product;
+    let item = wholeItem.item;
+    let price: any = new Number(item.basePrice);
+    let groupPrice = wholeItem.count * price * numberOfDays;
+    console.log(price);
 
     return (
       <>
@@ -130,7 +113,7 @@ export default function CartForm({ newAdditions }: Props) {
                 }}
                 className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
               />
-              <p className="text-lg">{newProduct.count}</p>
+              <p className="text-lg">{wholeItem.count}</p>
               <FaChevronUp
                 className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
                 onClick={() => {
@@ -167,7 +150,6 @@ export default function CartForm({ newAdditions }: Props) {
     const newProduct = product.product;
     const item = newProduct.item;
     const price = Number(item.basePrice);
-    console.log(price);
 
     let groupPrice = newProduct.count * price;
 
@@ -325,7 +307,7 @@ export default function CartForm({ newAdditions }: Props) {
           </div>
         </div>
         <div className="grid gap-3">
-          {data.map((product) => {
+          {cart.map((product) => {
             return <CartTab product={product} />;
           })}
         </div>
