@@ -10,7 +10,7 @@ export default {
     },
     {
       method: "GET",
-      path: "/stripe/success",
+      path: "/stripe/success/:orderid",
       handler: "stripe.checkoutSessionSuccess",
       config: {
         auth: false,

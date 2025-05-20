@@ -3,6 +3,7 @@
  */
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const strapi = require("@strapi/strapi");
 
 import { factories } from "@strapi/strapi";
 
@@ -12,8 +13,7 @@ export default factories.createCoreController(
     async getCheckoutSession(ctx) {
       const data = JSON.parse(ctx.request.body);
       let url =
-        process.env.API_SERVER +
-        `/api/stripe/success?orderId=${data.documentId}`;
+        process.env.API_SERVER + `/api/stripe/success/${data.documentId}`;
 
       try {
         //Creating STRIPE checkout session
@@ -42,8 +42,22 @@ export default factories.createCoreController(
       }
     },
     async checkoutSessionSuccess(ctx) {
-      console.log("Hello");
-      ctx.response.redirect(process.env.API_WEB + "/dekujeme");
+      let params = ctx.request["params"];
+
+      const strapiResponse = await fetch(
+        process.env.API_SERVER + `/api/orders/${params.orderid}`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Authorization: `Bearer ${process.env.STRAPI_READONLY_API}`,
+          },
+        }
+      );
+      const json: any = await strapiResponse.json();
+      const orderInformation = JSON.parse(json.data.orderInformation);
+      console.log(orderInformation);
+      //ctx.response.redirect(process.env.API_WEB + "/dekujeme");
     },
   })
 );
