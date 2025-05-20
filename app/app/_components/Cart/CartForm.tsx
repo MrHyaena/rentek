@@ -11,6 +11,7 @@ import Link from "next/link";
 import DatepickerBig from "../Datepickers/DatepickerBig";
 import arraySort from "array-sort";
 import DatepickerSmall from "../Datepickers/DatepickerSmall";
+import { permanentRedirect, redirect } from "next/navigation";
 
 type Props = {
   newAdditions: any[];
@@ -22,6 +23,7 @@ export default function CartForm({ newAdditions }: Props) {
   const [numberOfDays, setNumberOfDays] = useState<number>(1);
   const [additions, setAdditions] = useState<any[]>(newAdditions);
   const [priceDetailsToggle, setPriceDetailsToggle] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   let saleIndex: number = 0;
 
@@ -244,7 +246,7 @@ export default function CartForm({ newAdditions }: Props) {
     );
   }
 
-  function SubmitOrder(e: any) {
+  async function SubmitOrder(e: any) {
     const rentalItems = cart;
     const additionalItems = additions;
 
@@ -283,13 +285,60 @@ export default function CartForm({ newAdditions }: Props) {
       };
       rentalItems: any;
       additionalItems: any;
+      payNowPrice: any;
     } = {
       orderInformation: orderInformation,
       rentalItems: rentalItems,
       additionalItems: additionalItems,
+      payNowPrice: payNowPrice,
     };
 
-    localStorage.setItem("orderCompleted", JSON.stringify(order));
+    console.log(payNowPrice);
+
+    const strapiOrder = await fetch(process.env.STRAPI + "/api/orders", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data: {
+          orderInformation: JSON.stringify(order.orderInformation),
+          rentalItems: JSON.stringify(order.rentalItems),
+          additionalItems: JSON.stringify(order.additionalItems),
+          payNowPrice: payNowPrice.toString(),
+          deposit: wholeDeposit.toString(),
+          price: wholePrice.toString(),
+          afterSalePrice: wholePriceAfterSale.toString(),
+          saleIndex: saleIndex.toString(),
+        },
+      }),
+    });
+
+    const strapiJson = await strapiOrder.json();
+
+    if (strapiOrder.ok) {
+      const stripeResponse = await fetch(
+        process.env.STRAPI + "/api/stripe/checkout",
+        {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify({
+            ...order,
+            documentId: strapiJson.data.documentId,
+          }),
+        }
+      );
+
+      const json = await stripeResponse.json();
+      const url = json.url;
+      localStorage.setItem("orderCompleted", JSON.stringify(order));
+      window.location.href = url;
+    }
+
+    if (!strapiOrder.ok) {
+      setError("Někde se stala chyba, zkuste to prosím později.");
+    }
   }
 
   return (
@@ -561,14 +610,20 @@ export default function CartForm({ newAdditions }: Props) {
               .
             </p>
           </label>
+
           <button className="buttonSmall justify-self-stretch col-span-2">
             Přejít k platbě a objednat
           </button>
+          {error != null && (
+            <>
+              <p className="text-center col-span-2 border-2 rounded-lg border-red-200 text-red-300 justify-self-center px-3 py-1">
+                {error}
+              </p>
+            </>
+          )}
           <p className="col-span-2 justify-self-center text-center">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-            illo temporibus inventore, delectus veritatis excepturi cupiditate
-            accusantium ea natus! Doloremque temporibus vero rem necessitatibus
-            unde nostrum ipsa deleniti deserunt sapiente!
+            Po stisknutí tlačítka budete přesměrování na stránku s platební
+            bránou.
           </p>
         </form>
       </div>

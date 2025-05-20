@@ -11,34 +11,29 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "products": {
-      "type": "json"
+    "orderInformation": {
+      "type": "text"
     },
-    "address": {
-      "type": "json"
+    "rentalItems": {
+      "type": "text"
     },
-    "invoicing": {
-      "type": "json"
-    },
-    "name": {
-      "type": "string"
-    },
-    "addons": {
-      "type": "json"
-    },
-    "amount": {
-      "type": "biginteger"
+    "additionalItems": {
+      "type": "text"
     },
     "deposit": {
-      "type": "biginteger"
+      "type": "string"
     },
-    "dateStart": {
-      "type": "datetime",
-      "required": true
+    "price": {
+      "type": "string"
     },
-    "dateEnd": {
-      "type": "datetime",
-      "required": true
+    "payNowPrice": {
+      "type": "string"
+    },
+    "afterSalePrice": {
+      "type": "string"
+    },
+    "saleIndex": {
+      "type": "string"
     }
   }
 }
