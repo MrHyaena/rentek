@@ -25,8 +25,8 @@ export default function CartForm({ newAdditions }: Props) {
 
   let saleIndex: number = 0;
 
-  if (numberOfDays == 1) {
-    saleIndex = 0;
+  if (numberOfDays < 2) {
+    saleIndex = 1;
   } else if (numberOfDays <= 7) {
     saleIndex = 0.9;
   } else if (numberOfDays <= 21) {
@@ -70,7 +70,7 @@ export default function CartForm({ newAdditions }: Props) {
   });
 
   cart.map((item) => {
-    wholePrice = wholePrice + item.item.basePrice * numberOfDays;
+    wholePrice = wholePrice + item.item.basePrice * numberOfDays * item.count;
 
     wholeDeposit = wholeDeposit + item.item.deposit * 1;
   });
@@ -342,6 +342,9 @@ export default function CartForm({ newAdditions }: Props) {
             Za každé pronajímané zboží vybíráme při převzetí zálohu, která
             slouží k případnému pokrytí škod způsobených zákazníkem mimo běžné
             opotřebení nebo případné čištění.
+          </p>
+          <p className="mt-3">
+            Pravidelní a spolehliví zákazníci zálohu platit nemusejí.
           </p>
         </div>
         <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between border p-5 rounded-lg">

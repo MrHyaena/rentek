@@ -1,6 +1,7 @@
 "use client";
 
 import { format } from "date-fns";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -21,7 +22,7 @@ export default function OrderSum({}: Props) {
 
   return (
     <>
-      <div className="flex w-full justify-center py-15 p-5 md:p-10">
+      <div className="flex w-full justify-center py-15 p-5 md:p-10 text-sm">
         <div className="w-full max-w-wrapper flex flex-col gap-5">
           <h4>vaše objednávka</h4>
           <p>
@@ -51,35 +52,60 @@ export default function OrderSum({}: Props) {
           </div>
           <div className="h-[1px] bg-borderGray"></div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 items-start">
             <div>
               <h5>Technika a doplňky</h5>
               <p>Zde najdete všechny položky v objednávce.</p>
             </div>
+            <div className="h-[1px] bg-borderGray w-90"></div>
+
             <div>
               <h6>Technika na pronájem</h6>
-              {items.map((item: any) => {
-                return (
-                  <div>
-                    <p>{item.name}</p>
-                  </div>
-                );
-              })}
+              <div className="flex flex-col gap-2">
+                {items.map((item: any) => {
+                  return (
+                    <div className="flex gap-10 items-center">
+                      <Image
+                        src={process.env.STRAPI + item.item.coverImage.url}
+                        width={100}
+                        height={100}
+                        alt="image"
+                        className="w-10 h-10 object-cover rounded-sm"
+                      />
+                      <Link href={`/produkt/${item.item.documentId}`}>
+                        {item.item.name}
+                      </Link>
+                      <p>{item.count} ks.</p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <div className="w-full">
               <h6>Jednorázové produkty</h6>
-              {additionalItems.map((item: any) => {
-                return (
-                  <div className="flex gap-10">
-                    <p>{item.item.name}</p>
-                    <p>{item.count} ks.</p>
-                  </div>
-                );
-              })}
+              <div className="flex flex-col gap-2">
+                {additionalItems.map((item: any) => {
+                  return (
+                    <div className="flex gap-10 items-center">
+                      <Image
+                        src={process.env.STRAPI + item.item.coverImage.url}
+                        width={100}
+                        height={100}
+                        alt="image"
+                        className="w-10 h-10 object-cover rounded-sm"
+                      />
+                      <Link href={`/produkt/${item.item.documentId}`}>
+                        {item.item.name}
+                      </Link>
+                      <p>{item.count} ks.</p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
           <div className="h-[1px] bg-borderGray"></div>
-          <div className="flex gap-10">
+          <div className="flex md:flex-row flex-col gap-10 wrap-break-word">
             {" "}
             <div>
               {" "}

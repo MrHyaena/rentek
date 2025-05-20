@@ -92,7 +92,8 @@ export function DaterangeContextProvider({ children }: Props) {
   }, []);
 
   useEffect(() => {
-    const daysRange = differenceInDays(daterange.endDate, daterange.startDate);
+    const daysRange =
+      differenceInDays(daterange.endDate, daterange.startDate) + 1;
     setNumberOfDays(daysRange);
 
     let newSaleIndex: number = 0;

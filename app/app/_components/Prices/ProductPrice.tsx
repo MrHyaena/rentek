@@ -52,25 +52,55 @@ export default function ProductPrice({ data }: Props) {
   }
 
   return (
-    <div className="flex flex-col w-full gap-3 items-start">
-      <p className="font-semibold text-textSecondary">
-        {isValid() ? (
-          <>
-            <span className="text-xl font-semibold text-primary">
-              {price * numberOfDays * saleIndex} Kč
-            </span>{" "}
-            celkem za {numberOfDays} {tag} {"(vč. DPH)"}
-          </>
-        ) : (
-          <>
-            Od{" "}
-            <span className="text-xl font-semibold text-primary">
-              {price} Kč
-            </span>{" "}
-            za den {"(vč. DPH)"}
-          </>
-        )}
-      </p>
-    </div>
+    <>
+      {data.pricingType == "rental" && (
+        <>
+          <div className="flex flex-col w-full gap-3 items-start">
+            <p className="font-semibold text-textSecondary">
+              {isValid() ? (
+                <>
+                  <span className="text-xl font-semibold text-primary">
+                    {price * numberOfDays * saleIndex} Kč
+                  </span>{" "}
+                  celkem za {numberOfDays} {tag} {"(vč. DPH)"}
+                </>
+              ) : (
+                <>
+                  Od{" "}
+                  <span className="text-xl font-semibold text-primary">
+                    {price} Kč
+                  </span>{" "}
+                  za den {"(vč. DPH)"}
+                </>
+              )}
+            </p>
+          </div>
+        </>
+      )}
+      {data.pricingType == "product" && (
+        <>
+          <div className="flex flex-col w-full gap-3 items-start">
+            <p className="font-semibold text-textSecondary">
+              {isValid() ? (
+                <>
+                  <span className="text-xl font-semibold text-primary">
+                    {price} Kč
+                  </span>{" "}
+                  {"(vč. DPH)"}
+                </>
+              ) : (
+                <>
+                  Od{" "}
+                  <span className="text-xl font-semibold text-primary">
+                    {price} Kč
+                  </span>{" "}
+                  za den {"(vč. DPH)"}
+                </>
+              )}
+            </p>
+          </div>
+        </>
+      )}
+    </>
   );
 }
