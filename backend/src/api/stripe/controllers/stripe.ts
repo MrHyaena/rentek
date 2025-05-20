@@ -56,6 +56,9 @@ export default factories.createCoreController(
       );
       const json: any = await strapiResponse.json();
       const orderInformation = JSON.parse(json.data.orderInformation);
+      const rentalItems = JSON.parse(json.data.rentalItems);
+      const additionalItems = JSON.parse(json.data.additionalItems);
+
       console.log(orderInformation);
       //ctx.response.redirect(process.env.API_WEB + "/dekujeme");
     },
