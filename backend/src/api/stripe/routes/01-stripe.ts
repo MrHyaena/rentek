@@ -9,7 +9,7 @@ export default {
       },
     },
     {
-      method: "POST",
+      method: "GET",
       path: "/stripe/success",
       handler: "stripe.checkoutSessionSuccess",
       config: {

@@ -11,14 +11,14 @@ export default factories.createCoreController(
   ({ strapi }) => ({
     async getCheckoutSession(ctx) {
       const data = JSON.parse(ctx.request.body);
-      console.log(
+      let url =
         process.env.API_SERVER +
-          `/api/stripe/success?orderId=${data.documentId}`
-      );
+        `/api/stripe/success?orderId=${data.documentId}`;
+
       try {
         //Creating STRIPE checkout session
         const session = await stripe.checkout.sessions.create({
-          success_url: process.env.API_SERVER + `/api/stripe/success`,
+          success_url: url,
           ui_mode: "hosted",
           mode: "payment",
           line_items: [
@@ -42,7 +42,8 @@ export default factories.createCoreController(
       }
     },
     async checkoutSessionSuccess(ctx) {
-      ctx.redirect(process.env.API_WEB);
+      console.log("Hello");
+      ctx.response.redirect(process.env.API_WEB + "/dekujeme");
     },
   })
 );
