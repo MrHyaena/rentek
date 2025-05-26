@@ -6,6 +6,9 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const strapi = require("@strapi/strapi");
 
 import { factories } from "@strapi/strapi";
+import { PipedriveV2 } from "../../../myfunctions/pipedrive";
+import { format } from "date-fns";
+import order from "../../order/controllers/order";
 
 export default factories.createCoreController(
   "api::stripe.stripe",
@@ -80,9 +83,81 @@ export default factories.createCoreController(
             }),
           }
         );
-        console.log(json);
+      } catch (error) {}
 
-        console.log(strapiTimeslot);
+      try {
+        const personBody = {
+          name: `${orderInformation.contact.jmeno} ${orderInformation.contact.prijmeni}`,
+          emails: [
+            { value: `${orderInformation.contact.email}`, primary: true },
+          ],
+          phones: [
+            { value: `${orderInformation.contact.telefon}`, primary: true },
+          ],
+        };
+
+        const pipedrivePerson = await PipedriveV2(
+          "persons",
+          "POST",
+          personBody
+        );
+
+        const dealBody = {
+          title: `Výpůjčka - ${json.data.documentId}`,
+          person_id: pipedrivePerson.data.id,
+          value: json.data.afterSalePrice,
+          currency: "CZK",
+        };
+
+        const pipedriveDeal = await PipedriveV2("deals", "POST", dealBody);
+
+        const activityDeliveryBody = {
+          subject: "Doručení techniky",
+          deal_id: pipedriveDeal.data.id,
+          due_date: format(orderInformation.dateRange.startDate, "yyyy-MM-dd"),
+          due_time: format(orderInformation.dateRange.startDate, "hh:mm"),
+          location: [
+            {
+              value: `${orderInformation.deliveryAddress.ulice}, ${orderInformation.deliveryAddress.cp}, ${orderInformation.deliveryAddress.mesto}, ${orderInformation.deliveryAddress.psc}`,
+            },
+          ],
+        };
+
+        const pipedriveActivityDelivery = await PipedriveV2(
+          "activities",
+          "POST",
+          activityDeliveryBody
+        );
+
+        console.log(pipedriveActivityDelivery);
+
+        if (pipedriveActivityDelivery.success != true) {
+          throw Error(pipedriveActivityDelivery.error);
+        }
+
+        const activityPickupBody = {
+          subject: "Vyzvednutí techniky",
+          deal_id: pipedriveDeal.data.id,
+          due_date: format(orderInformation.dateRange.endDate, "yyyy-MM-dd"),
+          due_time: format(orderInformation.dateRange.endDate, "hh:mm"),
+          location: [
+            {
+              value: `${orderInformation.deliveryAddress.ulice}, ${orderInformation.deliveryAddress.cp}, ${orderInformation.deliveryAddress.mesto}, ${orderInformation.deliveryAddress.psc}`,
+            },
+          ],
+        };
+
+        const pipedriveActivityPickup = await PipedriveV2(
+          "activities",
+          "POST",
+          activityPickupBody
+        );
+
+        console.log(pipedriveActivityPickup);
+
+        if (pipedriveActivityPickup.success != true) {
+          throw Error(pipedriveActivityPickup.error);
+        }
       } catch (error) {
         console.log(error);
       }

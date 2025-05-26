@@ -639,7 +639,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
                 })}
               </div>
             </div>
-            <div className=" col-span-2 py-2 px-5 mt-5">
+            <div className=" col-span-2 py-2 px-5 md:mt-0 mt-5">
               <div
                 style={{ scrollbarGutter: "stable" }}
                 className="overflow-auto pr-2
