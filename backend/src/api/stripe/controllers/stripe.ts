@@ -34,7 +34,6 @@ export default factories.createCoreController(
             },
           ],
         });
-        console.log(session);
 
         ctx.body = session;
       } catch (err) {
@@ -44,7 +43,7 @@ export default factories.createCoreController(
     async checkoutSessionSuccess(ctx) {
       let params = ctx.request["params"];
 
-      const strapiResponse = await fetch(
+      const strapiOrder = await fetch(
         process.env.API_SERVER + `/api/orders/${params.orderid}`,
         {
           method: "GET",
@@ -54,12 +53,40 @@ export default factories.createCoreController(
           },
         }
       );
-      const json: any = await strapiResponse.json();
+      const json: any = await strapiOrder.json();
       const orderInformation = JSON.parse(json.data.orderInformation);
       const rentalItems = JSON.parse(json.data.rentalItems);
       const additionalItems = JSON.parse(json.data.additionalItems);
+      let startDate = orderInformation.dateRange.startDate;
+      let endDate = orderInformation.dateRange.endDate;
 
-      console.log(orderInformation);
+      try {
+        const strapiTimeslot: any = await fetch(
+          process.env.API_SERVER + "/api/timeslots",
+          {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+
+              Authorization: `Bearer ${process.env.STRAPI_READONLY_API}`,
+            },
+            body: JSON.stringify({
+              data: {
+                orderId: JSON.stringify(json.data.documentId),
+                delivery: startDate,
+                pickup: endDate,
+              },
+            }),
+          }
+        );
+        console.log(json);
+
+        console.log(strapiTimeslot);
+      } catch (error) {
+        console.log(error);
+      }
+
       //ctx.response.redirect(process.env.API_WEB + "/dekujeme");
     },
   })

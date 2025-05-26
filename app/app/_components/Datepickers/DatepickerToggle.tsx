@@ -338,13 +338,17 @@ export default function DatepickerToggle({ setToggle }: Props) {
             startYearNew.getDate(),
             i
           );
-          data.map((slot: any) => {
+          const timeslotMatchArray: any[] = data.filter((slot: any) => {
             if (isEqual(slot.delivery, date)) {
-              console.log(true);
-            } else if (!isEqual(slot.delivery, date)) {
-              deliveryTimesArray.push(date);
+              return true;
             }
           });
+
+          console.log(timeslotMatchArray);
+
+          if (timeslotMatchArray.length == 0) {
+            deliveryTimesArray.push(date);
+          }
         }
       }
 
@@ -357,13 +361,17 @@ export default function DatepickerToggle({ setToggle }: Props) {
             endDateNew.getDate(),
             i
           );
-          data.map((slot: any) => {
+          const timeslotMatchArray: any[] = data.filter((slot: any) => {
             if (isEqual(slot.pickup, date)) {
-              console.log(true);
-            } else if (!isEqual(slot.delivery, date)) {
-              pickupTimesArray.push(date);
+              return true;
             }
           });
+
+          console.log(timeslotMatchArray);
+
+          if (timeslotMatchArray.length == 0) {
+            pickupTimesArray.push(date);
+          }
         }
         setTimesDelivery(deliveryTimesArray);
         setTimesPickup(pickupTimesArray);
