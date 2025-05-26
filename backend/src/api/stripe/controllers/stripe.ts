@@ -86,18 +86,27 @@ export default factories.createCoreController(
       } catch (error) {}
 
       try {
-        let itemsString: string = "Technika: ";
-        let productString: string = "Produkty: ";
+        let itemsString: string | null = null;
+        let productString: string | null = null;
 
         rentalItems.map((item) => {
-          itemsString =
-            itemsString + ` / Jméno: ${item.item.name} - Počet: ${item.count}`;
+          if (itemsString == null) {
+            itemsString = `<li>${item.item.name} - Počet: ${item.count} </li>`;
+          } else {
+            itemsString =
+              itemsString +
+              `<li>${item.item.name} - Počet: ${item.count} </li>`;
+          }
         });
 
         additionalItems.map((item) => {
-          productString =
-            productString +
-            ` / Jméno: ${item.item.name} - Počet: ${item.count}`;
+          if (productString == null) {
+            productString = `<li>${item.item.name} - Počet: ${item.count} </li>`;
+          } else {
+            productString =
+              productString +
+              `<li>${item.item.name} - Počet: ${item.count} </li>`;
+          }
         });
 
         const personBody = await {
@@ -132,6 +141,30 @@ export default factories.createCoreController(
             //Cena po slevě
             "791284165b256bc0e55a6631df0803a98c257937":
               json.data.afterSalePrice.toString(),
+            //Jmeno
+            "16185306e53f189ae97c6ffa6e4650f77dac9419":
+              orderInformation.contact.jmeno.toString(),
+            //Prijmeni
+            "5373cbb402366fa93e8b650db79a1fc84a7f53e8":
+              orderInformation.contact.prijmeni.toString(),
+            //Email
+            "598febcf061c8207b5a96191701df4fe30b75456":
+              orderInformation.contact.email.toString(),
+            //Telefon
+            "4bf6ca46c825f1b8e771f55d14fb46245ee171f1":
+              orderInformation.contact.telefon,
+            //Ulice
+            a510a3128419f358c03cc252266397c5f5da2d1c:
+              orderInformation.deliveryAddress.ulice.toString(),
+            //ČP
+            a5607a0f617db28a2c7fd063678d356477fd8957:
+              orderInformation.deliveryAddress.cp.toString(),
+            //Město
+            "5b5f7eede36fbbd0806074735ec0267c9d922cae":
+              orderInformation.deliveryAddress.mesto.toString(),
+            //PSČ
+            "1366f1e1ffa9d80d7d8f62138a30b0f76442feef":
+              orderInformation.deliveryAddress.psc.toString(),
           },
         };
 
@@ -140,6 +173,7 @@ export default factories.createCoreController(
         console.log(pipedriveDeal);
 
         const activityDeliveryBody = await {
+          owner_id: 23212272,
           participants: [{ person_id: pipedrivePerson.data.id, primary: true }],
           subject: "Doručení techniky",
           deal_id: pipedriveDeal.data.id,
@@ -157,7 +191,7 @@ export default factories.createCoreController(
             postal_code: orderInformation.deliveryAddress.psc,
             formatted_address: `${orderInformation.deliveryAddress.ulice}, ${orderInformation.deliveryAddress.cp}, ${orderInformation.deliveryAddress.mesto}, ${orderInformation.deliveryAddress.psc}`,
           },
-          note: `<p>${itemsString}</p> <p>${productString} </p>`,
+          note: `<h3>Technika</h3><ul>${itemsString}</ul> <h3>Produkty</h3><ul>${productString} </ul>`,
         };
 
         const pipedriveActivityDelivery = await PipedriveV2(
@@ -171,6 +205,8 @@ export default factories.createCoreController(
         }
 
         const activityPickupBody = await {
+          owner_id: 23212272,
+
           participants: [{ person_id: pipedrivePerson.data.id, primary: true }],
           subject: "Vyzvednutí techniky",
           deal_id: pipedriveDeal.data.id,
@@ -188,7 +224,7 @@ export default factories.createCoreController(
             postal_code: orderInformation.deliveryAddress.psc,
             formatted_address: `${orderInformation.deliveryAddress.ulice}, ${orderInformation.deliveryAddress.cp}, ${orderInformation.deliveryAddress.mesto}, ${orderInformation.deliveryAddress.psc}`,
           },
-          note: `<p>Technika: ${itemsString}</p> <p>Produkty: ${productString} </p>`,
+          note: `<h3>Technika</h3><ul>${itemsString}</ul> <h3>Produkty</h3><ul>${productString} </ul>`,
         };
 
         const pipedriveActivityPickup = await PipedriveV2(
