@@ -86,7 +86,21 @@ export default factories.createCoreController(
       } catch (error) {}
 
       try {
-        const personBody = {
+        let itemsString: string = "Technika: ";
+        let productString: string = "Produkty: ";
+
+        rentalItems.map((item) => {
+          itemsString =
+            itemsString + ` / Jméno: ${item.item.name} - Počet: ${item.count}`;
+        });
+
+        additionalItems.map((item) => {
+          productString =
+            productString +
+            ` / Jméno: ${item.item.name} - Počet: ${item.count}`;
+        });
+
+        const personBody = await {
           name: `${orderInformation.contact.jmeno} ${orderInformation.contact.prijmeni}`,
           emails: [
             { value: `${orderInformation.contact.email}`, primary: true },
@@ -102,25 +116,48 @@ export default factories.createCoreController(
           personBody
         );
 
-        const dealBody = {
+        const dealBody = await {
           title: `Výpůjčka - ${json.data.documentId}`,
           person_id: pipedrivePerson.data.id,
           value: json.data.afterSalePrice,
           currency: "CZK",
+          custom_fields: {
+            //Doplatek
+            "97d30ff3043069f3b307faf51efce7c359f8b6e5": (
+              json.data.afterSalePrice - json.data.payNowPrice
+            ).toString(),
+            //Cena před slevou
+            "0c009f11a8dc8647931e03260bed41975932f533":
+              json.data.price.toString(),
+            //Cena po slevě
+            "791284165b256bc0e55a6631df0803a98c257937":
+              json.data.afterSalePrice.toString(),
+          },
         };
 
         const pipedriveDeal = await PipedriveV2("deals", "POST", dealBody);
 
-        const activityDeliveryBody = {
+        console.log(pipedriveDeal);
+
+        const activityDeliveryBody = await {
+          participants: [{ person_id: pipedrivePerson.data.id, primary: true }],
           subject: "Doručení techniky",
           deal_id: pipedriveDeal.data.id,
           due_date: format(orderInformation.dateRange.startDate, "yyyy-MM-dd"),
           due_time: format(orderInformation.dateRange.startDate, "hh:mm"),
-          location: [
-            {
-              value: `${orderInformation.deliveryAddress.ulice}, ${orderInformation.deliveryAddress.cp}, ${orderInformation.deliveryAddress.mesto}, ${orderInformation.deliveryAddress.psc}`,
-            },
-          ],
+          location: {
+            value: `${orderInformation.deliveryAddress.ulice}, ${orderInformation.deliveryAddress.cp}, ${orderInformation.deliveryAddress.mesto}, ${orderInformation.deliveryAddress.psc}`,
+            street_number: orderInformation.deliveryAddress.cp,
+            route: orderInformation.deliveryAddress.ulice,
+            sublocality: "",
+            locality: orderInformation.deliveryAddress.mesto,
+            admin_area_level_1: "",
+            admin_area_level_2: "",
+            country: "Czech Republic",
+            postal_code: orderInformation.deliveryAddress.psc,
+            formatted_address: `${orderInformation.deliveryAddress.ulice}, ${orderInformation.deliveryAddress.cp}, ${orderInformation.deliveryAddress.mesto}, ${orderInformation.deliveryAddress.psc}`,
+          },
+          note: `<p>${itemsString}</p> <p>${productString} </p>`,
         };
 
         const pipedriveActivityDelivery = await PipedriveV2(
@@ -129,22 +166,29 @@ export default factories.createCoreController(
           activityDeliveryBody
         );
 
-        console.log(pipedriveActivityDelivery);
-
         if (pipedriveActivityDelivery.success != true) {
           throw Error(pipedriveActivityDelivery.error);
         }
 
-        const activityPickupBody = {
+        const activityPickupBody = await {
+          participants: [{ person_id: pipedrivePerson.data.id, primary: true }],
           subject: "Vyzvednutí techniky",
           deal_id: pipedriveDeal.data.id,
           due_date: format(orderInformation.dateRange.endDate, "yyyy-MM-dd"),
           due_time: format(orderInformation.dateRange.endDate, "hh:mm"),
-          location: [
-            {
-              value: `${orderInformation.deliveryAddress.ulice}, ${orderInformation.deliveryAddress.cp}, ${orderInformation.deliveryAddress.mesto}, ${orderInformation.deliveryAddress.psc}`,
-            },
-          ],
+          location: {
+            value: `${orderInformation.deliveryAddress.ulice}, ${orderInformation.deliveryAddress.cp}, ${orderInformation.deliveryAddress.mesto}, ${orderInformation.deliveryAddress.psc}`,
+            street_number: orderInformation.deliveryAddress.cp,
+            route: orderInformation.deliveryAddress.ulice,
+            sublocality: "",
+            locality: orderInformation.deliveryAddress.mesto,
+            admin_area_level_1: "",
+            admin_area_level_2: "",
+            country: "Czech Republic",
+            postal_code: orderInformation.deliveryAddress.psc,
+            formatted_address: `${orderInformation.deliveryAddress.ulice}, ${orderInformation.deliveryAddress.cp}, ${orderInformation.deliveryAddress.mesto}, ${orderInformation.deliveryAddress.psc}`,
+          },
+          note: `<p>Technika: ${itemsString}</p> <p>Produkty: ${productString} </p>`,
         };
 
         const pipedriveActivityPickup = await PipedriveV2(
@@ -152,8 +196,6 @@ export default factories.createCoreController(
           "POST",
           activityPickupBody
         );
-
-        console.log(pipedriveActivityPickup);
 
         if (pipedriveActivityPickup.success != true) {
           throw Error(pipedriveActivityPickup.error);

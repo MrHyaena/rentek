@@ -308,9 +308,9 @@ export default function CartForm({ newAdditions }: Props) {
           orderInformation: JSON.stringify(order.orderInformation),
           rentalItems: JSON.stringify(order.rentalItems),
           additionalItems: JSON.stringify(order.additionalItems),
-          payNowPrice: payNowPrice.toString(),
           deposit: wholeDeposit.toString(),
           price: wholePrice.toString(),
+          payNowPrice: payNowPrice.toString(),
           afterSalePrice: wholePriceAfterSale.toString(),
           saleIndex: saleIndex.toString(),
         },
@@ -388,37 +388,14 @@ export default function CartForm({ newAdditions }: Props) {
       <div className="mt-10 w-full max-w-wrapper">
         {" "}
         <div className="grid items-center py-5 justify-between rounded-lg">
-          <h4 className="">Záloha</h4>
-          <p className="mt-3">
-            Za každé pronajímané zboží vybíráme při převzetí zálohu, která
-            slouží k případnému pokrytí škod způsobených zákazníkem mimo běžné
-            opotřebení nebo případné čištění.
-          </p>
-          <p className="mt-3">
-            Pravidelní a spolehliví zákazníci zálohu platit nemusejí.
-          </p>
-        </div>
-        <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between border p-5 rounded-lg">
-          <p className="text-end font-semibold col-start-1 md:justify-self-start">
-            Záloha splatná při převzetí
-          </p>
-          <div className="col-start-2 col-span-2">
-            <p className="text-end md:font-semibold">
-              Celková záloha za zboží je {""}
-              <span className="text-lg font-semibold text-primary">
-                {wholeDeposit} Kč
-              </span>{" "}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="mt-10 w-full max-w-wrapper">
-        {" "}
-        <div className="grid items-center py-5 justify-between rounded-lg">
           <h4 className="">Výsledná cena</h4>
           <p className="mt-3">
             Zde můžete vidět celkovou cenu za pronajaté zboží, doplňkové
-            produkty a další služby.
+            produkty a další služby. Částka splatná při objednání má funkci
+            rezervačního poplatku a považuje se obecně za nevratnou.{" "}
+            <span className="font-semibold">
+              Tuto částku samozřejmě odečteme od konečného doplatku.
+            </span>
           </p>
         </div>
         <div className="border p-2 px-5 rounded-lg border-borderGray">
@@ -524,6 +501,34 @@ export default function CartForm({ newAdditions }: Props) {
           </div>
         </div>
       </div>
+      <div className="mt-10 w-full max-w-wrapper">
+        {" "}
+        <div className="grid items-center py-5 justify-between rounded-lg">
+          <h4 className="">Záloha</h4>
+          <p className="mt-3">
+            Za každé pronajímané zboží vybíráme při převzetí zálohu, která
+            slouží k případnému pokrytí škod způsobených zákazníkem mimo běžné
+            opotřebení nebo případné čištění.
+          </p>
+          <p className="mt-3">
+            Pravidelní a spolehliví zákazníci zálohu platit nemusejí.
+          </p>
+        </div>
+        <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between border p-5 rounded-lg">
+          <p className="text-end font-semibold col-start-1 md:justify-self-start">
+            Záloha splatná při převzetí
+          </p>
+          <div className="col-start-2 col-span-2">
+            <p className="text-end md:font-semibold">
+              Celková záloha za zboží je {""}
+              <span className="text-lg font-semibold text-primary">
+                {wholeDeposit} Kč
+              </span>{" "}
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="mt-10 w-full max-w-wrapper">
         <h4 className="mb-5">Objednávkový formulář</h4>
         <form
