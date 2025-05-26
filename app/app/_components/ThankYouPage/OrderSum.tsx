@@ -42,11 +42,14 @@ export default function OrderSum({}: Props) {
             <p>
               Od{" "}
               <span className="font-semibold">
-                {format(orderInformation.dateRange.startDate, "dd.MM.yyyy")}
+                {format(
+                  orderInformation.dateRange.startDate,
+                  "dd.MM.yyyy hh:mm"
+                )}
               </span>{" "}
-              od{" "}
+              do{" "}
               <span className="font-semibold">
-                {format(orderInformation.dateRange.endDate, "dd.MM.yyyy")}
+                {format(orderInformation.dateRange.endDate, "dd.MM.yyyy hh:mm")}
               </span>
             </p>
           </div>

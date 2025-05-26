@@ -61,7 +61,7 @@ export default function CartForm({ newAdditions }: Props) {
     tag = "dní";
   }
 
-  let wholePrice: number = 0;
+  let rentalPrice: number = 0;
 
   let wholeDeposit: number = 0;
 
@@ -72,14 +72,16 @@ export default function CartForm({ newAdditions }: Props) {
   });
 
   cart.map((item) => {
-    wholePrice = wholePrice + item.item.basePrice * numberOfDays * item.count;
+    rentalPrice = rentalPrice + item.item.basePrice * numberOfDays * item.count;
 
     wholeDeposit = wholeDeposit + item.item.deposit * 1;
   });
+  let wholePrice: number = rentalPrice + wholeProductPrice;
 
-  let wholePriceAfterSale: number = wholePrice * saleIndex + wholeProductPrice;
+  let rentalPriceAfterSale: number = rentalPrice * saleIndex;
+  let wholePriceAfterSale: number = rentalPriceAfterSale + wholeProductPrice;
   let payNowPrice: number = wholePriceAfterSale * 0.05;
-  let sale: number = Math.trunc((1 - saleIndex) * 100);
+  let sale: number = Math.trunc(100 - saleIndex * 100);
 
   function CartTab(product: any) {
     console.log(product);
@@ -456,9 +458,22 @@ export default function CartForm({ newAdditions }: Props) {
                 </p>
                 <div className="col-start-2 col-span-2">
                   <p className="text-end text-sm font-semibold">
-                    Celková cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
+                    Cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
                     <span className="text-base font-semibold text-primary">
-                      {wholePrice} Kč
+                      {rentalPrice} Kč
+                    </span>{" "}
+                  </p>
+                </div>
+              </div>
+              <div className="md:grid grid-cols-[5fr_1fr_1fr] border-b items-center gap-3 border-borderGray py-5 justify-between">
+                <p className="text-end font-semibold col-start-1 md:justify-self-start">
+                  Celková cena za pronájem po slevě
+                </p>
+                <div className="col-start-2 col-span-2">
+                  <p className="text-end text-sm font-semibold">
+                    Cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
+                    <span className="text-base font-semibold text-primary">
+                      {rentalPriceAfterSale} Kč
                     </span>{" "}
                   </p>
                 </div>
@@ -470,7 +485,7 @@ export default function CartForm({ newAdditions }: Props) {
                 </p>
                 <div className="col-start-2 col-span-2">
                   <p className="text-end text-sm font-semibold">
-                    Celková cena (vč. DPH){" "}
+                    Cena (vč. DPH){" "}
                     <span className="text-base font-semibold text-primary">
                       {wholeProductPrice} Kč
                     </span>{" "}
