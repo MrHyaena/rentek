@@ -22,19 +22,19 @@ export default async function page() {
     if (!response.ok) {
       throw Error("Fetch failed");
     }
+    const json = await response.json();
+    if (json.data != null) {
+      if (json.data.length > 0) {
+        json.data.map((item: any) => {
+          newAdditions.push({
+            count: 0,
+            item,
+          });
+        });
+      }
+    }
   } catch (error) {
     console.log(error);
-  }
-
-  const json = await response.json();
-  console.log(json.data.length);
-  if (json.data.length > 0) {
-    json.data.map((item: any) => {
-      newAdditions.push({
-        count: 0,
-        item,
-      });
-    });
   }
 
   return (
