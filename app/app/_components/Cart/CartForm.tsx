@@ -83,7 +83,7 @@ export default function CartForm({ newAdditions }: Props) {
   const payNowPrice: number = wholePriceAfterSale * 0.05;
   const sale: number = Math.trunc(100 - saleIndex * 100);
 
-  function CartTab(product: any) {
+  function CartTab({ product, key }: { product: any; key: any }) {
     console.log(product);
     const wholeItem = product.product;
     const item = wholeItem.item;
@@ -94,7 +94,7 @@ export default function CartForm({ newAdditions }: Props) {
     return (
       <>
         <div
-          key={"cartTab" + item.name}
+          key={key}
           className="flex flex-col border overflow-hidden rounded-lg border-borderGray"
         >
           <div className="flex items-center gap-5 p-2 border-b border-borderGray">
@@ -153,7 +153,7 @@ export default function CartForm({ newAdditions }: Props) {
     );
   }
 
-  function AdditionsTab(product: any) {
+  function AdditionsTab({ product, key }: { product: any; key: any }) {
     const newProduct = product.product;
     const item = newProduct.item;
     const price = Number(item.basePrice);
@@ -189,7 +189,7 @@ export default function CartForm({ newAdditions }: Props) {
     return (
       <>
         <div
-          key={"cartTab" + item.name}
+          key={key}
           className="flex flex-col border overflow-hidden rounded-lg border-borderGray"
         >
           <div className="flex items-center gap-5 p-2 border-b border-borderGray bg-white">
@@ -365,7 +365,12 @@ export default function CartForm({ newAdditions }: Props) {
         </div>
         <div className="grid gap-3">
           {cart.map((product) => {
-            return <CartTab product={product} />;
+            return (
+              <CartTab
+                product={product}
+                key={"cartItemTab" + product.product.item.name}
+              />
+            );
           })}
         </div>
         <div className="grid grid-cols-2 border-b items-center gap-3 border-borderGray py-5 justify-between border md:p-10 p-2 rounded-lg mt-10 ">
@@ -386,7 +391,12 @@ export default function CartForm({ newAdditions }: Props) {
           <div className="col-start-2 col-span-2"></div>
           <div className="grid col-span-3">
             {additions.map((product) => {
-              return <AdditionsTab product={product} />;
+              return (
+                <AdditionsTab
+                  product={product}
+                  key={"cartAdditionsTab" + product.product.item.name}
+                />
+              );
             })}
           </div>
         </div>

@@ -32,7 +32,12 @@ export default function Products({
         <div className="grid md:grid-cols-4 gap-10">
           <div className="md:col-span-3 flex gap-5 overflow-x-scroll pb-3">
             {popularProducts.map((product: any) => {
-              return <ProductTab product={product} />;
+              return (
+                <ProductTab
+                  product={product}
+                  key={"productCatalogue" + product.item.name}
+                />
+              );
             })}
           </div>
           <div

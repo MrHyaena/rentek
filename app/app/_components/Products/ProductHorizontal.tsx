@@ -11,6 +11,7 @@ import ProductPrice from "../Prices/ProductPrice";
 import { addToCartFunction } from "../Cart/cartFunction";
 import Link from "next/link";
 type ProductProps = {
+  key: any;
   item: {
     imageUrl: string;
     name: string;
@@ -24,7 +25,7 @@ type ProductProps = {
   };
 };
 
-export default function ProductTabHorizontal({ item }: ProductProps) {
+export default function ProductTabHorizontal({ item, key }: ProductProps) {
   const { cart, setCart } = useContext(CartContext);
   const { daterange, setDaterange } = useContext(DaterangeContext);
 
@@ -49,10 +50,7 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
   }
 
   return (
-    <div
-      key={"productTab" + item.name}
-      className="md:grid md:grid-cols-[250px_1fr] shrink-0"
-    >
+    <div key={key} className="md:grid md:grid-cols-[250px_1fr] shrink-0">
       <div className="md:rounded-l-xl h-[250px] md:rounded-t-none rounded-t-xl overflow-hidden">
         {" "}
         <Image

@@ -19,7 +19,6 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  console.log(`${process.env.STRAPI}/api/items/${id}/?populate=*`);
 
   const data = await GetProductData(id);
 
@@ -36,8 +35,6 @@ export default async function Page({
 
     return json.data;
   }
-
-  console.log(data);
 
   return (
     <div className="flex flex-col items-center justify-start md:p-10 p-5 gap-5 mt-[100px] md:mt-0">
@@ -64,6 +61,7 @@ export default async function Page({
                 {data.gallery.map((item: any) => {
                   return (
                     <Image
+                      key={item.url}
                       width={500}
                       height={500}
                       src={`${process.env.STRAPI}${item.url}`}

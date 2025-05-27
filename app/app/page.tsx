@@ -9,7 +9,7 @@ import CTAVertical from "./_components/CTA/CTAVertical";
 
 export default async function Home() {
   async function GetPopularProducts() {
-    let response = await fetch(
+    const response = await fetch(
       process.env.STRAPI + "/api/items/?filters[popular][$eq]=yes&populate=*",
       {
         method: "GET",
