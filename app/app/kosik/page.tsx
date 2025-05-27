@@ -3,36 +3,38 @@ import React from "react";
 import CartForm from "../_components/Cart/CartForm";
 import DatepickerSmall from "../_components/Datepickers/DatepickerSmall";
 import DatepickerBig from "../_components/Datepickers/DatepickerBig";
+import { redirect } from "next/navigation";
 
 export default async function page() {
-  async function GetAdditions() {
-    let response: any;
-    try {
-      response = await fetch(
-        process.env.STRAPI +
-          "/api/items/?filters[pricingType][$eq]=product&populate=*",
-        {
-          method: "GET",
-          mode: "cors",
-        }
-      );
-    } catch {}
+  let response: any;
+  const newAdditions: any[] = [];
 
-    const itemsArray: any[] = [];
-
-    const json = await response.json();
-
-    json.data.map((item: any) => {
-      itemsArray.push({
-        count: 0,
-        item: { ...item },
-      });
-    });
-
-    return itemsArray;
+  try {
+    response = await fetch(
+      process.env.STRAPI +
+        "/api/items/?filters[pricingType][$eq]=product&populate=*",
+      {
+        method: "GET",
+        mode: "cors",
+      }
+    );
+    if (!response.ok) {
+      throw Error("Fetch failed");
+    }
+  } catch {
+    return;
   }
 
-  const newAdditions = await GetAdditions();
+  const json = await response.json();
+  console.log(json.data.length);
+  if (json.data.length > 0) {
+    json.data.map((item: any) => {
+      newAdditions.push({
+        count: 0,
+        item,
+      });
+    });
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start md:p-10 p-5 gap-5 md:mt-0 mt-30">

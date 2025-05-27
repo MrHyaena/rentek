@@ -83,9 +83,9 @@ export default function CartForm({ newAdditions }: Props) {
   const payNowPrice: number = wholePriceAfterSale * 0.05;
   const sale: number = Math.trunc(100 - saleIndex * 100);
 
-  function CartTab({ product, key }: { product: any; key: any }) {
+  function CartTab({ product }: { product: any }) {
     console.log(product);
-    const wholeItem = product.product;
+    const wholeItem = product;
     const item = wholeItem.item;
     const price: any = new Number(item.basePrice);
     const groupPrice = wholeItem.count * price * numberOfDays;
@@ -93,10 +93,7 @@ export default function CartForm({ newAdditions }: Props) {
 
     return (
       <>
-        <div
-          key={key}
-          className="flex flex-col border overflow-hidden rounded-lg border-borderGray"
-        >
+        <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
           <div className="flex items-center gap-5 p-2 border-b border-borderGray">
             <Image
               src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}
@@ -153,8 +150,8 @@ export default function CartForm({ newAdditions }: Props) {
     );
   }
 
-  function AdditionsTab({ product, key }: { product: any; key: any }) {
-    const newProduct = product.product;
+  function AdditionsTab({ product }: { product: any }) {
+    const newProduct = product;
     const item = newProduct.item;
     const price = Number(item.basePrice);
 
@@ -188,10 +185,7 @@ export default function CartForm({ newAdditions }: Props) {
 
     return (
       <>
-        <div
-          key={key}
-          className="flex flex-col border overflow-hidden rounded-lg border-borderGray"
-        >
+        <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
           <div className="flex items-center gap-5 p-2 border-b border-borderGray bg-white">
             <Image
               src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}
@@ -365,41 +359,45 @@ export default function CartForm({ newAdditions }: Props) {
         </div>
         <div className="grid gap-3">
           {cart.map((product) => {
-            return (
-              <CartTab
-                product={product}
-                key={"cartItemTab" + product.product.item.name}
-              />
-            );
-          })}
-        </div>
-        <div className="grid grid-cols-2 border-b items-center gap-3 border-borderGray py-5 justify-between border md:p-10 p-2 rounded-lg mt-10 ">
-          <div className="col-span-3 flex flex-col gap-2 md:gap-0">
-            <h5 className="text-xl font-semibold mb-2">Doplňkové produkty</h5>
-            <p className="text-start col-start-1 justify-self-start hidden md:block">
-              Klienti u nás často objednávají i následující produkty. Všechny
-              tyto produkty vám již po nákupu zůstanou.
-            </p>
-            <p className="text-primaryHover font-semibold">
-              Na tento typ zboží se slevy neuplatňují.
-            </p>
-          </div>
-          <p className="font-semibold hidden md:block">Produkty</p>
-          <p className="text-end text-base font-semibold hidden md:block">
-            Jednotková cena {"(vč. DPH)"}
-          </p>
-          <div className="col-start-2 col-span-2"></div>
-          <div className="grid col-span-3">
-            {additions.map((product) => {
+            if (cart) {
               return (
-                <AdditionsTab
+                <CartTab
                   product={product}
-                  key={"cartAdditionsTab" + product.product.item.name}
+                  key={"cartItemTab" + product.item.name}
                 />
               );
-            })}
-          </div>
+            }
+          })}
         </div>
+        {newAdditions.length > 0 && (
+          <div className="grid grid-cols-2 border-b items-center gap-3 border-borderGray py-5 justify-between border md:p-10 p-2 rounded-lg mt-10 ">
+            <div className="col-span-3 flex flex-col gap-2 md:gap-0">
+              <h5 className="text-xl font-semibold mb-2">Doplňkové produkty</h5>
+              <p className="text-start col-start-1 justify-self-start hidden md:block">
+                Klienti u nás často objednávají i následující produkty. Všechny
+                tyto produkty vám již po nákupu zůstanou.
+              </p>
+              <p className="text-primaryHover font-semibold">
+                Na tento typ zboží se slevy neuplatňují.
+              </p>
+            </div>
+            <p className="font-semibold hidden md:block">Produkty</p>
+            <p className="text-end text-base font-semibold hidden md:block">
+              Jednotková cena {"(vč. DPH)"}
+            </p>
+            <div className="col-start-2 col-span-2"></div>
+            <div className="grid col-span-3">
+              {additions.map((product) => {
+                return (
+                  <AdditionsTab
+                    product={product}
+                    key={"cartAdditionsTab" + product.item.name}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
       <div className="mt-10 w-full max-w-wrapper">
         {" "}
