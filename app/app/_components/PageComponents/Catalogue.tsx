@@ -632,16 +632,26 @@ export default function Catalogue({ items }: Props) {
               </form>
             )}
           </div>
-          <div className="lg:col-span-3 flex flex-col gap-5">
-            {data.map((item: any) => {
-              return (
-                <ProductTabHorizontal
-                  item={item}
-                  key={"productHorizontal" + item.name}
-                />
-              );
-            })}
-          </div>
+          {data.length > 0 && (
+            <div className="lg:col-span-3 flex flex-col gap-5">
+              {data.map((item: any) => {
+                return (
+                  <ProductTabHorizontal
+                    item={item}
+                    key={"productHorizontal" + item.name}
+                  />
+                );
+              })}
+            </div>
+          )}
+          {data.length == 0 && (
+            <div className="lg:col-span-3 flex flex-col gap-5">
+              <p>
+                Nebyli jsme schopni najít žádné produkty odpovídající
+                vyhledávání.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </>

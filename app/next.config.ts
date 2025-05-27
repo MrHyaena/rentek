@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [new URL("http://localhost:1337/**")],
   },
   env: {
-    STRAPI: "http://localhost:1337",
+    STRAPI: "http://localhost:133",
     WEBSITE: "http://localhost:3000",
   },
 };

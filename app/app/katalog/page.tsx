@@ -21,7 +21,7 @@ export default async function page() {
         throw Error("Failed fetch (catalogue)");
       }
     } catch {
-      redirect("/");
+      return [];
     }
 
     const itemsArray: any[] = [];

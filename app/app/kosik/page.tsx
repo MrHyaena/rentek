@@ -37,9 +37,11 @@ export default async function page() {
     console.log(error);
   }
 
+  console.log(newAdditions);
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-start md:p-10 p-5 gap-5 md:mt-0 mt-30">
-      {newAdditions.length > 0 ? (
+      {newAdditions.length == 0 ? (
         <>
           <div className="w-full max-w-wrapper flex flex-col items-start gap-5">
             <h3>Košík</h3>
