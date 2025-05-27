@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 type Props = {
@@ -32,15 +33,13 @@ export default function ImageText({
         id={id}
         className="w-full md:grid grid-cols-2 max-w-wrapper gap-15 flex flex-col-reverse"
       >
-        <div
-          style={{
-            backgroundImage: `url(${image})`,
-            backgroundSize: "cover",
-            gridColumnStart: colStart,
-            backgroundPosition: "center",
-          }}
-          className="rounded-xl h-[400px] col-span-1"
-        ></div>
+        <Image
+          src={image}
+          height={500}
+          width={500}
+          alt="image"
+          className="rounded-xl h-[400px] col-span-1 w-full object-cover brightness-90"
+        ></Image>
         <div
           className="col-span-1 row-start-1 flex flex-col justify-center items-start gap-5"
           style={{ gridColumnStart: textRow, gridColumnEnd: textRow + 1 }}

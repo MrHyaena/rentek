@@ -68,8 +68,8 @@ export default function Categories() {
         </div>
         <CTAHorizontal
           image={"/grass.jpg"}
-          heading="SLEVA 5 % S KÓDEM GT2025"
-          text="Slevu pro Vás máme spuštěnou po celou sezónu. Platí na celou objednávku."
+          heading="SLEVA NA PRONÁJEM 5 % S KÓDEM GT2025"
+          text="Slevu pro Vás máme spuštěnou po celou sezónu."
           buttonText=""
           link="/"
         />
