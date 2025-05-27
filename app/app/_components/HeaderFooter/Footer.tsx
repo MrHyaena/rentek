@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-type Props = {};
+type Props = { [key: string]: any };
 
 export default function Footer({}: Props) {
   return (

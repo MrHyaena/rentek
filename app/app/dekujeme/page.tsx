@@ -2,7 +2,7 @@ import React from "react";
 import PageHeading from "../_components/Headings/PageHeading";
 import OrderSum from "../_components/ThankYouPage/OrderSum";
 
-type Props = {};
+type Props = { [key: string]: any };
 
 export default function page({}: Props) {
   return (

@@ -9,7 +9,7 @@ import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { format } from "date-fns";
 
 export default function DatepickerBig() {
-  const [toggle, setToggle] = useState<Boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(false);
 
   const { daterange } = useContext(DaterangeContext);
 

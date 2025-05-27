@@ -11,7 +11,7 @@ export default function Products({
 }: {
   popularProducts: any[];
 }) {
-  let item = {
+  const item = {
     image: "/hero.webp",
     name: "Sekačka",
     description:

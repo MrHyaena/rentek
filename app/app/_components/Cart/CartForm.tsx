@@ -45,7 +45,7 @@ export default function CartForm({ newAdditions }: Props) {
   }, [daterange]);
 
   useEffect(() => {
-    let localAdditions = localStorage.getItem("additionsCart");
+    const localAdditions = localStorage.getItem("additionsCart");
     if (localAdditions != null) {
       const newArray = JSON.parse(localAdditions);
       setAdditions([...newArray]);
@@ -76,24 +76,27 @@ export default function CartForm({ newAdditions }: Props) {
 
     wholeDeposit = wholeDeposit + item.item.deposit * 1;
   });
-  let wholePrice: number = rentalPrice + wholeProductPrice;
+  const wholePrice: number = rentalPrice + wholeProductPrice;
 
-  let rentalPriceAfterSale: number = rentalPrice * saleIndex;
-  let wholePriceAfterSale: number = rentalPriceAfterSale + wholeProductPrice;
-  let payNowPrice: number = wholePriceAfterSale * 0.05;
-  let sale: number = Math.trunc(100 - saleIndex * 100);
+  const rentalPriceAfterSale: number = rentalPrice * saleIndex;
+  const wholePriceAfterSale: number = rentalPriceAfterSale + wholeProductPrice;
+  const payNowPrice: number = wholePriceAfterSale * 0.05;
+  const sale: number = Math.trunc(100 - saleIndex * 100);
 
   function CartTab(product: any) {
     console.log(product);
     const wholeItem = product.product;
-    let item = wholeItem.item;
-    let price: any = new Number(item.basePrice);
-    let groupPrice = wholeItem.count * price * numberOfDays;
+    const item = wholeItem.item;
+    const price: any = new Number(item.basePrice);
+    const groupPrice = wholeItem.count * price * numberOfDays;
     console.log(price);
 
     return (
       <>
-        <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
+        <div
+          key={"cartTab" + item.name}
+          className="flex flex-col border overflow-hidden rounded-lg border-borderGray"
+        >
           <div className="flex items-center gap-5 p-2 border-b border-borderGray">
             <Image
               src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}
@@ -155,7 +158,7 @@ export default function CartForm({ newAdditions }: Props) {
     const item = newProduct.item;
     const price = Number(item.basePrice);
 
-    let groupPrice = newProduct.count * price;
+    const groupPrice = newProduct.count * price;
 
     function AddToAdditionsCart() {
       const productIndex = additions.findIndex(
@@ -164,7 +167,7 @@ export default function CartForm({ newAdditions }: Props) {
       const newProduct = additions[productIndex];
       newProduct.count = newProduct.count + 1;
       const newArray = additions;
-      newArray[productIndex] == newProduct;
+      newArray[productIndex] = newProduct;
       setAdditions([...newArray]);
       localStorage.setItem("additionsCart", JSON.stringify(newArray));
     }
@@ -178,14 +181,17 @@ export default function CartForm({ newAdditions }: Props) {
         newProduct.count = newProduct.count - 1;
       }
       const newArray = additions;
-      newArray[productIndex] == newProduct;
+      newArray[productIndex] = newProduct;
       setAdditions([...newArray]);
       localStorage.setItem("additionsCart", JSON.stringify(newArray));
     }
 
     return (
       <>
-        <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
+        <div
+          key={"cartTab" + item.name}
+          className="flex flex-col border overflow-hidden rounded-lg border-borderGray"
+        >
           <div className="flex items-center gap-5 p-2 border-b border-borderGray bg-white">
             <Image
               src={process.env.STRAPI + item.coverImage.formats.thumbnail.url}

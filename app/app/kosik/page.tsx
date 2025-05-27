@@ -6,7 +6,7 @@ import DatepickerBig from "../_components/Datepickers/DatepickerBig";
 
 export default async function page() {
   async function GetAdditions() {
-    let response = await fetch(
+    const response = await fetch(
       process.env.STRAPI +
         "/api/items/?filters[pricingType][$eq]=product&populate=*",
       {
@@ -29,7 +29,7 @@ export default async function page() {
     return itemsArray;
   }
 
-  let newAdditions = await GetAdditions();
+  const newAdditions = await GetAdditions();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start md:p-10 p-5 gap-5 md:mt-0 mt-30">

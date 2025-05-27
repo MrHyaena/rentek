@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import { truncate } from "fs";
 
 export default function DatepickerSmall() {
-  const [toggle, setToggle] = useState<Boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(false);
 
   const { daterange } = useContext(DaterangeContext);
 

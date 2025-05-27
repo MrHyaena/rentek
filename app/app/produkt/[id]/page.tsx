@@ -11,7 +11,7 @@ import ProductPrice from "@/app/_components/Prices/ProductPrice";
 import AddToCartButton from "@/app/_components/Cart/AddToCartButton";
 import ProductSpecsProduct from "@/app/_components/Products/ProductSpecsProduct";
 
-type Props = {};
+type Props = { [key: string]: any };
 
 export default async function Page({
   params,

@@ -12,7 +12,7 @@ import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { format, isAfter, isBefore, isEqual } from "date-fns";
 
 type Props = {
-  setToggle: Dispatch<Boolean>;
+  setToggle: Dispatch<boolean>;
 };
 
 export default function DatepickerToggle({ setToggle }: Props) {
@@ -215,8 +215,8 @@ export default function DatepickerToggle({ setToggle }: Props) {
   }
 
   function dateIsActive(date: Date) {
-    let startDate = new Date(daterange.startDate);
-    let endDate = new Date(daterange.endDate);
+    const startDate = new Date(daterange.startDate);
+    const endDate = new Date(daterange.endDate);
 
     const year = startDate.getFullYear();
     const month = startDate.getMonth();
@@ -242,8 +242,8 @@ export default function DatepickerToggle({ setToggle }: Props) {
     }
   }
 
-  function GenerateDay(day: Date, index: Number) {
-    let monthDay = day.getDate();
+  function GenerateDay(day: Date, index: number) {
+    const monthDay = day.getDate();
     let weekDay = day.getDay();
     if (weekDay == 0) {
       weekDay = 7;
@@ -301,7 +301,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
   }
 
   function GenerateLastMonthDay(day: Date) {
-    let monthDay = day.getDate();
     let weekDay = day.getDay();
     if (weekDay == 0) {
       weekDay = 7;
@@ -316,7 +315,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
   useEffect(() => {
     fetchTimeslots();
     async function fetchTimeslots() {
-      let response = await fetch(process.env.STRAPI + "/api/timeslots", {
+      const response = await fetch(process.env.STRAPI + "/api/timeslots", {
         method: "GET",
         mode: "cors",
       });
@@ -380,7 +379,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
   }, [daterange]);
 
   function PickDeliveryTime(time: Date) {
-    let startDate = new Date(daterange.startDate);
+    const startDate = new Date(daterange.startDate);
 
     const year = startDate.getFullYear();
     const month = startDate.getMonth();
@@ -442,7 +441,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
   }
 
   function PickPickupTime(time: Date) {
-    let endDate = new Date(daterange.endDate);
+    const endDate = new Date(daterange.endDate);
 
     const year = endDate.getFullYear();
     const month = endDate.getMonth();

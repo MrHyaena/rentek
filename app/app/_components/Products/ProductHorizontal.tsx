@@ -49,7 +49,10 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
   }
 
   return (
-    <div className="md:grid md:grid-cols-[250px_1fr] shrink-0">
+    <div
+      key={"productTab" + item.name}
+      className="md:grid md:grid-cols-[250px_1fr] shrink-0"
+    >
       <div className="md:rounded-l-xl h-[250px] md:rounded-t-none rounded-t-xl overflow-hidden">
         {" "}
         <Image

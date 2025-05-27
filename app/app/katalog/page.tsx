@@ -4,7 +4,7 @@ import Catalogue from "../_components/PageComponents/Catalogue";
 
 export default async function page() {
   async function GetItems() {
-    let response = await fetch(
+    const response = await fetch(
       process.env.STRAPI +
         "/api/items/?populate=*&filters[pricingType][$eq]=rental",
       {

@@ -2,7 +2,7 @@
 
 import React from "react";
 
-type Props = {};
+type Props = { [key: string]: any };
 
 export default function ScrollToKontakt({}: Props) {
   return (

@@ -28,7 +28,11 @@ export default function ProductSpecsRental({ data }: Props) {
               </div>
               <div className="flex flex-col md:items-start items-center gap-2">
                 {data.uses.map((item: { name: string; [key: string]: any }) => {
-                  return <p className="">{item.name}</p>;
+                  return (
+                    <p key={"jmeno1" + item.name} className="">
+                      {item.name}
+                    </p>
+                  );
                 })}
               </div>{" "}
             </div>
@@ -42,7 +46,11 @@ export default function ProductSpecsRental({ data }: Props) {
             <div className="flex flex-col md:items-start items-center gap-2">
               {data.specifications.map(
                 (item: { name: string; [key: string]: any }) => {
-                  return <p className="">{item.name}</p>;
+                  return (
+                    <p key={"jmeno2" + item.name} className="">
+                      {item.name}
+                    </p>
+                  );
                 }
               )}
             </div>
@@ -57,7 +65,11 @@ export default function ProductSpecsRental({ data }: Props) {
             <div className="flex flex-col md:items-start items-center gap-2">
               {data.accessories.map(
                 (item: { name: string; [key: string]: any }) => {
-                  return <p className="">{item.name}</p>;
+                  return (
+                    <p key={"jmeno3" + item.name} className="">
+                      {item.name}
+                    </p>
+                  );
                 }
               )}
             </div>

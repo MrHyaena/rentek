@@ -118,8 +118,8 @@ export default function Catalogue({ items }: Props) {
     const formData = new FormData(data);
     console.log(formData.getAll("subcategories"));
 
-    let subcategories = formData.getAll("subcategories");
-    let queryOrSubcategories: any[] = [];
+    const subcategories = formData.getAll("subcategories");
+    const queryOrSubcategories: any[] = [];
 
     subcategories.map((sub) => {
       queryOrSubcategories.push({
@@ -129,8 +129,8 @@ export default function Catalogue({ items }: Props) {
       });
     });
 
-    let specifications = formData.getAll("specifications");
-    let queryOrSpecifications: any[] = [];
+    const specifications = formData.getAll("specifications");
+    const queryOrSpecifications: any[] = [];
 
     specifications.map((sub) => {
       queryOrSpecifications.push({
@@ -140,8 +140,8 @@ export default function Catalogue({ items }: Props) {
       });
     });
 
-    let uses = formData.getAll("uses");
-    let queryOrUses: any[] = [];
+    const uses = formData.getAll("uses");
+    const queryOrUses: any[] = [];
 
     uses.map((sub) => {
       queryOrUses.push({

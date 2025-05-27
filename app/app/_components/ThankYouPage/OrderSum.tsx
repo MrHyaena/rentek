@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-type Props = {};
+type Props = { [key: string]: any };
 
 export default function OrderSum({}: Props) {
   const orderData = localStorage.getItem("orderCompleted");
@@ -67,7 +67,10 @@ export default function OrderSum({}: Props) {
               <div className="flex flex-col gap-2">
                 {items.map((item: any) => {
                   return (
-                    <div className="flex gap-10 items-center">
+                    <div
+                      key={"item" + item.item.name}
+                      className="flex gap-10 items-center"
+                    >
                       <Image
                         src={process.env.STRAPI + item.item.coverImage.url}
                         width={100}
@@ -89,7 +92,10 @@ export default function OrderSum({}: Props) {
               <div className="flex flex-col gap-2">
                 {additionalItems.map((item: any) => {
                   return (
-                    <div className="flex gap-10 items-center">
+                    <div
+                      key={"item2" + item.item.name}
+                      className="flex gap-10 items-center"
+                    >
                       <Image
                         src={process.env.STRAPI + item.item.coverImage.url}
                         width={100}

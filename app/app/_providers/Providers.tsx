@@ -3,6 +3,7 @@ import { CartContextProvider } from "../_context/CartContext";
 import { DaterangeContextProvider } from "../_context/DaterangeContext";
 
 interface Props {
+  [key: string]: any;
   children?: ReactNode;
 }
 
