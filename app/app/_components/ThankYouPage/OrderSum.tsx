@@ -3,12 +3,20 @@
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
 type Props = { [key: string]: any };
 
 export default function OrderSum({}: Props) {
-  const orderData = localStorage.getItem("orderCompleted");
+  let orderData: any;
+  try {
+    orderData = localStorage.getItem("orderCompleted");
+  } catch {
+    if (orderData == null) {
+      redirect("/");
+    }
+  }
 
   let order: any;
 
