@@ -25,7 +25,7 @@ type ProductProps = {
   };
 };
 
-export default function ProductTabHorizontal({ item, key }: ProductProps) {
+export default function ProductTabHorizontal({ item }: ProductProps) {
   const { cart, setCart } = useContext(CartContext);
   const { daterange, setDaterange } = useContext(DaterangeContext);
 
@@ -50,11 +50,11 @@ export default function ProductTabHorizontal({ item, key }: ProductProps) {
   }
 
   return (
-    <div key={key} className="md:grid md:grid-cols-[250px_1fr] shrink-0">
+    <div className="md:grid md:grid-cols-[250px_1fr] shrink-0">
       <div className="md:rounded-l-xl h-[250px] md:rounded-t-none rounded-t-xl overflow-hidden">
         {" "}
         <Image
-          src={process.env.STRAPI + item.coverImage.formats.small.url}
+          src={item.coverImage.formats.small.url}
           alt={"thumbnail-" + item.coverImage.formats.small.url}
           height={500}
           width={500}

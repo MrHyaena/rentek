@@ -25,9 +25,7 @@ export default function ProductTab({ product, key }: ProductProps) {
     <div key={key} className="h-full max-w-[300px] shrink-0">
       <div
         style={{
-          backgroundImage: `url(${
-            process.env.STRAPI + item.coverImage.formats.small.url
-          })`,
+          backgroundImage: `url(${item.coverImage.formats.small.url})`,
           backgroundSize: "cover",
         }}
         className="min-h-[200px] rounded-t-xl"
