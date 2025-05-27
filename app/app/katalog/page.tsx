@@ -1,17 +1,28 @@
 import PageHeading from "@/app/_components/Headings/PageHeading";
 import React from "react";
 import Catalogue from "../_components/PageComponents/Catalogue";
+import { redirect } from "next/navigation";
 
 export default async function page() {
   async function GetItems() {
-    const response = await fetch(
-      process.env.STRAPI +
-        "/api/items/?populate=*&filters[pricingType][$eq]=rental",
-      {
-        method: "GET",
-        mode: "cors",
+    let response: any;
+
+    try {
+      response = await fetch(
+        process.env.STRAPI +
+          "/api/items/?populate=*&filters[pricingType][$eq]=rental",
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      );
+
+      if (!response.ok) {
+        throw Error("Failed fetch (catalogue)");
       }
-    );
+    } catch {
+      redirect("/");
+    }
 
     const itemsArray: any[] = [];
 
