@@ -49,12 +49,6 @@ export default async function page() {
           zaplatit 5 procent z ceny celkové objednávky. O tuto částku se
           samozřejmě při převzetí sníží celková doplácená suma.
         </p>{" "}
-        <div className="hidden md:block">
-          <DatepickerBig />
-        </div>
-        <div className="md:hidden">
-          <DatepickerSmall />
-        </div>
       </div>
       <CartForm newAdditions={newAdditions} />
     </div>
