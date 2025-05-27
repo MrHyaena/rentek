@@ -347,6 +347,15 @@ export default function CartForm({ newAdditions }: Props) {
     <>
       {cart.length != 0 ? (
         <>
+          {" "}
+          <div className="w-full max-w-wrapper flex flex-col gap-5">
+            <p className="">
+              Níže můžete vidět všechno vybrané zboží. Abychom předešli zahlcení
+              našich služeb z nekalých důvodů, vyžadujeme při objednání vždy
+              zaplatit 5 procent z ceny celkové objednávky. O tuto částku se
+              samozřejmě při převzetí sníží celková doplácená suma.
+            </p>{" "}
+          </div>
           <div className="mt-10 w-full max-w-wrapper border md:p-5 p-2 rounded-lg border-borderGray">
             <div className="grid grid-cols-[2fr_1fr] items-start gap-3 border-borderGray py-5 justify-between">
               <p className="text-end font-semibold col-start-1 justify-self-start">
