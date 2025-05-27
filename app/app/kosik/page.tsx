@@ -6,14 +6,17 @@ import DatepickerBig from "../_components/Datepickers/DatepickerBig";
 
 export default async function page() {
   async function GetAdditions() {
-    const response = await fetch(
-      process.env.STRAPI +
-        "/api/items/?filters[pricingType][$eq]=product&populate=*",
-      {
-        method: "GET",
-        mode: "cors",
-      }
-    );
+    let response: any;
+    try {
+      response = await fetch(
+        process.env.STRAPI +
+          "/api/items/?filters[pricingType][$eq]=product&populate=*",
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      );
+    } catch {}
 
     const itemsArray: any[] = [];
 
