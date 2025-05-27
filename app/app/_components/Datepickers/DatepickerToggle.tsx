@@ -418,6 +418,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
     if (isEqual(time, daterange.startDate)) {
       return (
         <button
+          key={"deliveryTime" + time}
           onClick={() => {
             PickDeliveryTime(time);
           }}
@@ -429,6 +430,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
     } else {
       return (
         <button
+          key={"deliveryTime" + time}
           onClick={() => {
             PickDeliveryTime(time);
           }}

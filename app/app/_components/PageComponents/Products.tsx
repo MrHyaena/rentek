@@ -30,7 +30,7 @@ export default function Products({
           subheading="Co si půjčují ostatní?"
         />
         <div className="grid md:grid-cols-4 gap-10">
-          <div className="md:col-span-3 flex gap-5 overflow-x-scroll pb-3">
+          <div className="md:col-span-3 flex gap-5 overflow-x-scroll pb-3 scrollbar-corner-primary">
             {popularProducts.map((product: any) => {
               return (
                 <ProductTab

@@ -4,6 +4,7 @@ import DatepickerBig from "../Datepickers/DatepickerBig";
 import Link from "next/link";
 import HowDoesItWorkButton from "./HowDoesItWorkButton";
 import DatepickerSmall from "../Datepickers/DatepickerSmall";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -14,7 +15,7 @@ export default function Hero() {
           backgroundSize: "cover",
           backgroundPosition: "right",
         }}
-        className="max-w-wrapper bg-white w-full rounded-2xl flex items-stretch "
+        className="max-w-wrapper bg-white w-full rounded-2xl flex items-stretch relative"
       >
         <div className="w-full h-full bg-linear-90 from-overlay from-20% to-transparent rounded-2xl md:p-10 md:py-20 p-7  flex justify-start">
           <div className="md:max-w-[63%] flex flex-col gap-5 justify-center">

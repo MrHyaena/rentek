@@ -4,6 +4,8 @@
 @import "react-date-range/dist/styles.css";
 @import "react-date-range/dist/theme/default.css";
 
+@plugin 'tailwind-scrollbar';
+
 @theme {
   --font-oswald: "Oswald";
   --font-bebas: "Bebas Neue";
