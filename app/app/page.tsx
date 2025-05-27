@@ -8,8 +8,10 @@ import CTAHorizontal from "./_components/CTA/CTAHorizontal";
 import CTAVertical from "./_components/CTA/CTAVertical";
 
 export default async function Home() {
-  async function GetPopularProducts() {
-    const response = await fetch(
+  const itemsArray: any[] = [];
+  let response: any;
+  try {
+    response = await fetch(
       process.env.STRAPI + "/api/items/?filters[popular][$eq]=yes&populate=*",
       {
         method: "GET",
@@ -17,7 +19,9 @@ export default async function Home() {
       }
     );
 
-    const itemsArray: any[] = [];
+    if (!response.ok) {
+      throw Error("Failed fetch (catalogue)");
+    }
 
     const json = await response.json();
 
@@ -27,11 +31,9 @@ export default async function Home() {
         item: { ...item },
       });
     });
-
-    return itemsArray;
+  } catch {
+    console.log("Není žádný produkt");
   }
-
-  const popularProducts = await GetPopularProducts();
 
   return (
     <>
@@ -39,7 +41,7 @@ export default async function Home() {
         <Hero />
         <IconsColumns />
         <Categories />
-        <Products popularProducts={popularProducts} />
+        {itemsArray.length > 0 && <Products popularProducts={itemsArray} />}
         <ImageText
           image="/handshake.png"
           subheading="Služba až ke dveřím"
