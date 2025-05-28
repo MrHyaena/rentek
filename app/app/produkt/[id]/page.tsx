@@ -77,7 +77,7 @@ export default async function Page({
               <Image
                 width={990}
                 height={990}
-                src={`${process.env.STRAPI}${data.coverImage.url}`}
+                src={`${data.coverImage.url}`}
                 alt={data.name + "-hero"}
                 className="w-full col-span-4 object-cover rounded-lg h-full"
               />
