@@ -10,10 +10,9 @@ type Props = { [key: string]: any };
 
 export default function OrderSum({}: Props) {
   const [data, setData] = useState<any>(null);
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    let response = localStorage.getItem("orderCompleted");
+    const response = localStorage.getItem("orderCompleted");
 
     if (response != null) {
       setData(JSON.parse(response));
