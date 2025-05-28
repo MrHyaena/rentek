@@ -240,6 +240,7 @@ export default function CartForm({ newAdditions }: Props) {
       <div className="flex flex-col">
         <label className="">{text}</label>
         <input
+          required={true}
           name={name}
           type="text"
           className="border border-borderGray p-1 rounded-sm"
@@ -636,6 +637,7 @@ export default function CartForm({ newAdditions }: Props) {
                   </div>
                   <label className="col-span-2 items-center gap-5 flex justify-self-center text-start max-w-[600px] border p-5 rounded-lg border-borderGray">
                     <input
+                      required={true}
                       value="true"
                       name="podminky"
                       type="checkbox"
