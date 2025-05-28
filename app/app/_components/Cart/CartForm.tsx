@@ -295,7 +295,7 @@ export default function CartForm({ newAdditions }: Props) {
       payNowPrice: payNowPrice,
     };
 
-    console.log(payNowPrice);
+    console.log(process.env.STRAPI + "/api/orders");
 
     const strapiOrder = await fetch(process.env.STRAPI + "/api/orders", {
       method: "POST",
@@ -318,6 +318,7 @@ export default function CartForm({ newAdditions }: Props) {
     });
 
     const strapiJson = await strapiOrder.json();
+    console.log(strapiJson);
 
     if (strapiOrder.ok) {
       const stripeResponse = await fetch(

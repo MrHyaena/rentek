@@ -16,5 +16,13 @@ export default {
         auth: false,
       },
     },
+    {
+      method: "POST",
+      path: "/stripe/testfunction",
+      handler: "stripe.testfunction",
+      config: {
+        auth: false,
+      },
+    },
   ],
 };

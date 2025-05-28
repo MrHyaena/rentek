@@ -53,20 +53,20 @@ export default async function Page({
               <Image
                 width={990}
                 height={990}
-                src={`${process.env.STRAPI}${data.coverImage.url}`}
+                src={`${data.coverImage.url}`}
                 alt={data.name + "-hero"}
-                className="w-full col-span-4 object-cover rounded-lg h-full"
+                className="w-full col-span-4 aspect-square object-cover rounded-lg h-full"
               />
-              <div className="grid grid-rows-4 w-full max-h-[600px] gap-2">
+              <div className="grid grid-rows-4 w-full gap-2">
                 {data.gallery.map((item: any) => {
                   return (
                     <Image
                       key={item.url}
                       width={500}
                       height={500}
-                      src={`${process.env.STRAPI}${item.url}`}
+                      src={`${item.url}`}
                       alt={data.name + "-hero"}
-                      className="w-full object-cover rounded-lg h-full"
+                      className="w-full aspect-square object-cover rounded-lg h-full"
                     />
                   );
                 })}

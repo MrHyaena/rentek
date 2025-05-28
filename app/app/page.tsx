@@ -8,40 +8,13 @@ import CTAHorizontal from "./_components/CTA/CTAHorizontal";
 import CTAVertical from "./_components/CTA/CTAVertical";
 
 export default async function Home() {
-  const itemsArray: any[] = [];
-  let response: any;
-  try {
-    response = await fetch(
-      process.env.STRAPI + "/api/items/?filters[popular][$eq]=yes&populate=*",
-      {
-        method: "GET",
-        mode: "cors",
-      }
-    );
-
-    if (!response.ok) {
-      throw Error("Failed fetch (catalogue)");
-    }
-
-    const json = await response.json();
-
-    json.data.map((item: any) => {
-      itemsArray.push({
-        count: 0,
-        item: { ...item },
-      });
-    });
-  } catch {
-    console.log("Není žádný produkt");
-  }
-
   return (
     <>
       <div className="py-15 px-5 flex justify-center w-full flex-col items-center gap-30">
         <Hero />
         <IconsColumns />
         <Categories />
-        {itemsArray.length > 0 && <Products popularProducts={itemsArray} />}
+        <Products />
         <ImageText
           image="/handshake.png"
           subheading="Služba až ke dveřím"

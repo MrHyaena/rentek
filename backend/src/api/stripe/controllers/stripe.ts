@@ -4,6 +4,7 @@
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const strapi = require("@strapi/strapi");
+const nodemailer = require("nodemailer");
 
 import { factories } from "@strapi/strapi";
 import { PipedriveV2 } from "../../../myfunctions/pipedrive";
@@ -15,9 +16,8 @@ export default factories.createCoreController(
   ({ strapi }) => ({
     async getCheckoutSession(ctx) {
       const data = JSON.parse(ctx.request.body);
-      let url =
-        process.env.API_SERVER + `/api/stripe/success/${data.documentId}`;
-
+      let url = `${process.env.API_SERVER}/api/stripe/success/${data.documentId}`;
+      console.log(url);
       try {
         //Creating STRIPE checkout session
         const session = await stripe.checkout.sessions.create({
@@ -37,6 +37,7 @@ export default factories.createCoreController(
             },
           ],
         });
+        console.log(session);
 
         ctx.body = session;
       } catch (err) {
@@ -83,8 +84,14 @@ export default factories.createCoreController(
             }),
           }
         );
-      } catch (error) {}
 
+        if (!strapiTimeslot.ok) {
+          throw Error("Order was not created (STRAPI)");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      //PIPEDRIVE
       try {
         let itemsString: string | null = null;
         let productString: string | null = null;
@@ -125,6 +132,7 @@ export default factories.createCoreController(
           personBody
         );
 
+        console.log(pipedrivePerson);
         const dealBody = await {
           title: `Výpůjčka - ${json.data.documentId}`,
           person_id: pipedrivePerson.data.id,
@@ -236,11 +244,78 @@ export default factories.createCoreController(
         if (pipedriveActivityPickup.success != true) {
           throw Error(pipedriveActivityPickup.error);
         }
+        ctx.redirect(process.env.API_WEB + "/dekujeme");
       } catch (error) {
         console.log(error);
       }
 
+      //Emails
+      try {
+        const emailResponse = await fetch(
+          "https://api.smtp2go.com/v3/email/send",
+          {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Smtp2go-Api-Key": "api-xxxxxxxxxxxxxxxxxxx",
+              accept: "application/json",
+            },
+            body: JSON.stringify({
+              data: {
+                sender: "admin@shopr.cz",
+                to: ["dolezalmartin131@gmail.com"],
+                subject: "Vaše objednávka",
+                html_body: "<h1>Test</h1>",
+                text_body: "Test",
+                version: 1,
+                template_id: "9139535",
+                template_data: {
+                  url: "mikejasonsmith",
+                },
+              },
+            }),
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
       //ctx.response.redirect(process.env.API_WEB + "/dekujeme");
+    },
+
+    async testfunction(ctx) {
+      const orderId = "45d46afre8w4fre6544";
+      try {
+        const emailResponse = await fetch(
+          "https://eu-api.smtp2go.com/v3/email/send",
+          {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Smtp2go-Api-Key": process.env.SMTP_API_KEY,
+              accept: "application/json",
+            },
+            body: JSON.stringify({
+              sender: "admin@shopr.cz",
+              to: ["dolezalmartin131@gmail.com"],
+              subject: "Vaše objednávka",
+              html_body: "<h1>Test</h1>",
+              text_body: "Test",
+              version: 1,
+              template_id: "9139535",
+              template_data: {
+                url: `${process.env.API_WEB}/dekujeme?orderId=${orderId}`,
+              },
+            }),
+          }
+        );
+        console.log(emailResponse);
+        const json = await emailResponse.json();
+        ctx.body = { json };
+      } catch (error) {
+        console.log(error);
+      }
     },
   })
 );
