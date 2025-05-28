@@ -295,52 +295,39 @@ export default function CartForm({ newAdditions }: Props) {
       payNowPrice: payNowPrice,
     };
 
-    console.log(process.env.STRAPI + "/api/orders");
+    const agreement = formData.get("podminky");
+    console.log(agreement);
 
-    const strapiOrder = await fetch(process.env.STRAPI + "/api/orders", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        data: {
-          orderInformation: JSON.stringify(order.orderInformation),
-          rentalItems: JSON.stringify(order.rentalItems),
-          additionalItems: JSON.stringify(order.additionalItems),
-          deposit: wholeDeposit.toString(),
-          price: wholePrice.toString(),
-          payNowPrice: payNowPrice.toString(),
-          afterSalePrice: wholePriceAfterSale.toString(),
-          saleIndex: saleIndex.toString(),
-        },
-      }),
-    });
+    const stripeResponse = await fetch(
+      process.env.STRAPI + "/api/stripe/checkout",
+      {
+        mode: "cors",
+        method: "POST",
+        body: JSON.stringify({
+          ...order,
+          wholeDeposit,
+          wholePrice,
+          payNowPrice,
+          wholePriceAfterSale,
+          saleIndex,
+          agreement,
+        }),
+      }
+    );
 
-    const strapiJson = await strapiOrder.json();
-    console.log(strapiJson);
+    if (!stripeResponse.ok) {
+      const stripeResponseJson = await stripeResponse.json();
+      console.log(stripeResponseJson);
 
-    if (strapiOrder.ok) {
-      const stripeResponse = await fetch(
-        process.env.STRAPI + "/api/stripe/checkout",
-        {
-          mode: "cors",
-          method: "POST",
-          body: JSON.stringify({
-            ...order,
-            documentId: strapiJson.data.documentId,
-          }),
-        }
-      );
-
-      const json = await stripeResponse.json();
-      const url = json.url;
-      localStorage.setItem("orderCompleted", JSON.stringify(order));
-      window.location.href = url;
+      setError(stripeResponseJson.error);
     }
 
-    if (!strapiOrder.ok) {
-      setError("Někde se stala chyba, zkuste to prosím později.");
+    if (stripeResponse.ok) {
+      const json = await stripeResponse.json();
+      const url = json.url;
+      console.log(url);
+      localStorage.setItem("orderCompleted", JSON.stringify(order));
+      window.location.href = url;
     }
   }
 

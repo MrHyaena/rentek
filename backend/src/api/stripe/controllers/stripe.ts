@@ -15,11 +15,63 @@ export default factories.createCoreController(
   "api::stripe.stripe",
   ({ strapi }) => ({
     async getCheckoutSession(ctx) {
-      const data = JSON.parse(ctx.request.body);
-      let url = `${process.env.API_SERVER}/api/stripe/success/${data.documentId}`;
-      console.log(url);
+      const data = await JSON.parse(ctx.request.body);
+      console.log(data.agreement);
       try {
+        //Validation of data
+        if (data.agreement != "true") {
+          throw Error("Musíte souhlasit s podmínkami");
+        }
+        if (
+          !data.orderInformation.dateRange.startDate ||
+          !data.orderInformation.dateRange.endDate ||
+          !data.orderInformation.contact.jmeno ||
+          !data.orderInformation.contact.prijmeni ||
+          !data.orderInformation.contact.email ||
+          !data.orderInformation.contact.telefon ||
+          !data.orderInformation.deliveryAddress.ulice ||
+          !data.orderInformation.deliveryAddress.cp ||
+          !data.orderInformation.deliveryAddress.mesto ||
+          !data.orderInformation.deliveryAddress.psc ||
+          !data.orderInformation.invoiceAddress.ulice ||
+          !data.orderInformation.invoiceAddress.cp ||
+          !data.orderInformation.invoiceAddress.mesto ||
+          !data.orderInformation.invoiceAddress.psc
+        ) {
+          throw Error("Nejsou vyplněná všechna pole");
+        }
+        const strapiOrder = await fetch(
+          process.env.API_SERVER + "/api/orders",
+          {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              data: {
+                orderInformation: JSON.stringify(data.orderInformation),
+                rentalItems: JSON.stringify(data.rentalItems),
+                additionalItems: JSON.stringify(data.additionalItems),
+                deposit: data.wholeDeposit.toString(),
+                price: data.wholePrice.toString(),
+                payNowPrice: data.payNowPrice.toString(),
+                afterSalePrice: data.wholePriceAfterSale.toString(),
+                saleIndex: data.saleIndex.toString(),
+              },
+            }),
+          }
+        );
+
+        const strapiJson: any = await strapiOrder.json();
+
+        if (!strapiOrder.ok) {
+          throw Error("Order not created (STRAPI)");
+        }
+
         //Creating STRIPE checkout session
+        let url = `${process.env.API_SERVER}/api/stripe/success/${strapiJson.data.documentId}`;
+
         const session = await stripe.checkout.sessions.create({
           success_url: url,
           ui_mode: "hosted",
@@ -37,11 +89,12 @@ export default factories.createCoreController(
             },
           ],
         });
-        console.log(session);
 
         ctx.body = session;
       } catch (err) {
-        ctx.body = err;
+        console.log(err.message);
+        ctx.status = 400;
+        ctx.body = { error: err.message };
       }
     },
     async checkoutSessionSuccess(ctx) {
@@ -58,6 +111,8 @@ export default factories.createCoreController(
         }
       );
       const json: any = await strapiOrder.json();
+      console.log(json);
+
       const orderInformation = JSON.parse(json.data.orderInformation);
       const rentalItems = JSON.parse(json.data.rentalItems);
       const additionalItems = JSON.parse(json.data.additionalItems);
