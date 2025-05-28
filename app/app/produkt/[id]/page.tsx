@@ -66,7 +66,7 @@ export default async function Page({
                       height={500}
                       src={`${item.url}`}
                       alt={data.name + "-hero"}
-                      className="w-full aspect-square object-cover rounded-lg h-full"
+                      className="w-full aspect-square object-cover rounded-lg"
                     />
                   );
                 })}
@@ -79,7 +79,7 @@ export default async function Page({
                 height={990}
                 src={`${data.coverImage.url}`}
                 alt={data.name + "-hero"}
-                className="w-full col-span-4 object-cover rounded-lg h-full"
+                className="w-full aspect-square col-span-4 object-cover rounded-lg"
               />
             </div>
           )}
