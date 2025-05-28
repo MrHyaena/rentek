@@ -9,8 +9,8 @@ export default function page({}: Props) {
     <>
       <PageHeading
         image="/contract.jpg"
-        heading="Děkujeme za objednávku"
-        text="V tuto chvíli začínáme vše připravovat"
+        heading="Objednávka"
+        text="Níže najdete vaši objednávku"
         datepickerExists={false}
       />
       <OrderSum />

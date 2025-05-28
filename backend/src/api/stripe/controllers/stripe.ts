@@ -299,48 +299,11 @@ export default factories.createCoreController(
         if (pipedriveActivityPickup.success != true) {
           throw Error(pipedriveActivityPickup.error);
         }
-        ctx.redirect(process.env.API_WEB + "/dekujeme");
-      } catch (error) {
-        console.log(error);
-      }
-
-      //Emails
-      try {
-        const emailResponse = await fetch(
-          "https://api.smtp2go.com/v3/email/send",
-          {
-            method: "POST",
-            mode: "cors",
-            headers: {
-              "Content-Type": "application/json",
-              "X-Smtp2go-Api-Key": "api-xxxxxxxxxxxxxxxxxxx",
-              accept: "application/json",
-            },
-            body: JSON.stringify({
-              data: {
-                sender: "admin@shopr.cz",
-                to: ["dolezalmartin131@gmail.com"],
-                subject: "Vaše objednávka",
-                html_body: "<h1>Test</h1>",
-                text_body: "Test",
-                version: 1,
-                template_id: "9139535",
-                template_data: {
-                  url: "mikejasonsmith",
-                },
-              },
-            }),
-          }
+        ctx.redirect(
+          process.env.API_WEB + `/objednavka?orderid=${json.data.documentId}`
         );
-      } catch (error) {
-        console.log(error);
-      }
-      //ctx.response.redirect(process.env.API_WEB + "/dekujeme");
-    },
 
-    async testfunction(ctx) {
-      const orderId = "45d46afre8w4fre6544";
-      try {
+        // Confirmation email
         const emailResponse = await fetch(
           "https://eu-api.smtp2go.com/v3/email/send",
           {
@@ -352,7 +315,7 @@ export default factories.createCoreController(
               accept: "application/json",
             },
             body: JSON.stringify({
-              sender: "admin@shopr.cz",
+              sender: "Grasston <admin@shopr.cz>",
               to: ["dolezalmartin131@gmail.com"],
               subject: "Vaše objednávka",
               html_body: "<h1>Test</h1>",
@@ -360,14 +323,21 @@ export default factories.createCoreController(
               version: 1,
               template_id: "9139535",
               template_data: {
-                url: `${process.env.API_WEB}/dekujeme?orderId=${orderId}`,
+                url: `${process.env.API_WEB}/objednavka?orderid=${json.data.documentId}`,
+                orderid: `${json.data.documentId}`,
               },
             }),
           }
         );
         console.log(emailResponse);
-        const json = await emailResponse.json();
-        ctx.body = { json };
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async testfunction(ctx) {
+      const orderId = "45d46afre8w4fre6544";
+      try {
       } catch (error) {
         console.log(error);
       }

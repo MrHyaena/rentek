@@ -1,6 +1,7 @@
 "use client";
 
 import { format } from "date-fns";
+import { SearchParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect, useSearchParams } from "next/navigation";
@@ -10,14 +11,67 @@ type Props = { [key: string]: any };
 
 export default function OrderSum({}: Props) {
   const [data, setData] = useState<any>(null);
+  const [orderId, setOrderId] = useState<any>();
+  const params = useSearchParams();
 
-  useEffect(() => {
-    const response = localStorage.getItem("orderCompleted");
+  async function getOrderParams() {
+    const orderIdParams = params.get("orderid");
+    if (orderIdParams) {
+      console.log(orderIdParams);
+      const orderResponse = await fetch(
+        process.env.STRAPI + `/api/orders/${orderIdParams}`,
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      );
+      const json = await orderResponse.json();
 
-    if (response != null) {
-      setData(JSON.parse(response));
+      if (orderResponse.ok) {
+        console.log(json);
+
+        const order = {
+          additionalItems: JSON.parse(json.data.additionalItems),
+          orderInformation: JSON.parse(json.data.orderInformation),
+          payNowPrice: json.data.payNowPrice,
+          price: json.data.price,
+          afterSalePrice: json.data.afterSalePrice,
+          deposit: json.data.deposit,
+          saleIndex: json.data.saleIndex,
+          rentalItems: JSON.parse(json.data.rentalItems),
+        };
+        setData(order);
+      }
     }
+  }
+  useEffect(() => {
+    getOrderParams();
   }, []);
+
+  async function getOrder() {
+    const orderResponse = await fetch(
+      process.env.STRAPI + `/api/orders/${orderId}`,
+      {
+        method: "GET",
+        mode: "cors",
+      }
+    );
+
+    if (orderResponse.ok) {
+      const json = await orderResponse.json();
+      const order = {
+        additionalItems: JSON.parse(json.data.additionalItems),
+        orderInformation: JSON.parse(json.data.orderInformation),
+        payNowPrice: json.data.payNowPrice,
+        price: json.data.price,
+        afterSalePrice: json.data.afterSalePrice,
+        deposit: json.data.deposit,
+        saleIndex: json.data.saleIndex,
+        rentalItems: JSON.parse(json.data.rentalItems),
+      };
+      setData(order);
+    }
+  }
 
   return (
     <>
@@ -26,13 +80,21 @@ export default function OrderSum({}: Props) {
           <div className="flex w-full justify-center py-15 p-5 md:p-10 text-sm">
             <div className="w-full max-w-wrapper flex flex-col gap-5">
               <h4>vaše objednávka</h4>
-              <p>V tuto chvíli nemáte žádnou dokončenou objednávku.</p>
-              <Link
-                className="buttonSmall"
-                href={process.env.WEBSITE + "/katalog"}
-              >
+              <label className="flex flex-col gap-2">
+                Pro zobrazení detailu vložte identifikační číslo objednávky.
+                MMůžete jej najít v potvrzovacím emailu v pravém horním rohu.
+                <input
+                  value={orderId}
+                  type="text"
+                  onChange={(e) => {
+                    setOrderId(e.target.value);
+                  }}
+                  className="p-2 border rounded-md border-borderGray"
+                ></input>
+              </label>
+              <button onClick={getOrder} className="buttonSmall">
                 Najít objednávku
-              </Link>
+              </button>
             </div>
           </div>
         </>
@@ -84,54 +146,94 @@ export default function OrderSum({}: Props) {
                 </div>
                 <div className="h-[1px] bg-borderGray w-90"></div>
 
-                <div>
-                  <h6>Technika na pronájem</h6>
-                  <div className="flex flex-col gap-2">
-                    {data.rentalItems.map((item: any) => {
-                      return (
-                        <div
-                          key={"item" + item.item.name}
-                          className="flex gap-10 items-center"
-                        >
-                          <Image
-                            src={item.item.coverImage.url}
-                            width={100}
-                            height={100}
-                            alt="image"
-                            className="w-10 h-10 object-cover rounded-sm"
-                          />
-                          <Link href={`/produkt/${item.item.documentId}`}>
-                            {item.item.name}
-                          </Link>
-                          <p>{item.count} ks.</p>
-                        </div>
-                      );
-                    })}
+                <div className="grid md:grid-cols-2 gap-10 items-start w-full">
+                  <div>
+                    <h6>Technika na pronájem</h6>
+                    <div className="flex flex-col gap-2">
+                      {data.rentalItems.map((item: any) => {
+                        return (
+                          <div
+                            key={"item" + item.item.name}
+                            className="flex gap-10 items-center"
+                          >
+                            <Image
+                              src={item.item.coverImage.url}
+                              width={100}
+                              height={100}
+                              alt="image"
+                              className="w-10 h-10 object-cover rounded-sm"
+                            />
+                            <Link href={`/produkt/${item.item.documentId}`}>
+                              {item.item.name}
+                            </Link>
+                            <p>{item.count} ks.</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="w-full">
+                    <h6>Jednorázové produkty</h6>
+                    <div className="flex flex-col gap-2">
+                      {data.additionalItems.map((item: any) => {
+                        return (
+                          <div
+                            key={"item2" + item.item.name}
+                            className="flex gap-10 items-center"
+                          >
+                            <Image
+                              src={item.item.coverImage.url}
+                              width={100}
+                              height={100}
+                              alt="image"
+                              className="w-10 h-10 object-cover rounded-sm"
+                            />
+                            <Link href={`/produkt/${item.item.documentId}`}>
+                              {item.item.name}
+                            </Link>
+                            <p>{item.count} ks.</p>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-                <div className="w-full">
-                  <h6>Jednorázové produkty</h6>
-                  <div className="flex flex-col gap-2">
-                    {data.additionalItems.map((item: any) => {
-                      return (
-                        <div
-                          key={"item2" + item.item.name}
-                          className="flex gap-10 items-center"
-                        >
-                          <Image
-                            src={item.item.coverImage.url}
-                            width={100}
-                            height={100}
-                            alt="image"
-                            className="w-10 h-10 object-cover rounded-sm"
-                          />
-                          <Link href={`/produkt/${item.item.documentId}`}>
-                            {item.item.name}
-                          </Link>
-                          <p>{item.count} ks.</p>
-                        </div>
-                      );
-                    })}
+              </div>
+              <div className="h-[1px] bg-borderGray"></div>
+
+              <div className="grid md:grid-cols-2 gap-10 items-start">
+                <div>
+                  <h5>Celková cena</h5>
+                  <div className="flex flex-col gap-x-10 gap-y-2">
+                    <div className="flex justify-between gap-3">
+                      <p>Celková cena po slevě: </p>
+                      <p className="justify-self-end text-nowrap font-semibold">
+                        {data.afterSalePrice} Kč
+                      </p>
+                    </div>{" "}
+                    <div className="h-[1px] bg-borderGray"></div>
+                    <div className="flex justify-between gap-3">
+                      <p>Rezervační poplatek: </p>
+                      <p className="justify-self-end text-nowrap font-semibold">
+                        {data.payNowPrice} Kč
+                      </p>
+                    </div>{" "}
+                    <div className="h-[1px] bg-zinc-400"></div>
+                    <div className="flex justify-between gap-3">
+                      <p>Zbývá doplatit při převzetí: </p>
+                      <p className="justify-self-end text-nowrap font-semibold">
+                        {data.afterSalePrice - data.payNowPrice} Kč
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h5>Záloha</h5>
+                  <div className="flex justify-between gap-3">
+                    <p>Záloha splatná při převzetí: </p>
+                    <p className="justify-self-end text-nowrap font-semibold">
+                      {data.deposit} Kč
+                    </p>
                   </div>
                 </div>
               </div>
