@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import PageHeading from "../_components/Headings/PageHeading";
 import OrderSum from "../_components/ThankYouPage/OrderSum";
 
@@ -13,7 +13,9 @@ export default function page({}: Props) {
         text="Níže najdete vaši objednávku"
         datepickerExists={false}
       />
-      <OrderSum />
+      <Suspense>
+        <OrderSum />
+      </Suspense>
     </>
   );
 }

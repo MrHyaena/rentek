@@ -10,7 +10,7 @@ import CTAVertical from "./_components/CTA/CTAVertical";
 export default async function Home() {
   return (
     <>
-      <div className="py-15 px-5 flex justify-center w-full flex-col items-center gap-30">
+      <div className="py-15 lg:pt-15 md:pt-0 pt-15 px-5 flex justify-center w-full flex-col items-center gap-30">
         <Hero />
         <IconsColumns />
         <Categories />
