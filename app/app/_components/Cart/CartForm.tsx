@@ -602,7 +602,7 @@ export default function CartForm({ newAdditions }: Props) {
                     </div>
                   </div>
                   <div className="flex flex-col gap-5 self-center">
-                    <label className="col-span-2 items-center gap-5 flex justify-self-center text-start max-w-[600px] border p-5 rounded-lg border-borderGray">
+                    <label className="col-span-2 items-center gap-5 flex justify-self-center text-start max-w-[600px] border md:p-5 p-3 text-sm rounded-lg border-borderGray">
                       <input
                         required={true}
                         value="true"
