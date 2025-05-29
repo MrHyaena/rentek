@@ -557,45 +557,39 @@ export default function CartForm({ newAdditions }: Props) {
                     e.preventDefault();
                     SubmitOrder(e.target);
                   }}
-                  className="border border-borderGray rounded-lg md:p-10 p-3 md:grid flex flex-col grid-cols-2 gap-10"
+                  className="border border-borderGray rounded-lg md:p-10 p-3 py-5 flex flex-col items-stretch gap-10"
                 >
-                  <div className=" justify-self-end border-borderGray rounded-md md:hidden">
-                    <h5 className="col-span-2 mb-4">Čas a datum doručení</h5>
-                    <p className="text-base">
-                      Techniku budete mít vypůjčenou v období{" "}
-                    </p>
-                    <p className="text-base">
-                      od{" "}
-                      <span className="font-semibold">
-                        {format(daterange.startDate, "dd.MM.yyyy hh:mm")}
-                      </span>{" "}
-                      do{" "}
-                      <span className="font-semibold">
-                        {format(daterange.endDate, "dd.MM.yyyy hh:mm")}
-                      </span>{" "}
-                    </p>
-                  </div>
                   <div className="flex flex-col justify-start h-full">
                     <div>
-                      <h5 className="mb-3">Předávací informace</h5>
+                      <h5 className="mb-3">Doručovací adresa</h5>
                       <p className=" pb-3 border-borderGray mb-5">
                         Na tuto adresu Vám budeme techniku doručovat. Z této
                         adresy budeme také zboží vyzvedávat.
                       </p>
                     </div>
-                    <div className="grid grid-cols-2 gap-y-3 gap-x-3 mb-8">
-                      <h6 className="col-span-2">Doručovací adresa</h6>
-
+                    <div className="grid sm:grid-cols-2 gap-y-3 gap-x-3 mb-8">
                       <FormTextInput text="Ulice" name="ulice" />
                       <FormTextInput text="č.p" name="cp" />
                       <FormTextInput text="Město" name="mesto" />
                       <FormTextInput text="PSČ" name="psc" />
                     </div>
-                    <div className=" justify-self-end border-borderGray rounded-md hidden md:block">
-                      <h6 className="col-span-2 mb-4">Čas a datum doručení</h6>
-                      <p className="text-base">
-                        Techniku budete mít vypůjčenou v období:{" "}
+
+                    <div>
+                      <h5 className="mb-3">Kontaktní informace</h5>
+                      <p className=" pb-3 border-borderGray mb-5">
+                        Níže zadejte údaje, skrze které s vámi budeme
+                        komunikovat.
                       </p>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-y-3 gap-x-3 mb-8">
+                      <FormTextInput text="Jméno" name="jmeno" />
+                      <FormTextInput text="Příjmení" name="prijmeni" />
+                      <FormTextInput text="Telefon" name="telefon" />
+                      <FormTextInput text="Email" name="email" />
+                    </div>
+                    <div className=" justify-self-end border-borderGray rounded-md border md:p-5 p-3">
+                      <h6 className="col-span-2 mb-4">Čas a datum doručení</h6>
+
                       <p className="text-base">
                         Od{" "}
                         <span className="font-semibold">
@@ -608,61 +602,49 @@ export default function CartForm({ newAdditions }: Props) {
                       </p>
                     </div>
                   </div>
-                  <div className="">
-                    <h5 className="mb-3">Fakturační informace</h5>
-                    <p className=" pb-3 border-borderGray mb-5">
-                      fakturační informace jsou standardní jako u každé jiné
-                      internetové služby.
-                    </p>
-                    <div className="grid grid-cols-2 gap-y-3 gap-x-3 mb-8">
-                      <h6 className="col-span-2">Kontaktní údaje</h6>
-                      <FormTextInput text="Jméno" name="jmeno" />
-                      <FormTextInput text="Příjmení" name="prijmeni" />
-                      <FormTextInput text="Telefon" name="telefon" />
-                      <FormTextInput text="Email" name="email" />
-                    </div>
-                  </div>
-                  <label className="col-span-2 items-center gap-5 flex justify-self-center text-start max-w-[600px] border p-5 rounded-lg border-borderGray">
-                    <input
-                      required={true}
-                      value="true"
-                      name="podminky"
-                      type="checkbox"
-                      className="border border-borderGray p-1 rounded-md"
-                    ></input>
-                    <p className="">
-                      Souhlasím s{" "}
-                      <Link
-                        href={"/obchodni-podminky"}
-                        className="text-primary font-semibold"
-                      >
-                        Obchodními podmínkami
-                      </Link>{" "}
-                      a{" "}
-                      <Link
-                        href={"/gdpr"}
-                        className="text-primary font-semibold"
-                      >
-                        Podmínkami ochrany osobních údajů
-                      </Link>
-                      .
-                    </p>
-                  </label>
-
-                  <button className="buttonSmall justify-self-stretch col-span-2">
-                    Přejít k platbě a objednat
-                  </button>
-                  {error != null && (
-                    <>
-                      <p className="text-center col-span-2 border-2 rounded-lg border-red-200 text-red-300 justify-self-center px-3 py-1">
-                        {error}
+                  <div className="flex flex-col gap-5 self-center">
+                    <label className="col-span-2 items-center gap-5 flex justify-self-center text-start max-w-[600px] border p-5 rounded-lg border-borderGray">
+                      <input
+                        required={true}
+                        value="true"
+                        name="podminky"
+                        type="checkbox"
+                        className="border border-borderGray p-1 rounded-md"
+                      ></input>
+                      <p className="">
+                        Souhlasím s{" "}
+                        <Link
+                          href={"/obchodni-podminky"}
+                          className="text-primary font-semibold"
+                        >
+                          Obchodními podmínkami
+                        </Link>{" "}
+                        a{" "}
+                        <Link
+                          href={"/gdpr"}
+                          className="text-primary font-semibold"
+                        >
+                          Podmínkami ochrany osobních údajů
+                        </Link>
+                        .
                       </p>
-                    </>
-                  )}
-                  <p className="col-span-2 justify-self-center text-center">
-                    Po stisknutí tlačítka budete přesměrování na stránku s
-                    platební bránou.
-                  </p>
+                    </label>
+
+                    <button className="buttonSmall justify-self-stretch col-span-2">
+                      Přejít k platbě a objednat
+                    </button>
+                    {error != null && (
+                      <>
+                        <p className="text-center col-span-2 border-2 rounded-lg border-red-200 text-red-300 justify-self-center px-3 py-1">
+                          {error}
+                        </p>
+                      </>
+                    )}
+                    <p className="col-span-2 justify-self-center text-center">
+                      Po stisknutí tlačítka budete přesměrování na stránku s
+                      platební bránou.
+                    </p>
+                  </div>
                 </form>
               </div>
             </>
