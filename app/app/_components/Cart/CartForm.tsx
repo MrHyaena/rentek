@@ -321,7 +321,6 @@ export default function CartForm({ newAdditions }: Props) {
       const json = await stripeResponse.json();
       const url = json.url;
       console.log(url);
-      localStorage.setItem("orderCompleted", JSON.stringify(order));
       window.location.href = url;
     }
   }

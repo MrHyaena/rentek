@@ -1,11 +1,12 @@
 "use client";
 
+import { CartContext } from "@/app/_context/CartContext";
 import { format } from "date-fns";
 import { SearchParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 type Props = { [key: string]: any };
 
@@ -13,6 +14,7 @@ export default function OrderSum({}: Props) {
   const [data, setData] = useState<any>(null);
   const [orderId, setOrderId] = useState<any>();
   const params = useSearchParams();
+  const { setCart } = useContext(CartContext);
 
   async function getOrderParams() {
     const orderIdParams = params.get("orderid");
@@ -29,7 +31,9 @@ export default function OrderSum({}: Props) {
 
       if (orderResponse.ok) {
         console.log(json);
-
+        localStorage.removeItem("cart");
+        localStorage.removeItem("additionsCart");
+        setCart([]);
         const order = {
           additionalItems: JSON.parse(json.data.additionalItems),
           orderInformation: JSON.parse(json.data.orderInformation),
