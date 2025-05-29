@@ -78,13 +78,13 @@ export default function page() {
                 </tr>
                 <tr className="border border-zinc-300">
                   <td className="p-2 border-r border-zinc-300">8 - 21 dní</td>
-                  <td className="p-2"> 15 %</td>
+                  <td className="p-2"> 20 %</td>
                 </tr>
                 <tr className="border border-zinc-300">
                   <td className="p-2 border-r border-zinc-300">
                     22 dní a více
                   </td>
-                  <td className="p-2"> 20 %</td>
+                  <td className="p-2"> 25 %</td>
                 </tr>
               </tbody>
             </table>

@@ -22,7 +22,7 @@ function DesktopHeader() {
   return (
     <>
       <div className=" w-full border-b border-borderGray fixed top-0 bg-white lg:block z-20 hidden">
-        <div className="h-[40px] w-full bg-zinc-50 flex justify-center px-10">
+        <div className="h-[40px] w-full border-b border-borderGray bg-zinc-50 flex justify-center px-10">
           <div className="max-w-wrapper w-full h-full  justify-between items-center hidden lg:flex lg:text-sm py-1">
             <p className="">
               Sleva 5 % s kódem <span className="font-semibold">GT2025</span>
@@ -96,7 +96,7 @@ function MobileHeader() {
   return (
     <>
       <div className=" w-full border-b border-borderGray fixed top-0 z-20 lg:hidden">
-        <div className="h-[40px] w-full bg-zinc-50 flex justify-center px-10">
+        <div className="h-[40px] w-full border-b border-borderGray bg-zinc-50 flex justify-center px-10">
           <div className="max-w-wrapper w-full h-full flex justify-between items-center text-sm">
             <div>
               <p className="font-semibold">Od 8:00 do 20:00</p>

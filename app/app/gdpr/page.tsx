@@ -7,7 +7,7 @@ export default function page() {
       <PageHeading
         image="/contract.jpg"
         heading="Podmínky ochrany osobních údajů"
-        text="Na bezpečí vašich dat nám záleží!"
+        text="Podmínky ochrany osobních údajů platné od 5.5.2024"
         datepickerExists={false}
       />
       <div className="flex w-full justify-center py-15 p-5">
@@ -23,7 +23,6 @@ export default function page() {
                 Víta Nejedlého 666/18, Praha 3, PSČ 130 00, E-mail:
                 info@grasston.cz (dále jen „správce“ nebo „my“)
               </p>
-              <p>Platné od: 5.5.2024</p>
             </div>
             <p>
               Tento dokument popisuje, jakým způsobem zpracováváme osobní údaje

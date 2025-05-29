@@ -18,7 +18,7 @@ export default function HowDoesItWorkButton({}: Props) {
       onClick={() => {
         scrollToElement();
       }}
-      className="bg-transparent border-2 px-5 py-3 md:text-lg text-base font-semibold rounded-md text-textLight cursor-pointer hover:bg-zinc-500/40 transition-all ease-in-out"
+      className="bg-transparent border-2 px-5 py-3 md:text-lg text-start lg:text-center text-base font-semibold rounded-md text-textLight cursor-pointer hover:bg-zinc-500/40 transition-all ease-in-out"
     >
       Jak to funguje
     </button>

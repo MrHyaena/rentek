@@ -9,10 +9,9 @@ import { CartContext } from "@/app/_context/CartContext";
 
 type ProductProps = {
   product: { [key: string]: any };
-  key: any;
 };
 
-export default function ProductTab({ product, key }: ProductProps) {
+export default function ProductTab({ product }: ProductProps) {
   const { cart, setCart } = useContext(CartContext);
   const item = product.item;
   console.log(item);
@@ -22,7 +21,7 @@ export default function ProductTab({ product, key }: ProductProps) {
   const days: number = 32;
 
   return (
-    <div key={key} className="h-full max-w-[300px] shrink-0">
+    <div className="h-full max-w-[300px] shrink-0">
       <div
         style={{
           backgroundImage: `url(${item.coverImage.formats.small.url})`,

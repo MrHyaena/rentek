@@ -253,7 +253,10 @@ export default function DatepickerToggle({ setToggle }: Props) {
       if (dateIsActive(day)) {
         if (weekDay > 5) {
           return (
-            <p className="bg-primary/60 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
+            <p
+              key={"dayOfTheMonth" + monthDay}
+              className="bg-primary/60 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer"
+            >
               {monthDay}
             </p>
           );
@@ -261,6 +264,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
         if (weekDay < 6) {
           return (
             <p
+              key={"dayOfTheMonth" + monthDay}
               onClick={() => {
                 pickDate(index);
               }}
@@ -273,7 +277,10 @@ export default function DatepickerToggle({ setToggle }: Props) {
       } else if (!dateIsActive(day)) {
         if (weekDay > 5) {
           return (
-            <p className="bg-zinc-300 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer">
+            <p
+              key={"dayOfTheMonth" + monthDay}
+              className="bg-zinc-300 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer"
+            >
               {monthDay}
             </p>
           );
@@ -281,6 +288,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
         if (weekDay < 6) {
           return (
             <p
+              key={"dayOfTheMonth" + monthDay}
               onClick={() => {
                 pickDate(index);
               }}
@@ -293,7 +301,10 @@ export default function DatepickerToggle({ setToggle }: Props) {
       }
     } else if (day < new Date()) {
       return (
-        <p className="bg-zinc-50 text-zinc-300  h-10 flex items-center justify-center  rounded-md cursor-pointer">
+        <p
+          key={"dayOfTheMonth" + monthDay}
+          className="bg-zinc-50 text-zinc-300  h-10 flex items-center justify-center  rounded-md cursor-pointer"
+        >
           {monthDay}
         </p>
       );
@@ -307,7 +318,10 @@ export default function DatepickerToggle({ setToggle }: Props) {
     }
 
     return (
-      <p className="bg-zinc-50 text-zinc-400 h-10 flex items-center justify-center rounded-md"></p>
+      <p
+        key={"dayOfTheLastMonth" + day}
+        className="bg-zinc-50 text-zinc-400 h-10 flex items-center justify-center rounded-md"
+      ></p>
     );
   }
 
@@ -483,6 +497,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
     if (isEqual(time, daterange.endDate)) {
       return (
         <button
+          key={"startTime" + time}
           onClick={() => {
             PickPickupTime(time);
           }}
@@ -494,6 +509,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
     } else {
       return (
         <button
+          key={"startTime" + time}
           onClick={() => {
             PickPickupTime(time);
           }}
@@ -529,8 +545,8 @@ export default function DatepickerToggle({ setToggle }: Props) {
               }}
             />
           </div>
-          <div className=" border-b border-borderGray">
-            <div className="p-5 text-center">
+          <div className=" border-b  border-borderGray">
+            <div className="p-5 text-center flex md:gap-4 justify-center md:flex-row flex-col">
               {daterange.endIsValid && daterange.startIsValid && (
                 <>
                   <p>
@@ -569,14 +585,22 @@ export default function DatepickerToggle({ setToggle }: Props) {
               )}
             </div>
           </div>
-          <div className=" max-h-[500px] max-w-[800px] grid md:grid-cols-4  border-b border-borderGray rounded-b-md">
-            <div className="col-span-2 border-r border-borderGray p-5">
+          <div className=" max-h-[600px] max-w-[800px] grid md:grid-cols-4  md:border-b border-borderGray rounded-b-md">
+            <div className="col-span-2 md:border-r border-borderGray p-5">
               <div className="grid grid-cols-2 justify-items-stretch gap-5 py-2 text-center">
                 <div>
-                  <p className="mb-2 font-semibold">Datum doručení</p>
+                  <p className="mb-2 font-semibold hidden md:block">
+                    Datum doručení
+                  </p>
+                  <p className="mb-2 font-semibold md:hidden">
+                    Datum
+                    <br />
+                    doručení
+                  </p>
+
                   <p
                     style={{ backgroundColor: fieldColors[0] }}
-                    className="p-2 border border-zinc-300 text-textPrimary rounded-md cursor-pointer"
+                    className="p-2 border text-sm md:text-base border-zinc-300 text-textPrimary rounded-md cursor-pointer"
                     onClick={() => {
                       setFieldPick(1);
                     }}
@@ -587,10 +611,18 @@ export default function DatepickerToggle({ setToggle }: Props) {
                   </p>
                 </div>
                 <div>
-                  <p className="mb-2 font-semibold">Datum odvozu</p>
+                  <p className="mb-2 font-semibold hidden md:block">
+                    Datum odvozu
+                  </p>
+                  <p className="mb-2 font-semibold md:hidden">
+                    Datum
+                    <br />
+                    odvozu
+                  </p>
+
                   <p
                     style={{ backgroundColor: fieldColors[1] }}
-                    className="p-2 border border-zinc-300 text-textPrimary  rounded-md cursor-pointer"
+                    className="p-2 border text-sm md:text-base border-zinc-300 text-textPrimary rounded-md cursor-pointer"
                     onClick={() => {
                       setFieldPick(2);
                     }}
@@ -623,11 +655,12 @@ export default function DatepickerToggle({ setToggle }: Props) {
               <div className="grid grid-cols-7 justify-items-stretch gap-2 mb-2">
                 {daysOfWeek.map((item) => {
                   return (
-                    <>
-                      <p className="font-semibold pb-2 border-b border-borderGray text-center">
-                        {item}
-                      </p>
-                    </>
+                    <p
+                      key={"days" + item}
+                      className="font-semibold pb-2 border-b border-borderGray text-center"
+                    >
+                      {item}
+                    </p>
                   );
                 })}
               </div>
@@ -673,7 +706,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
                   </p>
                 </div>
               </div>
-              <div className="pr-2 max-h-[320px] overflow-y-scroll gap-5 grid grid-cols-2 justify-items-stretch text-center">
+              <div className="pr-2 max-h-[350px] overflow-y-scroll gap-5 grid grid-cols-2 justify-items-stretch text-center">
                 <div className=" flex flex-col items-stretch gap-3">
                   {timesDelivery != null &&
                     timesDelivery.map((time) => {

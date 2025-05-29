@@ -7,14 +7,14 @@ export default function page() {
       <PageHeading
         image="/contract.jpg"
         heading="Příklad nájemní smlouvy"
-        text="Na bezpečí vašich dat nám záleží!"
+        text="Takto vypadá naše nájemní smlouva."
         datepickerExists={false}
       />
       <div className="flex w-full justify-center py-15 p-5">
         <div className="w-full max-w-wrapper flex flex-col gap-5">
           <div className="flex flex-col gap-5">
             <p className="">
-              uzavřená dle § 2201 a násl. zákona č. 89/2012 Sb., občanský
+              Uzavřená dle § 2201 a násl. zákona č. 89/2012 Sb., občanský
               zákoník
             </p>
 
@@ -50,15 +50,14 @@ export default function page() {
               </li>
               <li>[další položky dle výpůjčky]</li>
             </ul>
+            <p className="">
+              Součástí jsou/nejsou i věci jednorázového prodeje. Tyto věci si
+              nájemce po skončení nájmu nechává a nevztahují se na ně podmínky
+              této smlouvy.
+            </p>
             <p>
               Stav předmětu nájmu byl nájemcem zkontrolován při převzetí a
               potvrzen podpisem.
-            </p>
-            <p>
-              Tento dokument popisuje, jakým způsobem zpracováváme osobní údaje
-              zákazníků a návštěvníků webu www.grasston.cz (dále jen „web“), a
-              jak chráníme jejich soukromí v souladu s nařízením Evropského
-              parlamentu a Rady (EU) 2016/679, obecně známým jako GDPR.
             </p>
           </div>
           <div className="h-[1px] bg-borderGray"></div>
@@ -146,7 +145,8 @@ export default function page() {
             <p>
               Nájemce odpovídá za škodu způsobenou nesprávným použitím, ztrátou
               či poškozením. V případě nevrácení v termínu může pronajímatel
-              účtovat smluvní pokutu ve výši [např. 200 Kč/den].
+              účtovat smluvní pokutu ve výši ceny jednoho dne výpůjčky (konrétně
+              [___] Kč) za každý další den prodlení.
             </p>
           </div>
           <div className="h-[1px] bg-borderGray"></div>
