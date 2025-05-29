@@ -149,23 +149,25 @@ export default function OrderSum({}: Props) {
                 <div className="grid md:grid-cols-2 gap-10 items-start w-full">
                   <div>
                     <h6>Technika na pronájem</h6>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col">
                       {data.rentalItems.map((item: any) => {
                         return (
                           <div
                             key={"item" + item.item.name}
-                            className="flex gap-10 items-center"
+                            className="flex gap-10 items-center justify-between border-b border-borderGray py-2 only:border-b last:border-b-0"
                           >
-                            <Image
-                              src={item.item.coverImage.url}
-                              width={100}
-                              height={100}
-                              alt="image"
-                              className="w-10 h-10 object-cover rounded-sm"
-                            />
-                            <Link href={`/produkt/${item.item.documentId}`}>
-                              {item.item.name}
-                            </Link>
+                            <div className="flex items-center gap-5">
+                              <Image
+                                src={item.item.coverImage.url}
+                                width={100}
+                                height={100}
+                                alt="image"
+                                className="w-10 h-10 object-cover rounded-sm"
+                              />
+                              <Link href={`/produkt/${item.item.documentId}`}>
+                                {item.item.name}
+                              </Link>
+                            </div>
                             <p>{item.count} ks.</p>
                           </div>
                         );
@@ -179,18 +181,21 @@ export default function OrderSum({}: Props) {
                         return (
                           <div
                             key={"item2" + item.item.name}
-                            className="flex gap-10 items-center"
+                            className="flex gap-10 items-center justify-between border-b border-borderGray py-2 only:border-b last:border-b-0"
                           >
-                            <Image
-                              src={item.item.coverImage.url}
-                              width={100}
-                              height={100}
-                              alt="image"
-                              className="w-10 h-10 object-cover rounded-sm"
-                            />
-                            <Link href={`/produkt/${item.item.documentId}`}>
-                              {item.item.name}
-                            </Link>
+                            {" "}
+                            <div className="flex items-center gap-5">
+                              <Image
+                                src={item.item.coverImage.url}
+                                width={100}
+                                height={100}
+                                alt="image"
+                                className="w-10 h-10 object-cover rounded-sm"
+                              />
+                              <Link href={`/produkt/${item.item.documentId}`}>
+                                {item.item.name}
+                              </Link>{" "}
+                            </div>
                             <p>{item.count} ks.</p>
                           </div>
                         );
@@ -218,10 +223,10 @@ export default function OrderSum({}: Props) {
                         {data.payNowPrice} Kč
                       </p>
                     </div>{" "}
-                    <div className="h-[1px] bg-zinc-400"></div>
+                    <div className="h-[1px] bg-zinc-300"></div>
                     <div className="flex justify-between gap-3">
                       <p>Zbývá doplatit při převzetí: </p>
-                      <p className="justify-self-end text-nowrap font-semibold">
+                      <p className="justify-self-end text-nowrap font-semibold text-primaryHover">
                         {data.afterSalePrice - data.payNowPrice} Kč
                       </p>
                     </div>
@@ -229,16 +234,19 @@ export default function OrderSum({}: Props) {
                 </div>
                 <div>
                   <h5>Záloha</h5>
-                  <div className="flex justify-between gap-3">
-                    <p>Záloha splatná při převzetí: </p>
-                    <p className="justify-self-end text-nowrap font-semibold">
-                      {data.deposit} Kč
-                    </p>
+                  <div className="flex flex-col gap-x-10 gap-y-2">
+                    <div className="flex justify-between gap-3">
+                      <p>Záloha splatná při převzetí: </p>
+                      <p className="justify-self-end text-nowrap font-semibold">
+                        {data.deposit} Kč
+                      </p>
+                    </div>{" "}
+                    <div className="h-[1px] bg-borderGray"></div>
                   </div>
                 </div>
               </div>
               <div className="h-[1px] bg-borderGray"></div>
-              <div className="flex md:flex-row flex-col gap-10 wrap-break-word">
+              <div className=" gap-10 grid md:grid-cols-3 wrap-break-word">
                 {" "}
                 <div>
                   {" "}
@@ -250,19 +258,19 @@ export default function OrderSum({}: Props) {
                 </div>
                 <div>
                   {" "}
-                  <h5>Fakturační údaje</h5>
-                  <p>{data.orderInformation.invoiceAddress.ulice}</p>
-                  <p>{data.orderInformation.invoiceAddress.cp}</p>
-                  <p>{data.orderInformation.invoiceAddress.mesto}</p>
-                  <p>{data.orderInformation.invoiceAddress.psc}</p>
-                </div>
-                <div>
-                  {" "}
                   <h5>Kontaktní údaje</h5>
                   <p>{data.orderInformation.contact.jmeno}</p>
                   <p>{data.orderInformation.contact.prijmeni}</p>
                   <p>{data.orderInformation.contact.email}</p>
                   <p>{data.orderInformation.contact.telefon}</p>
+                </div>{" "}
+                <div>
+                  {" "}
+                  <h5>Fakturační údaje</h5>
+                  <p>
+                    Fakturu společně s údaji o objednávce jsme Vám poslali na
+                    email, který jste zadávali do formuláře při placení.
+                  </p>
                 </div>
               </div>
               <div className="h-[1px] bg-borderGray"></div>

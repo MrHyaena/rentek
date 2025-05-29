@@ -271,12 +271,6 @@ export default function CartForm({ newAdditions }: Props) {
         mesto: formData.get("mesto"),
         psc: formData.get("psc"),
       },
-      invoiceAddress: {
-        ulice: formData.get("fakturaUlice"),
-        cp: formData.get("fakturaCp"),
-        mesto: formData.get("fakturaMesto"),
-        psc: formData.get("fakturaPsc"),
-      },
     };
 
     const order: {
@@ -284,7 +278,6 @@ export default function CartForm({ newAdditions }: Props) {
         dateRange: any;
         contact: any;
         deliveryAddress: any;
-        invoiceAddress: any;
       };
       rentalItems: any;
       additionalItems: any;
@@ -312,6 +305,7 @@ export default function CartForm({ newAdditions }: Props) {
           wholePriceAfterSale,
           saleIndex,
           agreement,
+          numberOfDays,
         }),
       }
     );
@@ -626,13 +620,6 @@ export default function CartForm({ newAdditions }: Props) {
                       <FormTextInput text="Příjmení" name="prijmeni" />
                       <FormTextInput text="Telefon" name="telefon" />
                       <FormTextInput text="Email" name="email" />
-                    </div>
-                    <div className="grid grid-cols-2 gap-y-3 gap-x-3 mb-8">
-                      <h6 className="col-span-2">Adresa</h6>
-                      <FormTextInput text="Ulice" name="fakturaUlice" />
-                      <FormTextInput text="č.p." name="fakturaCp" />
-                      <FormTextInput text="Město" name="fakturaMesto" />
-                      <FormTextInput text="PSČ" name="fakturaPsc" />
                     </div>
                   </div>
                   <label className="col-span-2 items-center gap-5 flex justify-self-center text-start max-w-[600px] border p-5 rounded-lg border-borderGray">

@@ -126,7 +126,7 @@ function MobileHeader() {
               }}
               className="cursor-pointer"
             >
-              <HiMenuAlt2 className="text-2xl text-textPrimary" />
+              <HiMenuAlt2 className="text-3xl text-textPrimary" />
             </button>
           </div>
         </div>

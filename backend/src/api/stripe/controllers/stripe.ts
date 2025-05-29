@@ -16,7 +16,7 @@ export default factories.createCoreController(
   ({ strapi }) => ({
     async getCheckoutSession(ctx) {
       const data = await JSON.parse(ctx.request.body);
-      console.log(data.agreement);
+
       try {
         //Validation of data
         if (data.agreement != "true") {
@@ -32,11 +32,7 @@ export default factories.createCoreController(
           !data.orderInformation.deliveryAddress.ulice ||
           !data.orderInformation.deliveryAddress.cp ||
           !data.orderInformation.deliveryAddress.mesto ||
-          !data.orderInformation.deliveryAddress.psc ||
-          !data.orderInformation.invoiceAddress.ulice ||
-          !data.orderInformation.invoiceAddress.cp ||
-          !data.orderInformation.invoiceAddress.mesto ||
-          !data.orderInformation.invoiceAddress.psc
+          !data.orderInformation.deliveryAddress.psc
         ) {
           throw Error("Nejsou vyplněná všechna pole");
         }
@@ -72,23 +68,64 @@ export default factories.createCoreController(
         //Creating STRIPE checkout session
         let url = `${process.env.API_SERVER}/api/stripe/success/${strapiJson.data.documentId}`;
 
+        const invoiceItems: any[] = [];
+
+        data.rentalItems.map((item) => {
+          const newItem = {
+            price_data: {
+              currency: "CZK",
+              product_data: {
+                name: "Pronájem (rezervační poplatek): " + item.item.name,
+              },
+              unit_amount:
+                item.item.basePrice *
+                data.saleIndex *
+                100 *
+                data.numberOfDays *
+                0.05,
+            },
+            quantity: item.count,
+          };
+
+          invoiceItems.push(newItem);
+        });
+
+        data.additionalItems.map((item) => {
+          const newItem = {
+            price_data: {
+              currency: "CZK",
+              product_data: {
+                name:
+                  "Jednorázový produkt (rezervační poplatek): " +
+                  item.item.name,
+              },
+              unit_amount: item.item.basePrice * 100 * 0.05,
+            },
+            quantity: item.count,
+          };
+
+          invoiceItems.push(newItem);
+        });
+
+        console.log(invoiceItems);
+
         const session = await stripe.checkout.sessions.create({
           success_url: url,
           ui_mode: "hosted",
           mode: "payment",
-          line_items: [
-            {
-              price_data: {
-                currency: "CZK",
-                product_data: {
-                  name: "Objednávka - 5 % celkové ceny objednávky",
-                },
-                unit_amount: data.payNowPrice * 100,
-              },
-              quantity: 1,
+          line_items: invoiceItems,
+          custom_text: {
+            submit: {
+              message: `Tato částka se bere jako rezervační poplatek a bude odečtena od celkové částky. Zbylou sumu ${data.wholePriceAfterSale - data.payNowPrice} Kč doplatíte při přebrání techniky a zboží společně s vratnou zálohou.`,
             },
-          ],
+          },
+          invoice_creation: {
+            enabled: true,
+          },
+          billing_address_collection: "required",
         });
+
+        console.log(session);
 
         ctx.body = session;
       } catch (err) {
@@ -315,11 +352,11 @@ export default factories.createCoreController(
               accept: "application/json",
             },
             body: JSON.stringify({
-              sender: "Grasston <admin@shopr.cz>",
-              to: ["dolezalmartin131@gmail.com"],
+              sender: "Grasston <info@shopr.cz>",
+              to: [orderInformation.contact.email],
               subject: "Vaše objednávka",
-              html_body: "<h1>Test</h1>",
-              text_body: "Test",
+              html_body: "<h1>Objednávka</h1>",
+              text_body: "Objednávka",
               version: 1,
               template_id: "9139535",
               template_data: {
