@@ -18,7 +18,7 @@ export default function Hero() {
         className="max-w-wrapper bg-white w-full rounded-2xl flex items-stretch relative"
       >
         <div className="w-full h-full bg-linear-90 from-overlay from-20% to-transparent rounded-2xl md:p-10 md:py-20 p-7  flex justify-start">
-          <div className="md:max-w-[63%] flex flex-col gap-5 justify-center">
+          <div className="md:max-w-[80%] lg:max-w-[67%] flex flex-col gap-5 justify-center">
             <h1 className="text-textLight">
               Půjčovna zahradní techniky
               <br />v Praze a okolí

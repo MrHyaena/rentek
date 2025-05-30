@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, useContext, useEffect, useState } from "react";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { format, isAfter, isBefore, isEqual } from "date-fns";
+import * as qs from "qs";
 
 type Props = {
   setToggle: Dispatch<boolean>;
@@ -329,12 +330,33 @@ export default function DatepickerToggle({ setToggle }: Props) {
   useEffect(() => {
     fetchTimeslots();
     async function fetchTimeslots() {
-      const response = await fetch(process.env.STRAPI + "/api/timeslots", {
-        method: "GET",
-        mode: "cors",
-      });
+      const firstDayOfMonth = new Date();
+      const lastDayOfMonth = new Date(2050, 1, 1);
+
+      const query = await {
+        filters: {
+          delivery: {
+            $between: [
+              firstDayOfMonth.toISOString(),
+              lastDayOfMonth.toISOString(),
+            ],
+          },
+        },
+      };
+
+      const response = await fetch(
+        process.env.STRAPI +
+          `/api/timeslots?${qs.stringify(query, {
+            encodeValuesOnly: true,
+          })}`,
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      );
 
       const json = await response.json();
+      console.log(json);
       const data: any[] = json.data;
 
       const deliveryTimesArray: Date[] = [];
@@ -357,8 +379,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
             }
           });
 
-          console.log(timeslotMatchArray);
-
           if (timeslotMatchArray.length == 0) {
             deliveryTimesArray.push(date);
           }
@@ -379,8 +399,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
               return true;
             }
           });
-
-          console.log(timeslotMatchArray);
 
           if (timeslotMatchArray.length == 0) {
             pickupTimesArray.push(date);

@@ -51,6 +51,8 @@ export default function Catalogue({ items }: Props) {
     );
   }
 
+  console.log(items);
+
   const [filtrToggle, setFiltrToggle] = useState<boolean>(false);
 
   type searchSubcategoryProps = {

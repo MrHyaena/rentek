@@ -161,13 +161,14 @@ export default function OrderSum({}: Props) {
                             className="flex gap-10 items-center justify-between border-b border-borderGray py-2 only:border-b last:border-b-0"
                           >
                             <div className="flex items-center gap-5">
-                              <Image
-                                src={item.item.coverImage.url}
-                                width={100}
-                                height={100}
-                                alt="image"
-                                className="w-10 h-10 object-cover rounded-sm"
-                              />
+                              <div className="w-10 h-10 flex items-center justify-center p-1">
+                                <Image
+                                  src={item.item.coverImage.url}
+                                  width={100}
+                                  height={100}
+                                  alt="image"
+                                />
+                              </div>
                               <Link href={`/produkt/${item.item.documentId}`}>
                                 {item.item.name}
                               </Link>
@@ -189,13 +190,14 @@ export default function OrderSum({}: Props) {
                           >
                             {" "}
                             <div className="flex items-center gap-5">
-                              <Image
-                                src={item.item.coverImage.url}
-                                width={100}
-                                height={100}
-                                alt="image"
-                                className="w-10 h-10 object-cover rounded-sm"
-                              />
+                              <div className="w-10 h-10 flex items-center justify-center p-1">
+                                <Image
+                                  src={item.item.coverImage.url}
+                                  width={100}
+                                  height={100}
+                                  alt="image"
+                                />
+                              </div>
                               <Link href={`/produkt/${item.item.documentId}`}>
                                 {item.item.name}
                               </Link>{" "}

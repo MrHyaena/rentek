@@ -6,6 +6,7 @@ import Link from "next/link";
 import { addToCartFunction } from "../Cart/cartFunction";
 import { useContext } from "react";
 import { CartContext } from "@/app/_context/CartContext";
+import Image from "next/image";
 
 type ProductProps = {
   product: { [key: string]: any };
@@ -21,15 +22,14 @@ export default function ProductTab({ product }: ProductProps) {
   const days: number = 32;
 
   return (
-    <div className="h-full max-w-[300px] shrink-0">
-      <div
-        style={{
-          backgroundImage: `url(${item.coverImage.formats.small.url})`,
-          backgroundSize: "cover",
-        }}
-        className="min-h-[200px] rounded-t-xl"
-      >
-        {" "}
+    <div className="h-full max-w-[340px] shrink-0">
+      <div className="aspect-square flex items-center justify-center border border-borderGray rounded-t-xl">
+        <Image
+          src={item.coverImage.formats.small.url}
+          alt={item.name}
+          height={300}
+          width={300}
+        />
       </div>
       <div className="border-x border-b rounded-b-xl p-5 flex flex-col gap-5 border-borderGray">
         <div>

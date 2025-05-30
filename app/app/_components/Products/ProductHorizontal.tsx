@@ -51,14 +51,14 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
 
   return (
     <div className="md:grid md:grid-cols-[250px_1fr] shrink-0">
-      <div className="md:rounded-l-xl md:rounded-t-none rounded-t-xl overflow-hidden">
+      <div className="md:rounded-l-xl md:rounded-t-none rounded-t-xl border-t border-l border-r md:border-r-0 md:border-b border-borderGray overflow-hidden flex items-center justify-center p-10">
         {" "}
         <Image
           src={item.coverImage.formats.small.url}
           alt={"thumbnail-" + item.coverImage.formats.small.url}
-          height={500}
-          width={500}
-          className="h-full aspect-square w-full object-cover "
+          height={400}
+          width={400}
+          className=""
         />
       </div>
       <div className="border-y md:border-r border-x md:rounded-l-none md:rounded-r-xl rounded-b-xl p-5 flex flex-col gap-5 border-borderGray justify-between">

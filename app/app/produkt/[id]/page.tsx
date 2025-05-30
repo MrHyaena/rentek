@@ -50,20 +50,22 @@ export default async function Page({
         <div className="md:col-span-3 flex flex-col md:gap-15 gap-5">
           {data.gallery != null ? (
             <div className="grid grid-cols-5 gap-2">
-              <Image
-                width={990}
-                height={990}
-                src={`${data.coverImage.url}`}
-                alt={data.name + "-hero"}
-                className="w-full col-span-4 aspect-square object-cover rounded-lg h-full"
-              />
+              <div className="flex items-center justify-center aspect-square w-full col-span-4 rounded-lg h-full">
+                <Image
+                  width={990}
+                  height={990}
+                  src={`${data.coverImage.formats.large.url}`}
+                  alt={data.name + "-hero"}
+                  className=""
+                />
+              </div>
               <div className="grid grid-rows-4 w-full gap-2">
                 {data.gallery.map((item: any) => {
                   return (
                     <Image
                       key={item.url}
-                      width={500}
-                      height={500}
+                      width={990}
+                      height={990}
                       src={`${item.url}`}
                       alt={data.name + "-hero"}
                       className="w-full aspect-square object-cover rounded-lg"
@@ -73,13 +75,13 @@ export default async function Page({
               </div>
             </div>
           ) : (
-            <div className="">
+            <div className="flex items-center justify-center w-full aspect-square col-span-4 object-cover rounded-lg">
               <Image
-                width={990}
-                height={990}
+                width={600}
+                height={800}
                 src={`${data.coverImage.url}`}
                 alt={data.name + "-hero"}
-                className="w-full aspect-square col-span-4 object-cover rounded-lg"
+                className=""
               />
             </div>
           )}

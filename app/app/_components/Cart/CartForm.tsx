@@ -95,13 +95,15 @@ export default function CartForm({ newAdditions }: Props) {
       <>
         <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
           <div className="flex items-center gap-5 p-2 border-b border-borderGray">
-            <Image
-              src={item.coverImage.formats.thumbnail.url}
-              width={200}
-              height={300}
-              alt={"thumbnail-" + item.name}
-              className="md:w-16 md:h-16 w-10 h-10 object-cover object-center rounded-md md:block"
-            />
+            <div className="md:w-16 md:h-16 w-10 h-10 flex items-center justify-center p-1">
+              <Image
+                src={item.coverImage.formats.thumbnail.url}
+                width={200}
+                height={300}
+                alt={"thumbnail-" + item.name}
+                className=""
+              />
+            </div>
             <Link
               href={`/produkt/${item.documentId}`}
               className="md:text-base font-semibold"
@@ -187,13 +189,15 @@ export default function CartForm({ newAdditions }: Props) {
       <>
         <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
           <div className="flex items-center gap-5 p-2 border-b border-borderGray bg-white">
-            <Image
-              src={item.coverImage.formats.thumbnail.url}
-              width={200}
-              height={300}
-              alt={"thumbnail-" + item.name}
-              className="md:w-16 md:h-16 w-10 h-10 object-cover object-center rounded-md md:block"
-            />
+            <div className="md:w-16 md:h-16 w-10 h-10 flex items-center justify-center p-1">
+              <Image
+                src={item.coverImage.formats.thumbnail.url}
+                width={200}
+                height={300}
+                alt={"thumbnail-" + item.name}
+                className=""
+              />
+            </div>
             <Link
               href={`/produkt/${item.documentId}`}
               className="md:text-base font-semibold"
