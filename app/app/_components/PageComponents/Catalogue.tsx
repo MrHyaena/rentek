@@ -12,7 +12,15 @@ import ProductTabHorizontal from "../Products/ProductHorizontal";
 import Link from "next/link";
 import { BiCategoryAlt } from "react-icons/bi";
 import * as qs from "qs";
-import { FaHelmetSafety, FaLeaf, FaSeedling, FaTree } from "react-icons/fa6";
+import {
+  FaHand,
+  FaHelmetSafety,
+  FaLeaf,
+  FaSeedling,
+  FaTree,
+} from "react-icons/fa6";
+import { MdElectricBolt, MdLocalGasStation } from "react-icons/md";
+import { GiGrass, GiHighGrass } from "react-icons/gi";
 
 type Props = {
   items: any;
@@ -231,7 +239,7 @@ export default function Catalogue({ items }: Props) {
                       <FaTree className="text-primary" />
                     )}
                     {item.name == "Manuální nářadí a příslušenství" && (
-                      <FaHelmetSafety className="text-primary text-xl" />
+                      <FaHelmetSafety className="text-primary text-lg" />
                     )}
                     <p className="font-semibold">{item.name}</p>
                   </div>
@@ -293,46 +301,64 @@ export default function Catalogue({ items }: Props) {
               </div>
               <div>
                 <SearchHeading text="Typ pohonu" />
-                <SearchSubcategory
-                  value="bf4ngqecws94nqtv5dlbyuve"
-                  categoryType="specifications"
-                  text="Elektrický motor"
-                  setter={setElektrickyMotor}
-                  state={elektrickyMotor}
-                />
-                <SearchSubcategory
-                  value="u076llljnkr3g2oolm3g5z50"
-                  categoryType="specifications"
-                  text="Benzínový motor"
-                  setter={setBenzinovyMotor}
-                  state={benzinovyMotor}
-                />
-                <SearchSubcategory
-                  value="ca7w1imw40v3syl7178f0oan"
-                  categoryType="specifications"
-                  text="Manuální nářadí"
-                  setter={setManualniNarad}
-                  state={manualniNaradi}
-                />
+                <div>
+                  <div className="flex items-center gap-2">
+                    <MdElectricBolt className="text-primary" />
+                    <SearchSubcategory
+                      value="bf4ngqecws94nqtv5dlbyuve"
+                      categoryType="specifications"
+                      text="Elektrický motor"
+                      setter={setElektrickyMotor}
+                      state={elektrickyMotor}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MdLocalGasStation className="text-primary" />
+
+                    <SearchSubcategory
+                      value="u076llljnkr3g2oolm3g5z50"
+                      categoryType="specifications"
+                      text="Benzínový motor"
+                      setter={setBenzinovyMotor}
+                      state={benzinovyMotor}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaHand className="text-primary" />
+                    <SearchSubcategory
+                      value="ca7w1imw40v3syl7178f0oan"
+                      categoryType="specifications"
+                      text="Manuální nářadí"
+                      setter={setManualniNarad}
+                      state={manualniNaradi}
+                    />
+                  </div>
+                </div>
               </div>
 
               <div>
                 <SearchHeading text="Určení" />
+                <div className="flex items-center gap-2">
+                  <GiGrass className="text-primary" />
+                  <SearchSubcategory
+                    value="sk1st3bmd0fbjufgeaz1p49m"
+                    categoryType="uses"
+                    text="Standardní podmínky"
+                    setter={setStandardniPodminky}
+                    state={standardniPodminky}
+                  />{" "}
+                </div>
 
-                <SearchSubcategory
-                  value="sk1st3bmd0fbjufgeaz1p49m"
-                  categoryType="uses"
-                  text="Standardní podmínky"
-                  setter={setStandardniPodminky}
-                  state={standardniPodminky}
-                />
-                <SearchSubcategory
-                  value="ie19l68mmhdxcnmnlqzyp1u0"
-                  categoryType="uses"
-                  text="Náročné podmínky"
-                  setter={setnarocnePodminky}
-                  state={narocnePodminky}
-                />
+                <div className="flex items-center gap-2">
+                  <GiHighGrass className="text-primary" />
+                  <SearchSubcategory
+                    value="ie19l68mmhdxcnmnlqzyp1u0"
+                    categoryType="uses"
+                    text="Náročné podmínky"
+                    setter={setnarocnePodminky}
+                    state={narocnePodminky}
+                  />
+                </div>
               </div>
               <button type="submit" className="buttonSmall w-full">
                 Vyhledat
