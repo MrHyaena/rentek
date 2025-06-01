@@ -152,34 +152,34 @@ export default function Catalogue({ items }: Props) {
       newSubcategoriesState.push(subcategory);
     });
     setSubcategories(newSubcategoriesState);
-    const queryOrSubcategories: any[] = [];
+    const queryOfSubcategories: any[] = [];
 
     subcategories.map((sub) => {
-      queryOrSubcategories.push({
+      queryOfSubcategories.push({
         subcategories: {
           documentId: { $eq: sub },
         },
       });
     });
 
-    const specifications = formData.getAll("specifications");
-    const queryOrSpecifications: any[] = [];
+    const engineType = formData.getAll("engineType");
+    const queryOfEngineTpye: any[] = [];
 
-    specifications.map((sub) => {
-      queryOrSpecifications.push({
-        specifications: {
+    engineType.map((sub) => {
+      queryOfEngineTpye.push({
+        engine_type: {
           documentId: { $eq: sub },
         },
       });
     });
 
-    console.log(queryOrSpecifications);
+    console.log(queryOfEngineTpye);
 
     const uses = formData.getAll("uses");
-    const queryOrUses: any[] = [];
+    const queryOfUses: any[] = [];
 
     uses.map((sub) => {
-      queryOrUses.push({
+      queryOfUses.push({
         uses: {
           documentId: { $eq: sub },
         },
@@ -191,10 +191,10 @@ export default function Catalogue({ items }: Props) {
         $and: [
           { pricingType: { $ne: "product" } },
           {
-            $or: queryOrSubcategories,
+            $or: queryOfSubcategories,
           },
-          { $or: queryOrSpecifications },
-          { $or: queryOrUses },
+          { $or: queryOfEngineTpye },
+          { $or: queryOfUses },
         ],
       },
     };
@@ -302,13 +302,13 @@ export default function Catalogue({ items }: Props) {
                 </div>
               </div>
               <div>
-                <SearchHeading text="Typ pohonu" />
+                <SearchHeading text="Typ techniky" />
                 <div>
                   <div className="flex items-center gap-2">
                     <MdElectricBolt className="text-primary" />
                     <SearchSubcategory
-                      value="bf4ngqecws94nqtv5dlbyuve"
-                      categoryType="specifications"
+                      value="n01dkms7x65r2xlbz3z7bt51"
+                      categoryType="engineType"
                       text="Elektrický motor"
                       setter={setElektrickyMotor}
                       state={elektrickyMotor}
@@ -318,8 +318,8 @@ export default function Catalogue({ items }: Props) {
                     <MdLocalGasStation className="text-primary" />
 
                     <SearchSubcategory
-                      value="u076llljnkr3g2oolm3g5z50"
-                      categoryType="specifications"
+                      value="n9upm95rzcpw6ng3e7exv5jb"
+                      categoryType="engineType"
                       text="Benzínový motor"
                       setter={setBenzinovyMotor}
                       state={benzinovyMotor}
@@ -328,9 +328,9 @@ export default function Catalogue({ items }: Props) {
                   <div className="flex items-center gap-2">
                     <FaHand className="text-primary" />
                     <SearchSubcategory
-                      value="ca7w1imw40v3syl7178f0oan"
-                      categoryType="specifications"
-                      text="Manuální nářadí"
+                      value="ziual17oljz0iv5mtnwd2b9t"
+                      categoryType="engineType"
+                      text="Manuální nářadí a příslušenství"
                       setter={setManualniNarad}
                       state={manualniNaradi}
                     />
@@ -395,28 +395,37 @@ export default function Catalogue({ items }: Props) {
                   </div>
                 </div>
                 <div>
-                  <SearchHeading text="Typ pohonu" />
-                  <SearchSubcategory
-                    value="bf4ngqecws94nqtv5dlbyuve"
-                    categoryType="specifications"
-                    text="Elektrický motor"
-                    setter={setElektrickyMotor}
-                    state={elektrickyMotor}
-                  />
-                  <SearchSubcategory
-                    value="u076llljnkr3g2oolm3g5z50"
-                    categoryType="specifications"
-                    text="Benzínový motor"
-                    setter={setBenzinovyMotor}
-                    state={benzinovyMotor}
-                  />
-                  <SearchSubcategory
-                    value="ca7w1imw40v3syl7178f0oan"
-                    categoryType="specifications"
-                    text="Manuální nářadí"
-                    setter={setManualniNarad}
-                    state={manualniNaradi}
-                  />
+                  <div className="flex items-center gap-2">
+                    <MdElectricBolt className="text-primary" />
+                    <SearchSubcategory
+                      value="n01dkms7x65r2xlbz3z7bt51"
+                      categoryType="engineType"
+                      text="Elektrický motor"
+                      setter={setElektrickyMotor}
+                      state={elektrickyMotor}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MdLocalGasStation className="text-primary" />
+
+                    <SearchSubcategory
+                      value="n9upm95rzcpw6ng3e7exv5jb"
+                      categoryType="engineType"
+                      text="Benzínový motor"
+                      setter={setBenzinovyMotor}
+                      state={benzinovyMotor}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaHand className="text-primary" />
+                    <SearchSubcategory
+                      value="ziual17oljz0iv5mtnwd2b9t"
+                      categoryType="engineType"
+                      text="Manuální nářadí a příslušenství"
+                      setter={setManualniNarad}
+                      state={manualniNaradi}
+                    />
+                  </div>
                 </div>
 
                 <div>

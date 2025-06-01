@@ -17,6 +17,7 @@ type Props = {
 };
 
 export default function ProductSpecsRental({ data }: Props) {
+  console.log(data);
   return (
     <div className="flex flex-col gap-10">
       <div className="grid md:grid-cols-3 gap-4 justify-items-center md:justify-items-start w-full">
@@ -39,22 +40,20 @@ export default function ProductSpecsRental({ data }: Props) {
             </div>
           </>
         )}
-        {data.specifications[0] != null && (
+        {data.brands[0] != null && (
           <div className="flex flex-col md:items-start items-center gap-2">
             <div className="font-semibold flex items-center gap-2">
               <SiBrandfolder className="text-zinc-800 text-2xl" />{" "}
               <p>Značky:</p>
             </div>
             <div className="flex flex-col md:items-start items-center gap-2">
-              {data.specifications.map(
-                (item: { name: string; [key: string]: any }) => {
-                  return (
-                    <p key={"jmeno2" + item.name} className="">
-                      {item.name}
-                    </p>
-                  );
-                }
-              )}
+              {data.brands.map((item: { name: string; [key: string]: any }) => {
+                return (
+                  <p key={"jmeno2" + item.name} className="">
+                    {item.name}
+                  </p>
+                );
+              })}
             </div>
           </div>
         )}
