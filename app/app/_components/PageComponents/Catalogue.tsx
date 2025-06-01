@@ -51,12 +51,20 @@ export default function Catalogue({ items }: Props) {
   const [manualniNaradi, setManualniNarad] = useState<boolean>(false);
   const [standardniPodminky, setStandardniPodminky] = useState<boolean>(false);
   const [narocnePodminky, setnarocnePodminky] = useState<boolean>(false);
-  const [subcategories, setSubcategories] = useState<any>([]);
+
+  const [subcategories, setSubcategories] = useState<any[]>([]);
   const [categories, setCategories] = useState<any>({ data: [] });
+
+  const [engineTypeInput, setEngineTypeInput] = useState<any[]>([]);
+  const [engineType, setEngineType] = useState<any>({ data: [] });
+
+  const [usesInput, setUsesInput] = useState<any[]>([]);
+  const [uses, setUses] = useState<any>({ data: [] });
+
   const [filtrToggle, setFiltrToggle] = useState<boolean>(false);
 
   useEffect(() => {
-    async function getCategories() {
+    async function getFilters() {
       const categories = await fetch(
         process.env.STRAPI + `/api/categories?populate=subcategories`,
         {
@@ -67,10 +75,24 @@ export default function Catalogue({ items }: Props) {
 
       const json = await categories.json();
       setCategories(json);
-      console.log(json);
+
+      const engineType = await fetch(process.env.STRAPI + `/api/engine-types`, {
+        method: "GET",
+        mode: "cors",
+      });
+      const jsonEngine = await engineType.json();
+      setEngineType(jsonEngine);
+
+      const uses = await fetch(process.env.STRAPI + `/api/uses`, {
+        method: "GET",
+        mode: "cors",
+      });
+
+      const jsonUses = await uses.json();
+      setUses(jsonUses);
     }
 
-    getCategories();
+    getFilters();
   }, []);
 
   function SearchHeading({ text }: { text: string }) {
@@ -81,72 +103,10 @@ export default function Catalogue({ items }: Props) {
     );
   }
 
-  type searchSubcategoryProps = {
-    text: string;
-    categoryType: string;
-    value: string;
-    setter: any;
-    state: any;
-  };
-
-  function SearchSubcategory({
-    text,
-    categoryType,
-    value,
-    setter,
-    state,
-  }: searchSubcategoryProps) {
-    return (
-      <label className="flex gap-2 items-center cursor-pointer">
-        <input
-          type="checkbox"
-          name={categoryType}
-          value={value}
-          checked={state}
-          onChange={(e) => {
-            setter(!state);
-          }}
-        />
-        {text}
-      </label>
-    );
-  }
-
-  function SearchCategory({
-    text,
-    categoryType,
-  }: {
-    text: string;
-    categoryType: string;
-    value: string;
-  }) {
-    function isActive() {
-      if (category.type == "categories" && category.name == text) {
-        return true;
-      }
-    }
-
-    return (
-      <div
-        onClick={() => {
-          setCategory({ name: text, type: categoryType });
-        }}
-        className="flex gap-2 items-center cursor-pointer"
-      >
-        {isActive() ? (
-          <p className="font-semibold text-primary">{text}</p>
-        ) : (
-          <p className="font-semibold">{text}</p>
-        )}
-      </div>
-    );
-  }
-
   async function Filter(data: any) {
     const formData = new FormData(data);
 
     const subcategories = formData.getAll("subcategories");
-    console.log(subcategories);
     const newSubcategoriesState: any = [];
     subcategories.map((subcategory) => {
       newSubcategoriesState.push(subcategory);
@@ -163,8 +123,10 @@ export default function Catalogue({ items }: Props) {
     });
 
     const engineType = formData.getAll("engineType");
-    const queryOfEngineTpye: any[] = [];
 
+    setEngineTypeInput(engineType);
+
+    const queryOfEngineTpye: any[] = [];
     engineType.map((sub) => {
       queryOfEngineTpye.push({
         engine_type: {
@@ -173,9 +135,12 @@ export default function Catalogue({ items }: Props) {
       });
     });
 
-    console.log(queryOfEngineTpye);
-
     const uses = formData.getAll("uses");
+    const newUses: any = [];
+    uses.map((subcategory) => {
+      newUses.push(subcategory);
+    });
+    setUsesInput(newUses);
     const queryOfUses: any[] = [];
 
     uses.map((sub) => {
@@ -280,6 +245,60 @@ export default function Catalogue({ items }: Props) {
     }
   }
 
+  function ListFilters({
+    items,
+    inputGroup,
+    inputName,
+  }: {
+    items: any;
+    inputGroup: any;
+    inputName: string;
+  }) {
+    if (items.data.length > 0) {
+      return (
+        <>
+          <div key={"uses"} className="flex flex-col">
+            {items.data.map((item: any) => {
+              let checkedState = false;
+              const checkedArray = inputGroup.filter(
+                (documentId: string) => documentId == item.documentId
+              );
+
+              if (checkedArray.length > 0) {
+                checkedState = true;
+              }
+              console.log(items);
+
+              console.log(inputGroup);
+              return (
+                <div
+                  key={item.name + "uses"}
+                  className=" flex items-center gap-2"
+                >
+                  {item.name == "Úprava trávníku" && (
+                    <FaSeedling className="text-primary" />
+                  )}
+                  <label
+                    key={item.name + inputName}
+                    className="flex gap-2 items-center cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      name={inputName}
+                      value={item.documentId}
+                      defaultChecked={checkedState}
+                    />
+                    {item.name}
+                  </label>{" "}
+                </div>
+              );
+            })}
+          </div>
+        </>
+      );
+    }
+  }
+
   return (
     <>
       <div className="flex w-full  justify-center md:p-10 p-5">
@@ -303,65 +322,21 @@ export default function Catalogue({ items }: Props) {
               </div>
               <div>
                 <SearchHeading text="Typ techniky" />
-                <div>
-                  <div className="flex items-center gap-2">
-                    <MdElectricBolt className="text-primary" />
-                    <SearchSubcategory
-                      value="n01dkms7x65r2xlbz3z7bt51"
-                      categoryType="engineType"
-                      text="Elektrický motor"
-                      setter={setElektrickyMotor}
-                      state={elektrickyMotor}
-                    />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MdLocalGasStation className="text-primary" />
-
-                    <SearchSubcategory
-                      value="n9upm95rzcpw6ng3e7exv5jb"
-                      categoryType="engineType"
-                      text="Benzínový motor"
-                      setter={setBenzinovyMotor}
-                      state={benzinovyMotor}
-                    />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <FaHand className="text-primary" />
-                    <SearchSubcategory
-                      value="ziual17oljz0iv5mtnwd2b9t"
-                      categoryType="engineType"
-                      text="Manuální nářadí a příslušenství"
-                      setter={setManualniNarad}
-                      state={manualniNaradi}
-                    />
-                  </div>
-                </div>
+                <ListFilters
+                  items={engineType}
+                  inputGroup={engineTypeInput}
+                  inputName="engineType"
+                />
               </div>
-
               <div>
                 <SearchHeading text="Určení" />
-                <div className="flex items-center gap-2">
-                  <GiGrass className="text-primary" />
-                  <SearchSubcategory
-                    value="sk1st3bmd0fbjufgeaz1p49m"
-                    categoryType="uses"
-                    text="Standardní podmínky"
-                    setter={setStandardniPodminky}
-                    state={standardniPodminky}
-                  />{" "}
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <GiHighGrass className="text-primary" />
-                  <SearchSubcategory
-                    value="ie19l68mmhdxcnmnlqzyp1u0"
-                    categoryType="uses"
-                    text="Náročné podmínky"
-                    setter={setnarocnePodminky}
-                    state={narocnePodminky}
-                  />
-                </div>
+                <ListFilters
+                  items={uses}
+                  inputGroup={usesInput}
+                  inputName="uses"
+                />
               </div>
+
               <button type="submit" className="buttonSmall w-full">
                 Vyhledat
               </button>
@@ -395,57 +370,22 @@ export default function Catalogue({ items }: Props) {
                   </div>
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <MdElectricBolt className="text-primary" />
-                    <SearchSubcategory
-                      value="n01dkms7x65r2xlbz3z7bt51"
-                      categoryType="engineType"
-                      text="Elektrický motor"
-                      setter={setElektrickyMotor}
-                      state={elektrickyMotor}
-                    />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MdLocalGasStation className="text-primary" />
-
-                    <SearchSubcategory
-                      value="n9upm95rzcpw6ng3e7exv5jb"
-                      categoryType="engineType"
-                      text="Benzínový motor"
-                      setter={setBenzinovyMotor}
-                      state={benzinovyMotor}
-                    />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <FaHand className="text-primary" />
-                    <SearchSubcategory
-                      value="ziual17oljz0iv5mtnwd2b9t"
-                      categoryType="engineType"
-                      text="Manuální nářadí a příslušenství"
-                      setter={setManualniNarad}
-                      state={manualniNaradi}
-                    />
-                  </div>
+                  <SearchHeading text="Typ techniky" />
+                  <ListFilters
+                    items={engineType}
+                    inputGroup={engineTypeInput}
+                    inputName="engineType"
+                  />
                 </div>
-
                 <div>
                   <SearchHeading text="Určení" />
-
-                  <SearchSubcategory
-                    value="sk1st3bmd0fbjufgeaz1p49m"
-                    categoryType="uses"
-                    text="Standardní podmínky"
-                    setter={setStandardniPodminky}
-                    state={standardniPodminky}
-                  />
-                  <SearchSubcategory
-                    value="ie19l68mmhdxcnmnlqzyp1u0"
-                    categoryType="uses"
-                    text="Náročné podmínky"
-                    setter={setnarocnePodminky}
-                    state={narocnePodminky}
+                  <ListFilters
+                    items={uses}
+                    inputGroup={usesInput}
+                    inputName="uses"
                   />
                 </div>
+
                 <button type="submit" className="buttonSmall w-full">
                   Vyhledat
                 </button>

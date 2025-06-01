@@ -10,6 +10,9 @@ import { differenceInDays } from "date-fns";
 import ProductPrice from "../Prices/ProductPrice";
 import { addToCartFunction } from "../Cart/cartFunction";
 import Link from "next/link";
+import { BsStars, BsTools } from "react-icons/bs";
+import { FaTools } from "react-icons/fa";
+import { FaToolbox } from "react-icons/fa6";
 type ProductProps = {
   key: any;
   item: {
@@ -31,6 +34,8 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
 
   const [numberOfDays, setNumberOfDays] = useState<number>(1);
 
+  const shortenedDescription = item.excerpt.substring(0, 140) + "...";
+
   const price = Number(item.price);
 
   useEffect(() => {
@@ -51,7 +56,7 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
 
   return (
     <div className="md:grid md:grid-cols-[250px_1fr] shrink-0">
-      <div className="md:rounded-l-xl md:rounded-t-none rounded-t-xl border-t border-l border-r md:border-r-0 md:border-b border-borderGray overflow-hidden flex items-center justify-center p-10">
+      <div className="md:rounded-l-xl md:rounded-t-none rounded-t-xl border-t border-l border-r md:border-r-0 md:border-b border-borderGray overflow-hidden flex items-center justify-center p-7">
         {" "}
         <Image
           src={item.coverImage.formats.small.url}
@@ -63,7 +68,7 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
       </div>
       <div className="border-y md:border-r border-x md:rounded-l-none md:rounded-r-xl rounded-b-xl p-5 flex flex-col gap-5 border-borderGray justify-between">
         <div>
-          <div className="flex items-center gap-4 mb-2">
+          <div className="flex sm:flex-row flex-col-reverse sm:items-center items-start sm:gap-4 gap-2 mb-2">
             <p className="text-xl font-semibold text-textPrimary">
               {item.name}
             </p>
@@ -71,8 +76,24 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
               Dostupné
             </p>
           </div>
-          <p className="text-textSecondary">{item.excerpt}</p>
+          <p className="text-textSecondary">{shortenedDescription}</p>
         </div>
+        {item.accessories.length > 0 && (
+          <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-1 items-center">
+              <FaToolbox className="text-lg text-primaryHover" />
+              <p className="font-semibold ">Společně s technikou:</p>
+            </div>
+            {item.accessories.map((accessory: any) => {
+              return (
+                <p className="group">
+                  {accessory.name}
+                  <span className="group-last:hidden">, </span>
+                </p>
+              );
+            })}
+          </div>
+        )}
         <div className="flex flex-col items-stretch gap-2">
           <ProductPrice data={item} />
 

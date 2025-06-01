@@ -56,7 +56,7 @@ export default function ProductPrice({ data }: Props) {
       {data.pricingType == "rental" && (
         <>
           <div className="flex flex-col w-full gap-3 items-start">
-            <p className="font-semibold text-textSecondary">
+            <p className="font-semibold text-textPrimary">
               {isValid() ? (
                 <>
                   <span className="text-xl font-semibold text-primary">
@@ -80,7 +80,7 @@ export default function ProductPrice({ data }: Props) {
       {data.pricingType == "product" && (
         <>
           <div className="flex flex-col w-full gap-3 items-start">
-            <p className="font-semibold text-textSecondary">
+            <p className="font-semibold text-textPrimary">
               {isValid() ? (
                 <>
                   <span className="text-xl font-semibold text-primary">
