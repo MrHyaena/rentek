@@ -46,10 +46,10 @@ export default async function Page({
         <p className="font-semibold">Zpět do katalogu</p>
       </a>
 
-      <div className=" w-full  max-w-wrapper grid md:grid-cols-5 gap-10">
-        <div className="md:col-span-3 flex flex-col md:gap-15 gap-5">
+      <div className=" w-full  max-w-wrapper grid md:grid-cols-4 gap-10">
+        <div className="md:col-span-2 flex flex-col md:gap-15 gap-5">
           {data.gallery != null ? (
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-5 gap-2 border">
               <div className="flex items-center justify-center aspect-square w-full col-span-4 rounded-lg h-full">
                 <Image
                   width={990}
@@ -75,10 +75,10 @@ export default async function Page({
               </div>
             </div>
           ) : (
-            <div className="flex items-center justify-center w-full aspect-square col-span-4 object-cover rounded-lg">
+            <div className=" flex items-center justify-center w-full aspect-square col-span-4 rounded-lg">
               <Image
-                width={600}
-                height={800}
+                width={990}
+                height={990}
                 src={`${data.coverImage.url}`}
                 alt={data.name + "-hero"}
                 className=""

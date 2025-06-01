@@ -129,6 +129,18 @@
     },
     "details": {
       "type": "json"
+    },
+    "engine_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::engine-type.engine-type",
+      "inversedBy": "items"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "items"
     }
   }
 }

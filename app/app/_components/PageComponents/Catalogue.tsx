@@ -173,6 +173,8 @@ export default function Catalogue({ items }: Props) {
       });
     });
 
+    console.log(queryOrSpecifications);
+
     const uses = formData.getAll("uses");
     const queryOrUses: any[] = [];
 
