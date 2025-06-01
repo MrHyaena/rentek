@@ -136,9 +136,9 @@
       "target": "api::engine-type.engine-type",
       "inversedBy": "items"
     },
-    "brand": {
+    "brands": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::brand.brand",
       "inversedBy": "items"
     }
