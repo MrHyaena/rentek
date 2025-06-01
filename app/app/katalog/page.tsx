@@ -14,6 +14,9 @@ export default async function page() {
         {
           method: "GET",
           mode: "cors",
+          next: {
+            revalidate: 10,
+          },
         }
       );
 

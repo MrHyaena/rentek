@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa6";
 import { GiHighGrass } from "react-icons/gi";
 import { PiFlowerTulip, PiFlowerTulipBold } from "react-icons/pi";
+import { SiBrandfolder } from "react-icons/si";
 import { TbLayoutGrid, TbLayoutGridAdd } from "react-icons/tb";
 
 type Props = {
@@ -41,7 +42,8 @@ export default function ProductSpecsRental({ data }: Props) {
         {data.specifications[0] != null && (
           <div className="flex flex-col md:items-start items-center gap-2">
             <div className="font-semibold flex items-center gap-2">
-              <FaGears className="text-zinc-800 text-2xl" /> <p>Specifikace:</p>
+              <SiBrandfolder className="text-zinc-800 text-2xl" />{" "}
+              <p>Značky:</p>
             </div>
             <div className="flex flex-col md:items-start items-center gap-2">
               {data.specifications.map(

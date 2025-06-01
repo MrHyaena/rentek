@@ -385,7 +385,7 @@ export default function CartForm({ newAdditions }: Props) {
                   Jednotková cena {"(vč. DPH)"}
                 </p>
                 <div className="col-start-2 col-span-2"></div>
-                <div className="grid col-span-3">
+                <div className="grid gap-3 col-span-3">
                   {additions.map((product) => {
                     return (
                       <AdditionsTab

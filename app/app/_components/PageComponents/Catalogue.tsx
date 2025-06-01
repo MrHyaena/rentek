@@ -199,7 +199,7 @@ export default function Catalogue({ items }: Props) {
                 data.preventDefault();
                 Filter(data.target);
               }}
-              className="min-h-50 border border-borderGray rounded-md p-4 flex flex-col gap-5"
+              className="min-h-50 border border-borderGray rounded-xl p-4 flex flex-col gap-5"
             >
               <p className="text-textPrimary text-2xl font-semibold border-b border-borderGray">
                 Filtr
