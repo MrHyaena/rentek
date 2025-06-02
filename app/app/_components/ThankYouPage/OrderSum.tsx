@@ -77,6 +77,14 @@ export default function OrderSum({}: Props) {
     }
   }
 
+  let additionalItemsArray: any = [];
+
+  if (data != null) {
+    additionalItemsArray = data.additionalItems.filter(
+      (item: any) => item.count > 0
+    );
+  }
+
   return (
     <>
       {data == null ? (
@@ -176,35 +184,43 @@ export default function OrderSum({}: Props) {
                       })}
                     </div>
                   </div>
-                  <div className="w-full">
-                    <h6>Jednorázové produkty</h6>
-                    <div className="flex flex-col gap-2">
-                      {data.additionalItems.map((item: any) => {
-                        return (
-                          <div
-                            key={"item2" + item.item.name}
-                            className="flex gap-10 items-center justify-between border-b border-borderGray py-2 only:border-b last:border-b-0"
-                          >
-                            {" "}
-                            <div className="flex items-center gap-5">
-                              <div className="w-10 h-10 flex items-center justify-center p-1">
-                                <Image
-                                  src={item.item.coverImage.url}
-                                  width={100}
-                                  height={100}
-                                  alt="image"
-                                />
-                              </div>
-                              <Link href={`/produkt/${item.item.documentId}`}>
-                                {item.item.name}
-                              </Link>{" "}
-                            </div>
-                            <p>{item.count} ks.</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  {additionalItemsArray.length > 0 && (
+                    <>
+                      <div className="w-full">
+                        <h6>Jednorázové produkty</h6>
+                        <div className="flex flex-col gap-2">
+                          {data.additionalItems.map((item: any) => {
+                            if (item.count > 0) {
+                              return (
+                                <div
+                                  key={"item2" + item.item.name}
+                                  className="flex gap-10 items-center justify-between border-b border-borderGray py-2 only:border-b last:border-b-0"
+                                >
+                                  {" "}
+                                  <div className="flex items-center gap-5">
+                                    <div className="w-10 h-10 flex items-center justify-center p-1">
+                                      <Image
+                                        src={item.item.coverImage.url}
+                                        width={100}
+                                        height={100}
+                                        alt="image"
+                                      />
+                                    </div>
+                                    <Link
+                                      href={`/produkt/${item.item.documentId}`}
+                                    >
+                                      {item.item.name}
+                                    </Link>{" "}
+                                  </div>
+                                  <p>{item.count} ks.</p>
+                                </div>
+                              );
+                            }
+                          })}
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="h-[1px] bg-borderGray"></div>
