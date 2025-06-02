@@ -6,6 +6,13 @@ import Products from "./_components/PageComponents/Products";
 import ImageText from "./_components/PageComponents/ImageText";
 import CTAHorizontal from "./_components/CTA/CTAHorizontal";
 import CTAVertical from "./_components/CTA/CTAVertical";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Rentek: Půjčovna zahradní techniky",
+  description:
+    "Půjčovna zahradní techniky Rentek. Kvalitní sekačky, vertikulátory, nužky na plot a další nářadí k zapůjčení. Rychlá online rezervace, výhodné ceny.",
+};
 
 export default async function Home() {
   return (

@@ -2,6 +2,13 @@ import PageHeading from "@/app/_components/Headings/PageHeading";
 import React from "react";
 import Catalogue from "../_components/PageComponents/Catalogue";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Katalog techniky",
+  description:
+    "Prohlédněte si kompletní katalog zahradní techniky k zapůjčení. Široký výběr, férové ceny a snadná rezervace online. Vše pro vaši zahradu.",
+};
 
 export default async function page() {
   async function GetItems() {

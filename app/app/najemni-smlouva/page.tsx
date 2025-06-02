@@ -2,6 +2,13 @@ import React from "react";
 import PageHeading from "../_components/Headings/PageHeading";
 import Link from "next/link";
 import { IoIosPaper } from "react-icons/io";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Nájemní smlouva",
+  description:
+    "Podívejte se na vzorovou smlouvu o zapůjčení zahradní techniky. Přehledná ukázka podmínek, rozsahu odpovědnosti a povinností nájemce.",
+};
 
 export default function page() {
   return (

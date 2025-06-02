@@ -1,5 +1,12 @@
 import React from "react";
 import PageHeading from "../_components/Headings/PageHeading";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Obchodní podmínky",
+  description:
+    "Přečtěte si obchodní podmínky půjčovny zahradní techniky Rentek. Informace o rezervacích, platbách, stornech, vrácení techniky a odpovědnosti.",
+};
 
 export default function page() {
   return (

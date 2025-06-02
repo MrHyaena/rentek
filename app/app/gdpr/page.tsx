@@ -1,5 +1,12 @@
 import React from "react";
 import PageHeading from "../_components/Headings/PageHeading";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Podmínky ochrany osobních údajů",
+  description:
+    "Zjistěte, jak chráníme vaše osobní údaje. Informace o zpracování dat, účelu, délce uchování a vašich právech podle GDPR.",
+};
 
 export default function page() {
   return (

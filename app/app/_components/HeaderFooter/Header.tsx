@@ -17,6 +17,8 @@ import ScrollToKontakt from "./ScrollToKontakt";
 import { FiMenu } from "react-icons/fi";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { BsFillGrid1X2Fill } from "react-icons/bs";
+import { FaFacebook, FaInstagram } from "react-icons/fa6";
+import { FaFacebookSquare } from "react-icons/fa";
 
 function DesktopHeader() {
   return (
@@ -42,8 +44,8 @@ function DesktopHeader() {
               </p>
             </div>
             <div className="flex items-center justify-center gap-4 text-xl">
-              <FontAwesomeIcon icon={faInstagram} />
-              <FontAwesomeIcon icon={faFacebook} />
+              <FaInstagram />
+              <FaFacebookSquare className="hidden" />
             </div>
           </div>
         </div>
@@ -56,7 +58,7 @@ function DesktopHeader() {
                   alt="logo"
                   width={300}
                   height={300}
-                  className="h-17 w-auto"
+                  className="h-11 w-auto"
                 />
               </Link>
               <Link
@@ -102,19 +104,19 @@ function MobileHeader() {
               <p className="font-semibold">Od 8:00 do 20:00</p>
             </div>
             <div className="flex items-center justify-center gap-4 text-lg">
-              <FontAwesomeIcon icon={faInstagram} />
-              <FontAwesomeIcon icon={faFacebook} />
+              <FaInstagram />
+              <FaFacebookSquare className="hidden" />
             </div>
           </div>
         </div>
-        <div className=" w-full flex items-center justify-between px-10 py-4 bg-white">
+        <div className=" w-full flex items-center justify-between px-5 py-4 bg-white">
           <Link href={"/"}>
             <Image
               src={"/logo.png"}
               alt="logo"
               width={300}
               height={300}
-              className="h-10 w-auto"
+              className="h-5 w-auto"
             />
           </Link>
           <div className="flex gap-4">
@@ -133,7 +135,7 @@ function MobileHeader() {
         {menuToggle && (
           <>
             {" "}
-            <div className=" w-full flex items-center justify-between px-10 py-3 border-y border-borderGray bg-white">
+            <div className=" w-full flex items-center justify-between px-5 py-3 border-y border-borderGray bg-white">
               <ul className="flex flex-col gap-5 text-lg text-textSecondary">
                 <li>
                   <Link href={"/"}>Domů</Link>

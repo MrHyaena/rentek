@@ -17,7 +17,7 @@ export default function ProductPrice({ data }: Props) {
   let saleIndex: number = 0;
 
   if (numberOfDays == 1) {
-    saleIndex = 0;
+    saleIndex = 1;
   } else if (numberOfDays <= 7) {
     saleIndex = 0.9;
   } else if (numberOfDays <= 21) {
