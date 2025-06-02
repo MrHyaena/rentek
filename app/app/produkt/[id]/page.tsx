@@ -13,9 +13,11 @@ import ProductSpecsProduct from "@/app/_components/Products/ProductSpecsProduct"
 import { Metadata } from "next";
 import Head from "next/head";
 
-type Props = { [key: string]: any };
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: any;
+}): Promise<Metadata> {
   // read route params
   const id = params.id;
   const response = await fetch(`${process.env.STRAPI}/api/items/${id}`, {
