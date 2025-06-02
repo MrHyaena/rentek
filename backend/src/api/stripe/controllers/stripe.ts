@@ -145,13 +145,10 @@ export default factories.createCoreController(
         {
           method: "GET",
           mode: "cors",
-          headers: {
-            Authorization: `Bearer ${process.env.STRAPI_READONLY_API}`,
-          },
         }
       );
       const json: any = await strapiOrder.json();
-      console.log(json);
+      console.log({ message: "fetch order", json });
 
       const orderInformation = JSON.parse(json.data.orderInformation);
       const rentalItems = JSON.parse(json.data.rentalItems);
@@ -227,7 +224,7 @@ export default factories.createCoreController(
           personBody
         );
 
-        console.log(pipedrivePerson);
+        console.log({ message: "pipedrive person", pipedrivePerson });
         const dealBody = await {
           title: `Výpůjčka - ${json.data.documentId}`,
           person_id: pipedrivePerson.data.id,
@@ -273,7 +270,7 @@ export default factories.createCoreController(
 
         const pipedriveDeal = await PipedriveV2("deals", "POST", dealBody);
 
-        console.log(pipedriveDeal);
+        console.log({ message: "pipedrive deal", pipedriveDeal });
 
         const activityDeliveryBody = await {
           owner_id: 23212272,
@@ -369,7 +366,7 @@ export default factories.createCoreController(
             }),
           }
         );
-        console.log(emailResponse);
+        console.log({ message: "email response", emailResponse });
       } catch (error) {
         console.log(error);
       }
