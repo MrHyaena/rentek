@@ -86,8 +86,9 @@ export default factories.createCoreController(
             },
             quantity: item.count,
           };
-
-          invoiceItems.push(newItem);
+          if (item.count > 0) {
+            invoiceItems.push(newItem);
+          }
         });
 
         data.additionalItems.map((item) => {
@@ -104,7 +105,9 @@ export default factories.createCoreController(
             quantity: item.count,
           };
 
-          invoiceItems.push(newItem);
+          if (item.count > 0) {
+            invoiceItems.push(newItem);
+          }
         });
 
         console.log(invoiceItems);
