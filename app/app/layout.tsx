@@ -21,10 +21,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: "Grasston: %s",
-    default: "Grasston: Půjčovna zahradní techniky",
+    template: "Rentek: %s",
+    default: "Rentek: Půjčovna zahradní techniky",
   },
-  description: "Půjčovna zahradní techniky",
+  description:
+    "Půjčovna zahradní techniky Rentek. Kvalitní sekačky, vertikulátory, nužky na plot a další nářadí k zapůjčení. Rychlá online rezervace, výhodné ceny.",
 };
 
 export default function RootLayout({

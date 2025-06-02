@@ -56,7 +56,7 @@ export default function Footer({}: Props) {
               <a href="tel:602606331">Telefon: 602606331</a>
             </li>
             <li>
-              <a href="mailto:info@grasston.cz">Email: info@grasston.cz</a>
+              <a href="mailto:info@rentek.cz">Email: info@rentek.cz</a>
             </li>
           </ul>
         </div>

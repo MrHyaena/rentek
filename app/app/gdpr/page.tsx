@@ -23,18 +23,18 @@ export default function page() {
             <h5>1. Správce osobních údajů</h5>
             <div className=" text-textPrimary">
               <p className="font-semibold">
-                Grasston – půjčovna zahradní techniky
+                Rentek – půjčovna zahradní techniky
               </p>
               <p>
                 Správcem osobních údajů je Martin Doležal, IČO: 10796509, sídlo:
                 Víta Nejedlého 666/18, Praha 3, PSČ 130 00, E-mail:
-                info@grasston.cz (dále jen „správce“ nebo „my“)
+                info@rentek.cz (dále jen „správce“ nebo „my“)
               </p>
             </div>
             <p>
               Tento dokument popisuje, jakým způsobem zpracováváme osobní údaje
-              zákazníků a návštěvníků webu www.grasston.cz (dále jen „web“), a
-              jak chráníme jejich soukromí v souladu s nařízením Evropského
+              zákazníků a návštěvníků webu www.rentek.cz (dále jen „web“), a jak
+              chráníme jejich soukromí v souladu s nařízením Evropského
               parlamentu a Rady (EU) 2016/679, obecně známým jako GDPR.
             </p>
           </div>
@@ -295,7 +295,7 @@ export default function page() {
             <h5>10. Kontakt</h5>
 
             <p>Máte dotazy nebo chcete uplatnit svá práva?</p>
-            <p>Napište nám na: info@grasston.cz</p>
+            <p>Napište nám na: info@rentek.cz</p>
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ export default function page() {
             <h5>1. Úvodní ustanovení</h5>
             <div className=" text-textPrimary">
               <p className="font-semibold">
-                Grasston – půjčovna zahradní techniky
+                Rentek – půjčovna zahradní techniky
               </p>
               <p>
                 Provozovatelem je Martin Doležal, IČO: 10796509, sídlo: Víta
@@ -35,8 +35,8 @@ export default function page() {
               Tyto obchodní podmínky upravují vztah mezi provozovatelem služby
               (dále jen „pronajímatel“) a fyzickými nebo právnickými osobami
               (dále jen „nájemce“), které si pronajímají zahradní techniku
-              prostřednictvím webu www.grasston.cz nebo jinou cestou
-              (telefonicky, e-mailem).
+              prostřednictvím webu www.rentek.cz nebo jinou cestou (telefonicky,
+              e-mailem).
             </p>
           </div>
           <div className="h-[1px] bg-borderGray"></div>

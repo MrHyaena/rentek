@@ -111,11 +111,8 @@ export default function OrderSum({}: Props) {
                 Na vaší objednávce teď pracujeme. Níže můžete najít údaje, které
                 od vás máme z objednávkového formuláře. Pokud by byl nějaký z
                 nich špatně, napište nám na email{" "}
-                <Link
-                  className="text-primary"
-                  href={"mailto:infor@grasston.cz"}
-                >
-                  info@grasston.cz
+                <Link className="text-primary" href={"mailto:infor@rentek.cz"}>
+                  info@rentek.cz
                 </Link>
                 .
               </p>
