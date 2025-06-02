@@ -86,7 +86,7 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
             </div>
             {item.accessories.map((accessory: any) => {
               return (
-                <p className="group">
+                <p key={accessory.name + item.name} className="group">
                   {accessory.name}
                   <span className="group-last:hidden">, </span>
                 </p>
