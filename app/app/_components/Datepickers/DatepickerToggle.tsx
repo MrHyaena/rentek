@@ -126,24 +126,45 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
     //First date rules
     if (fieldPick == 1) {
-      localStorage.setItem(
-        "daterange",
-        JSON.stringify({
+      if (newDate > daterange.endDate) {
+        localStorage.setItem(
+          "daterange",
+          JSON.stringify({
+            startDate: newDate,
+            endDate: newDate,
+            startIsValid: false,
+            endIsValid: false,
+          })
+        );
+
+        setDaterange({
           startDate: newDate,
-          endDate: new Date(),
+          endDate: newDate,
           startIsValid: false,
           endIsValid: false,
-        })
-      );
+        });
 
-      setDaterange({
-        startDate: newDate,
-        endDate: daterange.endDate,
-        startIsValid: false,
-        endIsValid: false,
-      });
+        setFieldPick(2);
+      } else if (newDate < daterange.endDate) {
+        localStorage.setItem(
+          "daterange",
+          JSON.stringify({
+            startDate: newDate,
+            endDate: daterange.endDate,
+            startIsValid: false,
+            endIsValid: false,
+          })
+        );
 
-      setFieldPick(2);
+        setDaterange({
+          startDate: newDate,
+          endDate: daterange.endDate,
+          startIsValid: false,
+          endIsValid: false,
+        });
+
+        setFieldPick(2);
+      }
     }
 
     //Second date rules
@@ -255,6 +276,9 @@ export default function DatepickerToggle({ setToggle }: Props) {
         if (weekDay > 5) {
           return (
             <p
+              onClick={() => {
+                pickDate(index);
+              }}
               key={"dayOfTheMonth" + monthDay}
               className="bg-primary/60 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer"
             >
@@ -279,6 +303,9 @@ export default function DatepickerToggle({ setToggle }: Props) {
         if (weekDay > 5) {
           return (
             <p
+              onClick={() => {
+                pickDate(index);
+              }}
               key={"dayOfTheMonth" + monthDay}
               className="bg-zinc-300 h-10 flex items-center justify-center hover:bg-primary/40 rounded-md cursor-pointer"
             >
