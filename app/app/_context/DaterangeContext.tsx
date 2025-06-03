@@ -93,8 +93,15 @@ export function DaterangeContextProvider({ children }: Props) {
   }, []);
 
   useEffect(() => {
-    const daysRange =
+    const start = new Date(daterange.startDate);
+    const end = new Date(daterange.endDate);
+
+    let daysRange =
       differenceInDays(daterange.endDate, daterange.startDate) + 1;
+
+    if (start.getHours() == end.getHours()) {
+      daysRange = daysRange - 1;
+    }
 
     let newSaleIndex: number = 1;
     if (daysRange <= 1) {

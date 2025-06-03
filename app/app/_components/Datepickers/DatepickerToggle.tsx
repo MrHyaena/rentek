@@ -597,11 +597,11 @@ export default function DatepickerToggle({ setToggle }: Props) {
             />
           </div>
           <div className=" border-b  border-borderGray">
-            <div className="p-5 text-center flex md:gap-4 justify-center md:flex-row flex-col">
+            <div className="p-5 text-center flex md:gap-4 justify-center md:flex-row flex-col items-center gap-3">
               {daterange.endIsValid && daterange.startIsValid && (
                 <>
                   <p>
-                    Techniku si budete půjčovat od{" "}
+                    Vypůjčení od{" "}
                     <span className="font-semibold">
                       {format(daterange.startDate, "dd.MM.yyyy HH:mm")}
                     </span>{" "}
@@ -610,7 +610,9 @@ export default function DatepickerToggle({ setToggle }: Props) {
                       {format(daterange.endDate, "dd.MM.yyyy HH:mm")}
                     </span>
                   </p>
-                  <p>Počet dní: {numberOfDays}</p>
+                  <p className="p-2 text-textLight font-semibold rounded-lg bg-primary">
+                    Počet dní: {numberOfDays}
+                  </p>
                 </>
               )}
               {!daterange.startIsValid && (
