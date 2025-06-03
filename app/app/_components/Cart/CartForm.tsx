@@ -80,7 +80,7 @@ export default function CartForm({ newAdditions }: Props) {
 
   const rentalPriceAfterSale: number = rentalPrice * saleIndex;
   const wholePriceAfterSale: number = rentalPriceAfterSale + wholeProductPrice;
-  const payNowPrice: number = wholePriceAfterSale * 0.05;
+  const payNowPrice: number = wholePriceAfterSale * 0.1;
   const sale: number = Math.trunc(100 - saleIndex * 100);
 
   function CartTab({ product }: { product: any }) {
@@ -372,7 +372,7 @@ export default function CartForm({ newAdditions }: Props) {
                   <h5 className="text-xl font-semibold mb-2">
                     Doplňkové produkty
                   </h5>
-                  <p className="text-start col-start-1 justify-self-start hidden md:block">
+                  <p className="text-start col-start-1 justify-self-start">
                     Klienti u nás často objednávají i následující produkty.
                     Všechny tyto produkty vám již po nákupu zůstanou.
                   </p>
@@ -512,7 +512,7 @@ export default function CartForm({ newAdditions }: Props) {
                   </div>
                   <div className="md:grid grid-cols-2 items-center gap-3 border-borderGray py-5 justify-between ">
                     <p className="text-end font-semibold col-start-1 md:justify-self-start">
-                      Při objednání je splatných 5 % z celkové ceny
+                      Při objednání je splatných 10 % z celkové ceny
                     </p>
                     <div className="col-start-2 col-span-2">
                       <p className="text-end text-base md:font-semibold">

@@ -119,7 +119,7 @@ export default factories.createCoreController(
           line_items: invoiceItems,
           custom_text: {
             submit: {
-              message: `Tato částka se bere jako rezervační poplatek a bude odečtena od celkové částky. Zbylou sumu ${data.wholePriceAfterSale - data.payNowPrice} Kč doplatíte při přebrání techniky a zboží společně s vratnou zálohou.`,
+              message: `Tato částka se bere jako rezervační poplatek (10 %) a bude odečtena od celkové částky. Zbylou sumu ${data.wholePriceAfterSale - data.payNowPrice} Kč doplatíte při přebrání techniky a zboží společně s vratnou zálohou.`,
             },
           },
           invoice_creation: {
