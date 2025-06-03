@@ -38,7 +38,7 @@ export default function Categories() {
           subheading="Kategorie"
           heading="Prohlédněte si naši nabídku"
           firstText="Půjčujeme nářadí a stroje, se kterými snadno zvládnete péči o celý váš pozemek."
-          secondText="Všechna technika je samozřejmě pravidelně servisovaná. Pokud by přesto došlo k poruše, vybavení vám zdarma vyměníme."
+          secondText="Všechna technika je pravidelně servisovaná a podrží Vás v každém terénu."
         />
         <div className="grid md:grid-cols-2 w-full gap-10">
           <CategoryTab
@@ -68,8 +68,8 @@ export default function Categories() {
         </div>
         <CTAHorizontal
           image={"/grass.jpg"}
-          heading="SLEVA NA PRONÁJEM 5 % S KÓDEM GT2025"
-          text="Slevu pro Vás máme spuštěnou po celou sezónu."
+          heading="DOPRAVA PO CELÉ PRAZE A OKOLÍ ZDARMA"
+          text="Techniku k Vám zdarma dovezeme, vysvětlíme a po skončení se zase o vše postaráme."
           buttonText=""
           link="/"
         />

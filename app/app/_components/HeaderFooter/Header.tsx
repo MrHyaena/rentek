@@ -26,13 +26,10 @@ function DesktopHeader() {
       <div className=" w-full border-b border-borderGray fixed top-0 bg-white lg:block z-20 hidden">
         <div className="h-[40px] w-full border-b border-borderGray bg-zinc-50 flex justify-center px-10">
           <div className="max-w-wrapper w-full h-full  justify-between items-center hidden lg:flex lg:text-sm py-1">
-            <p className="">
-              Sleva 5 % s kódem <span className="font-semibold">GT2025</span>
-            </p>
             <div className="flex items-center gap-2">
               <FontAwesomeIcon icon={faPhone} className="text-zinc-700" />
               <p>
-                Zvedneme to vždy:{" "}
+                Zvedneme Vám to vždy:{" "}
                 <a href="tel:602606331" className="font-semibold">
                   +420 602 606 331
                 </a>
