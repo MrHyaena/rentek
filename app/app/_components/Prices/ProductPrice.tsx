@@ -10,28 +10,10 @@ type Props = {
 };
 
 export default function ProductPrice({ data }: Props) {
-  const { daterange } = useContext(DaterangeContext);
-  const [numberOfDays, setNumberOfDays] = useState<number>(1);
+  const { daterange, saleIndex, numberOfDays, setNumberOfDays } =
+    useContext(DaterangeContext);
 
   const price = Number(data.basePrice);
-  let saleIndex: number = 0;
-
-  if (numberOfDays == 1) {
-    saleIndex = 1;
-  } else if (numberOfDays <= 7) {
-    saleIndex = 0.9;
-  } else if (numberOfDays <= 21) {
-    saleIndex = 0.85;
-  } else if (numberOfDays > 21) {
-    saleIndex = 0.8;
-  }
-
-  useEffect(() => {
-    if (daterange.endIsValid && daterange.startIsValid) {
-      const days = differenceInDays(daterange.endDate, daterange.startDate);
-      setNumberOfDays(days + 1);
-    }
-  }, [daterange]);
 
   let tag: string = "den";
   if (numberOfDays == 1) {
@@ -60,7 +42,7 @@ export default function ProductPrice({ data }: Props) {
               {isValid() ? (
                 <>
                   <span className="text-xl font-semibold text-primary">
-                    {price * numberOfDays * saleIndex} Kč
+                    {price * saleIndex * numberOfDays} Kč
                   </span>{" "}
                   celkem za {numberOfDays} {tag} {"(vč. DPH)"}
                 </>

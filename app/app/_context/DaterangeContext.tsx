@@ -21,6 +21,7 @@ type DaterangeContextType = {
   setDaterange: any;
   saleIndex: number;
   numberOfDays: number;
+  setNumberOfDays: any;
 };
 
 type Props = {
@@ -37,6 +38,7 @@ export const DaterangeContext = createContext<DaterangeContextType>({
   setDaterange: () => {},
   saleIndex: 1,
   numberOfDays: 1,
+  setNumberOfDays: () => {},
 });
 
 export function DaterangeContextProvider({ children }: Props) {
@@ -60,23 +62,22 @@ export function DaterangeContextProvider({ children }: Props) {
       const dates = JSON.parse(data);
 
       if (new Date() < new Date(dates.startDate)) {
-        const daysRange = differenceInDays(dates.endDate, dates.startDate);
-        setNumberOfDays(daysRange);
+        const daysRange = differenceInDays(dates.endDate, dates.startDate) + 1;
 
         let newSaleIndex: number = 0;
 
-        if (numberOfDays == 1) {
-          newSaleIndex = 0;
-        } else if (numberOfDays <= 7) {
+        if (daysRange <= 1) {
+          newSaleIndex = 1;
+        } else if (daysRange <= 7) {
           newSaleIndex = 0.9;
-        } else if (numberOfDays <= 21) {
-          newSaleIndex = 0.85;
-        } else if (numberOfDays > 21) {
+        } else if (daysRange <= 21) {
           newSaleIndex = 0.8;
+        } else if (daysRange > 21) {
+          newSaleIndex = 0.85;
         }
 
         setSaleIndex(newSaleIndex);
-
+        setNumberOfDays(daysRange);
         setDaterange({
           startDate: dates.startDate,
           endDate: dates.endDate,
@@ -94,26 +95,31 @@ export function DaterangeContextProvider({ children }: Props) {
   useEffect(() => {
     const daysRange =
       differenceInDays(daterange.endDate, daterange.startDate) + 1;
-    setNumberOfDays(daysRange);
 
-    let newSaleIndex: number = 0;
-
-    if (numberOfDays == 1) {
-      newSaleIndex = 0;
-    } else if (numberOfDays <= 7) {
+    let newSaleIndex: number = 1;
+    if (daysRange <= 1) {
+      newSaleIndex = 1;
+    } else if (daysRange <= 7) {
       newSaleIndex = 0.9;
-    } else if (numberOfDays <= 21) {
+    } else if (daysRange <= 21) {
       newSaleIndex = 0.8;
-    } else if (numberOfDays > 21) {
-      newSaleIndex = 0.75;
+    } else if (daysRange > 21) {
+      newSaleIndex = 0.85;
     }
 
+    setNumberOfDays(daysRange);
     setSaleIndex(newSaleIndex);
   }, [daterange]);
 
   return (
     <DaterangeContext.Provider
-      value={{ daterange, setDaterange, saleIndex, numberOfDays }}
+      value={{
+        daterange,
+        setDaterange,
+        saleIndex,
+        numberOfDays,
+        setNumberOfDays,
+      }}
     >
       {children}
     </DaterangeContext.Provider>

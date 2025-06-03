@@ -51,7 +51,8 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
   const [rangeIsValid, setRangeIsValid] = useState(false);
 
-  const { daterange, setDaterange } = useContext(DaterangeContext);
+  const { daterange, setDaterange, numberOfDays } =
+    useContext(DaterangeContext);
 
   //changing focus
   useEffect(() => {
@@ -123,10 +124,14 @@ export default function DatepickerToggle({ setToggle }: Props) {
   //Pick a date when clicking on date
   function pickDate(index: any) {
     const newDate = new Date(currentYear, currentMonth, index + 1);
+    const endDate = new Date(daterange.endDate);
+    const startDate = new Date(daterange.startDate);
 
     //First date rules
     if (fieldPick == 1) {
-      if (newDate > daterange.endDate) {
+      if (newDate > endDate) {
+        console.log("něco");
+
         localStorage.setItem(
           "daterange",
           JSON.stringify({
@@ -145,14 +150,16 @@ export default function DatepickerToggle({ setToggle }: Props) {
         });
 
         setFieldPick(2);
-      } else if (newDate < daterange.endDate) {
+      } else if (newDate <= endDate) {
+        console.log("něco");
+
         localStorage.setItem(
           "daterange",
           JSON.stringify({
             startDate: newDate,
             endDate: daterange.endDate,
             startIsValid: false,
-            endIsValid: false,
+            endIsValid: daterange.endIsValid,
           })
         );
 
@@ -160,7 +167,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
           startDate: newDate,
           endDate: daterange.endDate,
           startIsValid: false,
-          endIsValid: false,
+          endIsValid: daterange.endIsValid,
         });
 
         setFieldPick(2);
@@ -174,7 +181,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
       }
 
       if (daterange.startDate !== null) {
-        if (newDate >= daterange.startDate) {
+        if (newDate >= startDate) {
           setDaterange({
             startDate: daterange.startDate,
             endDate: newDate,
@@ -193,7 +200,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
           );
 
           setFieldPick(1);
-        } else if (newDate < daterange.startDate) {
+        } else if (newDate < startDate) {
           setDaterange({
             startDate: newDate,
             endDate: new Date(),
@@ -383,7 +390,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
       );
 
       const json = await response.json();
-      console.log(json);
       const data: any[] = json.data;
 
       const deliveryTimesArray: Date[] = [];
@@ -604,6 +610,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
                       {format(daterange.endDate, "dd.MM.yyyy HH:mm")}
                     </span>
                   </p>
+                  <p>Počet dní: {numberOfDays}</p>
                 </>
               )}
               {!daterange.startIsValid && (

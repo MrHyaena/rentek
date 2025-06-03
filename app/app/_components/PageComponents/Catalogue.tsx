@@ -267,9 +267,7 @@ export default function Catalogue({ items }: Props) {
               if (checkedArray.length > 0) {
                 checkedState = true;
               }
-              console.log(items);
 
-              console.log(inputGroup);
               return (
                 <div
                   key={item.name + "uses"}
