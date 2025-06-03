@@ -13,6 +13,7 @@ import Link from "next/link";
 import { BsStars, BsTools } from "react-icons/bs";
 import { FaTools } from "react-icons/fa";
 import { FaToolbox } from "react-icons/fa6";
+import Availability from "./Availability";
 type ProductProps = {
   key: any;
   item: {
@@ -72,9 +73,7 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
             <p className="text-xl font-semibold text-textPrimary">
               {item.name}
             </p>
-            <p className="bg-primaryHover text-white px-2 py-1 rounded-md font-semibold text-sm">
-              Dostupné
-            </p>
+            <Availability data={item} />
           </div>
           <p className="text-textSecondary">{shortenedDescription}</p>
         </div>

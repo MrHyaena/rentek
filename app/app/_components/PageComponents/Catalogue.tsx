@@ -61,6 +61,8 @@ export default function Catalogue({ items }: Props) {
   const [usesInput, setUsesInput] = useState<any[]>([]);
   const [uses, setUses] = useState<any>({ data: [] });
 
+  const [orders, setOrders] = useState<any>([]);
+
   const [filtrToggle, setFiltrToggle] = useState<boolean>(false);
 
   useEffect(() => {
