@@ -12,6 +12,7 @@ import DatepickerBig from "../Datepickers/DatepickerBig";
 import arraySort from "array-sort";
 import DatepickerSmall from "../Datepickers/DatepickerSmall";
 import { permanentRedirect, redirect } from "next/navigation";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 type Props = {
   newAdditions: any[];
@@ -308,6 +309,8 @@ export default function CartForm({ newAdditions }: Props) {
       const json = await stripeResponse.json();
       const url = json.url;
       console.log(url);
+      sendGTMEvent({ event: "order_created", value: "xyz" });
+
       window.location.href = url;
     }
   }
