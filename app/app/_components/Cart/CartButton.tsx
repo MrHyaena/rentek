@@ -20,7 +20,7 @@ export default function CartButton() {
     <>
       <Link href="/kosik" className="relative flex items-center">
         <FaCartShopping className="text-primary md:text-2xl text-xl" />
-        <p className="bg-tertiary text-white font-semibold text-[11px] rounded-full flex items-center justify-center md:w-6 md:h-6 md:text-sm w-5 h-5 relative top-[-15px] left-[-5px]">
+        <p className="bg-primaryHover text-white font-semibold text-[11px] rounded-full flex items-center justify-center md:w-6 md:h-6 md:text-sm w-5 h-5 relative top-[-15px] left-[-5px]">
           {length}
         </p>
       </Link>
