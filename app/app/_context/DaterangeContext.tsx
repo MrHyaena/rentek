@@ -69,11 +69,11 @@ export function DaterangeContextProvider({ children }: Props) {
         if (daysRange <= 1) {
           newSaleIndex = 1;
         } else if (daysRange <= 7) {
-          newSaleIndex = 0.9;
+          newSaleIndex = 0.95;
         } else if (daysRange <= 21) {
-          newSaleIndex = 0.8;
+          newSaleIndex = 0.9;
         } else if (daysRange > 21) {
-          newSaleIndex = 0.75;
+          newSaleIndex = 0.85;
         }
 
         setSaleIndex(newSaleIndex);

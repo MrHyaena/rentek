@@ -25,6 +25,8 @@ export default function CartForm({ newAdditions }: Props) {
   const [priceDetailsToggle, setPriceDetailsToggle] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [additionsToggle, setAdditionsToggle] = useState<boolean>(false);
+
   useEffect(() => {
     const localAdditions = localStorage.getItem("additionsCart");
     if (localAdditions != null) {
@@ -55,7 +57,7 @@ export default function CartForm({ newAdditions }: Props) {
   cart.map((item) => {
     rentalPrice = rentalPrice + item.item.basePrice * numberOfDays * item.count;
 
-    wholeDeposit = wholeDeposit + item.item.deposit * 1;
+    wholeDeposit = wholeDeposit + item.item.deposit * item.count;
   });
   const wholePrice: number = rentalPrice + wholeProductPrice;
 
@@ -325,6 +327,9 @@ export default function CartForm({ newAdditions }: Props) {
           </div>
           <div className="mt-10 w-full max-w-wrapper border md:p-5 p-2 rounded-lg border-borderGray">
             <div className="grid grid-cols-[2fr_1fr] items-start gap-3 border-borderGray py-5 justify-between">
+              <div className="col-span-3 flex flex-col gap-2 md:gap-0 mb-5">
+                <h5 className="text-xl mb-2">Váš košík</h5>
+              </div>
               <p className="text-end font-semibold col-start-1 justify-self-start">
                 Technika
               </p>
@@ -347,38 +352,52 @@ export default function CartForm({ newAdditions }: Props) {
                 }
               })}
             </div>
-            {newAdditions.length > 0 && (
-              <div className="grid grid-cols-2 border-b items-center gap-3 border-borderGray py-5 justify-between border md:p-10 p-2 rounded-lg mt-10 ">
-                <div className="col-span-3 flex flex-col gap-2 md:gap-0">
-                  <h5 className="text-xl font-semibold mb-2">
-                    Doplňkové jednorázové produkty
-                  </h5>
-                  <p className="text-start col-start-1 justify-self-start">
-                    Klienti u nás často objednávají i následující produkty.
+          </div>
+          {newAdditions.length > 0 && (
+            <div className="mt-10 w-full max-w-wrapper border md:p-5 p-2 rounded-lg border-borderGray bg-gray-50">
+              <div className="flex md:flex-row flex-col  md:justify-between md:items-center md:gap-5">
+                <div className="col-span-3 flex flex-col gap-2 md:gap-0 mb-5">
+                  <h5 className="text-xl mb-2">Ochranné pomůcky a doplňky</h5>
+                  <p className="text-start col-start-1 justify-self-start text-sm">
+                    Zákazníci u nás často objednávají i následující zboží.
                     Všechny tyto produkty vám již po nákupu zůstanou.
                   </p>
-                  <p className="text-primaryHover font-semibold">
+                  <p className="text-primaryHover font-semibold text-sm">
                     Na tento typ zboží se slevy neuplatňují.
                   </p>
                 </div>
-                <p className="font-semibold hidden md:block">Produkty</p>
-                <p className="text-end text-base font-semibold hidden md:block">
-                  Jednotková cena {"(vč. DPH)"}
-                </p>
-                <div className="col-start-2 col-span-2"></div>
-                <div className="grid gap-3 col-span-3">
-                  {additions.map((product) => {
-                    return (
-                      <AdditionsTab
-                        product={product}
-                        key={"cartAdditionsTab" + product.item.name}
-                      />
-                    );
-                  })}
-                </div>
+                <button
+                  onClick={() => {
+                    setAdditionsToggle(!additionsToggle);
+                  }}
+                  className="buttonSmall"
+                >
+                  {additionsToggle ? "Zavřít" : "Ukázat"}
+                </button>
               </div>
-            )}
-          </div>
+              {additionsToggle && (
+                <>
+                  <div className="flex justify-between py-5">
+                    <p className="font-semibold hidden md:block">Produkty</p>
+                    <p className="text-end text-base font-semibold hidden md:block">
+                      Jednotková cena {"(vč. DPH)"}
+                    </p>
+                  </div>
+                  <div className="col-start-2 col-span-2"></div>
+                  <div className="grid gap-3 col-span-3">
+                    {additions.map((product) => {
+                      return (
+                        <AdditionsTab
+                          product={product}
+                          key={"cartAdditionsTab" + product.item.name}
+                        />
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
           <div className="mt-10 w-full max-w-wrapper">
             <div className="hidden md:block">
               <DatepickerBig />
