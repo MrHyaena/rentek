@@ -21,7 +21,7 @@ import {
 } from "react-icons/fa6";
 import { MdElectricBolt, MdLocalGasStation } from "react-icons/md";
 import { GiGrass, GiHighGrass } from "react-icons/gi";
-let arraySort = require("array-sort");
+import arraySort from "array-sort";
 
 type Props = {
   items: any;
