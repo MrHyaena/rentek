@@ -82,7 +82,7 @@ export default factories.createCoreController(
                 data.saleIndex *
                 100 *
                 data.numberOfDays *
-                0.05,
+                0.1,
             },
             quantity: item.count,
           };
@@ -100,7 +100,7 @@ export default factories.createCoreController(
                   "Jednorázový produkt (rezervační poplatek): " +
                   item.item.name,
               },
-              unit_amount: item.item.basePrice * 100 * 0.05,
+              unit_amount: item.item.basePrice * 100 * 0.1,
             },
             quantity: item.count,
           };
