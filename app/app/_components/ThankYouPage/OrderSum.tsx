@@ -25,6 +25,9 @@ export default function OrderSum({}: Props) {
         {
           method: "GET",
           mode: "cors",
+          next: {
+            revalidate: 20,
+          },
         }
       );
       const json = await orderResponse.json();
@@ -58,6 +61,9 @@ export default function OrderSum({}: Props) {
       {
         method: "GET",
         mode: "cors",
+        next: {
+          revalidate: 20,
+        },
       }
     );
 

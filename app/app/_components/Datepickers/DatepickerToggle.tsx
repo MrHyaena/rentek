@@ -386,6 +386,9 @@ export default function DatepickerToggle({ setToggle }: Props) {
         {
           method: "GET",
           mode: "cors",
+          next: {
+            revalidate: 20,
+          },
         }
       );
 

@@ -73,6 +73,9 @@ export default function Catalogue({ items }: Props) {
         {
           method: "GET",
           mode: "cors",
+          next: {
+            revalidate: 20,
+          },
         }
       );
 
@@ -82,6 +85,9 @@ export default function Catalogue({ items }: Props) {
       const engineType = await fetch(process.env.STRAPI + `/api/engine-types`, {
         method: "GET",
         mode: "cors",
+        next: {
+          revalidate: 20,
+        },
       });
       const jsonEngine = await engineType.json();
       setEngineType(jsonEngine);
@@ -89,6 +95,9 @@ export default function Catalogue({ items }: Props) {
       const uses = await fetch(process.env.STRAPI + `/api/uses`, {
         method: "GET",
         mode: "cors",
+        next: {
+          revalidate: 20,
+        },
       });
 
       const jsonUses = await uses.json();
@@ -175,6 +184,9 @@ export default function Catalogue({ items }: Props) {
       {
         method: "GET",
         mode: "cors",
+        next: {
+          revalidate: 20,
+        },
       }
     );
     const json = await response.json();

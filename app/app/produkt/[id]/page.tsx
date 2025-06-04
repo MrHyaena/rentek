@@ -23,6 +23,9 @@ export async function generateMetadata({
   const response = await fetch(`${process.env.STRAPI}/api/items/${id}`, {
     method: "GET",
     mode: "cors",
+    next: {
+      revalidate: 20,
+    },
   });
 
   const json = await response.json();
@@ -48,6 +51,9 @@ export default async function Page({
       {
         method: "GET",
         mode: "cors",
+        next: {
+          revalidate: 20,
+        },
       }
     );
 

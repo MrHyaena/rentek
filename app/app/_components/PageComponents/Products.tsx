@@ -17,6 +17,9 @@ export default function Products() {
         {
           method: "GET",
           mode: "cors",
+          next: {
+            revalidate: 20,
+          },
         }
       );
 
