@@ -11,7 +11,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Rentek: Půjčovna zahradní techniky",
   description:
-    "Půjčovna zahradní techniky Rentek. Kvalitní sekačky, vertikulátory a další nářadí k zapůjčení. Rychlá online rezervace, výhodné ceny, doručení po Praze a okolí zdarma.",
+    "Půjčovna zahradní techniky. Kvalitní sekačky, vertikulátory a další nářadí k zapůjčení. Rychlá online rezervace, výhodné ceny, dovoz po Praze a okolí zdarma.",
 };
 
 export default async function Home() {
@@ -26,7 +26,7 @@ export default async function Home() {
           image="/handshake.png"
           subheading="Služba až ke dveřím"
           heading="Jak to u nás funguje?"
-          textOne="Zakládáme si zejména na skvělé zákaznické péči a jednoduchosti. Všechno zboží, které si u nás objednáte, Vám dovezeme až domů. Společně s předáním Vám vysvětlíme obsluhu a nakonci půjčky pro vše zase přijedeme."
+          textOne="Naše půjčovna si zakládá především na skvělé zákaznické péči a jednoduchosti. Všechno zboží, které si u nás objednáte, Vám dovezeme až domů. Společně s předáním Vám vysvětlíme obsluhu a nakonci půjčky pro vše zase přijedeme."
           textTwo="Celá objednávka je také plně transparentní, takže předem znáte částku, zálohu a zbylé důležité informace."
           textThree=""
           colStart={1}
