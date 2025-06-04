@@ -57,7 +57,10 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
 
   return (
     <div className="md:grid md:grid-cols-[250px_1fr] shrink-0">
-      <div className="md:rounded-l-xl md:rounded-t-none rounded-t-xl border-t border-l border-r md:border-r-0 md:border-b border-borderGray overflow-hidden flex items-center justify-center p-7">
+      <Link
+        href={process.env.WEBSITE + `/produkt/${item.documentId}`}
+        className="md:rounded-l-xl md:rounded-t-none rounded-t-xl border-t border-l border-r md:border-r-0 md:border-b border-borderGray overflow-hidden flex items-center justify-center p-7"
+      >
         {" "}
         <Image
           src={item.coverImage.formats.small.url}
@@ -66,9 +69,9 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
           width={400}
           className=""
         />
-      </div>
+      </Link>
       <div className="border-y md:border-r border-x md:rounded-l-none md:rounded-r-xl rounded-b-xl p-5 flex flex-col gap-5 border-borderGray justify-between">
-        <div>
+        <Link href={process.env.WEBSITE + `/produkt/${item.documentId}`}>
           <div className="flex sm:flex-row flex-col-reverse sm:items-center items-start sm:gap-4 gap-2 mb-2">
             <p className="text-xl font-semibold text-textPrimary">
               {item.name}
@@ -76,7 +79,7 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
             <Availability data={item} />
           </div>
           <p className="text-textSecondary">{shortenedDescription}</p>
-        </div>
+        </Link>
         {item.accessories.length > 0 && (
           <div className="flex gap-2 flex-wrap">
             <div className="flex gap-1 items-center">

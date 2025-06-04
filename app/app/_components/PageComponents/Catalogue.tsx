@@ -211,6 +211,9 @@ export default function Catalogue({ items }: Props) {
         <>
           <div key={"filtrKategorie"} className="flex flex-col gap-3">
             {newArray.map((item: any) => {
+              const subcategoriesArray = item.subcategories;
+              arraySort(subcategoriesArray, "position");
+
               return (
                 <div key={item.name + "kategorie"}>
                   <div className=" flex items-center gap-2">
@@ -229,7 +232,7 @@ export default function Catalogue({ items }: Props) {
                     <p className="font-semibold">{item.name}</p>
                   </div>
                   <div className="pl-5 ml-[6px] border-l border-borderGray">
-                    {item.subcategories.map((subcategory: any) => {
+                    {subcategoriesArray.map((subcategory: any) => {
                       let checkedState = false;
                       const checkedArray = subcategories.filter(
                         (documentId: string) =>

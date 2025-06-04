@@ -18,9 +18,9 @@ export default function Footer({}: Props) {
           />
           <p className="text-textSecondary text-sm">
             Půjčujeme kvalitní zahradní stroje a nářadí na krátkodobé i
-            dlouhodobé použití. Dovezeme Vám jej až k domu, vysvětlíme obsluhu a
-            po skončení zápůjčky vše opět vyzvedneme. Férové jednání a
-            prvotřídní zákaznický servis jsou pro nás samozřejmostí.
+            dlouhodobé použití. Dovezeme Vám techniku až k domu, vysvětlíme
+            obsluhu a po skončení zápůjčky vše opět vyzvedneme. Férové jednání a
+            prvotřídní zákaznický servis jsou pro nás základ.
           </p>
         </div>
         <div className="flex flex-col gap-3">
