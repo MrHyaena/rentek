@@ -23,19 +23,22 @@ export default function ProductTab({ product }: ProductProps) {
 
   return (
     <div className=" max-w-[340px] shrink-0">
-      <div className="aspect-square flex items-center justify-center border border-borderGray rounded-t-xl">
+      <Link
+        href={`${process.env.WEBSITE}/produkt/${item.documentId}`}
+        className="aspect-square flex items-center justify-center border border-borderGray rounded-t-xl"
+      >
         <Image
           src={item.coverImage.formats.small.url}
           alt={item.name}
           height={300}
           width={300}
         />
-      </div>
+      </Link>
       <div className="border-x border-b rounded-b-xl p-5 flex flex-col gap-5 border-borderGray">
-        <div>
+        <Link href={`${process.env.WEBSITE}/produkt/${item.documentId}`}>
           <h5>{item.name}</h5>
           <p>{shortenedDescription}</p>
-        </div>
+        </Link>
         <div className="flex flex-col items-stretch gap-2">
           <p className="text-lg text-textSecondary">
             Od <span className="text-primary">{item.basePrice} Kč</span> za den

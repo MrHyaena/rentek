@@ -4,7 +4,8 @@
   "info": {
     "singularName": "timeslot",
     "pluralName": "timeslots",
-    "displayName": "Timeslot"
+    "displayName": "Timeslot",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -18,6 +19,9 @@
     },
     "pickup": {
       "type": "datetime"
+    },
+    "products": {
+      "type": "json"
     }
   }
 }

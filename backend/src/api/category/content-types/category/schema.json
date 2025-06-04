@@ -25,6 +25,9 @@
       "relation": "oneToMany",
       "target": "api::subcategory.subcategory",
       "mappedBy": "category"
+    },
+    "position": {
+      "type": "integer"
     }
   }
 }

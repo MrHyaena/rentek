@@ -47,16 +47,16 @@ export default function IconsColumns() {
       </div>
       <div className="flex flex-col items-center justify-start text-center">
         <FaHandshake className="text-4xl text-primary mb-4" />
-        <h5 className="">Prvotřídní zákaznický servis</h5>
+        <h5 className="">Prvotřídní zákaznická péče</h5>
         <p className="text-lg text-textSecondary">
           Každý problém se dá vyřešit lidsky a férově
         </p>
       </div>
       <div className="flex flex-col items-center justify-start text-center">
         <HiViewGridAdd className="text-4xl text-primary mb-4" />
-        <h5 className="">Plnohodnotný servis v ceně</h5>
+        <h5 className="">Můžete rovnou začít</h5>
         <p className="text-lg text-textSecondary">
-          Servisované vybavení, plná nádrž, instruktáž a ochranné pomůcky
+          Servisované vybavení, plná nádrž, instruktáž a doplňky zdarma
         </p>
       </div>
     </div>

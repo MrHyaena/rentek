@@ -38,7 +38,7 @@ export default function Categories() {
           subheading="Kategorie"
           heading="Prohlédněte si naši nabídku"
           firstText="Půjčujeme nářadí a stroje, se kterými snadno zvládnete péči o celý váš pozemek."
-          secondText="Všechna technika je pravidelně servisovaná a podrží Vás v každém terénu."
+          secondText="Všechna technika je pravidelně servisovaná a podrží Vás v jakémkoliv terénu."
         />
         <div className="grid md:grid-cols-2 w-full gap-10">
           <CategoryTab

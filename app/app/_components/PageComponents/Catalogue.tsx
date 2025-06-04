@@ -21,6 +21,7 @@ import {
 } from "react-icons/fa6";
 import { MdElectricBolt, MdLocalGasStation } from "react-icons/md";
 import { GiGrass, GiHighGrass } from "react-icons/gi";
+let arraySort = require("array-sort");
 
 type Props = {
   items: any;
@@ -191,10 +192,12 @@ export default function Catalogue({ items }: Props) {
 
   function ListCategories({ json }: { json: any }) {
     if (json.data.length > 0) {
+      const newArray = arraySort(json.data, "position");
+
       return (
         <>
           <div key={"filtrKategorie"} className="flex flex-col gap-3">
-            {json.data.map((item: any) => {
+            {newArray.map((item: any) => {
               return (
                 <div key={item.name + "kategorie"}>
                   <div className=" flex items-center gap-2">

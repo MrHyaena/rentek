@@ -28,7 +28,7 @@ export default async function Home() {
           heading="Jak to u nás funguje?"
           textOne="Zakládáme si zejména na skvělé zákaznické péči a jednoduchosti. Všechno zboží, které si u nás objednáte, Vám dovezeme až domů. Společně s předáním Vám vysvětlíme obsluhu a nakonci půjčky pro vše zase přijedeme."
           textTwo="Celá objednávka je také plně transparentní, takže předem znáte částku, zálohu a zbylé důležité informace."
-          textThree="Zakládáme si ale také na skvělé zákaznické péči. Ke každé objednávce proto dostanete instruktáž, plnou nádrž, a pro případ s sebou vozíme i ochranné pomůcky, které se vždy hodí."
+          textThree=""
           colStart={1}
           id="jaktofunguje"
         />
@@ -37,8 +37,8 @@ export default async function Home() {
           subheading="Seznamte se s námi"
           heading="Kdo jsme?"
           textOne="Jsme rodinná firma, kterou nebaví korporátní fungování. Nohama stojíme pevně na zemi a věříme především ve férové jednání. Na trh jsme vstoupili s tím, že chceme propojit profesionální službu, lidský přístup a technologie."
-          textTwo="O všechny naše stroje pečujeme s maximální láskou. Můžete proto očekávat jen prvotřídní vybavení, které Vás podrží i v tom nejhorším terénu."
-          textThree="Zakládáme si ale také na skvělé zákaznické péči. Ke každé objednávce proto dostanete instruktáž, plnou nádrž, a pro případ s sebou vozíme i ochranné pomůcky, které se vždy hodí."
+          textTwo="O všechny naše stroje pečujeme s maximální láskou. Můžete proto očekávat jen prvotřídní vybavení, se kterým zvládnete jakoukoliv práci."
+          textThree=""
           colStart={2}
           id="secondImageText"
         />
