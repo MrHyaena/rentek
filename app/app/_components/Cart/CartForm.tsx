@@ -351,7 +351,7 @@ export default function CartForm({ newAdditions }: Props) {
               <div className="grid grid-cols-2 border-b items-center gap-3 border-borderGray py-5 justify-between border md:p-10 p-2 rounded-lg mt-10 ">
                 <div className="col-span-3 flex flex-col gap-2 md:gap-0">
                   <h5 className="text-xl font-semibold mb-2">
-                    Doplňkové produkty
+                    Doplňkové jednorázové produkty
                   </h5>
                   <p className="text-start col-start-1 justify-self-start">
                     Klienti u nás často objednávají i následující produkty.

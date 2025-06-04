@@ -141,6 +141,10 @@
       "relation": "manyToMany",
       "target": "api::brand.brand",
       "inversedBy": "items"
+    },
+    "position": {
+      "type": "integer",
+      "default": 1
     }
   }
 }

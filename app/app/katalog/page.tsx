@@ -3,6 +3,7 @@ import React from "react";
 import Catalogue from "../_components/PageComponents/Catalogue";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
+import arraySort from "array-sort";
 
 export const metadata: Metadata = {
   title: "Katalog techniky",
@@ -43,6 +44,8 @@ export default async function page() {
         ...item,
       });
     });
+
+    await arraySort(itemsArray, "position");
 
     return itemsArray;
   }
