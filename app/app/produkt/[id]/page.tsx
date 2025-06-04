@@ -12,6 +12,7 @@ import AddToCartButton from "@/app/_components/Cart/AddToCartButton";
 import ProductSpecsProduct from "@/app/_components/Products/ProductSpecsProduct";
 import { Metadata } from "next";
 import Head from "next/head";
+import Link from "next/link";
 
 export async function generateMetadata({
   params,
@@ -129,7 +130,15 @@ export default async function Page({
             </div>
             <div className="text-center flex flex-col gap-2 border p-5 rounded-lg border-borderGray">
               <ProductPrice data={data} />
-              <AddToCartButton data={data} />
+              <div className="w-full grid grid-cols-2 gap-2">
+                <AddToCartButton data={data} />
+                <Link
+                  href={"/kosik"}
+                  className="bg-white px-3 py-2 md:text-lg text-base font-semibold border-2 border-zinc-300 rounded-md text-textSecondary cursor-pointer hover:bg-zinc-50 transition-all ease-in-out;"
+                >
+                  Přejít do košíku
+                </Link>
+              </div>
               {data.pricingType == "rental" && <DatepickerSmall />}
             </div>
 

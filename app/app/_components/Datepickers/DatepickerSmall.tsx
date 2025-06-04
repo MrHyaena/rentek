@@ -33,7 +33,7 @@ export default function DatepickerSmall() {
             setToggle(true);
           }}
         >
-          <div className="flex gap-3 items-center justify-start w-full">
+          <div className="flex gap-3 items-center justify-center w-full">
             {isValid() ? (
               <>
                 <FontAwesomeIcon icon={faCalendar} className="text-2xl" />

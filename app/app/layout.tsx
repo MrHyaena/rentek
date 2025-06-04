@@ -8,6 +8,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import Providers from "./_providers/Providers";
 import Footer from "./_components/HeaderFooter/Footer";
 import Script from "next/script";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -35,6 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleTagManager gtmId="AW-16899008701" />
       <body className={`${montserrat.className} antialiased`}>
         <Providers>
           <Header />
