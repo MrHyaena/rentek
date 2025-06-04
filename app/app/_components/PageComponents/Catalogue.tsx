@@ -194,6 +194,7 @@ export default function Catalogue({ items }: Props) {
     if (response.ok) {
       console.log(json.data);
       window.scrollTo({ top: 0, behavior: "smooth" });
+      const sortedArray = await arraySort(json.data, "position");
       setData(json.data);
     }
 
@@ -240,7 +241,7 @@ export default function Catalogue({ items }: Props) {
                       return (
                         <label
                           key={subcategory.name + "subkategorie"}
-                          className="flex gap-2 items-center cursor-pointer"
+                          className="flex gap-2 items-center cursor-pointer hover:text-primaryHover"
                         >
                           <input
                             type="checkbox"
