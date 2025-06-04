@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="AW-16899008701" />
+      <GoogleTagManager gtmId="GTM-PN98TZ43" />
       <body className={`${montserrat.className} antialiased`}>
         <Providers>
           <Header />
