@@ -300,6 +300,11 @@ export default factories.createCoreController(
           activityDeliveryBody
         );
 
+        console.log({
+          message: "pipedrive delivery",
+          pipedriveActivityDelivery,
+        });
+
         if (pipedriveActivityDelivery.success != true) {
           throw Error(pipedriveActivityDelivery.error);
         }
@@ -332,6 +337,8 @@ export default factories.createCoreController(
           "POST",
           activityPickupBody
         );
+
+        console.log({ message: "pipedrive pickup", pipedriveActivityPickup });
 
         if (pipedriveActivityPickup.success != true) {
           throw Error(pipedriveActivityPickup.error);
@@ -366,6 +373,7 @@ export default factories.createCoreController(
             }),
           }
         );
+
         console.log({ message: "email response", emailResponse });
       } catch (error) {
         console.log(error);
