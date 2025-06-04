@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     default: "Rentek: Půjčovna zahradní techniky",
   },
   description:
-    "Půjčovna zahradní techniky Rentek. Kvalitní sekačky, vertikulátory, nužky na plot a další nářadí k zapůjčení. Rychlá online rezervace, výhodné ceny.",
+    "Půjčovna zahradní techniky Rentek. Kvalitní sekačky, vertikulátory a další nářadí k zapůjčení. Rychlá online rezervace, výhodné ceny, doručení po Praze a okolí zdarma.",
 };
 
 export default function RootLayout({
