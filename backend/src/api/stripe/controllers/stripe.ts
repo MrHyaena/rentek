@@ -385,7 +385,7 @@ export default factories.createCoreController(
               accept: "application/json",
             },
             body: JSON.stringify({
-              sender: "Rentek <info@rentek.cz>",
+              sender: "Rentek <admin@rentek.cz>",
               to: ["admin@rentek.cz"],
               subject: "Někdo si objednal techniku",
               html_body: "<h1>Techniku</h1>",
