@@ -386,10 +386,10 @@ export default factories.createCoreController(
             },
             body: JSON.stringify({
               sender: "Rentek <info@rentek.cz>",
-              to: "admin@rentek.cz",
-              subject: "Vaše objednávka",
-              html_body: "<h1>Objednávka</h1>",
-              text_body: "Objednávka",
+              to: ["admin@rentek.cz"],
+              subject: "Někdo si objednal techniku",
+              html_body: "<h1>Techniku</h1>",
+              text_body: "Techniku",
               version: 1,
               template_id: "9139535",
               template_data: {
