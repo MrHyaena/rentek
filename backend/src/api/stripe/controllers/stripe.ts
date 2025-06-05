@@ -359,8 +359,34 @@ export default factories.createCoreController(
               accept: "application/json",
             },
             body: JSON.stringify({
-              sender: "Grasston <info@shopr.cz>",
+              sender: "Rentek <admin@rentek.cz>",
               to: [orderInformation.contact.email],
+              subject: "Vaše objednávka",
+              html_body: "<h1>Objednávka</h1>",
+              text_body: "Objednávka",
+              version: 1,
+              template_id: "9139535",
+              template_data: {
+                url: `${process.env.API_WEB}/objednavka?orderid=${json.data.documentId}`,
+                orderid: `${json.data.documentId}`,
+              },
+            }),
+          }
+        );
+
+        const emailAdminResponse = await fetch(
+          "https://eu-api.smtp2go.com/v3/email/send",
+          {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Smtp2go-Api-Key": process.env.SMTP_API_KEY,
+              accept: "application/json",
+            },
+            body: JSON.stringify({
+              sender: "Rentek <info@rentek.cz>",
+              to: "admin@rentek.cz",
               subject: "Vaše objednávka",
               html_body: "<h1>Objednávka</h1>",
               text_body: "Objednávka",
