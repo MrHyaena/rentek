@@ -401,6 +401,7 @@ export default factories.createCoreController(
         );
 
         console.log({ message: "email response", emailResponse });
+        console.log({ message: "email order", emailAdminResponse });
       } catch (error) {
         console.log(error);
       }
