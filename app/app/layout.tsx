@@ -36,6 +36,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script
+        id="Cookiebot"
+        src="https://consent.cookiebot.com/uc.js"
+        data-cbid="0db73977-b2f2-4fda-a24e-2a08bdee8b21"
+        type="text/javascript"
+      ></Script>
       <GoogleTagManager gtmId="GTM-PN98TZ43" />
       <body className={`${montserrat.className} antialiased`}>
         <Providers>
