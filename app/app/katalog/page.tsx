@@ -4,6 +4,7 @@ import Catalogue from "../_components/PageComponents/Catalogue";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import arraySort from "array-sort";
+import * as qs from "qs";
 
 export const metadata: Metadata = {
   title: "Katalog techniky",
@@ -11,22 +12,53 @@ export const metadata: Metadata = {
     "Prohlédněte si kompletní katalog zahradní techniky k zapůjčení. Široký výběr, férové ceny a snadná rezervace online. Vše pro vaši zahradu.",
 };
 
-export default async function page() {
+export default async function page({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    [key: string]: string | string | string[] | undefined;
+  }>;
+}) {
   async function GetItems() {
     let response: any;
 
-    try {
-      response = await fetch(
+    const { subcategory } = await searchParams;
+    console.log(subcategory);
+
+    let url =
+      process.env.STRAPI +
+      `/api/items/?populate=*&filters[pricingType][$eq]=rental`;
+
+    if (subcategory != undefined) {
+      const query = await {
+        filters: {
+          $and: [
+            { pricingType: { $eq: "rental" } },
+            {
+              subcategories: {
+                documentId: { $eq: subcategory },
+              },
+            },
+          ],
+        },
+      };
+      url =
         process.env.STRAPI +
-          "/api/items/?populate=*&filters[pricingType][$eq]=rental",
-        {
-          method: "GET",
-          mode: "cors",
-          next: {
-            revalidate: 10,
-          },
-        }
-      );
+        `/api/items/?populate=*&${qs.stringify(query, {
+          encodeValuesOnly: true,
+        })}`;
+    }
+
+    console.log(url);
+
+    try {
+      response = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        next: {
+          revalidate: 10,
+        },
+      });
 
       if (!response.ok) {
         throw Error("Failed fetch (catalogue)");
