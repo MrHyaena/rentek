@@ -156,15 +156,15 @@ export default async function Page({
                   </div>
                   <div className="grid grid-cols-2 justify-items-center p-2">
                     <p>2 - 7 dní</p>
-                    <p className="font-semibold">10 %</p>
+                    <p className="font-semibold">5 %</p>
                   </div>
                   <div className="grid grid-cols-2 justify-items-center p-2 border-y border-borderGray">
                     <p>8 - 21 dní</p>
-                    <p className="font-semibold">20 %</p>
+                    <p className="font-semibold">10 %</p>
                   </div>
                   <div className="grid grid-cols-2 justify-items-center p-2">
                     <p>22 a více dní</p>
-                    <p className="font-semibold">25 %</p>
+                    <p className="font-semibold">15 %</p>
                   </div>
                 </div>
                 <p className="text-sm text-start mt-3">
