@@ -95,14 +95,10 @@ function MobileHeader() {
   return (
     <>
       <div className=" w-full border-b border-borderGray fixed top-0 z-20 lg:hidden">
-        <div className="h-[40px] w-full border-b border-borderGray bg-zinc-50 flex justify-center px-10">
+        <div className="h-[40px] w-full border-b border-borderGray bg-zinc-50 flex justify-center px-5">
           <div className="max-w-wrapper w-full h-full flex justify-between items-center text-sm">
             <div>
               <p className="font-semibold">Od 8:00 do 20:00</p>
-            </div>
-            <div className="flex items-center justify-center gap-4 text-lg">
-              <FaInstagram />
-              <FaFacebookSquare className="hidden" />
             </div>
           </div>
         </div>
