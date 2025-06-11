@@ -13,8 +13,6 @@ export default function ProductPrice({ data }: Props) {
   const { daterange, saleIndex, numberOfDays, setNumberOfDays } =
     useContext(DaterangeContext);
 
-  const price = Number(data.basePrice);
-
   let tag: string = "den";
   if (numberOfDays == 1) {
     tag = "den";
@@ -23,6 +21,10 @@ export default function ProductPrice({ data }: Props) {
   } else if (numberOfDays > 4) {
     tag = "dní";
   }
+
+  const basePriceUntruc = Number(data.basePrice * saleIndex * numberOfDays);
+  const price = Math.trunc(basePriceUntruc);
+  console.log(price);
 
   function isValid() {
     if (daterange.endIsValid == true && daterange.startIsValid == true) {
@@ -42,7 +44,7 @@ export default function ProductPrice({ data }: Props) {
               {isValid() ? (
                 <>
                   <span className="text-xl font-semibold text-primary">
-                    {price * saleIndex * numberOfDays} Kč
+                    {price} Kč
                   </span>{" "}
                   celkem za {numberOfDays} {tag} {"(vč. DPH)"}
                 </>
