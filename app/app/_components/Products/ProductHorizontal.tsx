@@ -194,7 +194,6 @@ export default function ProductTabHorizontal({
         )}
         <div className="flex flex-col items-stretch gap-2">
           <ProductPrice data={item} />
-
           <div className="flex md:flex-row flex-col gap-2">
             <Link
               href={process.env.WEBSITE + `/produkt/${item.documentId}`}

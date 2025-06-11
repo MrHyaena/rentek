@@ -75,7 +75,7 @@ export default async function Page({
         },
       },
     };
-    let response = await fetch(
+    const response = await fetch(
       process.env.STRAPI +
         `/api/timeslots?populate=*&${qs.stringify(query, {
           encodeValuesOnly: true,
