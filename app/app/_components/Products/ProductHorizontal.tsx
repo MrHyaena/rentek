@@ -6,7 +6,7 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import { differenceInDays } from "date-fns";
+import { differenceInDays, isWithinInterval } from "date-fns";
 import ProductPrice from "../Prices/ProductPrice";
 import { addToCartFunction } from "../Cart/cartFunction";
 import Link from "next/link";
@@ -16,6 +16,7 @@ import { FaToolbox } from "react-icons/fa6";
 import Availability from "./Availability";
 type ProductProps = {
   key: any;
+  timeslots: any[];
   item: {
     imageUrl: string;
     name: string;
@@ -29,7 +30,10 @@ type ProductProps = {
   };
 };
 
-export default function ProductTabHorizontal({ item }: ProductProps) {
+export default function ProductTabHorizontal({
+  item,
+  timeslots,
+}: ProductProps) {
   const { cart, setCart } = useContext(CartContext);
   const { daterange, setDaterange } = useContext(DaterangeContext);
 
@@ -55,6 +59,27 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
     tag = "dní";
   }
 
+  const arrayTimeslotsByDate = timeslots.filter((timeslot: any) => {
+    if (
+      isWithinInterval(timeslot.delivery, {
+        start: daterange.startDate,
+        end: daterange.endDate,
+      }) ||
+      isWithinInterval(daterange.startDate, {
+        start: timeslot.delivery,
+        end: timeslot.pickup,
+      })
+    ) {
+      return true;
+    }
+  });
+
+  const arrayTimeslotsByItem = arrayTimeslotsByDate.filter((timeslot: any) => {
+    const products = JSON.parse(timeslot.products);
+  });
+
+  console.log(arrayTimeslotsByDate);
+
   return (
     <div className="md:grid md:grid-cols-[250px_1fr] shrink-0">
       <Link
@@ -76,7 +101,9 @@ export default function ProductTabHorizontal({ item }: ProductProps) {
             <p className="text-xl font-semibold text-textPrimary">
               {item.name}
             </p>
-            <Availability data={item} />
+            <p className="bg-primaryHover text-white px-2 py-1 rounded-md font-semibold text-sm">
+              Dostupné
+            </p>
           </div>
           <p className="text-textSecondary">{shortenedDescription}</p>
         </Link>

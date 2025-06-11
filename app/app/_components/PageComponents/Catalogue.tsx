@@ -25,33 +25,11 @@ import arraySort from "array-sort";
 
 type Props = {
   items: any;
+  timeslots: [];
 };
 
-export default function Catalogue({ items }: Props) {
+export default function Catalogue({ items, timeslots }: Props) {
   const [data, setData] = useState<any[]>(items);
-  const [category, setCategory] = useState<{ name: string; type: string }>({
-    name: "Všechny kategorie",
-    type: "categories",
-  });
-  const [pojizdneSekacky, setPojizdneSekacky] = useState<boolean>(false);
-  const [krovinorezy, setKrovinorezy] = useState<boolean>(false);
-  const [vertikulatory, setVertikulatory] = useState<boolean>(false);
-  const [provzdusnovace, setProvzdusnovace] = useState<boolean>(false);
-  const [nuzkyNaPlot, setNuzkyNaPlot] = useState<boolean>(false);
-  const [prislusenstviKere, setPrislusenstviKere] = useState<boolean>(false);
-  const [retezovePily, setRetezovePily] = useState<boolean>(false);
-  const [nuzkyNaVetve, setNuzkyNaVetve] = useState<boolean>(false);
-  const [stipackyNaDrevo, setStipackyNaDrevo] = useState<boolean>(false);
-  const [prislusenstviStromy, setPrislusenstviStromy] =
-    useState<boolean>(false);
-  const [nuzkyPilyMacety, setNuzkyPilyMacety] = useState<boolean>(false);
-  const [koleckaVedraKrabice, setKoleckaVedraKrabice] =
-    useState<boolean>(false);
-  const [elektrickyMotor, setElektrickyMotor] = useState<boolean>(false);
-  const [benzinovyMotor, setBenzinovyMotor] = useState<boolean>(false);
-  const [manualniNaradi, setManualniNarad] = useState<boolean>(false);
-  const [standardniPodminky, setStandardniPodminky] = useState<boolean>(false);
-  const [narocnePodminky, setnarocnePodminky] = useState<boolean>(false);
 
   const [subcategories, setSubcategories] = useState<any[]>([]);
   const [categories, setCategories] = useState<any>({ data: [] });
@@ -180,7 +158,7 @@ export default function Catalogue({ items }: Props) {
       process.env.STRAPI +
         `/api/items?${qs.stringify(query, {
           encodeValuesOnly: true,
-        })}&populate=*`,
+        })}&populate=*&pagination[pageSize]=30&sort=position`,
       {
         method: "GET",
         mode: "cors",
@@ -416,6 +394,7 @@ export default function Catalogue({ items }: Props) {
               {data.map((item: any) => {
                 return (
                   <ProductTabHorizontal
+                    timeslots={timeslots}
                     item={item}
                     key={"productHorizontal" + item.name}
                   />

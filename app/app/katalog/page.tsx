@@ -27,7 +27,7 @@ export default async function page({
 
     let url =
       process.env.STRAPI +
-      `/api/items/?populate=*&filters[pricingType][$eq]=rental`;
+      `/api/items/?pagination[pageSize]=30&populate=*&filters[pricingType][$eq]=rental&sort=position`;
 
     if (subcategory != undefined) {
       const query = await {
@@ -77,12 +77,41 @@ export default async function page({
       });
     });
 
-    await arraySort(itemsArray, "position");
-
     return itemsArray;
   }
 
+  async function GetTimeslots() {
+    const nowDate = await new Date();
+
+    const query = await {
+      filters: {
+        delivery: {
+          $gt: nowDate.toISOString(),
+        },
+      },
+    };
+    let response = await fetch(
+      process.env.STRAPI +
+        `/api/timeslots?populate=*&${qs.stringify(query, {
+          encodeValuesOnly: true,
+        })}`,
+      {
+        method: "GET",
+        mode: "cors",
+        next: {
+          revalidate: 10,
+        },
+      }
+    );
+
+    const json = await response.json();
+    console.log(json);
+
+    return json.data;
+  }
+
   const items = await GetItems();
+  const timeslots = await GetTimeslots();
   return (
     <>
       <PageHeading
@@ -91,7 +120,7 @@ export default async function page({
         text="Nejprve vyberte rozmezí datumů, ve kterých si chcete techniku vypůjčit. Ceny a dostupnost se upraví automaticky."
         datepickerExists={true}
       />
-      <Catalogue items={items} />
+      <Catalogue items={items} timeslots={timeslots} />
     </>
   );
 }

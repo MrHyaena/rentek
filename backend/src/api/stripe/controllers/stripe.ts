@@ -172,6 +172,7 @@ export default factories.createCoreController(
                 orderId: JSON.stringify(json.data.documentId),
                 delivery: startDate,
                 pickup: endDate,
+                products: rentalItems,
               },
             }),
           }

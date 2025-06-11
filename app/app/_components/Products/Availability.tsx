@@ -1,10 +1,17 @@
 "use client";
 
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
+import { isWithinInterval } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
 
-export default function Availability({ data }: { data: any }) {
-  const [amount, setAmount] = useState<number>(data.amount);
+export default function Availability({
+  item,
+  timeslots,
+}: {
+  item: any;
+  timeslots: any;
+}) {
+  const { daterange } = useContext(DaterangeContext);
 
   return (
     <>
