@@ -2,7 +2,7 @@
 
 import { CartContext } from "@/app/_context/CartContext";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
-import { differenceInDays, format } from "date-fns";
+import { differenceInDays, format, isWithinInterval } from "date-fns";
 import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -13,12 +13,14 @@ import arraySort from "array-sort";
 import DatepickerSmall from "../Datepickers/DatepickerSmall";
 import { permanentRedirect, redirect } from "next/navigation";
 import { sendGTMEvent } from "@next/third-parties/google";
+import Availability from "../Products/Availability";
 
 type Props = {
   newAdditions: any[];
+  timeslots: any;
 };
 
-export default function CartForm({ newAdditions }: Props) {
+export default function CartForm({ newAdditions, timeslots }: Props) {
   const { cart, setCart } = useContext(CartContext);
   const { daterange, numberOfDays, setNumberOfDays, saleIndex } =
     useContext(DaterangeContext);
@@ -75,11 +77,56 @@ export default function CartForm({ newAdditions }: Props) {
     const groupPrice = wholeItem.count * price * numberOfDays;
     console.log(price);
 
+    const arrayTimeslotsByDate = timeslots.filter((timeslot: any) => {
+      if (
+        isWithinInterval(timeslot.delivery, {
+          start: daterange.startDate,
+          end: daterange.endDate,
+        }) ||
+        isWithinInterval(daterange.startDate, {
+          start: timeslot.delivery,
+          end: timeslot.pickup,
+        })
+      ) {
+        return true;
+      }
+    });
+    let rentedAmount: any = 0;
+
+    const arrayTimeslotsByItem = arrayTimeslotsByDate.filter(
+      (timeslot: any) => {
+        const productArray = timeslot.products.filter((product: any) => {
+          if (product.item.documentId == item.documentId) {
+            rentedAmount = rentedAmount + product.count;
+            return true;
+          }
+        });
+
+        if (productArray.length > 0) {
+          return true;
+        }
+      }
+    );
+
+    const realAmount = item.amount - rentedAmount;
+
+    console.log(arrayTimeslotsByItem);
+
+    let grayScale = 100;
+
+    if (realAmount == 0) {
+      grayScale = 50;
+    }
+
+    const cartItem = cart.find(
+      (itemCart: any) => itemCart.item.documentId == item.documentId
+    );
+
     return (
       <>
         <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
           <div className="flex items-center gap-5 p-2 border-b border-borderGray">
-            <div className="md:w-16 md:h-16 w-10 h-10 flex items-center justify-center p-1">
+            <div className="md:w-16 md:h-16 w-14 h-14 flex items-center justify-center p-1">
               <Image
                 src={item.coverImage.formats.thumbnail.url}
                 width={200}
@@ -96,20 +143,25 @@ export default function CartForm({ newAdditions }: Props) {
             </Link>
           </div>
           <div className="flex gap-3 justify-between w-full bg-zinc-100 p-2">
-            <div className="flex items-center gap-3">
-              <FaChevronDown
-                onClick={() => {
-                  removeFromCartFunction(cart, setCart, item);
-                }}
-                className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
-              />
-              <p className="text-lg">{wholeItem.count}</p>
-              <FaChevronUp
-                className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
-                onClick={() => {
-                  addToCartFunction(cart, setCart, item);
-                }}
-              />
+            <div className="flex sm:flex-row flex-col items-center gap-3">
+              <div className="flex items-center gap-3">
+                <FaChevronDown
+                  onClick={() => {
+                    removeFromCartFunction(cart, setCart, item);
+                  }}
+                  className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
+                />
+                <p className="text-lg">{wholeItem.count}</p>
+                <FaChevronUp
+                  className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
+                  onClick={() => {
+                    if (realAmount > wholeItem.count) {
+                      addToCartFunction(cart, setCart, item);
+                    }
+                  }}
+                />
+              </div>
+              <Availability timeslots={timeslots} item={item} />
             </div>
             <div className=" items-center gap-5 justify-self-end hidden md:flex">
               <p className="flex items-end flex-col font-semibold text-textSecondary">

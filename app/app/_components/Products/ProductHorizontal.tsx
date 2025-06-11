@@ -68,17 +68,79 @@ export default function ProductTabHorizontal({
       isWithinInterval(daterange.startDate, {
         start: timeslot.delivery,
         end: timeslot.pickup,
+      }) ||
+      isWithinInterval(timeslot.pickup, {
+        start: daterange.startDate,
+        end: daterange.endDate,
+      }) ||
+      isWithinInterval(daterange.endDate, {
+        start: timeslot.delivery,
+        end: timeslot.pickup,
       })
     ) {
       return true;
     }
   });
+  let rentedAmount: any = 0;
 
   const arrayTimeslotsByItem = arrayTimeslotsByDate.filter((timeslot: any) => {
-    const products = JSON.parse(timeslot.products);
+    const productArray = timeslot.products.filter((product: any) => {
+      if (product.item.documentId == item.documentId) {
+        rentedAmount = rentedAmount + product.count;
+        return true;
+      }
+    });
+
+    if (productArray.length > 0) {
+      return true;
+    }
   });
 
-  console.log(arrayTimeslotsByDate);
+  const realAmount = item.amount - rentedAmount;
+
+  console.log(arrayTimeslotsByItem);
+
+  let grayScale = 100;
+
+  if (realAmount == 0) {
+    grayScale = 50;
+  }
+
+  const cartItem = cart.find(
+    (itemCart: any) => itemCart.item.documentId == item.documentId
+  );
+
+  function CatalogueAddToCart() {
+    return (
+      <>
+        {" "}
+        <div className="grid grid-cols-2">
+          {realAmount > 0 ? (
+            <>
+              <button
+                onClick={() => {
+                  if (cartItem == undefined) {
+                    addToCartFunction(cart, setCart, item);
+                  } else if (realAmount > 0 && realAmount > cartItem.count)
+                    addToCartFunction(cart, setCart, item);
+                }}
+                className="col-span-1 py-3 px-10 border rounded-l-lg flex items-center justify-center border-zinc-300 text-textPrimary ease-in-out transition-all hover:bg-zinc-100 cursor-pointer"
+              >
+                <FontAwesomeIcon icon={faCartPlus} />
+              </button>
+            </>
+          ) : (
+            <button className="col-span-1 py-3 px-10 border rounded-l-lg flex items-center justify-center bg-gray-200 border-zinc-300 text-textPrimary ease-in-out transition-all">
+              <FontAwesomeIcon icon={faCartPlus} />
+            </button>
+          )}{" "}
+          <p className="font-semibold col-span-1 py-3 px-10 border-y border-r rounded-r-lg flex items-center justify-center border-zinc-300 text-textPrimary ease-in-out transition-all">
+            {cartItem == undefined ? 0 : cartItem.count}
+          </p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="md:grid md:grid-cols-[250px_1fr] shrink-0">
@@ -101,9 +163,16 @@ export default function ProductTabHorizontal({
             <p className="text-xl font-semibold text-textPrimary">
               {item.name}
             </p>
-            <p className="bg-primaryHover text-white px-2 py-1 rounded-md font-semibold text-sm">
-              Dostupné
-            </p>
+            {realAmount > 0 ? (
+              <p className="bg-primaryHover text-white px-2 py-1 rounded-md font-semibold text-sm">
+                Skladem:{" "}
+                {arrayTimeslotsByItem.length == 0 ? item.amount : realAmount}
+              </p>
+            ) : (
+              <p className="bg-gray-500 text-white px-2 py-1 rounded-md font-semibold text-sm">
+                Nedostupné
+              </p>
+            )}
           </div>
           <p className="text-textSecondary">{shortenedDescription}</p>
         </Link>
@@ -129,18 +198,11 @@ export default function ProductTabHorizontal({
           <div className="flex md:flex-row flex-col gap-2">
             <Link
               href={process.env.WEBSITE + `/produkt/${item.documentId}`}
-              className="bg-primary md:px-20 text-center py-2 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out col-span-4"
+              className="bg-primary md:px-20 text-center flex items-center justify-center py-2 text-lg font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out"
             >
               Otevřít
             </Link>
-            <button
-              onClick={() => {
-                addToCartFunction(cart, setCart, item);
-              }}
-              className="col-span-1 py-3 px-10 border rounded-lg flex items-center justify-center border-zinc-300 text-textPrimary ease-in-out transition-all hover:bg-zinc-100 cursor-pointer"
-            >
-              <FontAwesomeIcon icon={faCartPlus} />
-            </button>
+            <CatalogueAddToCart />
           </div>
         </div>
       </div>

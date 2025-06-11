@@ -27,7 +27,7 @@
 }
 
 .buttonSmall {
-  @apply bg-primary px-3 py-2 md:text-lg text-base text-center font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;
+  @apply bg-primary px-3 py-2 md:text-lg text-base text-center font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out flex items-center justify-center;
 }
 .buttonMid {
   @apply bg-primary px-5 py-3 md:text-lg text-base font-semibold rounded-md text-textLight cursor-pointer hover:bg-primaryHover transition-all ease-in-out;

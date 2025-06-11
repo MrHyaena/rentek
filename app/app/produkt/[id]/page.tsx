@@ -13,6 +13,8 @@ import ProductSpecsProduct from "@/app/_components/Products/ProductSpecsProduct"
 import { Metadata } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import * as qs from "qs";
+import Availability from "@/app/_components/Products/Availability";
 
 export async function generateMetadata({
   params,
@@ -62,6 +64,38 @@ export default async function Page({
 
     return json.data;
   }
+
+  async function GetTimeslots() {
+    const nowDate = await new Date();
+
+    const query = await {
+      filters: {
+        delivery: {
+          $gt: nowDate.toISOString(),
+        },
+      },
+    };
+    let response = await fetch(
+      process.env.STRAPI +
+        `/api/timeslots?populate=*&${qs.stringify(query, {
+          encodeValuesOnly: true,
+        })}`,
+      {
+        method: "GET",
+        mode: "cors",
+        next: {
+          revalidate: 10,
+        },
+      }
+    );
+
+    const json = await response.json();
+    console.log(json);
+
+    return json.data;
+  }
+
+  const timeslots = await GetTimeslots();
 
   return (
     <>
@@ -124,18 +158,19 @@ export default async function Page({
             </div>
           </div>{" "}
           <div className="h-full  md:col-span-2 flex flex-col gap-5">
-            <h4 className="text-textPrimary">{data.name}</h4>
+            <div className="flex flex-col items-start gap-2">
+              <h4 className="text-textPrimary">{data.name}</h4>
+              <Availability timeslots={timeslots} item={data} />
+            </div>
+
             <div className="flex flex-col gap-3 text-textPrimary">
               {parse(data.description)}
             </div>
             <div className="text-center flex flex-col gap-2 border p-5 rounded-lg border-borderGray">
               <ProductPrice data={data} />
-              <div className="w-full grid grid-cols-2 gap-2">
-                <AddToCartButton data={data} />
-                <Link
-                  href={"/kosik"}
-                  className="bg-white px-3 py-2 md:text-lg text-base font-semibold border-2 border-zinc-300 rounded-md text-textSecondary cursor-pointer hover:bg-zinc-50 transition-all ease-in-out;"
-                >
+              <div className="w-full grid grid-cols-2 gap-2 md:grid-cols-4">
+                <AddToCartButton item={data} timeslots={timeslots} />
+                <Link href={"/kosik"} className="buttonSmall col-span-2">
                   Přejít do košíku
                 </Link>
               </div>
