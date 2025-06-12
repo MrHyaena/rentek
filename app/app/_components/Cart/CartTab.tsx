@@ -60,8 +60,6 @@ export function CartTab({
                 className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
                 onClick={() => {
                   if (realAmount > cartItem.count) {
-                    console.log("hello");
-
                     addToCartFunction(cart, setCart, item);
                   }
                 }}

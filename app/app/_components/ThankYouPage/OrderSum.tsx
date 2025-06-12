@@ -20,7 +20,6 @@ export default function OrderSum({}: Props) {
   async function getOrderParams() {
     const orderIdParams = params.get("orderid");
     if (orderIdParams) {
-      console.log(orderIdParams);
       const orderResponse = await fetch(
         process.env.STRAPI + `/api/orders/${orderIdParams}`,
         {
@@ -34,7 +33,6 @@ export default function OrderSum({}: Props) {
       const json = await orderResponse.json();
 
       if (orderResponse.ok) {
-        console.log(json);
         localStorage.removeItem("cart");
         localStorage.removeItem("additionsCart");
         setCart([]);

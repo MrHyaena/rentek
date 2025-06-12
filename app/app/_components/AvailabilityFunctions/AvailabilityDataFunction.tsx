@@ -60,8 +60,6 @@ export function AvailabilityData(
   //Counting real amount of items in storage
   const realAmount = item.amount - rentedAmount;
 
-  console.log(arrayTimeslotsByItem);
-
   let grayScale = 100;
 
   if (realAmount == 0) {

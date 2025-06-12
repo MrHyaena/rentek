@@ -18,7 +18,6 @@ type Props = {
 
 //Functional component
 export default function ProductSpecsRental({ data }: Props) {
-  console.log(data);
   return (
     <div className="flex flex-col gap-10">
       <div className="grid md:grid-cols-3 gap-4 justify-items-center md:justify-items-start w-full">

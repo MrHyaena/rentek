@@ -11,7 +11,6 @@ export function addToCartFunction(
     localStorage.setItem("cart", JSON.stringify([{ count: 1, item: item }]));
     return;
   } else if (newCart.length > 0) {
-    console.log(newCart);
     const itemIndex = newCart.findIndex((cartItem: any) => {
       if (cartItem.item.documentId == item.documentId) {
         return true;
@@ -19,8 +18,6 @@ export function addToCartFunction(
     });
 
     if (itemIndex == -1) {
-      console.log("itemIndex -1");
-
       setCart([...newCart, { count: 1, item: item }]);
       localStorage.setItem(
         "cart",
@@ -30,8 +27,6 @@ export function addToCartFunction(
     }
 
     if (itemIndex != -1) {
-      console.log("itemIndex není -1");
-
       newCart[itemIndex].count = newCart[itemIndex].count + 1;
       setCart([...newCart]);
       localStorage.setItem("cart", JSON.stringify([...newCart]));
@@ -48,8 +43,6 @@ export function removeFromCartFunction(cart: any, setCart: any, item: any) {
       return true;
     }
   });
-
-  console.log(itemIndex);
 
   if (newCart[itemIndex].count > 1) {
     newCart[itemIndex].count = newCart[itemIndex].count - 1;

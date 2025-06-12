@@ -41,8 +41,6 @@ export default async function page() {
     console.log(error);
   }
 
-  console.log(newAdditions);
-
   async function GetTimeslots() {
     const nowDate = await new Date();
 
@@ -68,7 +66,6 @@ export default async function page() {
     );
 
     const json = await response.json();
-    console.log(json);
 
     return json.data;
   }

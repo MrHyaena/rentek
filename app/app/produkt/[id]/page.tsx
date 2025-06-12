@@ -90,7 +90,6 @@ export default async function Page({
     );
 
     const json = await response.json();
-    console.log(json);
 
     return json.data;
   }

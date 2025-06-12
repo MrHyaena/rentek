@@ -23,7 +23,6 @@ export default async function page({
     let response: any;
 
     const { subcategory } = await searchParams;
-    console.log(subcategory);
 
     let url =
       process.env.STRAPI +
@@ -48,8 +47,6 @@ export default async function page({
           encodeValuesOnly: true,
         })}`;
     }
-
-    console.log(url);
 
     try {
       response = await fetch(url, {
@@ -105,7 +102,6 @@ export default async function page({
     );
 
     const json = await response.json();
-    console.log(json);
 
     return json.data;
   }

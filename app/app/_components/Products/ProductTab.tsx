@@ -16,7 +16,6 @@ type ProductProps = {
 export default function ProductTab({ product }: ProductProps) {
   const { cart, setCart } = useContext(CartContext);
   const item = product.item;
-  console.log(item);
 
   const shortenedDescription = item.excerpt.substring(0, 80) + "...";
 
