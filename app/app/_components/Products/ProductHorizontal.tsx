@@ -98,8 +98,6 @@ export default function ProductTabHorizontal({
 
   const realAmount = item.amount - rentedAmount;
 
-  console.log(arrayTimeslotsByItem);
-
   let grayScale = 100;
 
   if (realAmount == 0) {

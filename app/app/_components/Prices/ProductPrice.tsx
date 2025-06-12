@@ -24,7 +24,6 @@ export default function ProductPrice({ data }: Props) {
 
   const basePriceUntruc = Number(data.basePrice * saleIndex * numberOfDays);
   const price = Math.trunc(basePriceUntruc);
-  console.log(price);
 
   function isValid() {
     if (daterange.endIsValid == true && daterange.startIsValid == true) {

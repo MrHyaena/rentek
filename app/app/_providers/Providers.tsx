@@ -1,6 +1,7 @@
 import React, { Children, ReactNode } from "react";
 import { CartContextProvider } from "../_context/CartContext";
 import { DaterangeContextProvider } from "../_context/DaterangeContext";
+import { SearchContextProvider } from "../_context/SearchContext";
 
 interface Props {
   [key: string]: any;
@@ -10,7 +11,9 @@ interface Props {
 export default function Providers({ children }: Props) {
   return (
     <DaterangeContextProvider>
-      <CartContextProvider>{children}</CartContextProvider>
+      <CartContextProvider>
+        <SearchContextProvider>{children}</SearchContextProvider>
+      </CartContextProvider>
     </DaterangeContextProvider>
   );
 }

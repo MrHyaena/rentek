@@ -104,13 +104,13 @@ export default async function Page({
         <meta property="og:title" content={data.name} />
       </Head>
       <div className="flex flex-col items-center justify-start md:p-10 p-5 gap-5 mt-[100px] md:mt-0">
-        <a
+        <Link
           href="/katalog"
           className="w-full text-start max-w-wrapper flex items-center gap-3 text-sm py-3"
         >
           <FaChevronLeft />
           <p className="font-semibold">Zpět do katalogu</p>
-        </a>
+        </Link>
 
         <div className=" w-full  max-w-wrapper grid md:grid-cols-4 gap-10">
           <div className="md:col-span-2 flex flex-col md:gap-15 gap-5">
