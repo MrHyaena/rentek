@@ -4,6 +4,7 @@ import React from "react";
 
 type Props = { [key: string]: any };
 
+//Footer functional component
 export default function Footer({}: Props) {
   return (
     <div className="min-h-[400px] w-full bg-white border-t border-borderGray flex justify-center py-12 px-5">

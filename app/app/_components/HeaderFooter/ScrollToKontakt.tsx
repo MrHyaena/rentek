@@ -4,6 +4,7 @@ import React from "react";
 
 type Props = { [key: string]: any };
 
+//Scroll to contact in footer
 export default function ScrollToKontakt({}: Props) {
   return (
     <button

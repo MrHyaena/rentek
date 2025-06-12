@@ -15,6 +15,7 @@ type Props = {
   data: any;
 };
 
+//Functional component
 export default function ProductSpecsProduct({ data }: Props) {
   return (
     <div className="flex flex-col gap-10">

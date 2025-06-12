@@ -9,6 +9,7 @@ import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { format } from "date-fns";
 import { truncate } from "fs";
 
+//Functional component datepicker, used for showing date range and toggling date settings
 export default function DatepickerSmall() {
   const [toggle, setToggle] = useState<boolean>(false);
 

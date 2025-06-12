@@ -7,6 +7,7 @@ type Props = {
   secondText: string;
 };
 
+//Functional component
 export default function SectionHeading({
   heading,
   firstText,

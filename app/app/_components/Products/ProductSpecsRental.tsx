@@ -16,6 +16,7 @@ type Props = {
   data: any;
 };
 
+//Functional component
 export default function ProductSpecsRental({ data }: Props) {
   console.log(data);
   return (

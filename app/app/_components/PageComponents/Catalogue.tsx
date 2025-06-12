@@ -1,26 +1,10 @@
 "use client";
 
-import React, { Dispatch, useContext, useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHelmetSafety,
-  faLeaf,
-  faSeedling,
-  faTree,
-} from "@fortawesome/free-solid-svg-icons";
+import React, { useContext, useEffect, useState } from "react";
+
 import ProductTabHorizontal from "../Products/ProductHorizontal";
-import Link from "next/link";
-import { BiCategoryAlt } from "react-icons/bi";
 import * as qs from "qs";
-import {
-  FaHand,
-  FaHelmetSafety,
-  FaLeaf,
-  FaSeedling,
-  FaTree,
-} from "react-icons/fa6";
-import { MdElectricBolt, MdLocalGasStation } from "react-icons/md";
-import { GiGrass, GiHighGrass } from "react-icons/gi";
+import { FaHelmetSafety, FaLeaf, FaSeedling, FaTree } from "react-icons/fa6";
 import arraySort from "array-sort";
 import { SearchContext } from "@/app/_context/SearchContext";
 
@@ -30,8 +14,10 @@ type Props = {
 };
 
 export default function Catalogue({ items, timeslots }: Props) {
+  //Context
   const { search, setSearch } = useContext(SearchContext);
 
+  //States
   const [data, setData] = useState<any[]>(items);
 
   const [subcategories, setSubcategories] = useState<any[]>([]);
@@ -45,6 +31,7 @@ export default function Catalogue({ items, timeslots }: Props) {
 
   const [filtrToggle, setFiltrToggle] = useState<boolean>(false);
 
+  //Initial functions after components is ready
   useEffect(() => {
     async function getFilters() {
       const categories = await fetch(
@@ -96,25 +83,16 @@ export default function Catalogue({ items, timeslots }: Props) {
     }
   }, []);
 
-  function SearchHeading({ text }: { text: string }) {
-    return (
-      <p className="font-semibold border-b text-primary border-borderGray pb-1 mb-2 text-lg">
-        {text}
-      </p>
-    );
-  }
-
-  async function InitFilter(data: {
-    subcategories: any[];
-    uses: any[];
-    engineType: any[];
-  }) {
-    const subcategories = data.subcategories;
+  // Filter functions
+  async function ApplyFilter(
+    subcategories: any[],
+    engineType: any[],
+    uses: any[]
+  ) {
     const newSubcategoriesState: any = [];
     subcategories.map((subcategory: any) => {
       newSubcategoriesState.push(subcategory);
     });
-    setSubcategories(newSubcategoriesState);
 
     const queryOfSubcategories: any[] = [];
     subcategories.map((sub: any) => {
@@ -125,15 +103,13 @@ export default function Catalogue({ items, timeslots }: Props) {
       });
     });
 
-    const newEngineType = data.engineType;
     const newEngineTypeArray: any = [];
-    newEngineType.map((engineType: any) => {
+    engineType.map((engineType: any) => {
       newEngineTypeArray.push(engineType);
     });
-    setEngineTypeInput(newEngineType);
 
     const queryOfEngineTpye: any[] = [];
-    newEngineType.map((sub: any) => {
+    engineType.map((sub: any) => {
       queryOfEngineTpye.push({
         engine_type: {
           documentId: { $eq: sub },
@@ -141,17 +117,9 @@ export default function Catalogue({ items, timeslots }: Props) {
       });
     });
 
-    const uses = data.uses;
     const newUses: any = [];
     uses.map((use: any) => {
       newUses.push(use);
-    });
-    setUsesInput(newUses);
-
-    setSearch({
-      subcategories: newSubcategoriesState,
-      engineType: newEngineTypeArray,
-      uses: newUses,
     });
 
     const queryOfUses: any[] = [];
@@ -177,103 +145,14 @@ export default function Catalogue({ items, timeslots }: Props) {
       },
     };
 
-    const response = await fetch(
-      process.env.STRAPI +
-        `/api/items?${qs.stringify(query, {
-          encodeValuesOnly: true,
-        })}&populate=*&pagination[pageSize]=30&sort=position`,
-      {
-        method: "GET",
-        mode: "cors",
-        next: {
-          revalidate: 20,
-        },
-      }
-    );
-    const json = await response.json();
-
-    if (response.ok) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      const sortedArray = await arraySort(json.data, "position");
-      setData(json.data);
-    }
-
-    if (!response.ok) {
-      console.log("problém");
-    }
-  }
-
-  async function Filter(data: any) {
-    const formData = new FormData(data);
-    console.log(formData);
-
-    const subcategories = formData.getAll("subcategories");
-    const newSubcategoriesState: any = [];
-    subcategories.map((subcategory) => {
-      newSubcategoriesState.push(subcategory);
-    });
-    setSubcategories(newSubcategoriesState);
-
-    const queryOfSubcategories: any[] = [];
-    subcategories.map((sub) => {
-      queryOfSubcategories.push({
-        subcategories: {
-          documentId: { $eq: sub },
-        },
-      });
-    });
-
-    const newEngineType = formData.getAll("engineType");
-    const newEngineTypeArray: any = [];
-    newEngineType.map((engineType) => {
-      newEngineTypeArray.push(engineType);
-    });
-    setEngineTypeInput(newEngineType);
-
-    const queryOfEngineTpye: any[] = [];
-    newEngineType.map((sub) => {
-      queryOfEngineTpye.push({
-        engine_type: {
-          documentId: { $eq: sub },
-        },
-      });
-    });
-
-    const uses = formData.getAll("uses");
-    const newUses: any = [];
-    uses.map((subcategory) => {
-      newUses.push(subcategory);
-    });
-    setUsesInput(newUses);
-
     setSearch({
       subcategories: newSubcategoriesState,
       engineType: newEngineTypeArray,
       uses: newUses,
     });
-
-    const queryOfUses: any[] = [];
-
-    uses.map((sub) => {
-      queryOfUses.push({
-        uses: {
-          documentId: { $eq: sub },
-        },
-      });
-    });
-
-    const query = await {
-      filters: {
-        $and: [
-          { pricingType: { $ne: "product" } },
-          {
-            $or: queryOfSubcategories,
-          },
-          { $or: queryOfEngineTpye },
-          { $or: queryOfUses },
-        ],
-      },
-    };
+    setUsesInput(newUses);
+    setEngineTypeInput(engineType);
+    setSubcategories(newSubcategoriesState);
 
     const response = await fetch(
       process.env.STRAPI +
@@ -297,10 +176,32 @@ export default function Catalogue({ items, timeslots }: Props) {
     }
 
     if (!response.ok) {
-      console.log("problém");
+      console.log("Bohužel nešlo načíst filtry");
     }
   }
 
+  async function InitFilter(data: {
+    subcategories: any[];
+    uses: any[];
+    engineType: any[];
+  }) {
+    const subcategories = data.subcategories;
+    const engineType = data.engineType;
+    const uses = data.uses;
+
+    ApplyFilter(subcategories, engineType, uses);
+  }
+
+  async function Filter(data: any) {
+    const formData = new FormData(data);
+    const uses = formData.getAll("uses");
+    const subcategories = formData.getAll("subcategories");
+    const engineType = formData.getAll("engineType");
+
+    ApplyFilter(subcategories, engineType, uses);
+  }
+
+  //Functional components
   function ListCategories({ json }: { json: any }) {
     if (json.data.length > 0) {
       const newArray = arraySort(json.data, "position");
@@ -414,6 +315,14 @@ export default function Catalogue({ items, timeslots }: Props) {
         </>
       );
     }
+  }
+
+  function SearchHeading({ text }: { text: string }) {
+    return (
+      <p className="font-semibold border-b text-primary border-borderGray pb-1 mb-2 text-base">
+        {text}
+      </p>
+    );
   }
 
   return (

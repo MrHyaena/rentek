@@ -10,10 +10,9 @@ import { differenceInDays, isWithinInterval } from "date-fns";
 import ProductPrice from "../Prices/ProductPrice";
 import { addToCartFunction } from "../Cart/cartFunction";
 import Link from "next/link";
-import { BsStars, BsTools } from "react-icons/bs";
-import { FaTools } from "react-icons/fa";
 import { FaToolbox } from "react-icons/fa6";
-import Availability from "./Availability";
+import { AvailabilityData } from "../AvailabilityFunctions/AvailabilityDataFunction";
+import { DayTag } from "../UtilityFunctions/DayTagFunction";
 type ProductProps = {
   key: any;
   timeslots: any[];
@@ -41,8 +40,6 @@ export default function ProductTabHorizontal({
 
   const shortenedDescription = item.excerpt.substring(0, 140) + "...";
 
-  const price = Number(item.price);
-
   useEffect(() => {
     if (daterange.endIsValid && daterange.startIsValid) {
       const days = differenceInDays(daterange.endDate, daterange.startDate);
@@ -50,62 +47,11 @@ export default function ProductTabHorizontal({
     }
   }, [daterange]);
 
-  let tag;
-  if (numberOfDays == 1) {
-    tag = "den";
-  } else if (numberOfDays <= 4) {
-    tag = "dny";
-  } else if (numberOfDays > 4) {
-    tag = "dní";
-  }
-
-  const arrayTimeslotsByDate = timeslots.filter((timeslot: any) => {
-    if (
-      isWithinInterval(timeslot.delivery, {
-        start: daterange.startDate,
-        end: daterange.endDate,
-      }) ||
-      isWithinInterval(daterange.startDate, {
-        start: timeslot.delivery,
-        end: timeslot.pickup,
-      }) ||
-      isWithinInterval(timeslot.pickup, {
-        start: daterange.startDate,
-        end: daterange.endDate,
-      }) ||
-      isWithinInterval(daterange.endDate, {
-        start: timeslot.delivery,
-        end: timeslot.pickup,
-      })
-    ) {
-      return true;
-    }
-  });
-  let rentedAmount: any = 0;
-
-  const arrayTimeslotsByItem = arrayTimeslotsByDate.filter((timeslot: any) => {
-    const productArray = timeslot.products.filter((product: any) => {
-      if (product.item.documentId == item.documentId) {
-        rentedAmount = rentedAmount + product.count;
-        return true;
-      }
-    });
-
-    if (productArray.length > 0) {
-      return true;
-    }
-  });
-
-  const realAmount = item.amount - rentedAmount;
-
-  let grayScale = 100;
-
-  if (realAmount == 0) {
-    grayScale = 50;
-  }
-
-  const cartItem = cart.find(
-    (itemCart: any) => itemCart.item.documentId == item.documentId
+  const { realAmount, cartItem, arrayTimeslotsByItem } = AvailabilityData(
+    timeslots,
+    item,
+    daterange,
+    cart
   );
 
   function CatalogueAddToCart() {

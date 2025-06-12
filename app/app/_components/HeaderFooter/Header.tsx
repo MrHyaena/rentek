@@ -20,6 +20,7 @@ import { BsFillGrid1X2Fill } from "react-icons/bs";
 import { FaFacebook, FaInstagram } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 
+//Header functional component
 function DesktopHeader() {
   return (
     <>
@@ -89,6 +90,7 @@ function DesktopHeader() {
   );
 }
 
+//Header functional component
 function MobileHeader() {
   const [menuToggle, setMenuToggle] = useState<boolean>(false);
 

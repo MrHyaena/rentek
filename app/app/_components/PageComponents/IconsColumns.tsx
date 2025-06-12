@@ -1,12 +1,7 @@
-import {
-  faHandshakeSimple,
-  faPhone,
-  faTruck,
-} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { FaHandshake } from "react-icons/fa6";
-import { HiViewGrid, HiViewGridAdd } from "react-icons/hi";
+import { HiViewGridAdd } from "react-icons/hi";
 import { IoMdPhonePortrait } from "react-icons/io";
 import { PiTruckFill } from "react-icons/pi";
 

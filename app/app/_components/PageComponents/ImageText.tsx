@@ -17,7 +17,6 @@ export default function ImageText({
   heading,
   textOne,
   textTwo,
-  textThree,
   image,
   colStart,
   id,

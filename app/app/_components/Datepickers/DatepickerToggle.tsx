@@ -16,6 +16,7 @@ type Props = {
   setToggle: Dispatch<boolean>;
 };
 
+//Toggling the datepicker component for chosing daterange
 export default function DatepickerToggle({ setToggle }: Props) {
   //Fixed and initial values
   const currentDate = new Date();
@@ -61,37 +62,15 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
   //first populate
   useEffect(() => {
-    //Number of days in current month
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const daysInLastMonth = new Date(currentYear, currentMonth, 0).getDate();
-
-    //Last weeekday of last month
-    let lastDayOfLastMonth = new Date(currentYear, currentMonth, 0).getDay();
-    if (lastDayOfLastMonth == 0) {
-      lastDayOfLastMonth = 7;
-    }
-
-    const daysArray: Date[] = [];
-    const lastDaysArray: Date[] = [];
-
-    for (let i = 1; i < daysInMonth + 1; i++) {
-      daysArray.push(new Date(currentYear, currentMonth, i));
-    }
-
-    for (
-      let n = daysInLastMonth - lastDayOfLastMonth + 1;
-      n < daysInLastMonth + 1;
-      n++
-    ) {
-      lastDaysArray.push(new Date(currentYear, currentMonth, n));
-    }
-
-    setDaysLastMonth(lastDaysArray);
-    setDaysCurrentMonth(daysArray);
+    SetDaysInMonth();
   }, []);
 
   //setting days in month on month change
   useEffect(() => {
+    SetDaysInMonth();
+  }, [currentMonth]);
+
+  function SetDaysInMonth() {
     //Number of days in current month
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const daysInLastMonth = new Date(currentYear, currentMonth, 0).getDate();
@@ -119,7 +98,11 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
     setDaysLastMonth(lastDaysArray);
     setDaysCurrentMonth(daysArray);
-  }, [currentMonth]);
+  }
+
+  useEffect(() => {
+    localStorage.setItem("daterange", JSON.stringify({ ...daterange }));
+  }, [daterange]);
 
   //Pick a date when clicking on date
   function pickDate(index: any) {
@@ -130,18 +113,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
     //First date rules
     if (fieldPick == 1) {
       if (newDate > endDate) {
-        console.log("něco");
-
-        localStorage.setItem(
-          "daterange",
-          JSON.stringify({
-            startDate: newDate,
-            endDate: newDate,
-            startIsValid: false,
-            endIsValid: false,
-          })
-        );
-
         setDaterange({
           startDate: newDate,
           endDate: newDate,
@@ -151,18 +122,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
         setFieldPick(2);
       } else if (newDate <= endDate) {
-        console.log("něco");
-
-        localStorage.setItem(
-          "daterange",
-          JSON.stringify({
-            startDate: newDate,
-            endDate: daterange.endDate,
-            startIsValid: false,
-            endIsValid: daterange.endIsValid,
-          })
-        );
-
         setDaterange({
           startDate: newDate,
           endDate: daterange.endDate,
@@ -189,16 +148,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
             endIsValid: false,
           });
 
-          localStorage.setItem(
-            "daterange",
-            JSON.stringify({
-              startDate: daterange.startDate,
-              endDate: newDate,
-              startIsValid: daterange.startIsValid,
-              endIsValid: false,
-            })
-          );
-
           setFieldPick(1);
         } else if (newDate < startDate) {
           setDaterange({
@@ -207,15 +156,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
             startIsValid: false,
             endIsValid: false,
           });
-          localStorage.setItem(
-            "daterange",
-            JSON.stringify({
-              startDate: newDate,
-              endDate: new Date(),
-              startIsValid: false,
-              endIsValid: false,
-            })
-          );
+
           setFieldPick(2);
         }
       }
@@ -278,7 +219,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
       weekDay = 7;
     }
 
-    if (day > new Date()) {
+    if (isBefore(new Date(), day)) {
       if (dateIsActive(day)) {
         if (weekDay > 5) {
           return (
@@ -334,7 +275,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
           );
         }
       }
-    } else if (day < new Date()) {
+    } else if (isBefore(day, new Date())) {
       return (
         <p
           key={"dayOfTheMonth" + monthDay}
@@ -348,6 +289,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
 
   function GenerateLastMonthDay(day: Date) {
     let weekDay = day.getDay();
+    const monthDay = day.getDate();
     if (weekDay == 0) {
       weekDay = 7;
     }
@@ -355,7 +297,7 @@ export default function DatepickerToggle({ setToggle }: Props) {
     return (
       <p
         key={"dayOfTheLastMonth" + day}
-        className="bg-zinc-50 text-zinc-400 h-10 flex items-center justify-center rounded-md"
+        className=" text-zinc-200 h-10 flex items-center justify-center rounded-md"
       ></p>
     );
   }
@@ -364,8 +306,11 @@ export default function DatepickerToggle({ setToggle }: Props) {
   useEffect(() => {
     fetchTimeslots();
     async function fetchTimeslots() {
+      const today = new Date();
+      const finalYear = format(today, "yyyy");
+      const finalYearNumber = Number(finalYear) + 1;
       const firstDayOfMonth = new Date();
-      const lastDayOfMonth = new Date(2050, 1, 1);
+      const lastDayOfMonth = new Date(finalYearNumber, 1, 1);
 
       const query = await {
         filters: {
@@ -463,15 +408,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
         startIsValid: true,
         endIsValid: daterange.endIsValid,
       });
-      localStorage.setItem(
-        "daterange",
-        JSON.stringify({
-          startDate: time,
-          endDate: daterange.endDate,
-          startIsValid: true,
-          endIsValid: daterange.endIsValid,
-        })
-      );
     } else {
       setDaterange({
         startDate: time,
@@ -527,15 +463,6 @@ export default function DatepickerToggle({ setToggle }: Props) {
         startIsValid: daterange.startIsValid,
         endIsValid: true,
       });
-      localStorage.setItem(
-        "daterange",
-        JSON.stringify({
-          startDate: daterange.startDate,
-          endDate: time,
-          startIsValid: daterange.startIsValid,
-          endIsValid: true,
-        })
-      );
     } else {
       console.log(false);
       setDaterange({

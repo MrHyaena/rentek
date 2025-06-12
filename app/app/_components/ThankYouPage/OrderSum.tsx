@@ -10,6 +10,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 type Props = { [key: string]: any };
 
+//Order after finalization or if user wants to show it
 export default function OrderSum({}: Props) {
   const [data, setData] = useState<any>(null);
   const [orderId, setOrderId] = useState<any>();

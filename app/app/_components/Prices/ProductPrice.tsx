@@ -25,14 +25,8 @@ export default function ProductPrice({ data }: Props) {
   const basePriceUntruc = Number(data.basePrice * saleIndex * numberOfDays);
   const price = Math.trunc(basePriceUntruc);
 
-  function isValid() {
-    if (daterange.endIsValid == true && daterange.startIsValid == true) {
-      return true;
-    }
-    if (daterange.endIsValid != true || daterange.startIsValid != true) {
-      return false;
-    }
-  }
+  const isValid =
+    daterange.endIsValid == true && daterange.startIsValid == true;
 
   return (
     <>
@@ -40,7 +34,7 @@ export default function ProductPrice({ data }: Props) {
         <>
           <div className="flex flex-col w-full gap-3 items-start">
             <p className="font-semibold text-textPrimary">
-              {isValid() ? (
+              {isValid ? (
                 <>
                   <span className="text-xl font-semibold text-primary">
                     {price} Kč
@@ -64,7 +58,7 @@ export default function ProductPrice({ data }: Props) {
         <>
           <div className="flex flex-col w-full gap-3 items-start">
             <p className="font-semibold text-textPrimary">
-              {isValid() ? (
+              {isValid ? (
                 <>
                   <span className="text-xl font-semibold text-primary">
                     {price} Kč

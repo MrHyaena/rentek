@@ -8,6 +8,7 @@ type Props = {
   link: string;
 };
 
+//Functional component
 export default function CTAHorizontal({
   heading,
   image,

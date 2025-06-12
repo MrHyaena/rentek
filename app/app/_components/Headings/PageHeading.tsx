@@ -9,6 +9,7 @@ type Props = {
   datepickerExists: boolean;
 };
 
+//Functional component
 export default function PageHeading({
   image,
   heading,

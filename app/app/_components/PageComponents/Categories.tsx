@@ -10,6 +10,7 @@ type Props = {
   link: string;
 };
 
+//CategoryTab functional component
 function CategoryTab({ image, heading, buttonText, link }: Props) {
   return (
     <div
@@ -30,6 +31,7 @@ function CategoryTab({ image, heading, buttonText, link }: Props) {
   );
 }
 
+//Categories functional component - shown in homepage
 export default function Categories() {
   return (
     <>

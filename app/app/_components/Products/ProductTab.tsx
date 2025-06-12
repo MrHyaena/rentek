@@ -12,6 +12,7 @@ type ProductProps = {
   product: { [key: string]: any };
 };
 
+//Functional component
 export default function ProductTab({ product }: ProductProps) {
   const { cart, setCart } = useContext(CartContext);
   const item = product.item;

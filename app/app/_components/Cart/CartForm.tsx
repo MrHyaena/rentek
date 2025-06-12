@@ -2,294 +2,66 @@
 
 import { CartContext } from "@/app/_context/CartContext";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
-import { differenceInDays, format, isWithinInterval } from "date-fns";
-import Image from "next/image";
+import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { addToCartFunction, removeFromCartFunction } from "./cartFunction";
 import Link from "next/link";
 import DatepickerBig from "../Datepickers/DatepickerBig";
-import arraySort from "array-sort";
 import DatepickerSmall from "../Datepickers/DatepickerSmall";
-import { permanentRedirect, redirect } from "next/navigation";
 import { sendGTMEvent } from "@next/third-parties/google";
-import Availability from "../Products/Availability";
+
+import { PriceData } from "../Prices/PriceDataFunction.tsx";
+import Loader from "../Loaders/Loader";
+import { CartTab } from "./CartTab";
+import { AdditionsTab } from "./AdditionsTab";
+import { FormTextInput } from "./FormTextInput";
 
 type Props = {
   newAdditions: any[];
   timeslots: any;
 };
 
+//Component for rendering whole cart if products are there
 export default function CartForm({ newAdditions, timeslots }: Props) {
   const { cart, setCart } = useContext(CartContext);
   const { daterange, numberOfDays, setNumberOfDays, saleIndex } =
     useContext(DaterangeContext);
+
   const [additions, setAdditions] = useState<any[]>(newAdditions);
   const [priceDetailsToggle, setPriceDetailsToggle] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [loader, setLoader] = useState<boolean>(false);
+
   const [additionsToggle, setAdditionsToggle] = useState<boolean>(false);
 
+  //Getting additional items from localStorage or context
   useEffect(() => {
     const localAdditions = localStorage.getItem("additionsCart");
     if (localAdditions != null) {
       const newArray = JSON.parse(localAdditions);
-      setAdditions([...newArray]);
+      setAdditions(newArray);
     }
   }, []);
 
-  let tag: string = "den";
-  if (numberOfDays == 1) {
-    tag = "den";
-  } else if (numberOfDays <= 4) {
-    tag = "dny";
-  } else if (numberOfDays > 4) {
-    tag = "dní";
-  }
+  //Getting price data
+  const {
+    rentalPrice,
+    wholeDeposit,
+    wholeProductPrice,
+    wholePrice,
+    rentalPriceAfterSale,
+    wholePriceAfterSale,
+    payNowPrice,
+    sale,
+    tag,
+  } = PriceData(numberOfDays, additions, cart, saleIndex);
 
-  let rentalPrice: number = 0;
-
-  let wholeDeposit: number = 0;
-
-  let wholeProductPrice: number = 0;
-
-  additions.map((item) => {
-    wholeProductPrice = wholeProductPrice + item.item.basePrice * item.count;
-  });
-
-  cart.map((item) => {
-    rentalPrice = rentalPrice + item.item.basePrice * numberOfDays * item.count;
-
-    wholeDeposit = wholeDeposit + item.item.deposit * item.count;
-  });
-  const wholePrice: number = rentalPrice + wholeProductPrice;
-
-  const rentalPriceAfterSale: number = rentalPrice * saleIndex;
-  const wholePriceAfterSale: number = rentalPriceAfterSale + wholeProductPrice;
-  const payNowPrice: number = wholePriceAfterSale * 0.1;
-  const sale: number = Math.trunc(100 - saleIndex * 100);
-
-  function CartTab({ product }: { product: any }) {
-    console.log(product);
-    const wholeItem = product;
-    const item = wholeItem.item;
-    const price: any = new Number(item.basePrice);
-    const groupPrice = wholeItem.count * price * numberOfDays;
-    console.log(price);
-
-    const arrayTimeslotsByDate = timeslots.filter((timeslot: any) => {
-      if (
-        isWithinInterval(timeslot.delivery, {
-          start: daterange.startDate,
-          end: daterange.endDate,
-        }) ||
-        isWithinInterval(daterange.startDate, {
-          start: timeslot.delivery,
-          end: timeslot.pickup,
-        })
-      ) {
-        return true;
-      }
-    });
-    let rentedAmount: any = 0;
-
-    const arrayTimeslotsByItem = arrayTimeslotsByDate.filter(
-      (timeslot: any) => {
-        const productArray = timeslot.products.filter((product: any) => {
-          if (product.item.documentId == item.documentId) {
-            rentedAmount = rentedAmount + product.count;
-            return true;
-          }
-        });
-
-        if (productArray.length > 0) {
-          return true;
-        }
-      }
-    );
-
-    const realAmount = item.amount - rentedAmount;
-
-    console.log(arrayTimeslotsByItem);
-
-    let grayScale = 100;
-
-    if (realAmount == 0) {
-      grayScale = 50;
-    }
-
-    const cartItem = cart.find(
-      (itemCart: any) => itemCart.item.documentId == item.documentId
-    );
-
-    return (
-      <>
-        <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
-          <div className="flex items-center gap-5 p-2 border-b border-borderGray">
-            <div className="md:w-16 md:h-16 w-14 h-14 flex items-center justify-center p-1">
-              <Image
-                src={item.coverImage.formats.thumbnail.url}
-                width={200}
-                height={300}
-                alt={"thumbnail-" + item.name}
-                className=""
-              />
-            </div>
-            <Link
-              href={`/produkt/${item.documentId}`}
-              className="md:text-base font-semibold"
-            >
-              {item.name}
-            </Link>
-          </div>
-          <div className="flex gap-3 justify-between w-full bg-zinc-100 p-2">
-            <div className="flex sm:flex-row flex-col items-center gap-3">
-              <div className="flex items-center gap-3">
-                <FaChevronDown
-                  onClick={() => {
-                    removeFromCartFunction(cart, setCart, item);
-                  }}
-                  className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
-                />
-                <p className="text-lg">{wholeItem.count}</p>
-                <FaChevronUp
-                  className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
-                  onClick={() => {
-                    if (realAmount > wholeItem.count) {
-                      addToCartFunction(cart, setCart, item);
-                    }
-                  }}
-                />
-              </div>
-              <Availability timeslots={timeslots} item={item} />
-            </div>
-            <div className=" items-center gap-5 justify-self-end hidden md:flex">
-              <p className="flex items-end flex-col font-semibold text-textSecondary">
-                <span className="text-sm font-semibold text-textSecondary">
-                  Před slevou{" "}
-                  <span className="text-primaryHover">{groupPrice}</span> Kč
-                </span>{" "}
-                <span className="text-lg font-semibold text-textSecondary">
-                  Po slevě{" "}
-                  <span className="text-primary">{groupPrice * saleIndex}</span>{" "}
-                  Kč
-                </span>{" "}
-              </p>
-            </div>
-            <div className="flex items-center gap-5 justify-self-end md:hidden">
-              <p className="flex gap-1 items-end font-semibold text-textSecondary">
-                <span className="text-primary">{groupPrice * saleIndex}</span>{" "}
-                Kč
-              </p>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  function AdditionsTab({ product }: { product: any }) {
-    const newProduct = product;
-    const item = newProduct.item;
-    const price = Number(item.basePrice);
-
-    const groupPrice = newProduct.count * price;
-
-    function AddToAdditionsCart() {
-      const productIndex = additions.findIndex(
-        (newItem) => newItem.item.name == item.name
-      );
-      const newProduct = additions[productIndex];
-      newProduct.count = newProduct.count + 1;
-      const newArray = additions;
-      newArray[productIndex] = newProduct;
-      setAdditions([...newArray]);
-      localStorage.setItem("additionsCart", JSON.stringify(newArray));
-    }
-
-    function RemoveFromAdditionsCart() {
-      const productIndex = additions.findIndex(
-        (newItem) => newItem.item.name == item.name
-      );
-      const newProduct = additions[productIndex];
-      if (newProduct.count > 0) {
-        newProduct.count = newProduct.count - 1;
-      }
-      const newArray = additions;
-      newArray[productIndex] = newProduct;
-      setAdditions([...newArray]);
-      localStorage.setItem("additionsCart", JSON.stringify(newArray));
-    }
-
-    return (
-      <>
-        <div className="flex flex-col border overflow-hidden rounded-lg border-borderGray">
-          <div className="flex items-center gap-5 p-2 border-b border-borderGray bg-white">
-            <div className="md:w-16 md:h-16 w-10 h-10 flex items-center justify-center p-1">
-              <Image
-                src={item.coverImage.formats.thumbnail.url}
-                width={200}
-                height={300}
-                alt={"thumbnail-" + item.name}
-                className=""
-              />
-            </div>
-            <Link
-              href={`/produkt/${item.documentId}`}
-              className="md:text-base font-semibold"
-            >
-              {item.name}
-            </Link>
-          </div>
-          <div className="flex gap-3 justify-between w-full bg-zinc-100 p-2">
-            <div className="flex items-center gap-3">
-              <FaChevronDown
-                onClick={() => {
-                  RemoveFromAdditionsCart();
-                }}
-                className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
-              />
-              <p className="text-lg">{newProduct.count}</p>
-              <FaChevronUp
-                className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
-                onClick={() => {
-                  AddToAdditionsCart();
-                }}
-              />
-            </div>
-            <div className=" items-center gap-5 justify-self-end hidden md:flex">
-              <p className="flex items-end flex-col font-semibold text-textSecondary">
-                <span className="text-lg font-semibold text-textSecondary">
-                  <span className="text-primary">{groupPrice}</span> Kč
-                </span>{" "}
-              </p>
-            </div>
-            <div className="flex items-center gap-5 justify-self-end md:hidden">
-              <p className="flex gap-1 items-end font-semibold text-textSecondary">
-                <span className="text-primary">{groupPrice}</span> Kč
-              </p>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  function FormTextInput({ text, name }: { text: string; name: string }) {
-    return (
-      <div className="flex flex-col">
-        <label className="">{text}</label>
-        <input
-          required={true}
-          name={name}
-          type="text"
-          className="border border-borderGray p-1 rounded-sm"
-        ></input>
-      </div>
-    );
-  }
-
+  //Sumbit order function
   async function SubmitOrder(e: any) {
+    //Starts spinning loader
+    setLoader(true);
+
+    //Creating Cart data object
     const rentalItems = cart;
     const additionalItems = additions;
 
@@ -330,8 +102,8 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
     };
 
     const agreement = formData.get("podminky");
-    console.log(agreement);
 
+    //Fetching for stripe checkout
     const stripeResponse = await fetch(
       process.env.STRAPI + "/api/stripe/checkout",
       {
@@ -351,8 +123,9 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
     );
 
     if (!stripeResponse.ok) {
+      setLoader(false);
+
       const stripeResponseJson = await stripeResponse.json();
-      console.log(stripeResponseJson);
 
       setError(stripeResponseJson.error);
     }
@@ -360,8 +133,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
     if (stripeResponse.ok) {
       const json = await stripeResponse.json();
       const url = json.url;
-      console.log(url);
-      sendGTMEvent({ event: "order_created", value: "xyz" });
+      sendGTMEvent({ event: "order_created", value: wholePriceAfterSale });
 
       window.location.href = url;
     }
@@ -372,6 +144,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
       {cart.length != 0 ? (
         <>
           {" "}
+          <Loader shown={loader} />
           <div className="w-full max-w-wrapper flex flex-col gap-5">
             <p className="">
               Níže můžete vidět všechno vybrané zboží. Abychom předešli zahlcení
@@ -397,14 +170,13 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
             </div>
             <div className="grid gap-3">
               {cart.map((product) => {
-                if (cart) {
-                  return (
-                    <CartTab
-                      product={product}
-                      key={"cartItemTab" + product.item.name}
-                    />
-                  );
-                }
+                return (
+                  <CartTab
+                    product={product}
+                    timeslots={timeslots}
+                    key={"cartItemTab" + product.item.name}
+                  />
+                );
               })}
             </div>
           </div>
@@ -443,6 +215,8 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
                     {additions.map((product) => {
                       return (
                         <AdditionsTab
+                          additions={additions}
+                          setAdditions={setAdditions}
                           product={product}
                           key={"cartAdditionsTab" + product.item.name}
                         />
