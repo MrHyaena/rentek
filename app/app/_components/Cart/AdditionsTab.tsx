@@ -56,11 +56,13 @@ export function AdditionsTab({
               height={300}
               alt={"thumbnail-" + item.name}
               className=""
+              data-testid="thumbnail"
             />
           </div>
           <Link
             href={`/produkt/${item.documentId}`}
             className="md:text-base font-semibold"
+            data-testid="headingLink"
           >
             {item.name}
           </Link>
@@ -73,7 +75,9 @@ export function AdditionsTab({
               }}
               className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
             />
-            <p className="text-lg">{newProduct.count}</p>
+            <p className="text-lg" data-testid="newProductCount">
+              {newProduct.count}
+            </p>
             <FaChevronUp
               className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
               onClick={() => {
@@ -84,7 +88,10 @@ export function AdditionsTab({
           <div className=" items-center gap-5 justify-self-end hidden md:flex">
             <p className="flex items-end flex-col font-semibold text-textSecondary">
               <span className="text-lg font-semibold text-textSecondary">
-                <span className="text-primary">{groupPrice}</span> Kč
+                <span className="text-primary" data-testid="groupPrice">
+                  {groupPrice}
+                </span>{" "}
+                Kč
               </span>{" "}
             </p>
           </div>

@@ -2,15 +2,20 @@ import { isWithinInterval } from "date-fns";
 
 //Function for providing availability data
 export function AvailabilityData(
-  timeslots: any,
-  item: any,
+  timeslots: {
+    delivery: any;
+    pickup: any;
+    products: any;
+    [key: string]: any;
+  }[],
+  item: { [key: string]: any },
   daterange: {
     startDate: any;
     endDate: any;
     startIsValid: any;
     endIsValid: any;
   },
-  cart: any
+  cart: { [key: string]: any }[]
 ) {
   //Matching timeslots by date
   const arrayTimeslotsByDate = timeslots.filter(
@@ -70,5 +75,11 @@ export function AvailabilityData(
     (itemCart: any) => itemCart.item.documentId == item.documentId
   );
 
-  return { cartItem, realAmount, grayScale, arrayTimeslotsByItem };
+  return {
+    cartItem,
+    realAmount,
+    grayScale,
+    arrayTimeslotsByItem,
+    arrayTimeslotsByDate,
+  };
 }
