@@ -66,6 +66,7 @@ export default function AddToCartButton({ item, timeslots }: Props) {
       {item.pricingType == "product" && (
         <>
           <Link
+            data-testid="productLinkElement"
             href={"/kosik"}
             className="buttonSmall self-stretch md:text-start text-center"
           >

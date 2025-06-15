@@ -61,7 +61,7 @@ describe("AddToCartButton", () => {
   );
 
   //Tests
-  it("Correct render for item.pricingType = rental", () => {
+  it("Render for item.pricingType = rental", () => {
     const rentalDiv = screen.getByTestId("rental");
     expect(rentalDiv).toBeTruthy();
   });
@@ -95,5 +95,40 @@ describe("AddToCartButton", () => {
     );
     const buttonElement = screen.getByTestId("realAmountZero");
     expect(buttonElement).toBeTruthy();
+  });
+
+  it("Render for item.pricingType = product", () => {
+    const dataRealAmountZero = {
+      timeslotsTwo: [
+        {
+          delivery: new Date(2025, 6, 14, 10),
+          pickup: new Date(2025, 6, 15, 10),
+          products: [{ item: { documentId: "4f48ew45fre9w" }, count: 5 }],
+        },
+      ],
+      itemTwo: {
+        documentId: "4f48ew45fre9w",
+        amount: 5,
+        pricingType: "product",
+      },
+    };
+    const { timeslotsTwo, itemTwo } = dataRealAmountZero;
+    rerender(
+      <DaterangeContext.Provider
+        value={{
+          daterange,
+          setDaterange,
+          saleIndex,
+          numberOfDays,
+          setNumberOfDays,
+        }}
+      >
+        <CartContext.Provider value={{ cart, setCart }}>
+          <AddToCartButton item={itemTwo} timeslots={timeslotsTwo} />
+        </CartContext.Provider>
+      </DaterangeContext.Provider>
+    );
+    const linkElement = screen.getByTestId("productLinkElement");
+    expect(linkElement).toBeTruthy();
   });
 });
