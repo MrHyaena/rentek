@@ -1,12 +1,16 @@
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { useContext } from "react";
-import { AvailabilityData } from "../AvailabilityFunctions/AvailabilityDataFunction";
 import Image from "next/image";
 import Link from "next/link";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
-import { addToCartFunction, removeFromCartFunction } from "./cartFunction";
-import Availability from "../Products/Availability";
+
 import { CartContext } from "@/app/_context/CartContext";
+import { AvailabilityData } from "../../Availability/_functions/availabilityDataFunction";
+import {
+  addToCartFunction,
+  removeFromCartFunction,
+} from "../_functions/cartFunction";
+import Availability from "../../Products/_components/Availability";
 
 //Cart Item tab functional component
 export function CartTab({

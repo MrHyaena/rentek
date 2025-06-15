@@ -1,9 +1,8 @@
 import React from "react";
-import DatepickerBig from "../Datepickers/DatepickerBig";
+import DatepickerBig from "../../Datepickers/_components/DatepickerBig";
 import Link from "next/link";
 import HowDoesItWorkButton from "./HowDoesItWorkButton";
-import DatepickerSmall from "../Datepickers/DatepickerSmall";
-import Image from "next/image";
+import DatepickerSmall from "../../Datepickers/_components/DatepickerSmall";
 
 export default function Hero() {
   return (

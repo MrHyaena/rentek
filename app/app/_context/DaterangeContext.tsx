@@ -10,19 +10,7 @@ import {
   useState,
 } from "react";
 import React from "react";
-
-type DaterangeContextType = {
-  daterange: {
-    startDate: Date;
-    endDate: Date;
-    startIsValid: boolean;
-    endIsValid: boolean;
-  };
-  setDaterange: any;
-  saleIndex: number;
-  numberOfDays: number;
-  setNumberOfDays: any;
-};
+import { Daterange, DaterangeContextType } from "../_types/daterange";
 
 type Props = {
   children?: ReactNode;
@@ -42,19 +30,14 @@ export const DaterangeContext = createContext<DaterangeContextType>({
 });
 
 export function DaterangeContextProvider({ children }: Props) {
-  const [daterange, setDaterange] = useState<{
-    startDate: Date;
-    endDate: Date;
-    startIsValid: boolean;
-    endIsValid: boolean;
-  }>({
+  const [daterange, setDaterange] = useState<Daterange>({
     startDate: new Date(),
     endDate: new Date(),
     startIsValid: false,
     endIsValid: false,
   });
-  const [numberOfDays, setNumberOfDays] = useState<number>(1);
-  const [saleIndex, setSaleIndex] = useState<number>(1);
+  const [numberOfDays, setNumberOfDays] = useState(1);
+  const [saleIndex, setSaleIndex] = useState(1);
 
   useEffect(() => {
     const data: string | null = localStorage.getItem("daterange");

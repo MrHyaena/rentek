@@ -3,7 +3,7 @@
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { addToCartFunction } from "../Cart/cartFunction";
+import { addToCartFunction } from "../../Cart/_functions/cartFunction";
 import { useContext } from "react";
 import { CartContext } from "@/app/_context/CartContext";
 import Image from "next/image";

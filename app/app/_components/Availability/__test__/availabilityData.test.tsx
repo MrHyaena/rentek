@@ -1,6 +1,6 @@
 import { describe, expect, it, test } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { AvailabilityData } from "../AvailabilityDataFunction";
+import { AvailabilityData } from "../_functions/availabilityDataFunction";
 
 describe("AvailabilityData", () => {
   it("AvailabilityData with matching items, nomatching timeslots, nomatching products", () => {

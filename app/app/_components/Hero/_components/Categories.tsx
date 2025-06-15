@@ -1,7 +1,7 @@
 import React from "react";
-import SectionHeading from "../Headings/SectionHeading";
-import CTAHorizontal from "../CTA/CTAHorizontal";
 import Link from "next/link";
+import SectionHeading from "../../Headings/_components/SectionHeading";
+import CTAHorizontal from "../../CTA/_components/CTAHorizontal";
 
 type Props = {
   image: string;

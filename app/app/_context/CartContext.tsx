@@ -9,11 +9,7 @@ import {
   useState,
 } from "react";
 import React from "react";
-
-type CartContextType = {
-  cart: { [key: string]: any }[];
-  setCart: Dispatch<SetStateAction<any[]>>;
-};
+import { CartState, CartContextType } from "../_types/cart";
 
 export const CartContext = createContext<CartContextType>({
   cart: [],
@@ -24,10 +20,8 @@ type Props = {
   children?: ReactNode;
 };
 
-type StateType = { [key: string]: any }[];
-
 export function CartContextProvider({ children }: Props) {
-  const [cart, setCart] = useState<StateType>([]);
+  const [cart, setCart] = useState<CartState>([]);
 
   useEffect(() => {
     const data = localStorage.getItem("cart");

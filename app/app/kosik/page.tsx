@@ -1,10 +1,6 @@
 import React from "react";
 
-import CartForm from "../_components/Cart/CartForm";
-import DatepickerSmall from "../_components/Datepickers/DatepickerSmall";
-import DatepickerBig from "../_components/Datepickers/DatepickerBig";
-import { redirect } from "next/navigation";
-import Link from "next/link";
+import CartForm from "../_components/Cart/_components/CartForm";
 import * as qs from "qs";
 
 export default async function page() {

@@ -1,23 +1,14 @@
 "use client";
 
-import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import {
-  faBars,
-  faCartShopping,
-  faMagnifyingGlass,
-  faPhone,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React, { useState } from "react";
-import CartButton from "../Cart/CartButton";
-import { CartContextProvider } from "../../_context/CartContext";
+import CartButton from "../../Cart/_components/CartButton";
 import Link from "next/link";
-import ScrollToKontakt from "./ScrollToKontakt";
-import { FiMenu } from "react-icons/fi";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { BsFillGrid1X2Fill } from "react-icons/bs";
-import { FaFacebook, FaInstagram } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 
 //Header functional component
@@ -77,7 +68,17 @@ function DesktopHeader() {
                   <Link href={"/"}>Domů</Link>
                 </li>
                 <li>
-                  <ScrollToKontakt />
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => {
+                      window.scrollTo({
+                        top: document.body.scrollHeight,
+                        behavior: "smooth",
+                      });
+                    }}
+                  >
+                    Kontakt
+                  </button>
                 </li>
               </ul>
 
@@ -140,7 +141,17 @@ function MobileHeader() {
                   <Link href={"/katalog"}>Katalog</Link>
                 </li>
                 <li>
-                  <ScrollToKontakt />
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => {
+                      window.scrollTo({
+                        top: document.body.scrollHeight,
+                        behavior: "smooth",
+                      });
+                    }}
+                  >
+                    Kontakt
+                  </button>
                 </li>
               </ul>
             </div>
