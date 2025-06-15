@@ -4,6 +4,7 @@ export function FormTextInput({ text, name }: { text: string; name: string }) {
     <div className="flex flex-col">
       <label className="">{text}</label>
       <input
+        data-testid="inputElement"
         required={true}
         name={name}
         type="text"

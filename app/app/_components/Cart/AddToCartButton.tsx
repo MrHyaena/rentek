@@ -19,7 +19,7 @@ export default function AddToCartButton({ item, timeslots }: Props) {
   const { daterange } = useContext(DaterangeContext);
 
   //Getting availability data
-  const { realAmount, cartItem, grayScale } = AvailabilityData(
+  const { realAmount, cartItem } = AvailabilityData(
     timeslots,
     item,
     daterange,
@@ -30,10 +30,11 @@ export default function AddToCartButton({ item, timeslots }: Props) {
     <>
       {item.pricingType == "rental" && (
         <>
-          <div className="grid grid-cols-2 col-span-2">
+          <div data-testid="rental" className="grid grid-cols-2 col-span-2">
             {realAmount > 0 ? (
               <>
                 <button
+                  data-testid="realAmountNotZero"
                   onClick={() => {
                     if (cartItem == undefined) {
                       addToCartFunction(cart, setCart, item);
@@ -46,11 +47,17 @@ export default function AddToCartButton({ item, timeslots }: Props) {
                 </button>
               </>
             ) : (
-              <button className="col-span-1 py-3 border rounded-l-lg flex items-center justify-center bg-gray-200 border-zinc-300 text-textPrimary ease-in-out transition-all">
+              <button
+                data-testid="realAmountZero"
+                className="col-span-1 py-3 border rounded-l-lg flex items-center justify-center bg-gray-200 border-zinc-300 text-textPrimary ease-in-out transition-all"
+              >
                 <FaCartPlus />
               </button>
-            )}{" "}
-            <p className="font-semibold col-span-1 py-3 px-10 border-y border-r rounded-r-lg flex items-center justify-center border-zinc-300 text-textPrimary ease-in-out transition-all">
+            )}
+            <p
+              data-testid="cartItemAmount"
+              className="font-semibold col-span-1 py-3 px-10 border-y border-r rounded-r-lg flex items-center justify-center border-zinc-300 text-textPrimary ease-in-out transition-all"
+            >
               {cartItem == undefined ? 0 : cartItem.count}
             </p>
           </div>
