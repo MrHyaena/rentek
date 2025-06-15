@@ -1,5 +1,5 @@
 import React from "react";
-import PageHeading from "../_components/Headings/PageHeading";
+import PageHeading from "../_components/Headings/_components/PageHeading";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -10,7 +10,7 @@ import {
   addToCartFunction,
   removeFromCartFunction,
 } from "../_functions/cartFunction";
-import Availability from "../../Products/Availability";
+import Availability from "../../Products/_components/Availability";
 
 //Cart Item tab functional component
 export function CartTab({

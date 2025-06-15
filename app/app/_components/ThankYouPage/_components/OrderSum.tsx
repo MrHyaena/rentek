@@ -2,10 +2,9 @@
 
 import { CartContext } from "@/app/_context/CartContext";
 import { format } from "date-fns";
-import { SearchParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 
 type Props = { [key: string]: any };

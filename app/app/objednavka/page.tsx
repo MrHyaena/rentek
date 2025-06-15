@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
-import PageHeading from "../_components/Headings/PageHeading";
-import OrderSum from "../_components/ThankYouPage/OrderSum";
+import PageHeading from "../_components/Headings/_components/PageHeading";
+import OrderSum from "../_components/ThankYouPage/_components/OrderSum";
 import { Metadata } from "next";
 
 type Props = any;

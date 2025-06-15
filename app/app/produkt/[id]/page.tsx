@@ -1,20 +1,20 @@
 import Image from "next/image";
 import React from "react";
 import parse from "html-react-parser";
-import ProductPagePrice from "@/app/_components/Prices/ProductPrice";
+import ProductPagePrice from "@/app/_components/Prices/_components/ProductPrice";
 import DatepickerSmall from "@/app/_components/Datepickers/_components/DatepickerSmall";
 
 import { FaChevronLeft, FaSeedling } from "react-icons/fa";
 
-import ProductSpecsRental from "@/app/_components/Products/ProductSpecsRental";
-import ProductPrice from "@/app/_components/Prices/ProductPrice";
+import ProductSpecsRental from "@/app/_components/Products/_components/ProductSpecsRental";
+import ProductPrice from "@/app/_components/Prices/_components/ProductPrice";
 import AddToCartButton from "@/app/_components/Cart/_components/AddToCartButton";
-import ProductSpecsProduct from "@/app/_components/Products/ProductSpecsProduct";
+import ProductSpecsProduct from "@/app/_components/Products/_components/ProductSpecsProduct";
 import { Metadata } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import * as qs from "qs";
-import Availability from "@/app/_components/Products/Availability";
+import Availability from "@/app/_components/Products/_components/Availability";
 
 export async function generateMetadata({
   params,

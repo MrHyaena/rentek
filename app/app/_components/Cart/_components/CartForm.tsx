@@ -7,13 +7,13 @@ import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 
 import { sendGTMEvent } from "@next/third-parties/google";
-import { PriceData } from "../../Prices/PriceDataFunction.tsx";
-import Loader from "../../Loaders/Loader";
+import Loader from "../../Loaders/_components/Loader";
 import { CartTab } from "./CartTab";
 import { AdditionsTab } from "./AdditionsTab";
 import DatepickerBig from "../../Datepickers/_components/DatepickerBig";
 import DatepickerSmall from "../../Datepickers/_components/DatepickerSmall";
 import { FormTextInput } from "./FormTextInput";
+import { priceData } from "../../Prices/_functions/priceDataFunction.tsx";
 
 type Props = {
   newAdditions: any[];
@@ -54,7 +54,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
     payNowPrice,
     sale,
     tag,
-  } = PriceData(numberOfDays, additions, cart, saleIndex);
+  } = priceData(numberOfDays, additions, cart, saleIndex);
 
   //Sumbit order function
   async function SubmitOrder(e: any) {

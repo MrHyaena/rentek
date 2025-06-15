@@ -1,18 +1,17 @@
 "use client";
 
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
-import { CartContext } from "../../_context/CartContext";
+import { CartContext } from "../../../_context/CartContext";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import { differenceInDays, isWithinInterval } from "date-fns";
-import ProductPrice from "../Prices/ProductPrice";
-import { addToCartFunction } from "../Cart/_functions/cartFunction";
+import { differenceInDays } from "date-fns";
+import ProductPrice from "../../Prices/_components/ProductPrice";
+import { addToCartFunction } from "../../Cart/_functions/cartFunction";
 import Link from "next/link";
 import { FaToolbox } from "react-icons/fa6";
-import { AvailabilityData } from "../Availability/_functions/availabilityDataFunction";
-import { DayTag } from "../UtilityFunctions/_functions/dayTagFunction";
+import { AvailabilityData } from "../../Availability/_functions/availabilityDataFunction";
 type ProductProps = {
   key: any;
   timeslots: any[];

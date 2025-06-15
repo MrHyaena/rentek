@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 
-import ProductTabHorizontal from "../Products/ProductHorizontal";
+import ProductTabHorizontal from "../../Products/_components/ProductHorizontal";
 import * as qs from "qs";
 import { FaHelmetSafety, FaLeaf, FaSeedling, FaTree } from "react-icons/fa6";
 import arraySort from "array-sort";

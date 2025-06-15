@@ -1,6 +1,6 @@
 import React from "react";
-import DatepickerBig from "../Datepickers/_components/DatepickerBig";
-import DatepickerSmall from "../Datepickers/_components/DatepickerSmall";
+import DatepickerBig from "../../Datepickers/_components/DatepickerBig";
+import DatepickerSmall from "../../Datepickers/_components/DatepickerSmall";
 
 type Props = {
   image: string;

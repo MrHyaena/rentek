@@ -1,7 +1,7 @@
-import { dayTag } from "../UtilityFunctions/_functions/dayTagFunction";
+import { dayTag } from "../../UtilityFunctions/_functions/dayTagFunction";
 
 //Getting price data
-export function PriceData(
+export function priceData(
   numberOfDays: any,
   additions: any[],
   cart: any,

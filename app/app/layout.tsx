@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
-import Header from "./_components/HeaderFooter/Header";
+import Header from "./_components/HeaderFooter/_components/Header";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Providers from "./_providers/Providers";
-import Footer from "./_components/HeaderFooter/Footer";
+import Footer from "./_components/HeaderFooter/_components/Footer";
 import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
 

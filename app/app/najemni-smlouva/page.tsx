@@ -1,5 +1,5 @@
 import React from "react";
-import PageHeading from "../_components/Headings/PageHeading";
+import PageHeading from "../_components/Headings/_components/PageHeading";
 import Link from "next/link";
 import { IoIosPaper } from "react-icons/io";
 import { Metadata } from "next";

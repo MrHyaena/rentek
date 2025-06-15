@@ -1,12 +1,13 @@
 import Image from "next/image";
-import Hero from "./_components/PageComponents/Hero";
-import IconsColumns from "./_components/PageComponents/IconsColumns";
-import Categories from "./_components/PageComponents/Categories";
-import Products from "./_components/PageComponents/Products";
-import ImageText from "./_components/PageComponents/ImageText";
+import Hero from "./_components/Hero/_components/Hero";
+import IconsColumns from "./_components/Hero/_components/IconsColumns";
+
+import ImageText from "./_components/Hero/_components/ImageText";
 import CTAHorizontal from "./_components/CTA/_components/CTAHorizontal";
 import CTAVertical from "./_components/CTA/_components/CTAVertical";
 import { Metadata } from "next";
+import Categories from "./_components/Hero/_components/Categories";
+import Products from "./_components/Hero/_components/Products";
 
 export const metadata: Metadata = {
   title: "Rentek: Půjčovna zahradní techniky",
