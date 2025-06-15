@@ -2,7 +2,7 @@ import { describe, expect, it, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import "@testing-library/react";
-import { FormTextInput } from "../FormTextInput";
+import { FormTextInput } from "../_components/FormTextInput";
 
 describe("FormTextInput", () => {
   render(<FormTextInput text="labelText" name="inputName" />);

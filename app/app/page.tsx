@@ -4,8 +4,8 @@ import IconsColumns from "./_components/PageComponents/IconsColumns";
 import Categories from "./_components/PageComponents/Categories";
 import Products from "./_components/PageComponents/Products";
 import ImageText from "./_components/PageComponents/ImageText";
-import CTAHorizontal from "./_components/CTA/CTAHorizontal";
-import CTAVertical from "./_components/CTA/CTAVertical";
+import CTAHorizontal from "./_components/CTA/_components/CTAHorizontal";
+import CTAVertical from "./_components/CTA/_components/CTAVertical";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

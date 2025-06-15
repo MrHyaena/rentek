@@ -1,6 +1,6 @@
 import { describe, expect, it, test } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { AdditionsTab } from "../AdditionsTab";
+import { AdditionsTab } from "../_components/AdditionsTab";
 import "@testing-library/jest-dom/vitest";
 
 describe("AdditionsTab", () => {

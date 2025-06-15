@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { Item } from "./global";
+import { item } from "./global";
 
-export type CartState = [] | [Item];
+export type CartState = any[];
 
 export interface CartContextType {
   cart: CartState;

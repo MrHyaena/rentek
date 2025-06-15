@@ -5,14 +5,14 @@ import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
-import DatepickerBig from "../Datepickers/DatepickerBig";
-import DatepickerSmall from "../Datepickers/DatepickerSmall";
-import { sendGTMEvent } from "@next/third-parties/google";
 
-import { PriceData } from "../Prices/PriceDataFunction.tsx";
-import Loader from "../Loaders/Loader";
+import { sendGTMEvent } from "@next/third-parties/google";
+import { PriceData } from "../../Prices/PriceDataFunction.tsx";
+import Loader from "../../Loaders/Loader";
 import { CartTab } from "./CartTab";
 import { AdditionsTab } from "./AdditionsTab";
+import DatepickerBig from "../../Datepickers/_components/DatepickerBig";
+import DatepickerSmall from "../../Datepickers/_components/DatepickerSmall";
 import { FormTextInput } from "./FormTextInput";
 
 type Props = {

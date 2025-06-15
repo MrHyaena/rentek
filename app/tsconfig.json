@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/_components/CTA/CTAHorizontal.tsx"
+    "app/_components/CTA/_components/CTAHorizontal.tsx"
   ],
   "exclude": ["node_modules"]
 }

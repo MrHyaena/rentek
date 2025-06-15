@@ -2,7 +2,7 @@ import { describe, expect, it, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import "@testing-library/react";
-import AddToCartButton from "../AddToCartButton";
+import AddToCartButton from "../_components/AddToCartButton";
 
 describe("AddToCartButton", () => {
   //Mock data

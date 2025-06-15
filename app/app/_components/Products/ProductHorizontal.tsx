@@ -8,11 +8,11 @@ import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { differenceInDays, isWithinInterval } from "date-fns";
 import ProductPrice from "../Prices/ProductPrice";
-import { addToCartFunction } from "../Cart/cartFunction";
+import { addToCartFunction } from "../Cart/_functions/cartFunction";
 import Link from "next/link";
 import { FaToolbox } from "react-icons/fa6";
-import { AvailabilityData } from "../AvailabilityFunctions/AvailabilityDataFunction";
-import { DayTag } from "../UtilityFunctions/DayTagFunction";
+import { AvailabilityData } from "../Availability/_functions/availabilityDataFunction";
+import { DayTag } from "../UtilityFunctions/_functions/dayTagFunction";
 type ProductProps = {
   key: any;
   timeslots: any[];

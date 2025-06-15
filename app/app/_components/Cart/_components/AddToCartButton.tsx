@@ -2,11 +2,11 @@
 
 import { CartContext } from "@/app/_context/CartContext";
 import React, { useContext } from "react";
-import { addToCartFunction } from "./cartFunction";
 import Link from "next/link";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { FaCartPlus } from "react-icons/fa6";
-import { AvailabilityData } from "../AvailabilityFunctions/AvailabilityDataFunction";
+import { AvailabilityData } from "../../Availability/_functions/availabilityDataFunction";
+import { addToCartFunction } from "../_functions/cartFunction";
 
 type Props = {
   item: { [key: string]: any };

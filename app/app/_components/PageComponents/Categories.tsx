@@ -1,6 +1,6 @@
 import React from "react";
 import SectionHeading from "../Headings/SectionHeading";
-import CTAHorizontal from "../CTA/CTAHorizontal";
+import CTAHorizontal from "../CTA/_components/CTAHorizontal";
 import Link from "next/link";
 
 type Props = {

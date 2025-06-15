@@ -2,13 +2,13 @@ import Image from "next/image";
 import React from "react";
 import parse from "html-react-parser";
 import ProductPagePrice from "@/app/_components/Prices/ProductPrice";
-import DatepickerSmall from "@/app/_components/Datepickers/DatepickerSmall";
+import DatepickerSmall from "@/app/_components/Datepickers/_components/DatepickerSmall";
 
 import { FaChevronLeft, FaSeedling } from "react-icons/fa";
 
 import ProductSpecsRental from "@/app/_components/Products/ProductSpecsRental";
 import ProductPrice from "@/app/_components/Prices/ProductPrice";
-import AddToCartButton from "@/app/_components/Cart/AddToCartButton";
+import AddToCartButton from "@/app/_components/Cart/_components/AddToCartButton";
 import ProductSpecsProduct from "@/app/_components/Products/ProductSpecsProduct";
 import { Metadata } from "next";
 import Head from "next/head";

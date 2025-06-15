@@ -3,7 +3,7 @@
 import { CartContext } from "@/app/_context/CartContext";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import React, { useContext } from "react";
-import { AvailabilityData } from "../AvailabilityFunctions/AvailabilityDataFunction";
+import { AvailabilityData } from "../Availability/_functions/availabilityDataFunction";
 
 //functional component showing availability
 export default function Availability({

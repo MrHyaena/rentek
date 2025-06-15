@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useContext } from "react";
-import { CartContext } from "../../_context/CartContext";
 import Link from "next/link";
 import { FaCartShopping } from "react-icons/fa6";
+import { CartContext } from "@/app/_context/CartContext";
 
 //Cart button placed in header
 export default function CartButton() {

@@ -1,4 +1,4 @@
-import { DayTag } from "../UtilityFunctions/DayTagFunction";
+import { dayTag } from "../UtilityFunctions/_functions/dayTagFunction";
 
 //Getting price data
 export function PriceData(
@@ -7,7 +7,7 @@ export function PriceData(
   cart: any,
   saleIndex: number
 ) {
-  const tag = DayTag(numberOfDays);
+  const tag = dayTag(numberOfDays);
 
   let rentalPrice: number = 0;
 

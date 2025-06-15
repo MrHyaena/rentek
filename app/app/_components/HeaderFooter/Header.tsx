@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React, { useState } from "react";
-import CartButton from "../Cart/CartButton";
+import CartButton from "../Cart/_components/CartButton";
 import { CartContextProvider } from "../../_context/CartContext";
 import Link from "next/link";
 import ScrollToKontakt from "./ScrollToKontakt";

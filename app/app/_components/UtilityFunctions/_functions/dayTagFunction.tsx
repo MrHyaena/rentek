@@ -1,4 +1,4 @@
-export function DayTag(numberOfDays: any) {
+export function dayTag(numberOfDays: any) {
   let tag: string = "den";
   if (numberOfDays == 1) {
     tag = "den";
