@@ -40,6 +40,6 @@ export interface item {
   accessories: [];
   categories: [];
   subcategories: [];
-  engine_type: {};
+  engine_type: { [key: string]: any };
   brands: [];
 }
