@@ -22,20 +22,20 @@ export default async function page({
   async function GetItems() {
     let response: any;
 
-    const { subcategory } = await searchParams;
+    const { category } = await searchParams;
 
     let url =
       process.env.STRAPI +
       `/api/items/?pagination[pageSize]=30&populate=*&filters[pricingType][$eq]=rental&sort=position`;
 
-    if (subcategory != undefined) {
+    if (category != undefined) {
       const query = await {
         filters: {
           $and: [
             { pricingType: { $eq: "rental" } },
             {
-              subcategories: {
-                documentId: { $eq: subcategory },
+              categories: {
+                documentId: { $eq: category },
               },
             },
           ],

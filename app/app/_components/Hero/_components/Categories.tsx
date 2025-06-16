@@ -47,25 +47,25 @@ export default function Categories() {
             image={"/lawnmower.jpg"}
             heading={"Úprava trávníku, porostů a zeminy"}
             buttonText={"Ukázat techniku"}
-            link={"/katalog"}
+            link={"/katalog?category=p61jw52ag3pzulw0qzcvdd8s"}
           />
           <CategoryTab
             image={"/shears.webp"}
             heading={"Úprava keřů"}
             buttonText={"Ukázat techniku"}
-            link={"/katalog"}
+            link={"/katalog?category=ba8e198g65fe64l1obbze549"}
           />
           <CategoryTab
             image={"/saw.jpg"}
             heading={"Úprava stromů a dřeva"}
             buttonText={"Ukázat techniku"}
-            link={"/katalog"}
+            link={"/katalog?category=xo1ctmhlqtw16bp2tq67dah0"}
           />
           <CategoryTab
-            image={"/tools.jpg"}
-            heading={"Manuální nářadí a příslušenství"}
+            image={"/akutools.jpg"}
+            heading={"Akumulátorové a kabelové nářadí"}
             buttonText={"Ukázat techniku"}
-            link={"/katalog"}
+            link={"/katalog?category=ty3trsipqm3nxq89k59psp7o"}
           />
         </div>
         <CTAHorizontal
