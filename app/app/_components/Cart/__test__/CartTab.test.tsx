@@ -6,7 +6,7 @@ import { CartContext } from "@/app/_context/CartContext";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { CartTab } from "../_components/CartTab";
 
-describe("AddToCartButton", () => {
+describe("CartTab", () => {
   //Mock data
   const dataRealAmountNotZero = {
     timeslots: [

@@ -8,7 +8,7 @@ import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { CartTab } from "../_components/CartTab";
 import CartForm from "../_components/CartForm";
 
-describe("AddToCartButton", () => {
+describe("CartForm", () => {
   //Data for cart context
   const cart: any = [
     {

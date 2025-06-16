@@ -6,7 +6,7 @@ import { CartContext } from "@/app/_context/CartContext";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { priceData } from "../_functions/priceDataFunction.tsx";
 
-describe("AddToCartButton", () => {
+describe("priceData", () => {
   //Mock data
   const saleIndex = 0.9;
   const numberOfDays = 1;

@@ -13,7 +13,6 @@ import Link from "next/link";
 import { FaToolbox } from "react-icons/fa6";
 import { AvailabilityData } from "../../Availability/_functions/availabilityDataFunction";
 type ProductProps = {
-  key: any;
   timeslots: any[];
   item: {
     imageUrl: string;
@@ -26,15 +25,18 @@ type ProductProps = {
     excerpt: string;
     [key: string]: any;
   };
+  cart: any[];
+  setCart: any;
+  daterange: any;
 };
 
 export default function ProductTabHorizontal({
   item,
   timeslots,
+  cart,
+  setCart,
+  daterange,
 }: ProductProps) {
-  const { cart, setCart } = useContext(CartContext);
-  const { daterange, setDaterange } = useContext(DaterangeContext);
-
   const [numberOfDays, setNumberOfDays] = useState<number>(1);
 
   const shortenedDescription = item.excerpt.substring(0, 140) + "...";
@@ -61,6 +63,7 @@ export default function ProductTabHorizontal({
           {realAmount > 0 ? (
             <>
               <button
+                data-testid="buttonRealAmountNotZero"
                 onClick={() => {
                   if (cartItem == undefined) {
                     addToCartFunction(cart, setCart, item);

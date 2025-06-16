@@ -7,11 +7,11 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 
-type Props = { [key: string]: any };
+type Props = { orderData: any[] };
 
 //Order after finalization or if user wants to show it
-export default function OrderSum({}: Props) {
-  const [data, setData] = useState<any>(null);
+export default function OrderSum({ orderData }: Props) {
+  const [data, setData] = useState<any>(orderData);
   const [orderId, setOrderId] = useState<any>();
   const params = useSearchParams();
   const { setCart } = useContext(CartContext);
