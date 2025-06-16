@@ -84,7 +84,7 @@ describe("AvailabilityData", () => {
         {
           delivery: new Date(2025, 6, 14, 10),
           pickup: new Date(2025, 6, 15, 10),
-          products: [{ item: { documentId: "4f48ew45fre9w" }, count: 3 }],
+          products: [{ item: { documentId: "4f48ew45fre9w" }, count: 5 }],
         },
       ],
       item: { documentId: "4f48ew45fre9w", amount: 5 },
@@ -108,8 +108,8 @@ describe("AvailabilityData", () => {
 
     expect(result).toStrictEqual({
       cartItem: cart[0],
-      realAmount: 2,
-      grayScale: 100,
+      realAmount: 0,
+      grayScale: 50,
       arrayTimeslotsByItem: [timeslots[0]],
       arrayTimeslotsByDate: [timeslots[0]],
     });

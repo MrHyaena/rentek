@@ -7,6 +7,7 @@ import * as qs from "qs";
 import { FaHelmetSafety, FaLeaf, FaSeedling, FaTree } from "react-icons/fa6";
 import arraySort from "array-sort";
 import { SearchContext } from "@/app/_context/SearchContext";
+import { GiDrill } from "react-icons/gi";
 
 type Props = {
   items: any;
@@ -216,17 +217,20 @@ export default function Catalogue({ items, timeslots }: Props) {
               return (
                 <div key={item.name + "kategorie"}>
                   <div className=" flex items-center gap-2">
-                    {item.name == "Úprava trávníku" && (
+                    {item.documentId == "p61jw52ag3pzulw0qzcvdd8s" && (
                       <FaSeedling className="text-primary" />
                     )}
-                    {item.name == "Úprava keřů" && (
+                    {item.documentId == "ba8e198g65fe64l1obbze549" && (
                       <FaLeaf className="text-primary" />
                     )}
-                    {item.name == "Úprava stromů a dřeva" && (
+                    {item.documentId == "xo1ctmhlqtw16bp2tq67dah0" && (
                       <FaTree className="text-primary" />
                     )}
-                    {item.name == "Manuální nářadí a příslušenství" && (
+                    {item.documentId == "urxyvl380onqrzd4mv57azk6" && (
                       <FaHelmetSafety className="text-primary text-lg" />
+                    )}
+                    {item.documentId == "ty3trsipqm3nxq89k59psp7o" && (
+                      <GiDrill className="text-primary text-lg" />
                     )}
                     <p className="font-semibold">{item.name}</p>
                   </div>
