@@ -21,7 +21,7 @@ export default function page({}: Props) {
         datepickerExists={false}
       />
       <Suspense>
-        <OrderSum />
+        <OrderSum orderData={[]} />
       </Suspense>
     </>
   );
