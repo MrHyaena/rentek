@@ -23,10 +23,9 @@ export function CartTab({
   const { daterange, numberOfDays, setNumberOfDays, saleIndex } =
     useContext(DaterangeContext);
   const { cart, setCart } = useContext(CartContext);
-  const cartItem = product;
-  const item = cartItem.item;
+  const item = product.item;
   const price: any = Number(item.basePrice);
-  const groupPrice = cartItem.count * price * numberOfDays;
+  const groupPrice = product.count * price * numberOfDays;
 
   const { realAmount } = AvailabilityData(timeslots, item, daterange, cart);
 
@@ -46,6 +45,7 @@ export function CartTab({
           <Link
             href={`/produkt/${item.documentId}`}
             className="md:text-base font-semibold"
+            data-testid="productName"
           >
             {item.name}
           </Link>
@@ -59,11 +59,13 @@ export function CartTab({
                 }}
                 className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
               />
-              <p className="text-lg">{cartItem.count}</p>
+              <p data-testid="productCount" className="text-lg">
+                {product.count}
+              </p>
               <FaChevronUp
                 className="cursor-pointer bg-white p-1 rounded-full text-2xl text-textSecondary select-none"
                 onClick={() => {
-                  if (realAmount > cartItem.count) {
+                  if (realAmount > product.count) {
                     addToCartFunction(cart, setCart, item);
                   }
                 }}
@@ -79,7 +81,12 @@ export function CartTab({
               </span>{" "}
               <span className="text-lg font-semibold text-textSecondary">
                 Po slevě{" "}
-                <span className="text-primary">{groupPrice * saleIndex}</span>{" "}
+                <span
+                  className="text-primary"
+                  data-testid="groupPriceAfterSale"
+                >
+                  {groupPrice * saleIndex}
+                </span>{" "}
                 Kč
               </span>{" "}
             </p>

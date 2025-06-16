@@ -162,7 +162,10 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
                 Technika
               </p>
               <div className="flex justify-end">
-                <p className="text-end font-semibold col-start-3">
+                <p
+                  data-testid="cartDayTag"
+                  className="text-end font-semibold col-start-3"
+                >
                   Celková cena <br />
                   za {numberOfDays} {tag} {"(vč. DPH)"}
                 </p>
@@ -181,7 +184,10 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
             </div>
           </div>
           {newAdditions.length > 0 && (
-            <div className="mt-10 w-full max-w-wrapper border md:p-5 p-2 rounded-lg border-borderGray bg-gray-50">
+            <div
+              data-testid="additionsDiv"
+              className="mt-10 w-full max-w-wrapper border md:p-5 p-2 rounded-lg border-borderGray bg-gray-50"
+            >
               <div className="flex md:flex-row flex-col  md:justify-between md:items-center md:gap-5">
                 <div className="col-span-3 flex flex-col gap-2 md:gap-0 mb-5">
                   <h5 className="text-xl mb-2">Ochranné pomůcky a doplňky</h5>
@@ -237,7 +243,10 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
           </div>
           {daterange.endIsValid && daterange.startIsValid ? (
             <>
-              <div className="mt-10 w-full max-w-wrapper">
+              <div
+                data-testid="cartFormSecondPart"
+                className="mt-10 w-full max-w-wrapper"
+              >
                 {" "}
                 <div className="grid items-center py-5 justify-between rounded-lg">
                   <h4 className="">Výsledná cena</h4>
@@ -422,7 +431,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
                     <div className=" justify-self-end border-borderGray rounded-md border md:p-5 p-3">
                       <h6 className="col-span-2 mb-4">Čas a datum doručení</h6>
 
-                      <p className="text-base">
+                      <p data-testid="daterangeShown" className="text-base">
                         Od{" "}
                         <span className="font-semibold">
                           {format(daterange.startDate, "dd.MM.yyyy hh:mm")}
