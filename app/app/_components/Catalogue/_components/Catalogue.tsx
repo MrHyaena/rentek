@@ -8,6 +8,8 @@ import { FaHelmetSafety, FaLeaf, FaSeedling, FaTree } from "react-icons/fa6";
 import arraySort from "array-sort";
 import { SearchContext } from "@/app/_context/SearchContext";
 import { GiDrill } from "react-icons/gi";
+import { CartContext } from "@/app/_context/CartContext";
+import { DaterangeContext } from "@/app/_context/DaterangeContext";
 
 type Props = {
   items: any;
@@ -17,6 +19,8 @@ type Props = {
 export default function Catalogue({ items, timeslots }: Props) {
   //Context
   const { search, setSearch } = useContext(SearchContext);
+  const { cart, setCart } = useContext(CartContext);
+  const { daterange, setDaterange } = useContext(DaterangeContext);
 
   //States
   const [data, setData] = useState<any[]>(items);
@@ -423,12 +427,18 @@ export default function Catalogue({ items, timeslots }: Props) {
             )}
           </div>
           {data.length > 0 && (
-            <div className="lg:col-span-3 flex flex-col gap-5">
+            <div
+              className="lg:col-span-3 flex flex-col gap-5"
+              data-testid="products"
+            >
               {data.map((item: any) => {
                 return (
                   <ProductTabHorizontal
                     timeslots={timeslots}
                     item={item}
+                    cart={cart}
+                    setCart={setCart}
+                    daterange={daterange}
                     key={"productHorizontal" + item.name}
                   />
                 );
@@ -436,7 +446,10 @@ export default function Catalogue({ items, timeslots }: Props) {
             </div>
           )}
           {data.length == 0 && (
-            <div className="lg:col-span-3 flex flex-col gap-5">
+            <div
+              data-testid="noProducts"
+              className="lg:col-span-3 flex flex-col gap-5"
+            >
               <p>
                 Nebyli jsme schopni najít žádné produkty odpovídající
                 vyhledávání.
