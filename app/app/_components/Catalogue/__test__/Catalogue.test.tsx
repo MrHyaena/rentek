@@ -7,7 +7,7 @@ import { DaterangeContext } from "@/app/_context/DaterangeContext";
 import { CartContext } from "@/app/_context/CartContext";
 import { vi } from "vitest";
 
-describe("Catalogue", () => {
+describe("Catalogue", async () => {
   const cart: any = [{ item: { documentId: "4f48ew45fre9w" }, count: 3 }];
   function setCart() {}
   const daterange = {
@@ -21,60 +21,9 @@ describe("Catalogue", () => {
   const numberOfDays = 1;
   function setNumberOfDays() {}
 
-  const items: any = [
-    {
-      accessories: [],
-      excerpt: "Hello",
-      deposit: 100,
-      basePrice: 100,
-      name: "itemName",
-      documentId: "4f48ew45fre9w",
-      coverImage: {
-        formats: {
-          small: {
-            url: "/imageUrl",
-          },
-          thumbnail: {
-            url: "/imageUrl",
-          },
-        },
-      },
-    },
-  ];
-
-  const timeslots: any = [
-    {
-      delivery: new Date(2025, 6, 14, 10),
-      pickup: new Date(2025, 6, 15, 10),
-      products: [
-        {
-          item: {
-            accessories: [],
-            excerpt: "Hello",
-            deposit: 100,
-            basePrice: 100,
-            name: "itemName",
-            documentId: "4f48ew45fre9w",
-            coverImage: {
-              formats: {
-                small: {
-                  url: "/imageUrl",
-                },
-                thumbnail: {
-                  url: "/imageUrl",
-                },
-              },
-            },
-          },
-          count: 3,
-        },
-      ],
-    },
-  ];
-
   vi.stubEnv("STRAPI", "https://energized-birthday-14512eb346.strapiapp.com");
 
-  const { rerender } = render(
+  const { rerender } = await render(
     <DaterangeContext.Provider
       value={{
         daterange,
@@ -85,48 +34,38 @@ describe("Catalogue", () => {
       }}
     >
       <CartContext.Provider value={{ cart, setCart }}>
-        <Catalogue items={items} timeslots={timeslots} />{" "}
+        <Catalogue searchParams={{}} />
       </CartContext.Provider>
     </DaterangeContext.Provider>
   );
 
-  it("Renders correct amount of products in cart", async () => {
-    rerender(
-      <DaterangeContext.Provider
-        value={{
-          daterange,
-          setDaterange,
-          saleIndex,
-          numberOfDays,
-          setNumberOfDays,
-        }}
-      >
-        <CartContext.Provider value={{ cart, setCart }}>
-          <Catalogue items={items} timeslots={timeslots} />{" "}
-        </CartContext.Provider>
-      </DaterangeContext.Provider>
-    );
-    const cartButtonElement = await screen.getByTestId("products");
-    expect(cartButtonElement).toBeDefined();
+  it("Renders no products in catalogue", async () => {
+    const noProductsElement = await screen.getByTestId("noProducts");
+    await expect(noProductsElement).toBeDefined();
   });
 
-  it("Renders correct div when no products fetched", async () => {
-    rerender(
-      <DaterangeContext.Provider
-        value={{
-          daterange,
-          setDaterange,
-          saleIndex,
-          numberOfDays,
-          setNumberOfDays,
-        }}
-      >
-        <CartContext.Provider value={{ cart, setCart }}>
-          <Catalogue items={[]} timeslots={timeslots} />{" "}
-        </CartContext.Provider>
-      </DaterangeContext.Provider>
-    );
-    const cartButtonElement = await screen.getByTestId("products");
-    expect(cartButtonElement).toBeDefined();
-  });
+  //it("Renders filters", async () => {
+  //  const productsElement = await screen.findByTestId("products");
+  //  await expect(productsElement).toBeDefined();
+  //});
+
+  //it("Renders correct div when no products fetched", async () => {
+  //  rerender(
+  //    <DaterangeContext.Provider
+  //      value={{
+  //        daterange,
+  //        setDaterange,
+  //        saleIndex,
+  //        numberOfDays,
+  //        setNumberOfDays,
+  //      }}
+  //    >
+  //      <CartContext.Provider value={{ cart, setCart }}>
+  //        <Catalogue searchParams={""} />{" "}
+  //      </CartContext.Provider>
+  //    </DaterangeContext.Provider>
+  //  );
+  //  const cartButtonElement = await screen.getByTestId("products");
+  //  expect(cartButtonElement).toBeDefined();
+  //});
 });

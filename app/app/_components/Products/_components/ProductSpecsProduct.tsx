@@ -1,15 +1,5 @@
 import React from "react";
 import { FaInfo } from "react-icons/fa";
-import {
-  FaCircleInfo,
-  FaGear,
-  FaGears,
-  FaHandshakeSimple,
-  FaHandshakeSimpleSlash,
-} from "react-icons/fa6";
-import { GiHighGrass } from "react-icons/gi";
-import { PiFlowerTulip, PiFlowerTulipBold } from "react-icons/pi";
-import { TbLayoutGrid, TbLayoutGridAdd } from "react-icons/tb";
 
 type Props = {
   data: any;

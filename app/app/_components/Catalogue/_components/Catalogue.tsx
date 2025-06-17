@@ -500,6 +500,7 @@ export default function Catalogue({ searchParams }: Props) {
             </div>
             {filtrToggle && (
               <form
+                data-testid="filters"
                 onSubmit={(data) => {
                   data.preventDefault();
                   Filter(data.target);

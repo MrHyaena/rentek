@@ -1,10 +1,7 @@
 import PageHeading from "@/app/_components/Headings/_components/PageHeading";
 import React from "react";
 import Catalogue from "../_components/Catalogue/_components/Catalogue";
-import { redirect } from "next/navigation";
 import { Metadata } from "next";
-import arraySort from "array-sort";
-import * as qs from "qs";
 
 export const metadata: Metadata = {
   title: "Katalog techniky",
