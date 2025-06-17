@@ -36,6 +36,8 @@ export default function Catalogue({ searchParams }: Props) {
 
   const [filtrToggle, setFiltrToggle] = useState<boolean>(false);
 
+  const [loader, setLoader] = useState<boolean>(false);
+
   //Initial functions after components is ready
 
   async function GetItems() {
@@ -127,15 +129,17 @@ export default function Catalogue({ searchParams }: Props) {
 
   useEffect(() => {
     async function getAllData() {
+      setLoader(true);
       const items = await GetItems();
 
       const timeslots = await GetTimeslots();
 
       setData(items);
       setTimeslots(timeslots);
+      setLoader(false);
     }
     getAllData();
-  });
+  }, []);
 
   useEffect(() => {
     async function getFilters() {
@@ -194,6 +198,8 @@ export default function Catalogue({ searchParams }: Props) {
     engineType: any[],
     uses: any[]
   ) {
+    setLoader(true);
+
     const newSubcategoriesState: any = [];
     subcategories.map((subcategory: any) => {
       newSubcategoriesState.push(subcategory);
@@ -283,6 +289,8 @@ export default function Catalogue({ searchParams }: Props) {
     if (!response.ok) {
       console.log("Bohužel nešlo načíst filtry");
     }
+
+    setLoader(false);
   }
 
   async function InitFilter(data: {
@@ -435,6 +443,7 @@ export default function Catalogue({ searchParams }: Props) {
 
   return (
     <>
+      <Loader shown={loader} text={"Načítáme produkty"} />
       <div className="flex w-full  justify-center md:p-10 p-5">
         <div className="lg:w-full max-w-wrapper grid lg:grid-cols-4 gap-10">
           <div className="lg:col-span-1 hidden lg:block">
