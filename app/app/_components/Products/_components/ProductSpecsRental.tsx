@@ -1,16 +1,9 @@
 import React from "react";
 import { FaInfo } from "react-icons/fa";
-import {
-  FaCircleInfo,
-  FaGear,
-  FaGears,
-  FaHandshakeSimple,
-  FaHandshakeSimpleSlash,
-} from "react-icons/fa6";
-import { GiHighGrass } from "react-icons/gi";
-import { PiFlowerTulip, PiFlowerTulipBold } from "react-icons/pi";
+import { FaHandshakeSimple } from "react-icons/fa6";
+import { PiFlowerTulipBold } from "react-icons/pi";
 import { SiBrandfolder } from "react-icons/si";
-import { TbLayoutGrid, TbLayoutGridAdd } from "react-icons/tb";
+import { TbLayoutGridAdd } from "react-icons/tb";
 
 type Props = {
   data: any;
@@ -31,7 +24,11 @@ export default function ProductSpecsRental({ data }: Props) {
               <div className="flex flex-col md:items-start items-center gap-2">
                 {data.uses.map((item: { name: string; [key: string]: any }) => {
                   return (
-                    <p key={"jmeno1" + item.name} className="">
+                    <p
+                      data-testid="usesNotNull"
+                      key={"jmeno1" + item.name}
+                      className=""
+                    >
                       {item.name}
                     </p>
                   );
@@ -49,7 +46,11 @@ export default function ProductSpecsRental({ data }: Props) {
             <div className="flex flex-col md:items-start items-center gap-2">
               {data.brands.map((item: { name: string; [key: string]: any }) => {
                 return (
-                  <p key={"jmeno2" + item.name} className="">
+                  <p
+                    data-testid="brandsNotNull"
+                    key={"jmeno2" + item.name}
+                    className=""
+                  >
                     {item.name}
                   </p>
                 );
@@ -67,7 +68,11 @@ export default function ProductSpecsRental({ data }: Props) {
               {data.accessories.map(
                 (item: { name: string; [key: string]: any }) => {
                   return (
-                    <p key={"jmeno3" + item.name} className="">
+                    <p
+                      data-testid="accessoriesNotNull"
+                      key={"jmeno3" + item.name}
+                      className=""
+                    >
                       {item.name}
                     </p>
                   );
@@ -78,7 +83,7 @@ export default function ProductSpecsRental({ data }: Props) {
         )}
       </div>
       {data.accessories[0] != null &&
-        data.specifications[0] != null &&
+        data.brands[0] != null &&
         data.uses[0] != null && (
           <div className="w-full h-[1px] bg-borderGray"></div>
         )}{" "}
@@ -99,7 +104,10 @@ export default function ProductSpecsRental({ data }: Props) {
       {data.additionalInformation != null && (
         <>
           {" "}
-          <div className="w-full h-[1px] bg-borderGray"></div>
+          <div
+            data-testid="additionalInformation"
+            className="w-full h-[1px] bg-borderGray"
+          ></div>
           <div className="grid md:grid-cols-[1fr_2fr] gap-2">
             <div className="font-semibold  flex items-center gap-2">
               <FaInfo className="text-zinc-800 text-2xl" />
