@@ -144,7 +144,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
       {cart.length != 0 ? (
         <>
           {" "}
-          <Loader shown={loader} />
+          <Loader shown={loader} text="Zpracováváme vaši objednávku" />
           <div className="w-full max-w-wrapper flex flex-col gap-5">
             <p className="">
               Níže můžete vidět všechno vybrané zboží. Abychom předešli zahlcení

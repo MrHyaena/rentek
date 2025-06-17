@@ -10,20 +10,20 @@ import { SearchContext } from "@/app/_context/SearchContext";
 import { GiDrill } from "react-icons/gi";
 import { CartContext } from "@/app/_context/CartContext";
 import { DaterangeContext } from "@/app/_context/DaterangeContext";
+import Loader from "../../Loaders/_components/Loader";
+import { LuLoaderCircle } from "react-icons/lu";
 
-type Props = {
-  items: any;
-  timeslots: [];
-};
+type Props = { searchParams: any };
 
-export default function Catalogue({ items, timeslots }: Props) {
+export default function Catalogue({ searchParams }: Props) {
   //Context
   const { search, setSearch } = useContext(SearchContext);
   const { cart, setCart } = useContext(CartContext);
   const { daterange, setDaterange } = useContext(DaterangeContext);
 
   //States
-  const [data, setData] = useState<any[]>(items);
+  const [data, setData] = useState<any[]>([]);
+  const [timeslots, setTimeslots] = useState<any[]>([]);
 
   const [subcategories, setSubcategories] = useState<any[]>([]);
   const [categories, setCategories] = useState<any>({ data: [] });
@@ -36,7 +36,111 @@ export default function Catalogue({ items, timeslots }: Props) {
 
   const [filtrToggle, setFiltrToggle] = useState<boolean>(false);
 
+  const [loader, setLoader] = useState<boolean>(false);
+
   //Initial functions after components is ready
+
+  async function GetItems() {
+    let response: any;
+
+    const { category } = await searchParams;
+
+    let url =
+      process.env.STRAPI +
+      `/api/items/?pagination[pageSize]=30&populate=*&filters[pricingType][$eq]=rental&sort=position`;
+
+    if (category != undefined) {
+      const query = await {
+        filters: {
+          $and: [
+            { pricingType: { $eq: "rental" } },
+            {
+              categories: {
+                documentId: { $eq: category },
+              },
+            },
+          ],
+        },
+      };
+      url =
+        process.env.STRAPI +
+        `/api/items/?populate=*&${qs.stringify(query, {
+          encodeValuesOnly: true,
+        })}`;
+    }
+
+    try {
+      response = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        next: {
+          revalidate: 10,
+        },
+      });
+
+      if (!response.ok) {
+        throw Error("Failed fetch (catalogue)");
+      }
+    } catch {
+      return [];
+    }
+
+    const itemsArray: any[] = [];
+
+    const json = await response.json();
+
+    json.data.map((item: any) => {
+      itemsArray.push({
+        ...item,
+      });
+    });
+
+    return itemsArray;
+  }
+
+  async function GetTimeslots() {
+    const nowDate = await new Date();
+
+    const query = await {
+      filters: {
+        delivery: {
+          $gt: nowDate.toISOString(),
+        },
+      },
+    };
+    const response = await fetch(
+      process.env.STRAPI +
+        `/api/timeslots?populate=*&${qs.stringify(query, {
+          encodeValuesOnly: true,
+        })}`,
+      {
+        method: "GET",
+        mode: "cors",
+        next: {
+          revalidate: 10,
+        },
+      }
+    );
+
+    const json = await response.json();
+
+    return json.data;
+  }
+
+  useEffect(() => {
+    async function getAllData() {
+      setLoader(true);
+      const items = await GetItems();
+
+      const timeslots = await GetTimeslots();
+
+      setData(items);
+      setTimeslots(timeslots);
+      setLoader(false);
+    }
+    getAllData();
+  }, []);
+
   useEffect(() => {
     async function getFilters() {
       const categories = await fetch(
@@ -94,6 +198,8 @@ export default function Catalogue({ items, timeslots }: Props) {
     engineType: any[],
     uses: any[]
   ) {
+    setLoader(true);
+
     const newSubcategoriesState: any = [];
     subcategories.map((subcategory: any) => {
       newSubcategoriesState.push(subcategory);
@@ -183,6 +289,8 @@ export default function Catalogue({ items, timeslots }: Props) {
     if (!response.ok) {
       console.log("Bohužel nešlo načíst filtry");
     }
+
+    setLoader(false);
   }
 
   async function InitFilter(data: {
@@ -335,6 +443,7 @@ export default function Catalogue({ items, timeslots }: Props) {
 
   return (
     <>
+      <Loader shown={loader} text={"Načítáme produkty"} />
       <div className="flex w-full  justify-center md:p-10 p-5">
         <div className="lg:w-full max-w-wrapper grid lg:grid-cols-4 gap-10">
           <div className="lg:col-span-1 hidden lg:block">
@@ -391,6 +500,7 @@ export default function Catalogue({ items, timeslots }: Props) {
             </div>
             {filtrToggle && (
               <form
+                data-testid="filters"
                 onSubmit={(data) => {
                   data.preventDefault();
                   Filter(data.target);

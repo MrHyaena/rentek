@@ -7,11 +7,9 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 
-type Props = { orderData: any[] };
-
 //Order after finalization or if user wants to show it
-export default function OrderSum({ orderData }: Props) {
-  const [data, setData] = useState<any>(orderData);
+export default function OrderSum() {
+  const [data, setData] = useState<any>(null);
   const [orderId, setOrderId] = useState<any>();
   const params = useSearchParams();
   const { setCart } = useContext(CartContext);
@@ -32,20 +30,22 @@ export default function OrderSum({ orderData }: Props) {
       const json = await orderResponse.json();
 
       if (orderResponse.ok) {
-        localStorage.removeItem("cart");
-        localStorage.removeItem("additionsCart");
-        setCart([]);
-        const order = {
-          additionalItems: JSON.parse(json.data.additionalItems),
-          orderInformation: JSON.parse(json.data.orderInformation),
-          payNowPrice: json.data.payNowPrice,
-          price: json.data.price,
-          afterSalePrice: json.data.afterSalePrice,
-          deposit: json.data.deposit,
-          saleIndex: json.data.saleIndex,
-          rentalItems: JSON.parse(json.data.rentalItems),
-        };
-        setData(order);
+        if (json.data != null) {
+          localStorage.removeItem("cart");
+          localStorage.removeItem("additionsCart");
+          setCart([]);
+          const order = {
+            additionalItems: JSON.parse(json.data.additionalItems),
+            orderInformation: JSON.parse(json.data.orderInformation),
+            payNowPrice: json.data.payNowPrice,
+            price: json.data.price,
+            afterSalePrice: json.data.afterSalePrice,
+            deposit: json.data.deposit,
+            saleIndex: json.data.saleIndex,
+            rentalItems: JSON.parse(json.data.rentalItems),
+          };
+          setData(order);
+        }
       }
     }
   }
@@ -93,12 +93,15 @@ export default function OrderSum({ orderData }: Props) {
     <>
       {data == null ? (
         <>
-          <div className="flex w-full justify-center py-15 p-5 md:p-10 text-sm">
+          <div
+            data-testid="dataNull"
+            className="flex w-full justify-center py-15 p-5 md:p-10 text-sm"
+          >
             <div className="w-full max-w-wrapper flex flex-col gap-5">
               <h4>vaše objednávka</h4>
               <label className="flex flex-col gap-2">
                 Pro zobrazení detailu vložte identifikační číslo objednávky.
-                MMůžete jej najít v potvrzovacím emailu v pravém horním rohu.
+                Můžete jej najít v potvrzovacím emailu v pravém horním rohu.
                 <input
                   value={orderId}
                   type="text"
@@ -116,7 +119,10 @@ export default function OrderSum({ orderData }: Props) {
         </>
       ) : (
         <>
-          <div className="flex w-full justify-center py-15 p-5 md:p-10 text-sm">
+          <div
+            data-testid="dataExists"
+            className="flex w-full justify-center py-15 p-5 md:p-10 text-sm"
+          >
             <div className="w-full max-w-wrapper flex flex-col gap-5">
               <h4>Vaše objednávka</h4>
               <p>
@@ -166,6 +172,7 @@ export default function OrderSum({ orderData }: Props) {
                       {data.rentalItems.map((item: any) => {
                         return (
                           <div
+                            data-testid="rentalProduct"
                             key={"item" + item.item.name}
                             className="flex gap-10 items-center justify-between border-b border-borderGray py-2 only:border-b last:border-b-0"
                           >
@@ -197,6 +204,7 @@ export default function OrderSum({ orderData }: Props) {
                             if (item.count > 0) {
                               return (
                                 <div
+                                  data-testid="additionalProducts"
                                   key={"item2" + item.item.name}
                                   className="flex gap-10 items-center justify-between border-b border-borderGray py-2 only:border-b last:border-b-0"
                                 >
