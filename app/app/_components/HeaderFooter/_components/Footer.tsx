@@ -53,7 +53,7 @@ export default function Footer({}: Props) {
               <p>IČO: 10796509</p>
             </li>
             <li>
-              <a href="tel:602606331">Telefon: 602606331</a>
+              <a href="tel:735202345">Telefon: 735 202 345</a>
             </li>
             <li>
               <a href="mailto:info@rentek.cz">Email: info@rentek.cz</a>
