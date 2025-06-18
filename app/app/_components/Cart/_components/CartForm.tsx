@@ -390,6 +390,48 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
                   </div>
                 </div>
               </div>
+              <div className="mt-10 w-full max-w-wrapper">
+                {" "}
+                <div className="grid items-center py-5 justify-between rounded-lg">
+                  <h4 className="">Cena za dopravu</h4>
+                  <p className="mt-3">
+                    Dovážku techniky provádíme zdarma v Praze a okolí, za které
+                    bereme 10 km od místa výjezdu. Za každý další kilometr si
+                    účtujeme 7 Kč. Celková cena za dopravu se připočítává k
+                    celkové částce a je splatná při převzetí.
+                  </p>
+                  <p className="mt-3">
+                    Vzdálenost se počítá od adresy:{" "}
+                    <span className="font-semibold">
+                      {" "}
+                      Víta Nejedlého, 666/18, Praha 3
+                    </span>
+                  </p>
+                  <p className="mt-3">
+                    Pokud si chcete vzdálenost spočítat, klikněte na tento{" "}
+                    <a
+                      className="text-primaryHover font-semibold"
+                      href="https://www.google.com/maps/dir/V.+Nejedl%C3%A9ho+666%2F18,+130+00+Praha+3-%C5%BDi%C5%BEkov//@50.0836275,14.4079782,13z/data=!4m8!4m7!1m5!1m1!1s0x470b9499467ac2a9:0x16e073115a63b4d8!2m2!1d14.4492633!2d50.0836348!1m0?entry=ttu&g_ep=EgoyMDI1MDYxNS4wIKXMDSoASAFQAw%3D%3D"
+                    >
+                      odkaz
+                    </a>
+                    .
+                  </p>
+                </div>
+                <div className="md:grid grid-cols-[5fr_1fr_1fr] items-center gap-3 border-borderGray py-5 justify-between border p-5 rounded-lg">
+                  <p className="text-end font-semibold col-start-1 md:justify-self-start">
+                    Cena za každý kilometr nad 10 km od místa výjezdu
+                  </p>
+                  <div className="col-start-2 col-span-2">
+                    <p className="text-end md:font-semibold">
+                      Cena za kilometr {""}
+                      <span className="text-lg font-semibold text-primary">
+                        7 Kč
+                      </span>{" "}
+                    </p>
+                  </div>
+                </div>
+              </div>
 
               <div className="mt-10 w-full max-w-wrapper">
                 <h4 className="mb-5">Objednávkový formulář</h4>
