@@ -16,6 +16,7 @@ export default async function page({
     [key: string]: string | string | string[] | undefined;
   }>;
 }) {
+  const params = await searchParams;
   return (
     <>
       <PageHeading
@@ -24,7 +25,7 @@ export default async function page({
         text="Nejprve vyberte rozmezí datumů, ve kterých si chcete techniku vypůjčit. Ceny a dostupnost se upraví automaticky."
         datepickerExists={true}
       />
-      <Catalogue searchParams={searchParams} />
+      <Catalogue searchParams={params} />
     </>
   );
 }
