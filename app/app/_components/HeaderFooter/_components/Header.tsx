@@ -22,8 +22,8 @@ function DesktopHeader() {
               <FontAwesomeIcon icon={faPhone} className="text-zinc-700" />
               <p>
                 Zvedneme Vám to vždy:{" "}
-                <a href="tel:602606331" className="font-semibold">
-                  +420 602 606 331
+                <a href="tel:735202345" className="font-semibold">
+                  +420 735 202 345
                 </a>
               </p>
             </div>
