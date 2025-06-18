@@ -18,6 +18,7 @@ export default function CTAHorizontal({
 }: Props) {
   return (
     <div
+      data-testid="image"
       style={{
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
@@ -31,7 +32,7 @@ export default function CTAHorizontal({
           <p className="text-textLight md:text-2xl text-xl">{text}</p>
         </div>
         {buttonText && (
-          <a href={link}>
+          <a data-testid="button" href={link}>
             <button className="buttonMid">{buttonText}</button>
           </a>
         )}

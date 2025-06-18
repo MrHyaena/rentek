@@ -19,6 +19,7 @@ export default function PageHeading({
   return (
     <div className="md:p-10 p-5 flex justify-center mt-[110px]">
       <div
+        data-testid="image"
         style={{
           backgroundImage: `url(${image})`,
           backgroundSize: "cover",
@@ -32,7 +33,10 @@ export default function PageHeading({
           <div></div>
           {datepickerExists && (
             <>
-              <div className="w-[60%] text-textPrimary hidden lg:block">
+              <div
+                data-testid="datepickers"
+                className="w-[60%] text-textPrimary hidden lg:block"
+              >
                 <DatepickerBig />
               </div>
               <div className=" text-textPrimary lg:hidden">

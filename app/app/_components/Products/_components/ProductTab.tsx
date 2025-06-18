@@ -19,8 +19,6 @@ export default function ProductTab({ product }: ProductProps) {
 
   const shortenedDescription = item.excerpt.substring(0, 80) + "...";
 
-  const days: number = 32;
-
   return (
     <div className=" max-w-[340px] shrink-0">
       <Link
@@ -37,10 +35,13 @@ export default function ProductTab({ product }: ProductProps) {
       <div className="border-x border-b rounded-b-xl p-5 flex flex-col gap-5 border-borderGray">
         <Link href={`${process.env.WEBSITE}/produkt/${item.documentId}`}>
           <h5>{item.name}</h5>
-          <p>{shortenedDescription}</p>
+          <p data-testid="excerpt">{shortenedDescription}</p>
         </Link>
         <div className="flex flex-col items-stretch gap-2">
-          <p className="text-lg text-textSecondary">
+          <p
+            data-testid="priceParagraph"
+            className="text-lg text-textSecondary"
+          >
             Od <span className="text-primary">{item.basePrice} Kč</span> za den
           </p>
 

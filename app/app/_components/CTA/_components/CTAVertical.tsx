@@ -18,6 +18,7 @@ export default function CTAVertical({
 }: Props) {
   return (
     <div
+      data-testid="image"
       style={{
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
@@ -30,7 +31,7 @@ export default function CTAVertical({
           <h3 className="text-textLight">{heading}</h3>
           <p className="text-textLight md:text-2xl text-xl">{text}</p>
         </div>
-        <a href={link}>
+        <a data-testid="button" href={link}>
           <button className="buttonMid">{buttonText}</button>
         </a>
       </div>

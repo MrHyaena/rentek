@@ -5,24 +5,6 @@ import { HiViewGridAdd } from "react-icons/hi";
 import { IoMdPhonePortrait } from "react-icons/io";
 import { PiTruckFill } from "react-icons/pi";
 
-type IconCardProps = {
-  icon: any;
-  heading: string;
-  text: string;
-};
-
-function IconCard({ icon, heading, text }: IconCardProps) {
-  return (
-    <>
-      <div className="flex flex-col items-center justify-start text-center">
-        <FontAwesomeIcon icon={icon} className="text-4xl text-primary mb-4" />
-        <h5 className="">{heading}</h5>
-        <p className="text-lg text-textSecondary">{text}</p>
-      </div>
-    </>
-  );
-}
-
 export default function IconsColumns() {
   return (
     <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-5 items-start justify-between w-full max-w-wrapper">
