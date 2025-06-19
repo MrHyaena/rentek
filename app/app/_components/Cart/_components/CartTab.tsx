@@ -25,9 +25,17 @@ export function CartTab({
   const { cart, setCart } = useContext(CartContext);
   const item = product.item;
   const price: any = Number(item.basePrice);
-  const groupPrice = product.count * price * numberOfDays;
+  const groupPrice = product.count * price;
 
   const { realAmount } = AvailabilityData(timeslots, item, daterange, cart);
+
+  function isValid() {
+    if (daterange.endIsValid == true && daterange.startIsValid == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <>
@@ -73,24 +81,36 @@ export function CartTab({
             </div>
             <Availability timeslots={timeslots} item={item} />
           </div>
-          <div className=" items-center gap-5 justify-self-end hidden md:flex">
-            <p className="flex items-end flex-col font-semibold text-textSecondary">
-              <span className="text-sm font-semibold text-textSecondary">
-                Před slevou{" "}
-                <span className="text-primaryHover">{groupPrice}</span> Kč
-              </span>{" "}
-              <span className="text-lg font-semibold text-textSecondary">
-                Po slevě{" "}
-                <span
-                  className="text-primary"
-                  data-testid="groupPriceAfterSale"
-                >
-                  {groupPrice * saleIndex}
+          {isValid() ? (
+            <div className=" items-center gap-5 justify-self-end hidden md:flex">
+              <p className="flex items-end flex-col font-semibold text-textSecondary">
+                <span className="text-sm font-semibold text-textSecondary">
+                  Před slevou{" "}
+                  <span className="text-primaryHover">{groupPrice}</span> Kč
                 </span>{" "}
-                Kč
-              </span>{" "}
-            </p>
-          </div>
+                <span className="text-lg font-semibold text-textSecondary">
+                  Po slevě{" "}
+                  <span
+                    className="text-primary"
+                    data-testid="groupPriceAfterSale"
+                  >
+                    {groupPrice * saleIndex * numberOfDays}
+                  </span>{" "}
+                  Kč
+                </span>{" "}
+              </p>
+            </div>
+          ) : (
+            <div className=" items-center gap-5 justify-self-end hidden md:flex">
+              <p className="text-lg font-semibold text-textSecondary">
+                Od{" "}
+                <span className=" font-semibold text-primary">
+                  {groupPrice} Kč
+                </span>{" "}
+                za den {"(vč. DPH)"}
+              </p>
+            </div>
+          )}
           <div className="flex items-center gap-5 justify-self-end md:hidden">
             <p className="flex gap-1 items-end font-semibold text-textSecondary">
               <span className="text-primary">{groupPrice * saleIndex}</span> Kč
