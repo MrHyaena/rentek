@@ -102,7 +102,7 @@ export function CartTab({
             </div>
           ) : (
             <div className=" items-center gap-5 justify-self-end hidden md:flex">
-              <p className="text-lg font-semibold text-textSecondary">
+              <p className="text-base font-semibold text-textSecondary">
                 Od{" "}
                 <span className=" font-semibold text-primary">
                   {groupPrice} Kč
