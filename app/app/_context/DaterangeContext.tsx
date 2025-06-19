@@ -47,7 +47,7 @@ export function DaterangeContextProvider({ children }: Props) {
       if (new Date() < new Date(dates.startDate)) {
         const daysRange = differenceInDays(dates.endDate, dates.startDate) + 1;
 
-        let newSaleIndex: number = 0;
+        let newSaleIndex: number = 1;
 
         if (daysRange <= 1) {
           newSaleIndex = 1;

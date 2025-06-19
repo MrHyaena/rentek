@@ -22,11 +22,16 @@ export default function ProductPrice({ data }: Props) {
     tag = "dní";
   }
 
-  const basePriceUntruc = Number(data.basePrice * saleIndex * numberOfDays);
+  const basePriceUntruc: number = data.basePrice;
   const price = Math.trunc(basePriceUntruc);
 
-  const isValid =
-    daterange.endIsValid == true && daterange.startIsValid == true;
+  function isValid() {
+    if (daterange.endIsValid == true && daterange.startIsValid == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <>
@@ -34,10 +39,10 @@ export default function ProductPrice({ data }: Props) {
         <>
           <div className="flex flex-col w-full gap-3 items-start">
             <p className="font-semibold text-textPrimary">
-              {isValid ? (
+              {isValid() ? (
                 <>
                   <span className="text-xl font-semibold text-primary">
-                    {price} Kč
+                    {price * saleIndex * numberOfDays} Kč
                   </span>{" "}
                   celkem za {numberOfDays} {tag} {"(vč. DPH)"}
                 </>
@@ -58,7 +63,7 @@ export default function ProductPrice({ data }: Props) {
         <>
           <div className="flex flex-col w-full gap-3 items-start">
             <p className="font-semibold text-textPrimary">
-              {isValid ? (
+              {isValid() ? (
                 <>
                   <span className="text-xl font-semibold text-primary">
                     {price} Kč

@@ -56,6 +56,13 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
     tag,
   } = priceData(numberOfDays, additions, cart, saleIndex);
 
+  const rentalPriceTrunc = Math.trunc(rentalPrice);
+  const wholeProductPriceTrunc = Math.trunc(wholeProductPrice);
+  const wholePriceTrunc = Math.trunc(wholePrice);
+  const rentalPriceAfterSaleTrunc = Math.trunc(rentalPriceAfterSale);
+  const wholePriceAfterSaleTrunc = Math.trunc(wholePriceAfterSale);
+  const payNowPriceTrunc = Math.trunc(payNowPrice);
+
   //Sumbit order function
   async function SubmitOrder(e: any) {
     //Starts spinning loader
@@ -112,9 +119,9 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
         body: JSON.stringify({
           ...order,
           wholeDeposit,
-          wholePrice,
-          payNowPrice,
-          wholePriceAfterSale,
+          wholePriceTrunc,
+          payNowPriceTrunc,
+          wholePriceAfterSaleTrunc,
           saleIndex,
           agreement,
           numberOfDays,
@@ -133,7 +140,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
     if (stripeResponse.ok) {
       const json = await stripeResponse.json();
       const url = json.url;
-      sendGTMEvent({ event: "order_created", value: wholePriceAfterSale });
+      sendGTMEvent({ event: "order_created", value: wholePriceAfterSaleTrunc });
 
       window.location.href = url;
     }
@@ -299,7 +306,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
                           <p className="text-end text-sm font-semibold">
                             Cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
                             <span className="text-base font-semibold text-primary">
-                              {rentalPrice} Kč
+                              {rentalPriceTrunc} Kč
                             </span>{" "}
                           </p>
                         </div>
@@ -312,7 +319,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
                           <p className="text-end text-sm font-semibold">
                             Cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
                             <span className="text-base font-semibold text-primary">
-                              {rentalPriceAfterSale} Kč
+                              {rentalPriceAfterSaleTrunc} Kč
                             </span>{" "}
                           </p>
                         </div>
@@ -326,7 +333,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
                           <p className="text-end text-sm font-semibold">
                             Cena (vč. DPH){" "}
                             <span className="text-base font-semibold text-primary">
-                              {wholeProductPrice} Kč
+                              {wholeProductPriceTrunc} Kč
                             </span>{" "}
                           </p>
                         </div>
@@ -343,7 +350,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
                       <p className="text-end text-base md:font-semibold">
                         Cena {"(vč. DPH)"} za {numberOfDays} {tag} je {""}
                         <span className="text-xl font-semibold text-primary">
-                          {wholePriceAfterSale} Kč
+                          {wholePriceAfterSaleTrunc} Kč
                         </span>{" "}
                       </p>
                     </div>
@@ -356,7 +363,7 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
                       <p className="text-end text-base md:font-semibold">
                         Teď zaplatíte {""}
                         <span className="text-xl font-semibold text-primary">
-                          {payNowPrice} Kč
+                          {payNowPriceTrunc} Kč
                         </span>{" "}
                       </p>
                     </div>
