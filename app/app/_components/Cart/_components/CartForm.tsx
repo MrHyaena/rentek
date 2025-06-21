@@ -105,10 +105,20 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
       orderInformation: orderInformation,
       rentalItems: rentalItems,
       additionalItems: additionalItems,
-      payNowPrice: payNowPrice,
+      payNowPrice: payNowPriceTrunc,
     };
 
     const agreement = formData.get("podminky");
+
+    console.log({
+      ...order,
+      wholeDeposit,
+      wholePriceTrunc,
+      wholePriceAfterSaleTrunc,
+      saleIndex,
+      agreement,
+      numberOfDays,
+    });
 
     //Fetching for stripe checkout
     const stripeResponse = await fetch(
@@ -118,13 +128,13 @@ export default function CartForm({ newAdditions, timeslots }: Props) {
         method: "POST",
         body: JSON.stringify({
           ...order,
-          wholeDeposit,
-          wholePriceTrunc,
-          payNowPriceTrunc,
-          wholePriceAfterSaleTrunc,
-          saleIndex,
-          agreement,
-          numberOfDays,
+          wholeDeposit: wholeDeposit,
+          wholePrice: wholePriceTrunc,
+          payNowPrice: payNowPriceTrunc,
+          saleIndex: saleIndex,
+          wholePriceAfterSale: wholePriceAfterSaleTrunc,
+          agreement: agreement,
+          numberOfDays: numberOfDays,
         }),
       }
     );
