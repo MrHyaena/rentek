@@ -15,7 +15,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 function DesktopHeader() {
   return (
     <>
-      <div className=" w-full border-b border-borderGray fixed top-0 bg-white lg:block z-20 hidden">
+      <div className=" w-full border-b border-borderGray fixed top-0 bg-white lg:block z-1 hidden">
         <div className="h-[40px] w-full border-b border-borderGray bg-zinc-50 flex justify-center px-10">
           <div className="max-w-wrapper w-full h-full  justify-between items-center hidden lg:flex lg:text-sm py-1">
             <div className="flex items-center gap-2">

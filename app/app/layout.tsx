@@ -45,6 +45,9 @@ export default function RootLayout({
       <GoogleTagManager gtmId="GTM-PN98TZ43" />
       <body className={`${montserrat.className} antialiased`}>
         <Providers>
+          <div className="fixed w-full h-full top-0 left-0 bg-white/80 z-2 flex items-center justify-center flex-col gap-5">
+            <h3 data-testid="loaderText">Připravuje se</h3>
+          </div>
           <Header />
           <div className="md:mt-[150px] mt-[80px] text-textPrimary z-19">
             {children}
